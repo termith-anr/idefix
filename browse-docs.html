@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>{{ page.title }}</h1>
+<table>
+	<thead>
+		<tr>
+			<th>Object</th>
+			<th>Date Modified</th>
+			<th>Content Size</th>
+			<th>Subject</th>
+			<th>Category</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for item in items %}
+	<tr>
+		<td><a href="./display-{{ item.wid }}.html">{{ item.object|d('n/a') }}</a></td>
+		<td>{{ item.dateModified.format('short') }}</td>
+		<td>{{ item.contentSize }}</td>
+		<td>{{ item.subject|d('n/a') }}</td>
+		<td>{{ item.category|d('n/a') }}</td>
+		<td>{{ item.description|d('no description') }} </td>
+	</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}

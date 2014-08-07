@@ -1,0 +1,28 @@
+<html>
+  <head>
+    {% block head %}
+    <title> {{ page.title }} | {{ site.title }} </title>
+    <meta name="description" content="{{ page.description|d(site.description) }}">
+    <link rel="stylesheet" type="text/css" href="./assets/css/layout.css">
+    {% endblock %}
+  </head>
+  <body>
+	<div id="content">
+	  {% block content %}{% endblock %}
+	  </div>
+
+	{% block scripts %}
+	<script src="/bundle.js"></script>
+	<script src="/primus/primus.js"></script>
+	<script>
+	var primus = Primus.connect('ws://{{url.host}}');
+	primus.on('open', function () {
+		primus.on('changed', function(doc) { console.log('changed', doc); });
+		primus.on('cancelled', function(doc) { console.log('cancelled', doc); });
+		primus.on('dropped', function(doc) { console.log('dropped', doc); });
+		primus.on('added', function(doc) { console.log('added', doc); });
+	});
+	</script>
+	{% endblock %}
+</body>
+</html>
