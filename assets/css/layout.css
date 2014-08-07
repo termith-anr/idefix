@@ -1,2 +1,92 @@
 body {
+    width: 100%;
+    height: 100%;
+}
+
+#bodyBrowse{
+    background: #323A45 ;
+}
+
+#h1Browse{
+    font-size: 56px;
+    color: #fff;
+    font-family: verdana;
+    letter-spacing: 12px;
+    width: 100%;
+    text-align: center;
+    padding-top:50px;
+    padding-bottom: 50px;
+    background: #26AE90;
+    margin-top: 0;
+    margin-bottom: 100px;
+
+}
+
+#ulObjects{
+    text-align: center;
+    padding-top:50px;
+}
+
+#ulObjects thead tr th {
+    text-align: center;
+}
+
+.liObjects{
+    list-style: none;
+    color:#333;
+    height: 39px;
+}
+
+.browseTd{
+    height:135px;
+}
+
+.browseTdInter{
+    height:35px;
+}
+
+.browseObject{
+    background: #CB5A5E ;
+    color:  #fff;
+}
+
+
+.aBrowseObject{
+    color: #fff;
+    transition: all 700ms;
+    font-size:20px;
+}
+
+.aObjects:hover{
+    color: #F1AB0B;
+}
+
+.browseModify{
+    padding:4px;
+    background: #16A086;
+    color: #fff;
+}
+
+.browseSize{
+    padding:4px;
+    background: #E84C3D;
+    color: #fff;
+}
+
+.browseSubject{
+    padding:4px;
+    background: #8F44AD;
+    color: #fff;
+}
+
+.browseCategory{
+    padding:4px;
+    background: #F49C14;
+    color: #fff;
+}
+
+.browseDescription{
+    padding:4px;
+    background: #3598DC;
+    color: #fff;
 }
