@@ -8,7 +8,7 @@ body {
 }
 
 #h1Browse{
-    font-size: 56px;
+    font-size: 50px;
     color: #fff;
     font-family: verdana;
     letter-spacing: 12px;
@@ -22,19 +22,13 @@ body {
 
 }
 
-#ulObjects{
+#browseTable{
     text-align: center;
     padding-top:50px;
 }
 
-#ulObjects thead tr th {
+#browseTable thead tr th {
     text-align: center;
-}
-
-.liObjects{
-    list-style: none;
-    color:#333;
-    height: 39px;
 }
 
 .browseTd{
