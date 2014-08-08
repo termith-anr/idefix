@@ -25,7 +25,7 @@
                     {% for item in items %}
                     <tr>
                         <td class="browseNumb browseTd">{{  loop.index0 }} </td>
-                        <td class="browseObject browseTd"> <a class="aBrowseObject" href="./display-{{ item.wid }}.html">{{ item.object|d('N/A') }} </a></td>
+                        <td class="browseObject browseTd"> <a class="aBrowseObject" href="./display-{{ item.wid }}.html">{{ item.object|title()|d('N/A') }} </a></td>
                         <td class="browseModify browseTd"> {{ item.dateModified.format('short') }}</td>
                         <td class="browseSize browseTd">{{ item.contentSize }}</td>
                         <td class="browseSubject browseTd">{{ item.subject|d('n/a') }}</td>
