@@ -22,7 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for item in items %}
+                    {% for item in items |sort(attribute='title') %}
                     <tr>
                         <td class="browseNumb browseTd">{{  loop.index0 }} </td>
                         <td class="browseObject browseTd"> <a class="aBrowseObject" href="./display-{{ item.wid }}.html">{{ item.object|title()|d('N/A') }} </a></td>
