@@ -17,7 +17,7 @@ body {
 }
 
 #divOverTableBrowse{
-    width:85%;
+    width:87%;
     margin: 0 auto;
 }
 
@@ -47,6 +47,7 @@ body {
 #browseTable thead tr th {
     text-align: center;
     font-family: 'manteka';
+    font-size:20px;
 }
 
 .browseTd{
@@ -64,19 +65,19 @@ body {
     color: #fff;
 }
 
-.browseObject{
+.browseYear{
     background: #16A086 ;
     color:  #fff;
 }
 
 
-.aBrowseObject{
+.abrowseYear{
     color: #fff;
     transition: all 700ms;
     font-size:20px;
 }
 
-.aObjects:hover{
+.abrowseYear:hover{
     color: #F1AB0B;
 }
 
@@ -91,12 +92,18 @@ body {
     background: #16A086;
     color: #FFAE62;
 }
+thead .browseSize{
+    color: #fff;
+}
+
+
 
 .browseSubject{
     padding:4px;
     /*background: #8F44AD; VIOLET*/
     background: #16A086;
     color: #fff;
+    font-size:16px;
 }
 
 .browseCategory{
