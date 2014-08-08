@@ -26,24 +26,20 @@
                 <thead>
                     <tr>
                         <th class="browseNumb col-lg-1">N°</th>
-                        <th class="browseYear">Auteur</th>
-                        <th class="browseModify">DATE MODIFIED</th>
-                        <th class="browseSize"> SIZE</th>
-                        <th class="browseSubject">SUJET</th>
-                        <th class="browseCategory">CATEGORIE</th>
-                        <th class="browseDescription">DESCRIPTION</th>
+                        <th class="browseYear col-lg-2">ANNEE</th>
+                        <th class="browseAuthor col-lg-2">AUTEUR</th>
+                        <th class="browseSubject col-lg-6">TITRE</th>
+                        <th class="browseMark col-lg-1">NOTE</th>
                     </tr>
                 </thead>
                 <tbody>
                   {% for item in items |sort(attribute='item.object') %}
-                    <tr>
-                        <td class="browseNumb browseTd">{{ loop.index }}</td>
-                        <td class="browseYear browseTd"><a class="abrowseYear" href="./display-{{ item.wid }}.html">{{item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].forename['#text'] +" " + item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].surname['#text']|d("Pas d'auteur") }} </a></td>
-                        <td class="browseModify browseTd">{{ item.dateModified.format('short') }}</td>
-                        <td class="browseSize browseTd">{{ item.contentSize }}</td>
-                        <td class="browseSubject browseTd">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text'] |d('n/a') }}</td>
-                        <td class="browseCategory browseTd">{{ item.category|d('N/A') }}</td>
-                        <td class="browseDescription browseTd">{{ item.description|d('no description') }}</td>
+                    <tr class="">
+                        <td class="browseNumb browseTd"><a class="abrowseNumber" href="./display-{{ item.wid }}.html"><div style="height:100%;width:100%">{{ loop.index }}</div></a></td>
+                        <td class="browseYear browseTd">{{item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].forename['#text'] +" " + item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].surname['#text']|d("Pas d'auteur") }}</td>
+                        <td class="browseAuthor browseTd">{{item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].forename['#text'] +" " + item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].surname['#text']|d("Pas de Titre") }} </td>
+                        <td class="browseSubject browseTd"><a class="abrowseTitle" href="./display-{{ item.wid }}.html">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text'] |d('n/a') }}</a></td>
+                        <td class="browseMark browseTd">{{ item.description|d('/20') }}</td>
                     </tr>
                     <tr class="browseTdInter">
                     </tr>

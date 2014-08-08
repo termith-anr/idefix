@@ -56,6 +56,10 @@ body {
     font-family: verdana;
 }
 
+.browseTr{
+    height:135px;
+}
+
 .browseTdInter{
     height:35px;
 }
@@ -70,18 +74,30 @@ body {
     color:  #fff;
 }
 
+.abrowseNumber{
+    color: #fff;
+    transition: all 700ms;
+    height: 100%;
+    width: 100%;
+}
 
-.abrowseYear{
+.abrowseNumber:hover{
+    background: blue;
+    height: 100%;
+    width: 100%;
+}
+
+.abrowseTitle{
     color: #fff;
     transition: all 700ms;
     font-size:20px;
 }
 
-.abrowseYear:hover{
+.abrowseTitle:hover{
     color: #F1AB0B;
 }
 
-.browseModify{
+.browseAuthor{
     padding:4px;
     color: #fff;
     background: #16A086;
@@ -112,7 +128,7 @@ thead .browseSize{
     color: #fff;
 }
 
-.browseDescription{
+.browseMark{
     padding:4px;
     background: #F49C14;
     color: #fff;
