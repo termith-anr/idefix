@@ -60,12 +60,12 @@ body {
 }
 
 .browseNumb{
-    background: #F49C14;
+    background: #CB5A5E /*F49C14 JAUNE*/;
     color: #fff;
 }
 
 .browseObject{
-    background: #CB5A5E ;
+    background: #16A086 ;
     color:  #fff;
 }
 
@@ -82,30 +82,31 @@ body {
 
 .browseModify{
     padding:4px;
-    background: #16A086;
     color: #fff;
+    background: #16A086;
 }
 
 .browseSize{
     padding:4px;
-    background: #E84C3D;
-    color: #fff;
+    background: #16A086;
+    color: #FFAE62;
 }
 
 .browseSubject{
     padding:4px;
-    background: #8F44AD;
+    /*background: #8F44AD; VIOLET*/
+    background: #16A086;
     color: #fff;
 }
 
 .browseCategory{
     padding:4px;
-    background: #F49C14;
+    background: #16A086;
     color: #fff;
 }
 
 .browseDescription{
     padding:4px;
-    background: #3598DC;
+    background: #F49C14;
     color: #fff;
 }
