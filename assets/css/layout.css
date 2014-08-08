@@ -1,11 +1,26 @@
+@font-face {
+    font-family: 'manteka';
+    src: url('../fonts/manteka.ttf');
+}
+
 body {
     width: 100%;
     height: 100%;
 }
 
+#content{
+    width:100%;
+}
+
 #bodyBrowse{
     background: #323A45 ;
 }
+
+#divOverTableBrowse{
+    width:85%;
+    margin: 0 auto;
+}
+
 
 #h1Browse{
     font-size: 50px;
@@ -25,18 +40,28 @@ body {
 #browseTable{
     text-align: center;
     padding-top:50px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 #browseTable thead tr th {
     text-align: center;
+    font-family: 'manteka';
 }
 
 .browseTd{
     height:135px;
+    font-size: 22px;
+    font-family: verdana;
 }
 
 .browseTdInter{
     height:35px;
+}
+
+.browseNumb{
+    background: #F49C14;
+    color: #fff;
 }
 
 .browseObject{

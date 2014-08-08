@@ -8,33 +8,36 @@
         <!-- start body content -->
         <h1 id="h1Browse">{{ page.title }}</h1>
 
-            <table id="browseTable" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <thead >
+            <div id="divOverTableBrowse">
+                <table id="browseTable">
+                    <thead >
+                        <tr>
+                            <th class="browseNumb">N°1</th>
+                            <th class="browseObject">OBJECT</th>
+                            <th class="browseModify">DATE MODIFIED </th>
+                            <th class="browseSize"> SIZE </th>
+                            <th class="browseSubject">SUBJECT </th>
+                            <th class="browseCategory">CATEGORY  </th>
+                            <th class="browseDescription">DESCRIPTION  </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
                     <tr>
-                        <th class="browseObject">Object</th>
-                        <th class="browseModify">Date Modified </th>
-                        <th class="browseSize">Content Size </th>
-                        <th class="browseSubject">Subject </th>
-                        <th class="browseCategory">Category  </th>
-                        <th class="browseDescription">Description  </th>
+                        <td class="browseNumb browseTd">{{  loop.index0 }} </td>
+                        <td class="browseObject browseTd"> <a class="aBrowseObject" href="./display-{{ item.wid }}.html">{{ item.object|d('N/A') }} </a></td>
+                        <td class="browseModify browseTd"> {{ item.dateModified.format('short') }}</td>
+                        <td class="browseSize browseTd">{{ item.contentSize }}</td>
+                        <td class="browseSubject browseTd">{{ item.subject|d('n/a') }}</td>
+                        <td class="browseCategory browseTd">{{ item.category|d('N/A') }}</td>
+                        <td class="browseDescription browseTd">{{ item.description|d('no description') }} </td>
                     </tr>
-                </thead>
-                <tbody>
-                {% for item in items %}
-                <tr>
-                    <td class="browseObject browseTd"><a class="aBrowseObject" href="./display-{{ item.wid }}.html">{{ item.object|d('N/A') }}</a></td>
-                    <td class="browseModify browseTd"> {{ item.dateModified.format('short') }}</td>
-                    <td class="browseSize browseTd">{{ item.contentSize }}</td>
-                    <td class="browseSubject browseTd">{{ item.subject|d('n/a') }}</td>
-                    <td class="browseCategory browseTd">{{ item.category|d('N/A') }}</td>
-                    <td class="browseDescription browseTd">{{ item.description|d('no description') }} </td>
-                </tr>
-                <tr class="browseTdInter">
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-
+                    <tr class="browseTdInter">
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
 
 {% endblock %}
