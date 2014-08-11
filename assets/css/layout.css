@@ -79,12 +79,17 @@ body {
     transition: all 700ms;
     height: 100%;
     width: 100%;
+    line-height: 135px;
+    display: inline-block;
+    transition: all 1500ms;
 }
 
 .abrowseNumber:hover{
-    background: blue;
+    background: #F49C14;
     height: 100%;
     width: 100%;
+    text-decoration: none;
+    color: #fff;
 }
 
 .abrowseTitle{

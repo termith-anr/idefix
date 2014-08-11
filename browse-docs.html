@@ -35,8 +35,8 @@
                 <tbody>
                   {% for item in items |sort(attribute='item.object') %}
                     <tr class="">
-                        <td class="browseNumb browseTd"><a class="abrowseNumber" href="./display-{{ item.wid }}.html"><div style="height:100%;width:100%">{{ loop.index }}</div></a></td>
-                        <td class="browseYear browseTd">{{item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].forename['#text'] +" " + item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].surname['#text']|d("Pas d'auteur") }}</td>
+                        <td class="browseNumb browseTd"><a class="abrowseNumber" href="./display-{{ item.wid }}.html"><div style="height:100%;width:100%;display:inline;vertical-align:middle;">{{ loop.index }}</div></a></td>
+                        <td class="browseYear browseTd">{{item.content.json.TEI.teiHeader.fileDesc.publicationStmt.availability.licence["notBefore"]}}</td>
                         <td class="browseAuthor browseTd">{{item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].forename['#text'] +" " + item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].surname['#text']|d("Pas de Titre") }} </td>
                         <td class="browseSubject browseTd"><a class="abrowseTitle" href="./display-{{ item.wid }}.html">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text'] |d('n/a') }}</a></td>
                         <td class="browseMark browseTd">{{ item.description|d('/20') }}</td>
