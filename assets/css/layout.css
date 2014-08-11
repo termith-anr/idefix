@@ -17,24 +17,24 @@ body {
 }
 
 #divOverTableBrowse{
-    width:87%;
+    width:75%;
     margin: 0 auto;
 }
 
 
 #h1Browse{
-    font-size: 50px;
+    font-size: 35px;
     color: #fff;
     font-family: verdana;
     letter-spacing: 12px;
-    width: 100%;
+    width: 75%;
     text-align: center;
-    padding-top:50px;
+    padding-top: 50px;
     padding-bottom: 50px;
     background: #26AE90;
-    margin-top: 0;
+    margin: 0 auto;
     margin-bottom: 100px;
-
+    border-radius: 75px 0 75px 0;
 }
 
 #browseTable{
@@ -48,6 +48,7 @@ body {
     text-align: center;
     font-family: 'manteka';
     font-size:20px;
+    letter-spacing: 3px;
 }
 
 .browseTd{
@@ -85,11 +86,18 @@ body {
 }
 
 .abrowseNumber:hover{
-    background: #F49C14;
+    background: #8F44AD;
     height: 100%;
     width: 100%;
     text-decoration: none;
     color: #fff;
+}
+
+.divAbrowseNumber{
+    height:100%;
+    width:100%;
+    display:inline;
+    vertical-align:middle;
 }
 
 .abrowseTitle{
@@ -113,6 +121,7 @@ body {
     background: #16A086;
     color: #FFAE62;
 }
+
 thead .browseSize{
     color: #fff;
 }
@@ -137,4 +146,23 @@ thead .browseSize{
     padding:4px;
     background: #F49C14;
     color: #fff;
+}
+
+td{
+    transition: all 550ms;
+}
+
+.trBody:hover  .browseNumb, .trBody:hover  .browseMark,  .trBody:hover .browseCategory, .trBody:hover  .browseSubject, .trBody:hover  .browseAuthor, .trBody:hover  .browseYear {
+    background: #8F44AD !important;
+}
+
+.trBody:hover .spanBrowseMark {
+    background: #fff;
+    color: #333;
+    padding:20px;
+    border-radius:15px;
+}
+
+table tr[data-href] {
+    cursor: pointer;
 }

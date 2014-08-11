@@ -34,12 +34,12 @@
                 </thead>
                 <tbody>
                   {% for item in items |sort(attribute='item.object') %}
-                    <tr class="">
-                        <td class="browseNumb browseTd"><a class="abrowseNumber" href="./display-{{ item.wid }}.html"><div style="height:100%;width:100%;display:inline;vertical-align:middle;">{{ loop.index }}</div></a></td>
+                    <tr class="trBody" data-href="./display-{{ item.wid }}.html">
+                        <td class="browseNumb browseTd"><div class="divAbrowseNumber">{{ loop.index }}</div></td>
                         <td class="browseYear browseTd">{{item.content.json.TEI.teiHeader.fileDesc.publicationStmt.availability.licence["notBefore"]}}</td>
                         <td class="browseAuthor browseTd">{{item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].forename['#text'] +" " + item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].surname['#text']|d("Pas de Titre") }} </td>
-                        <td class="browseSubject browseTd"><a class="abrowseTitle" href="./display-{{ item.wid }}.html">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text'] |d('n/a') }}</a></td>
-                        <td class="browseMark browseTd">{{ item.description|d('/20') }}</td>
+                        <td class="browseSubject browseTd"><a class="abrowseTitle" href="./display-{{ item.wid }}.html">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|capitalize|d('n/a') }}</a></td>
+                        <td class="browseMark browseTd"><span class="spanBrowseMark">{{ item.description|d('/20') }}</span></td>
                     </tr>
                     <tr class="browseTdInter">
                     </tr>
@@ -47,6 +47,26 @@
                 </tbody>
             </table>
         </div>
+
+        <script>
+
+            var trs = document.querySelectorAll('.trBody'); // Récupération de tous les TR du tBody
+
+            /*
+            * Fonction qui redirige vers le data-href de l'objet Event "element"
+            * */
+            var goToLocation  = function(element){
+                window.location = element.currentTarget.getAttribute('data-href');
+            };
+
+
+            for(var i = 0, c = trs.length; i<c ; i++){ // Boucle qui écoute l'evenement click sur les Tr et appelle goToLocation
+
+                trs[i].addEventListener('click', goToLocation , false);
+
+            }
+
+        </script>
 
 
 {% endblock %}
