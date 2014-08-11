@@ -13,7 +13,7 @@ body {
 }
 
 #bodyBrowse{
-    background: #323A45 ;
+    background: #2874C0 ;
 }
 
 #divOverTableBrowse{
@@ -31,7 +31,8 @@ body {
     text-align: center;
     padding-top: 50px;
     padding-bottom: 50px;
-    background: #26AE90;
+    background: none;
+    border: 2px solid #fff;
     margin: 0 auto;
     margin-bottom: 100px;
     border-radius: 75px 0 75px 0;
@@ -66,12 +67,12 @@ body {
 }
 
 .browseNumb{
-    background: #CB5A5E /*F49C14 JAUNE*/;
+    background: #FF7A85 /*F49C14 JAUNE*/;
     color: #fff;
 }
 
 .browseYear{
-    background: #16A086 ;
+    background: #44B2BA ;
     color:  #fff;
 }
 
@@ -107,18 +108,18 @@ body {
 }
 
 .abrowseTitle:hover{
-    color: #F1AB0B;
+    color: #fff;
 }
 
 .browseAuthor{
     padding:4px;
     color: #fff;
-    background: #16A086;
+    background: #34CDB8;
 }
 
 .browseSize{
     padding:4px;
-    background: #16A086;
+    background: #58EAD3;
     color: #FFAE62;
 }
 
@@ -131,20 +132,20 @@ thead .browseSize{
 .browseSubject{
     padding:4px;
     /*background: #8F44AD; VIOLET*/
-    background: #16A086;
+    background: #5BB1FC;
     color: #fff;
     font-size:16px;
 }
 
 .browseCategory{
     padding:4px;
-    background: #16A086;
+    background: #5BB1FC;
     color: #fff;
 }
 
 .browseMark{
     padding:4px;
-    background: #F49C14;
+    background: #FFA65A;
     color: #fff;
 }
 
@@ -153,7 +154,10 @@ td{
 }
 
 .trBody:hover  .browseNumb, .trBody:hover  .browseMark,  .trBody:hover .browseCategory, .trBody:hover  .browseSubject, .trBody:hover  .browseAuthor, .trBody:hover  .browseYear {
-    background: #8F44AD !important;
+    background: #BB9FF5 !important;
+}
+
+.trBody:hover {
 }
 
 .trBody:hover .spanBrowseMark {
