@@ -23,12 +23,12 @@
 
         <<div id="divOverTableBrowse">
             <table id="browseTable">
-                <thead style="border-top: 2px solid #fff; border-bottom: 2px solid #fff;">
+                <thead>
                     <tr>
                         <th class="browseNumbTh col-lg-1">N°</th>
                         <th class="browseYearTh  col-lg-2">ANNEE</th>
                         <th class="browseAuthorTh  col-lg-2">AUTEUR</th>
-                        <th class="browseSubjectTh  col-lg-6">TITRE</th>
+                        <th class="browseTitleTh  col-lg-6">TITRE</th>
                         <th class="browseMarkTh  col-lg-1">NOTE</th>
                     </tr>
                 </thead>
@@ -38,7 +38,7 @@
                         <td class="browseNumb browseTd"><div class="divAbrowseNumber">{{ loop.index }}</div></td>
                         <td class="browseYear browseTd">{{item.content.json.TEI.teiHeader.fileDesc.publicationStmt.availability.licence["notBefore"] |d('N/A') }}</td>
                         <td class="browseAuthor browseTd">{{item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].forename['#text'] +" " + item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].surname['#text']|d("Pas de Titre") }} </td>
-                        <td class="browseSubject browseTd"><a class="abrowseTitle" href="./display-{{ item.wid }}.html">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|capitalize|d('N/A') }}</a></td>
+                        <td class="browseTitle browseTd"><a class="abrowseTitle" href="./display-{{ item.wid }}.html">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|capitalize|d('N/A') }}</a></td>
                         <td class="browseMark browseTd"><span class="spanBrowseMark">{{ item.description|d('/20') }}</span></td>
                     </tr>
                     <tr class="browseTdInter">
