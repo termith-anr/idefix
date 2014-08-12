@@ -1,43 +1,44 @@
 {% extends "layout.html" %}
 
 {% block content %}
+
+<!--end head block  -->
+</head>
+<body id="bodyBrowse">
+
+<header>
+    <nav>
+        <ul>
+            <li>
+                <a href=""></a>
+            </li>
+            <li>
+                <a href=""></a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
 <div class="post" id="post">
 	<div class="title">
 		<h2 itemprop="name">
-			{{ item.object|d('n/a') }}
-		</h2>
+        {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre pour ce documents') }}
+        </h2>
 	</div>
 	<div class="description">
 		<p itemprop="description">
-		{{ item.description|d('no description') }}
+		{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de description pour cet article') }}
 		</p>
 	</div>
+    <div>Mot clé d'Auteur:
 	<ul class="metas">
-		<li>
-		<span class="meta">
-			<i class="fa fa-info"></i>
-			<span  itemprop="contentSize">{{ item.contentSize }}</span>
-		</span>
-		</li>
-		<li>
-		<span class="meta">
-			<i class="fa fa-calendar"></i>
-			<span itemprop="dateModified">{{ item.dateModified.format('short') }}</span>
-		</span>
-		</li>
-		<li>
-		<span class="meta">
-			<i class="fa fa-bookmark-o"></i>
-			<span>{{ item.subject|d('n/a') }}</span>
-		</span>
-		</li>
-		<li>
-		<span class="meta">
-			<i class="fa fa-ticket"></i>
-			<span>{{ item.category|d('n/a') }}</span>
-		</span>
-		</li>
+        {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
+            {%  for keywordsAdv in keywords.term %}
+                 <li> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+             {% endfor %}
+        {% endfor %}
 	</ul>
+    </div>
 </div>
 
 {% endblock %}
