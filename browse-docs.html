@@ -39,7 +39,7 @@
                             <td class="browseNumb browseTd"><div class="divAbrowseNumber">{{ loop.index }}</div></td>
                             <td class="browseYear browseTd">{{item.content.json.TEI.teiHeader.fileDesc.publicationStmt.availability.licence["notBefore"]|d('Pas d\'année') }}</td>
                             <td class="browseAuthor browseTd">{{item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].forename['#text']|d('Pas d\'auteur') +" " + item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].surname['#text']|d(" ") }} </td>
-                            <td class="browseTitle browseTd"><a class="abrowseTitle" href="./display-{{ item.wid }}.html">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre')|capitalize }}</a></td>
+                            <td class="browseTitle browseTd"><a class="abrowseTitle" href="./display-{{ item.wid }}.html">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre')|capitalize|truncate( 99, False, '...') }}</a></td>
                             <td class="browseMark browseTd"><span class="spanBrowseMark">{{ item.description|d('/20') }}</span></td>
                         </tr>
                         <tr class="browseTdInter">
