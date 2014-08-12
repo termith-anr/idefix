@@ -166,6 +166,16 @@ tbody:before{
     vertical-align:middle;
 }
 
+
+.browseTitle{
+    padding-left:2%;
+    padding-right:2%;
+    /*background: #8F44AD; VIOLET*/
+    background: #5BB1FC;
+    color: #fff;
+    font-size:16px;
+}
+
 .abrowseTitle{
     color: #fff;
     transition: all 700ms;
@@ -189,15 +199,6 @@ thead .browseSize{
     color: #fff;
 }
 
-
-
-.browseTitle{
-    padding:4px;
-    /*background: #8F44AD; VIOLET*/
-    background: #5BB1FC;
-    color: #fff;
-    font-size:16px;
-}
 
 .browseCategory{
     padding:4px;
