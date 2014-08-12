@@ -1,7 +1,21 @@
 @font-face {
-    font-family: 'manteka';
-    src: url('../fonts/manteka.ttf');
+    font-family: 'manteka'; src: url('../fonts/manteka.ttf');
 }
+@font-face {
+    font-family: 'segoe'; src: url('../fonts/segoeui.ttf');
+}
+
+@font-face {
+    font-family: 'segoeprb'; src: url('../fonts/segoeprb.ttf');
+}
+@font-face {
+    font-family: 'segoepr'; src: url('../fonts/segoepr.ttf');
+}
+@font-face {
+    font-family: 'segoeuisl'; src: url('../fonts/segoeuisl.ttf');
+}
+
+
 
 body {
     width: 100%;
@@ -23,7 +37,7 @@ body {
 
 
 #h1Browse{
-    font-size: 35px;
+    font-size: 39px;
     color: #fff;
     font-family: verdana;
     letter-spacing: 12px;
@@ -47,20 +61,62 @@ body {
 
 #browseTable thead tr th {
     text-align: center;
-    font-family: 'manteka';
-    font-size:20px;
+    font-family: 'segoeprb';
+    font-size:23px;
     letter-spacing: 3px;
 }
 
 .browseTd{
     height:135px;
     font-size: 22px;
-    font-family: verdana;
+    font-family: 'segoe';
 }
 
 .browseTr{
     height:135px;
 }
+
+.browseNumbTh{
+    color: #fff;
+    padding-bottom: 17px;
+    padding-top: 17px;
+}
+
+.browseYearTh{
+    color: #fff;
+    padding-bottom: 17px;
+    padding-top: 17px;
+
+}
+
+.browseAuthorTh{
+    color: #fff;
+    padding-bottom: 17px;
+    padding-top: 17px;
+
+}
+
+.browseSubjectTh{
+    color: #fff;
+    padding-bottom: 17px;
+    padding-top: 17px;
+
+}
+
+.browseMarkTh{
+    color: #fff;
+    padding-bottom: 17px;
+    padding-top: 17px;
+
+}
+
+tbody:before{
+    line-height:2.2em;
+    content:"\200C";
+    display:block;
+}
+
+
 
 .browseTdInter{
     height:35px;
@@ -69,11 +125,15 @@ body {
 .browseNumb{
     background: #FF7A85 /*F49C14 JAUNE*/;
     color: #fff;
+    font-family: 'manteka';
+
 }
 
 .browseYear{
     background: #44B2BA ;
     color:  #fff;
+    font-family: 'segoeuisl';
+
 }
 
 .abrowseNumber{
@@ -115,13 +175,9 @@ body {
     padding:4px;
     color: #fff;
     background: #34CDB8;
+    font-family: 'segoepr';
 }
 
-.browseSize{
-    padding:4px;
-    background: #58EAD3;
-    color: #FFAE62;
-}
 
 thead .browseSize{
     color: #fff;
@@ -147,6 +203,8 @@ thead .browseSize{
     padding:4px;
     background: #FFA65A;
     color: #fff;
+    font-family: 'segoepr';
+    font-size:25px;
 }
 
 td{
