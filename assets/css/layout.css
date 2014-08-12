@@ -31,8 +31,8 @@ body {
 }
 
 #divOverTableBrowse{
-    width:75%;
     margin: 0 auto;
+    float:none;
 }
 
 
@@ -233,4 +233,18 @@ td{
 
 table tr[data-href] {
     cursor: pointer;
+}
+
+.divNoDocs{
+    margin: 0 auto;
+    float:none;
+    font-family: 'segoepr';
+    color:#fff;
+    font-size:55px;
+    text-align:center;
+    margin-top:130px;
+}
+
+.spanDivNoDocs{
+    font-size:70px;
 }
