@@ -297,8 +297,9 @@ table tr[data-href] {
     color: #fff;
     font-family: 'segoeuisl';
     font-size: 19px;
+    margin: 0 auto;
     padding: 60px;
-    width: 100%;
+    width: 80%;
 }
 
 .ulSectionRightDisplayDocs{
@@ -311,20 +312,26 @@ table tr[data-href] {
     font-family: 'segoeprb';
     font-size: 30px;
     margin: 0 auto;
-    max-width: 30%;
+    max-width: 80%;
     padding: 26px;
 }
 
+
 .h3KeywordsDisplayDocs{
     color:#fff;
-    font-size:23px;
+    font-size:25px;
     font-family: 'segoepr';
     margin-bottom:25px;
     padding:20px;
-    border-top: 2px solid #fff;
-    border-bottom: 2px solid #fff;
+    border-top: 2px solid rgba(255, 255, 255, .4);
+    margin-top: 50px;
+    padding-top: 20px;
+}
 
-
+.h3KeywordsDisplayDocs:first-Child{
+    border:0;
+    margin-top:0;
+    padding-top: 0px;
 }
 
 .keywordsUtilsDisplay{
@@ -334,6 +341,7 @@ table tr[data-href] {
     border:0;
     margin:6px;
     font-size: 16px;
+    font-family: 'segoeuisl';
 }
 
 .keywordsUtilsDisplay:hover{
@@ -352,6 +360,7 @@ table tr[data-href] {
     border:0;
     margin:6px;
     font-size: 16px;
+    font-family: 'segoeuisl';
 }
 
 .keywordsinistDisplay:hover{
@@ -366,11 +375,12 @@ table tr[data-href] {
 
 .keywordsAuthorsDisplay{
     background-image:none;
-    background: #FFA65A;
+    background: #BB9FF5;
     color:#fff;
     border:0;
     margin:6px;
     font-size: 16px;
+    font-family: 'segoeuisl';
 }
 
 .keywordsAuthorsDisplay:hover{
@@ -389,6 +399,7 @@ table tr[data-href] {
     border:0;
     margin:6px;
     font-size: 16px;
+    font-family: 'segoeuisl';
 }
 
 .keywordsLinasDisplay:hover{
