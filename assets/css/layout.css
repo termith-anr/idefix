@@ -459,3 +459,16 @@ table tr[data-href] {
     position: relative;
     width: 90px;
 }
+
+
+/*
+*Under : Full article
+*/
+
+.h2FullArticle{
+    color:#fff;
+}
+
+.h3FullArticle{
+    color:#fff;
+}

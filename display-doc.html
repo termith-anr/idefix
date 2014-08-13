@@ -24,7 +24,19 @@
             <section class="col-lg-6 sectionLeftDisplayDocs">
                 <h2 class="h2SectionsDisplayDocs bgYellow">Résumé: </h2>
                 <article class="articleSectionLeftDisplayDocs">
-                    <p >{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de description pour cet article') }}</p>
+
+                    {% if item.content.json.TEI.teiHeader.profileDesc.abstract['xml#lang'] == 'fr' %}
+
+                        <div class="frenchFlag"><span class="frenchFlagBlue"></span><span class="frenchFlagRed"></span></div>
+
+                    {% elif item.content.json.TEI.teiHeader.profileDesc.abstract['xml#lang'] == 'en' %}
+
+                        <div class="englandFlag"><div class="englandFlagVertical"></div><div class="englandFlagHorizontal"></div></div>
+
+                    {% endif %}
+
+                    <p >{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de résumé pour cet article') }}</p>
+
                 </article>
             </section>
 
@@ -150,6 +162,22 @@
                 {% endfor %}
 
             </ul>
+            </section>
+
+            <section class="completArticle">
+               <h2 class="h2FullArticle">Article Complet: </h2>
+                {% for div in item.content.json.TEI.text.body.div %}
+                <h3 class="h3FullArticle">
+                   {% for header in div.head.w %}
+                        {{  header["#text"]  }}
+                    {% endfor %}
+                </h3>
+                <article>
+                    <p>
+
+                    </p>
+                </article>
+                {% endfor %}
             </section>
 
 {% endblock %}
