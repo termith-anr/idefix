@@ -6,151 +6,149 @@
 </head>
 <body id="bodyBrowse">
 
-<header>
-    <nav>
-        <ul>
-            <li>
-                <a href=""></a>
-            </li>
-            <li>
-                <a href=""></a>
-            </li>
-        </ul>
-    </nav>
-</header>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href=""></a>
+                </li>
+                <li>
+                    <a href=""></a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
-<div class="post" id="post">
-	<div class="title">
-		<h2 itemprop="name">
-        {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre pour ce documents') }}
-        </h2>
-	</div>
-	<div class="description">
-		<p itemprop="description">
-		{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de description pour cet article') }}
-		</p>
-	</div>
-    <div>
-        <ul class="metas">
+            <h1 class="h1DisplayDocs col-lg-9">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre pour ce documents') }}</h1>
 
+            <section class="col-lg-6 sectionLeftDisplayDocs">
+                <h2 class="h2SectionsDisplayDocs bgYellow">Résumé: </h2>
+                <article class="articleSectionLeftDisplayDocs">
+                    <p >{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de description pour cet article') }}</p>
+                </article>
+            </section>
 
-            {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
+            <section class="col-lg-6 sectionRightDisplayDocs">
+                <h2 class="h2SectionsDisplayDocs bgRed">Mots Clés: </h2>
+            <ul class="ulSectionRightDisplayDocs">
 
 
-                {% if keywords.scheme == 'cc' %}
+                {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
 
-                    <p>Utilitaires:</p>
 
-                    {%  for keywordsAdv in keywords.term %}
+                    {% if keywords.scheme == 'cc' %}
 
-                         <li> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+                        <h3 class="h3KeywordsDisplayDocs">Utilitaires:</h3>
 
-                    {% endfor %}
+                        {%  for keywordsAdv in keywords.term %}
 
-                {% endif %}
+                             <span class="btn btn-default keywordsUtilsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
 
-                {% if keywords.scheme == 'inist-francis' or keywords.scheme == 'inist-pascal' %}
-
-                    <p>Mot Clés Inist</p>
-
-                    {% if keywords['xml#lang'] == 'fr' %}
-
-                        <p>Français:</p>
+                        {% endfor %}
 
                     {% endif %}
 
-                    {% if keywords['xml#lang'] == 'en' %}
+                    {% if keywords.scheme == 'inist-francis' or keywords.scheme == 'inist-pascal' %}
 
-                        <p>Anglais:</p>
+                        <h3 class="h3KeywordsDisplayDocs">Mot Clés Inist</h3>
 
-                    {% endif %}
+                        {% if keywords['xml#lang'] == 'fr' %}
 
-                    {%  for keywordsAdv in keywords.term %}
+                            <div class="frenchFlag"><span class="frenchFlagBlue"></span><span class="frenchFlagRed"></span></div>
 
-                        <li> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+                        {% endif %}
 
-                    {% endfor %}
+                        {% if keywords['xml#lang'] == 'en' %}
 
-                {% endif %}
+                            <p>Anglais:</p>
 
-                {% if keywords.scheme == 'author' %}
+                        {% endif %}
 
-                    <p>Mot Clés Auteur</p>
+                        {%  for keywordsAdv in keywords.term %}
 
-                    {% if keywords['xml#lang'] == 'fr' %}
+                            <span class="btn btn-default keywordsinistDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
 
-                        <p>Français:</p>
-
-                    {% endif %}
-
-                    {% if keywords['xml#lang'] == 'en' %}
-
-                        <p>Anglais:</p>
+                        {% endfor %}
 
                     {% endif %}
 
-                    {%  for keywordsAdv in keywords.term %}
+                    {% if keywords.scheme == 'author' %}
 
-                        <li> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+                        <h3 class="h3KeywordsDisplayDocs">Mot Clés Auteur</h3>
 
-                    {% endfor %}
+                        {% if keywords['xml#lang'] == 'fr' %}
 
-                {% endif %}
+                            <div class="frenchFlag"><span class="frenchFlagBlue"></span><span class="frenchFlagRed"></span></div>
 
+                        {% endif %}
 
-                {% if keywords.scheme == 'lina1:notice' %}
+                        {% if keywords['xml#lang'] == 'en' %}
 
-                    <p>Mot Clés Lina 1</p>
+                            <p>Anglais:</p>
 
-                    {% if keywords['xml#lang'] == 'fr' %}
+                        {% endif %}
 
-                        <p>Français:</p>
+                        {%  for keywordsAdv in keywords.term %}
 
-                    {% endif %}
+                            <span class="btn btn-default keywordsAuthorsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
 
-                    {% if keywords['xml#lang'] == 'en' %}
-
-                        <p>Anglais:</p>
-
-                    {% endif %}
-
-                    {%  for keywordsAdv in keywords.term %}
-
-                        <li> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
-
-                    {% endfor %}
-
-                {% endif %}
-
-
-                {% if keywords.scheme == 'lina2:notice' %}
-
-                    <p>Mot Clés Lina 2</p>
-
-                    {% if keywords['xml#lang'] == 'fr' %}
-
-                        <p>Français:</p>
+                        {% endfor %}
 
                     {% endif %}
 
-                    {% if keywords['xml#lang'] == 'en' %}
 
-                        <p>Anglais:</p>
+                    {% if keywords.scheme == 'lina1:notice' %}
+
+                        <h3 class="h3KeywordsDisplayDocs">Mot Clés Lina 1</h3>
+
+                        {% if keywords['xml#lang'] == 'fr' %}
+
+                              <div class="frenchFlag"><span class="frenchFlagBlue"></span><span class="frenchFlagRed"></span></div>
+
+                        {% endif %}
+
+                        {% if keywords['xml#lang'] == 'en' %}
+
+                            <p>Anglais:</p>
+
+                        {% endif %}
+
+                        {%  for keywordsAdv in keywords.term %}
+
+                            <span class="btn btn-default keywordsLinasDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
+
+                        {% endfor %}
 
                     {% endif %}
 
-                    {%  for keywordsAdv in keywords.term %}
 
-                        <li> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+                    {% if keywords.scheme == 'lina2:notice' %}
 
-                    {% endfor %}
+                        <h3 class="h3KeywordsDisplayDocs">Mot Clés Lina 2</h3>
 
-                {% endif %}
+                        {% if keywords['xml#lang'] == 'fr' %}
 
-            {% endfor %}
+                            <div class="frenchFlag"><span class="frenchFlagBlue"></span><span class="frenchFlagRed"></span></div>
 
-        </ul>
-    </div>
-</div>
+                        {% endif %}
+
+                        {% if keywords['xml#lang'] == 'en' %}
+
+                            <p>Anglais:</p>
+
+                        {% endif %}
+
+                        {%  for keywordsAdv in keywords.term %}
+
+                            <span class="btn btn-default keywordsLinasDisplay">{{ keywordsAdv['#text']|d('de mots clés') }} </span>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </ul>
+            </section>
 
 {% endblock %}

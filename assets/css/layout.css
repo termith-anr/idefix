@@ -17,6 +17,15 @@
 
 
 
+.bgYellow{
+    background: #FFA65A;
+}
+
+.bgRed{
+    background: #ff7a85;
+}
+
+
 body {
     width: 100%;
     height: 100%;
@@ -41,7 +50,7 @@ body {
     color: #fff;
     font-family: verdana;
     letter-spacing: 12px;
-    width: 75%;
+    float:none;
     text-align: center;
     padding-top: 50px;
     padding-bottom: 50px;
@@ -249,3 +258,168 @@ table tr[data-href] {
 .spanDivNoDocs{
     font-size:70px;
 }
+
+
+/*
+* Under: Display Docs!
+*/
+
+
+.h1DisplayDocs{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 2px solid #fff;
+    border-radius: 75px 0;
+    color: #fff;
+    font-family: verdana;
+    font-size: 27px;
+    margin: 0 auto;
+    float:none;
+    padding-left:5%;
+    padding-right:5%;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    text-align: center;
+}
+
+
+.sectionLeftDisplayDocs{
+    margin-top: 99px;
+    text-align:center;
+}
+
+.sectionRightDisplayDocs{
+    margin-top: 99px;
+    text-align:center;
+}
+
+
+.articleSectionLeftDisplayDocs{
+    color: #fff;
+    font-family: 'segoeuisl';
+    font-size: 19px;
+    padding: 60px;
+    width: 100%;
+}
+
+.ulSectionRightDisplayDocs{
+    padding: 60px;
+}
+
+.h2SectionsDisplayDocs{
+    color: #fff;
+    float: none;
+    font-family: 'segoeprb';
+    font-size: 30px;
+    margin: 0 auto;
+    max-width: 30%;
+    padding: 26px;
+}
+
+.h3KeywordsDisplayDocs{
+    color:#fff;
+    font-size:23px;
+    font-family: 'segoepr';
+    margin-bottom:25px;
+
+}
+
+.keywordsUtilsDisplay{
+    background-image:none;
+    background: #FF7A85;
+    color:#fff;
+    border:0;
+    margin:6px;
+    font-size: 16px;
+}
+
+.keywordsUtilsDisplay:hover{
+    background-image:none;
+    background: #fff;
+    color:#333;
+    border:0;
+    margin:6px;
+    font-size: 16px;
+}
+
+.keywordsinistDisplay{
+    background-image:none;
+    background: #5bb1fc;
+    color:#fff;
+    border:0;
+    margin:6px;
+    font-size: 16px;
+}
+
+.keywordsinistDisplay:hover{
+    background-image:none;
+    background: #fff;
+    color:#333;
+    border:0;
+    margin:6px;
+    font-size: 16px;
+}
+
+
+.keywordsAuthorsDisplay{
+    background-image:none;
+    background: #FFA65A;
+    color:#fff;
+    border:0;
+    margin:6px;
+    font-size: 16px;
+}
+
+.keywordsAuthorsDisplay:hover{
+    background-image:none;
+    background: #fff;
+    color:#333;
+    border:0;
+    margin:6px;
+    font-size: 16px;
+}
+
+.keywordsLinasDisplay{
+    background-image:none;
+    background: #44b2ba;
+    color:#fff;
+    border:0;
+    margin:6px;
+    font-size: 16px;
+}
+
+.keywordsLinasDisplay:hover{
+    background-image:none;
+    background: #fff;
+    color:#333;
+    border:0;
+    margin:6px;
+    font-size: 16px;
+}
+
+.frenchFlag{
+    height:40px;
+    width:90px;
+    background: white;
+    margin: 0 auto;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.frenchFlagBlue{
+    height:40px;
+    width:30px;
+    background: #4758AA;
+    margin: 0 auto;
+    float:left;
+}
+
+.frenchFlagRed{
+    height:40px;
+    width:30px;
+    background: #F05261;
+    float:right
+}
+
+
+
+
