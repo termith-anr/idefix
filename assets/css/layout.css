@@ -320,6 +320,10 @@ table tr[data-href] {
     font-size:23px;
     font-family: 'segoepr';
     margin-bottom:25px;
+    padding:20px;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+
 
 }
 
@@ -421,5 +425,26 @@ table tr[data-href] {
 }
 
 
+.englandFlag{
+    height:40px;
+    width:90px;
+    margin: 0 auto;
+    margin-top:20px;
+    margin-bottom:20px;
+    background: #fff;
+}
 
+.englandFlagVertical{
+    width: 10px;
+    background: #F05261;
+    height:40px;
+    margin-left:40px;
+}
 
+.englandFlagHorizontal{
+    background: none repeat scroll 0 0 #f05261;
+    bottom: 25px;
+    height: 10px;
+    position: relative;
+    width: 90px;
+}
