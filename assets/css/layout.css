@@ -1,3 +1,14 @@
+/*
+*
+* Template For Castor termITH
+*
+* By Matthias DIEUDONNE
+*
+* matthias.dieudonne@gmail.com
+*
+*/
+
+
 @font-face {
     font-family: 'manteka'; src: url('../fonts/manteka.ttf');
 }
@@ -59,6 +70,11 @@ body {
     margin: 0 auto;
     margin-bottom: 80px;
     border-radius: 75px 0 75px 0;
+}
+
+.resumeAndKeywords{
+    margin: 0;
+    padding: 0;
 }
 
 #browseTable{
@@ -465,10 +481,39 @@ table tr[data-href] {
 *Under : Full article
 */
 
+.completArticle{
+    padding:0;
+    margin:0;
+}
+
 .h2FullArticle{
     color:#fff;
+    background: #bb9ff5;
+    text-align: center;
+    margin: 0 auto;
+    float:none;
+    margin-top:70px;
+    font-family: 'segoeprb';
+    font-size: 30px;
+    padding: 26px;
 }
 
 .h3FullArticle{
-    color:#fff;
+    color:#333;
+    font-family: 'segoepr';
+    font-size: 35px;
+}
+
+.fullArticle{
+    background: #fff;
+    color: #333;
+    margin: 0 auto;
+    float:none;
+    height: auto;
+    margin-top:0;
+    padding:3%;
+}
+
+.pFullArticle{
+    font-family:verdana;
 }

@@ -20,7 +20,7 @@
     </header>
 
             <h1 class="h1DisplayDocs col-lg-9">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre pour ce documents') }}</h1>
-
+        <section class="row resumeAndKeywords">
             <section class="col-lg-6 sectionLeftDisplayDocs">
                 <h2 class="h2SectionsDisplayDocs bgYellow">Résumé: </h2>
                 <article class="articleSectionLeftDisplayDocs">
@@ -163,17 +163,29 @@
 
             </ul>
             </section>
+        </section>
 
-            <section class="completArticle">
-               <h2 class="h2FullArticle">Article Complet: </h2>
+            <section class="completArticle row col-lg-12">
+               <h2 class="h2FullArticle col-lg-6">Article Complet: </h2>
                 {% for div in item.content.json.TEI.text.body.div %}
-                <h3 class="h3FullArticle">
-                   {% for header in div.head.w %}
-                        {{  header["#text"]  }}
-                    {% endfor %}
-                </h3>
-                <article>
-                    <p>
+                <article class="fullArticle col-lg-6">
+                    <h3 class="h3FullArticle">
+                       {% for header in div.head.w %}
+                            {{  header["#text"]  }}
+                       {% endfor %}
+                    </h3>
+                    <p class="pFullArticle">
+                       {% if div.p[0] %}
+                           {% for ptext in div.p %}
+                                {% for fulltext in ptext.w %}
+                                    {{  fulltext["#text"]  }}
+                                {% endfor %}
+                           {% endfor %}
+                       {% elif div.p.w %}
+                            {% for fulltext in div.p.w %}
+                                {{  fulltext["#text"]  }}
+                            {% endfor %}
+                       {% endif %}
 
                     </p>
                 </article>
