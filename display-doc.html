@@ -30,14 +30,126 @@
 		{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de description pour cet article') }}
 		</p>
 	</div>
-    <div>Mot clé d'Auteur:
-	<ul class="metas">
-        {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
-            {%  for keywordsAdv in keywords.term %}
-                 <li> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
-             {% endfor %}
-        {% endfor %}
-	</ul>
+    <div>
+        <ul class="metas">
+
+
+            {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
+
+
+                {% if keywords.scheme == 'cc' %}
+
+                    <p>Utilitaires:</p>
+
+                    {%  for keywordsAdv in keywords.term %}
+
+                         <li> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                    {% endfor %}
+
+                {% endif %}
+
+                {% if keywords.scheme == 'inist-francis' or keywords.scheme == 'inist-pascal' %}
+
+                    <p>Mot Clés Inist</p>
+
+                    {% if keywords['xml#lang'] == 'fr' %}
+
+                        <p>Français:</p>
+
+                    {% endif %}
+
+                    {% if keywords['xml#lang'] == 'en' %}
+
+                        <p>Anglais:</p>
+
+                    {% endif %}
+
+                    {%  for keywordsAdv in keywords.term %}
+
+                        <li> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                    {% endfor %}
+
+                {% endif %}
+
+                {% if keywords.scheme == 'author' %}
+
+                    <p>Mot Clés Auteur</p>
+
+                    {% if keywords['xml#lang'] == 'fr' %}
+
+                        <p>Français:</p>
+
+                    {% endif %}
+
+                    {% if keywords['xml#lang'] == 'en' %}
+
+                        <p>Anglais:</p>
+
+                    {% endif %}
+
+                    {%  for keywordsAdv in keywords.term %}
+
+                        <li> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                    {% endfor %}
+
+                {% endif %}
+
+
+                {% if keywords.scheme == 'lina1:notice' %}
+
+                    <p>Mot Clés Lina 1</p>
+
+                    {% if keywords['xml#lang'] == 'fr' %}
+
+                        <p>Français:</p>
+
+                    {% endif %}
+
+                    {% if keywords['xml#lang'] == 'en' %}
+
+                        <p>Anglais:</p>
+
+                    {% endif %}
+
+                    {%  for keywordsAdv in keywords.term %}
+
+                        <li> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                    {% endfor %}
+
+                {% endif %}
+
+
+                {% if keywords.scheme == 'lina2:notice' %}
+
+                    <p>Mot Clés Lina 2</p>
+
+                    {% if keywords['xml#lang'] == 'fr' %}
+
+                        <p>Français:</p>
+
+                    {% endif %}
+
+                    {% if keywords['xml#lang'] == 'en' %}
+
+                        <p>Anglais:</p>
+
+                    {% endif %}
+
+                    {%  for keywordsAdv in keywords.term %}
+
+                        <li> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endfor %}
+
+        </ul>
     </div>
 </div>
 
