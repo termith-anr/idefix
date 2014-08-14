@@ -514,6 +514,20 @@ table tr[data-href] {
     padding:3%;
 }
 
-.pFullArticle{
+.divFullArticle{
     font-family:verdana;
+    margin-top:30px;
+}
+
+.figureFullArticle{
+    margin-top:50px;
+    margin-bottom:50px;
+    text-align: center;
+    max-width:100%;
+}
+
+.imgFullArticle{
+    margin: 0 auto;
+    max-width:100%;
+
 }

@@ -174,16 +174,36 @@
                             {{  header["#text"]  }}
                        {% endfor %}
                     </h3>
-                    <p class="pFullArticle">
                        {% if div.p[0] %}
+                         <div class="divFullArticle">
                            {% for ptext in div.p %}
-                                {% for fulltext in ptext.w %}
-                                    {{  fulltext["#text"]  }}
-                                {% endfor %}
+                             {% if ptext.w[0] %}
+                                  <p>
+                                    {% for fulltext in ptext.w %}
+                                        {{  fulltext["#text"]  }}
+                                    {% endfor %}
+                                  </p>
+                             {% endif %}
+                             {% if ptext.figure %}
+                                <figure class="figureFullArticle">
+                                    <img class="imgFullArticle" src="{{ ptext.figure.graphic.url }}" />
+                                </figure>
+                             {% endif %}
                            {% endfor %}
+                         </div>
                        {% elif div.p.w %}
                             {% for fulltext in div.p.w %}
                                 {{  fulltext["#text"]  }}
+                            {% endfor %}
+                        </div>
+                       {% elif div.div[0] %}
+                            {% for divIn in div.div %}
+                                <h4 class="h4FullArticle">
+                                    {% for headerh4 in divIn.head.w %}
+                                        {{  headerh4["#text"]  }}
+                                    {% endfor %}
+                                </h4>
+
                             {% endfor %}
                        {% endif %}
 
