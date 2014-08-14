@@ -191,11 +191,7 @@
                              {% endif %}
                            {% endfor %}
                          </div>
-                       {% elif div.p.w %}
-                            {% for fulltext in div.p.w %}
-                                {{  fulltext["#text"]  }}
-                            {% endfor %}
-                        </div>
+
                        {% elif div.div[0] %}
                             {% for divIn in div.div %}
                                 <h4 class="h4FullArticle">
