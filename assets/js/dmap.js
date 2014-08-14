@@ -18,6 +18,7 @@ $(document).ready(function() {
      */
     var parseWPc = function (w, pc, pcNb) {
         console.log("parseWPC");
+        if (!pcNb) console.log(pc);
 
         var html = "";
 
@@ -33,21 +34,28 @@ $(document).ready(function() {
         }
         else {
             // Compute white space
-            var whiteSpace = (w.wsAfter === "true" ? " " : "")
+            var whiteSpace = (w.wsAfter === "true" ? " " : "");
+            var punctuation = "";
             var currentPc;
             if (Object.isArray(pc)) {
-                currentPc = pc[pcNb]
+                if (pcNb >= pc.length) {
+                    console.log('pb?');
+                    currentPc = null;
+                }
+                else {
+                    currentPc = pc[pcNb]
+                }
             }
             else {
                 currentPc = pc;
             }
             if (currentPc && currentPc['xml#id'] < w['xml#id']) { // WARNING: string comparison instead of numbers
-                whiteSpace = currentPc['#text'] + (currentPc.wsAfter === "true" ? " " : "");
+                punctuation = currentPc['#text'] + (currentPc.wsAfter === "true" ? " " : "");
                 pcNb ++; // next time: next punctuation
             }
-            html += w['#text'] + whiteSpace;
+            html += punctuation + w['#text'] + whiteSpace;
         }
-        console.log('w:%s', html);
+        //console.log('w:%s', html);
         return { html: html, pcNb: pcNb };
     };
 
@@ -78,7 +86,7 @@ $(document).ready(function() {
                }
                else if (key === 'w') {
                     //console.log(value);
-                    html += parseWPc(value, element['pc']).html;
+                    html += parseWPc(value, element['pc'], 0).html;
                     console.log("gw:%s", html);
                }
                else if (key === 'head') {
@@ -104,7 +112,6 @@ $(document).ready(function() {
         $('body').append(html);
         console.log("HTML: %s", html);
     });
-
 
 
 });
