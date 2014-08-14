@@ -1,0 +1,25 @@
+{
+  "name": "castor-theme-termith",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "jquery": "^2.1.1",
+    "sugar": "^1.4.1",
+    "superagent": "^0.18.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/castorjs/castor-theme-termith.git"
+  },
+  "author": "",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/castorjs/castor-theme-termith/issues"
+  },
+  "homepage": "https://github.com/castorjs/castor-theme-termith"
+}

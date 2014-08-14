@@ -208,4 +208,12 @@
                 {% endfor %}
             </section>
 
+
+
+
 {% endblock %}
+
+    {% block specificScript %}
+        <script> var $ = jQuery = require('jquery'); </script>
+        <script src="assets/js/dmap.js"></script>
+    {% endblock %}
