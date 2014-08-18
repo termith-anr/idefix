@@ -1,5 +1,5 @@
 /**
- * Created by matthias on 14/08/14.
+ * Created by Matthias.D &  François.P on 14/08/14.
  */
 
 $(document).ready(function() {
@@ -8,86 +8,123 @@ $(document).ready(function() {
     var sugar = require('sugar');
 
     var wid = location.pathname.split('-')[1].split(".")[0];
+    // location.pathname.replace('/display-' , '').replace('.html', '')); Can be used if ID cointain . or -
+
 
     /**
      * Parse elements w (words)
-     * @param w word object or array
-     * @param pc array of punctuation elements (pc)
-     * @param pcNb number of punctutations already used
-     * @returns {{html: string, pcNb: *}}
+     * @param word word object or array
+     * @param ponct array of punctuation elements (pc)
+     * @param ponctUsed number of punctutations already used
+     * @returns {{html: string, ponctUsed: Number}}
      */
-    var parseWPc = function (w, pc, pcNb) {
-        console.log("parseWPC");
-        if (!pcNb) console.log(pc);
+    var parseWordPonct = function (word, ponct, ponctUsed) {
+        /*console.log("parseWordPonct");*/
+
+        if (!ponctUsed){
+            /*console.log(pc);*/
+            ponctUsed = 0;
+        }
 
         var html = "";
 
-        if (!pcNb) { // Default value
-            pcNb = 0;
-        }
-        if (Object.isArray(w)) {
-            w.each(function (e) {
-                var hn = parseWPc(e, pc, pcNb);
-                html += hn.html;
-                pcNb = hn.pcNb;
-            });
+        if ((word instanceof Array)  && (word.length > 0)) { // Or can use sugar Array.isArray
+
+            for( var i = 0; i < word.length; i++ ){
+
+                var hn = parseWordPonct(word[i], ponct , ponctUsed);
+                    html += hn.html;
+                    ponctUsed = hn.ponctUsed;
+
+            }
+
+           /*
+               // Do the same with sugar each() function;
+
+            word.each(function (e) {
+                    var hn = parseWordPonct(e, ponct, ponctUsed);
+                    html += hn.html;
+                    ponctUsed = hn.ponctUsed;
+                });
+
+            */
+
         }
         else {
             // Compute white space
-            var whiteSpace = (w.wsAfter === "true" ? " " : "");
-            var punctuation = "";
-            var currentPc;
-            if (Object.isArray(pc)) {
-                if (pcNb >= pc.length) {
+
+            var whiteSpace = (word.wsAfter === "true" ? " " : ""), //add space if wsafter is true
+                punctuation = "",
+                currentPc;
+
+            if ((ponct instanceof Array)  && (ponct.length > 0)) {
+                if (ponctUsed >= ponct.length) {
                     console.log('pb?');
                     currentPc = null;
                 }
                 else {
-                    currentPc = pc[pcNb]
+                    currentPc = ponct[ponctUsed]
                 }
             }
+
             else {
-                currentPc = pc;
+                currentPc = ponct;
             }
-            if (currentPc && currentPc['xml#id'] < w['xml#id']) { // WARNING: string comparison instead of numbers
+
+            if (currentPc && currentPc['xml#id'] < word['xml#id']) { // WARNING: string comparaison instead of numbers
                 punctuation = currentPc['#text'] + (currentPc.wsAfter === "true" ? " " : "");
-                pcNb ++; // next time: next punctuation
+                ponctUsed ++; // next time: next punctuation
             }
-            html += punctuation + w['#text'] + whiteSpace;
+
+            html += punctuation + word['#text'] + whiteSpace;
         }
         //console.log('w:%s', html);
-        return { html: html, pcNb: pcNb };
-    };
+        return { html: html, ponctUsed: ponctUsed };
+
+    }; // en of parseWordPonct()
+
 
     var parseGeneric = function (element) {
 
         var html = "";
 
-        if (!element) {
+        if (!element) { //If it's not defined
+            return;
+        }
+
+        if (typeof element === 'string') { // Nothing to do with that yet!
             return "";
         }
-        if (typeof element === 'string') {
-            return "";
-        }
-        if (Object.isArray(element)) {
-            //console.log('array');
+
+        if ((element instanceof Array)  && (element.length > 0)) { // If it's an Array
+
+            /*for( var i = 0; i < element.length; i++ ){
+
+                html+= parseGeneric(element);
+
+            } //Cannot be used , navigator quit recurtion */
+
             element.each(function (e) {
                 html += parseGeneric(e);
             });
+
             html += "";
+
         }
+
         else {
-            //console.log('object');
+
             Object.keys(element, function (key, value) {
+
                if (key === 'div') {
                     //console.log('div');
                     return parseGeneric(value);
 
                }
-               else if (key === 'w') {
+               else if (key === 'w') { // w is TEI for words
                     //console.log(value);
-                    html += parseWPc(value, element['pc'], 0).html;
-                    console.log("gw:%s", html);
+                    html += parseWordPonct(value, element['ponct'], 0).html;
+                    /*console.log("gw:%s", html);*/
                }
                else if (key === 'head') {
                    //console.log("HEAD");
@@ -99,6 +136,7 @@ $(document).ready(function() {
                    //console.log("default:%s", key);
                    html += parseGeneric(value);
                }
+
             });
         }
         //console.log("< %s", html);
@@ -110,7 +148,7 @@ $(document).ready(function() {
     .end(function(res){
         var html = parseGeneric(res.body.item.content.json.TEI.text.body.div);
         $('body').append(html);
-        console.log("HTML: %s", html);
+        /*console.log("HTML: %s", html);*/
     });
 
 
