@@ -1,6 +1,5 @@
 /**
  * Created by Matthias.D &  François.P on 14/08/14.
- * Do not forget to add the functions files in JS folder !
  */
 
 $(document).ready(function() {

@@ -22,6 +22,9 @@ function parseWordPonct(word, ponct, ponctUsed) {
     var html = "";
 
     if ((word instanceof Array)  && (word.length > 0)) { // Or can use sugar Array.isArray
+        if (ponct && !(ponct instanceof Array)) {
+            ponct = new Array(ponct);
+        }
 
         for( var i = 0; i < word.length; i++ ){
 
@@ -31,6 +34,9 @@ function parseWordPonct(word, ponct, ponctUsed) {
 
         }
 
+        if (ponct && ponctUsed < ponct.length) {
+            html += ponct[ponctUsed]['#text'];
+        }
         /*
          // Do the same with sugar each() function;
 
@@ -52,11 +58,10 @@ function parseWordPonct(word, ponct, ponctUsed) {
 
         if ((ponct instanceof Array)  && (ponct.length > 0)) {
             if (ponctUsed >= ponct.length) {
-                console.log('pb?');
                 currentPc = null;
             }
             else {
-                currentPc = ponct[ponctUsed]
+                currentPc = ponct[ponctUsed];
             }
         }
 
@@ -74,4 +79,4 @@ function parseWordPonct(word, ponct, ponctUsed) {
     //console.log('w:%s', html);
     return { html: html, ponctUsed: ponctUsed };
 
-}; // en of parseWordPonct()
+} // en of parseWordPonct()

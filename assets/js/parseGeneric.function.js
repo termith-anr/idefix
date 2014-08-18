@@ -18,23 +18,23 @@ function parseGeneric (element) {
 
         if (key === 'div') {
             //console.log('div');
-            return parseGeneric(value);
+            html += parseGeneric(value);
 
         }
         else if (key === 'w') { // w is TEI for words
             //console.log(value);
-            html += parseWordPonct(value, element['ponct'], 0).html;
+            html += parseWordPonct(value, element['pc'], 0).html;
             /*console.log("gw:%s", html);*/
         }
         else if (key === 'head') {
             //console.log("HEAD");
-            html += '<h1 class="headFullArticle">';
-            html += parseGeneric(value);
-            html += '</h1>';
+
+            html += '<h1 class="headFullArticle">' + parseGeneric(value) + '</h1>';
+
         }
         else {
             //console.log("default:%s", key);
-            html += parseGeneric(value);
+            html += '<p>' + parseGeneric(value) + '</p>';
         }
 
     };
@@ -67,4 +67,4 @@ function parseGeneric (element) {
     }
     //console.log("< %s", html);
     return html;
-};
+}
