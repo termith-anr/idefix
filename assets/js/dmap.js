@@ -13,8 +13,8 @@ $(document).ready(function() {
     request
     .get('/display-'+ wid +'.json')
     .end(function(res){
-        var html = parseGeneric(res.body.item.content.json.TEI.text.body.div);
-        $('body').append(html);
+        var html = parseGeneric(res.body.item.content.json.TEI.text.body.div , 0);
+        $('.fullArticle').append(html);
         /*console.log("HTML: %s", html);*/
     });
 

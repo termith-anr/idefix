@@ -14,6 +14,7 @@ function parseGeneric (element) {
 
     var html = "";
 
+
     var which = function  (key, value) { // cases of key (div , w , p...)
 
         if (key === 'div') {
@@ -29,12 +30,25 @@ function parseGeneric (element) {
         else if (key === 'head') {
             //console.log("HEAD");
 
-            html += '<h1 class="headFullArticle">' + parseGeneric(value) + '</h1>';
+            var h = Number(value['subtype'].substr(5)) + 2;
 
+            html += '<h' + h + ' class="headFullArticle">' + parseGeneric(value) + '</h' + h + '>';
+
+        }
+        else if (key === 'p') {
+            //console.log("default:%s", key);
+            html += '<p>' + parseGeneric(value) + '</p>';
+        }
+
+        else if (key === 'graphic') {
+            //console.log("default:%s", key);
+            console.log(value.url);
+            html += '<h1/>' + value.url + '</h1>';
+            parseGeneric(value);
         }
         else {
             //console.log("default:%s", key);
-            html += '<p>' + parseGeneric(value) + '</p>';
+            html += parseGeneric(value);
         }
 
     };
@@ -53,7 +67,7 @@ function parseGeneric (element) {
 
          html+= parseGeneric(element);
 
-         } //Cannot be used , navigator quit recurtion */
+         } //Cannot be used , navigator quit recurtion*/
 
         element.each(function (e) {
             html += parseGeneric(e);

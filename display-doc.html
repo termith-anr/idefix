@@ -20,7 +20,7 @@
     </header>
 
             <h1 class="h1DisplayDocs col-lg-9">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre pour ce documents') }}</h1>
-        <section class="row resumeAndKeywords">
+    <section class="row resumeAndKeywords">
             <section class="col-lg-6 sectionLeftDisplayDocs">
                 <h2 class="h2SectionsDisplayDocs bgYellow">Résumé: </h2>
                 <article class="articleSectionLeftDisplayDocs">
@@ -166,46 +166,10 @@
         </section>
 
             <section class="completArticle row col-lg-12">
-               <h2 class="h2FullArticle col-lg-6">Article Complet: </h2>
-                {% for div in item.content.json.TEI.text.body.div %}
-                <article class="fullArticle col-lg-6">
-                    <h3 class="h3FullArticle">
-                       {% for header in div.head.w %}
-                            {{  header["#text"]  }}
-                       {% endfor %}
-                    </h3>
-                       {% if div.p[0] %}
-                         <div class="divFullArticle">
-                           {% for ptext in div.p %}
-                             {% if ptext.w[0] %}
-                                  <p>
-                                    {% for fulltext in ptext.w %}
-                                        {{  fulltext["#text"]  }}
-                                    {% endfor %}
-                                  </p>
-                             {% endif %}
-                             {% if ptext.figure %}
-                                <figure class="figureFullArticle">
-                                    <img class="imgFullArticle" src="{{ ptext.figure.graphic.url }}" />
-                                </figure>
-                             {% endif %}
-                           {% endfor %}
-                         </div>
+               <h2 class="h2FullArticle col-lg-8">Article Complet: </h2>
+                <article class="fullArticle col-lg-8">
 
-                       {% elif div.div[0] %}
-                            {% for divIn in div.div %}
-                                <h4 class="h4FullArticle">
-                                    {% for headerh4 in divIn.head.w %}
-                                        {{  headerh4["#text"]  }}
-                                    {% endfor %}
-                                </h4>
-
-                            {% endfor %}
-                       {% endif %}
-
-                    </p>
                 </article>
-                {% endfor %}
             </section>
 
 
