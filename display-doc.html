@@ -52,15 +52,12 @@
 
                         <h3 class="h3KeywordsDisplayDocs">Utilitaires:</h3>
 
-                        <ul>
 
-                            {%  for keywordsAdv in keywords.term %}
+                        {%  for keywordsAdv in keywords.term %}
 
-                                 <li class="btn btn-default keywordsUtilsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+                             <span class="btn btn-default keywordsUtilsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
 
-                            {% endfor %}
-
-                        </ul>
+                        {% endfor %}
 
                     {% endif %}
 
@@ -74,21 +71,17 @@
 
                         {% endif %}
 
-                        {% elif keywords['xml#lang'] == 'en' %}
+                        {% if keywords['xml#lang'] == 'en' %}
 
                             <div class="englandFlag"><div class="englandFlagVertical"></div><div class="englandFlagHorizontal"></div></div>
 
                         {% endif %}
 
-                        </ul>
+                        {%  for keywordsAdv in keywords.term %}
 
-                            {%  for keywordsAdv in keywords.term %}
+                            <span class="btn btn-default keywordsinistDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
 
-                                <li class="btn btn-default keywordsinistDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
-
-                            {% endfor %}
-
-                        </ul>
+                        {% endfor %}
 
                     {% endif %}
 
@@ -109,15 +102,11 @@
 
                         {% endif %}
 
-                        <ul>
+                        {%  for keywordsAdv in keywords.term %}
 
-                            {%  for keywordsAdv in keywords.term %}
+                            <span class="btn btn-default keywordsAuthorsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
 
-                                <li class="btn btn-default keywordsAuthorsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
-
-                            {% endfor %}
-
-                        </ul>
+                        {% endfor %}
 
                     {% endif %}
 
@@ -138,15 +127,11 @@
 
                         {% endif %}
 
-                        <ul>
+                        {%  for keywordsAdv in keywords.term %}
 
-                            {%  for keywordsAdv in keywords.term %}
+                            <span class="btn btn-default keywordsLinasDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
 
-                                <li class="btn btn-default keywordsLinasDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
-
-                            {% endfor %}
-
-                        </ul>
+                        {% endfor %}
 
                     {% endif %}
 
@@ -167,15 +152,11 @@
 
                         {% endif %}
 
-                        <ul>
+                        {%  for keywordsAdv in keywords.term %}
 
-                            {%  for keywordsAdv in keywords.term %}
+                            <span class="btn btn-default keywordsLinasDisplay">{{ keywordsAdv['#text']|d('de mots clés') }} </span>
 
-                                <li class="btn btn-default keywordsLinasDisplay">{{ keywordsAdv['#text']|d('de mots clés') }} </li>
-
-                            {% endfor %}
-
-                         </ul>
+                        {% endfor %}
 
                     {% endif %}
 
@@ -185,10 +166,14 @@
             </section>
         </section>
 
-        <section class="completArticle row col-lg-12">
-            <h2 class="h2FullArticle col-lg-8">Article Complet: </h2>
-            <article class="fullArticle col-lg-8"> </article>
-        </section>
+            <section class="completArticle row col-lg-12">
+               <h2 class="h2FullArticle col-lg-8">Article Complet: </h2>
+                <article class="fullArticle col-lg-8">
+
+                </article>
+            </section>
+
+
 
 
 {% endblock %}
