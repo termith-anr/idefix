@@ -42,7 +42,7 @@
 
             <section class="col-lg-6 sectionRightDisplayDocs">
                 <h2 class="h2SectionsDisplayDocs bgRed">Mots Clés: </h2>
-            <ul class="ulSectionRightDisplayDocs">
+                <div class="divSectionRightDisplayDocs">
 
 
                 {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
@@ -52,11 +52,15 @@
 
                         <h3 class="h3KeywordsDisplayDocs">Utilitaires:</h3>
 
-                        {%  for keywordsAdv in keywords.term %}
+                        <ul>
 
-                             <span class="btn btn-default keywordsUtilsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
+                            {%  for keywordsAdv in keywords.term %}
 
-                        {% endfor %}
+                                 <li class="btn btn-default keywordsUtilsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                            {% endfor %}
+
+                        </ul>
 
                     {% endif %}
 
@@ -70,17 +74,21 @@
 
                         {% endif %}
 
-                        {% if keywords['xml#lang'] == 'en' %}
+                        {% elif keywords['xml#lang'] == 'en' %}
 
                             <div class="englandFlag"><div class="englandFlagVertical"></div><div class="englandFlagHorizontal"></div></div>
 
                         {% endif %}
 
-                        {%  for keywordsAdv in keywords.term %}
+                        </ul>
 
-                            <span class="btn btn-default keywordsinistDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
+                            {%  for keywordsAdv in keywords.term %}
 
-                        {% endfor %}
+                                <li class="btn btn-default keywordsinistDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                            {% endfor %}
+
+                        </ul>
 
                     {% endif %}
 
@@ -101,11 +109,15 @@
 
                         {% endif %}
 
-                        {%  for keywordsAdv in keywords.term %}
+                        <ul>
 
-                            <span class="btn btn-default keywordsAuthorsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
+                            {%  for keywordsAdv in keywords.term %}
 
-                        {% endfor %}
+                                <li class="btn btn-default keywordsAuthorsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                            {% endfor %}
+
+                        </ul>
 
                     {% endif %}
 
@@ -126,11 +138,15 @@
 
                         {% endif %}
 
-                        {%  for keywordsAdv in keywords.term %}
+                        <ul>
 
-                            <span class="btn btn-default keywordsLinasDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
+                            {%  for keywordsAdv in keywords.term %}
 
-                        {% endfor %}
+                                <li class="btn btn-default keywordsLinasDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                            {% endfor %}
+
+                        </ul>
 
                     {% endif %}
 
@@ -151,28 +167,28 @@
 
                         {% endif %}
 
-                        {%  for keywordsAdv in keywords.term %}
+                        <ul>
 
-                            <span class="btn btn-default keywordsLinasDisplay">{{ keywordsAdv['#text']|d('de mots clés') }} </span>
+                            {%  for keywordsAdv in keywords.term %}
 
-                        {% endfor %}
+                                <li class="btn btn-default keywordsLinasDisplay">{{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                            {% endfor %}
+
+                         </ul>
 
                     {% endif %}
 
                 {% endfor %}
 
-            </ul>
+            </div>
             </section>
         </section>
 
-            <section class="completArticle row col-lg-12">
-               <h2 class="h2FullArticle col-lg-8">Article Complet: </h2>
-                <article class="fullArticle col-lg-8">
-
-                </article>
-            </section>
-
-
+        <section class="completArticle row col-lg-12">
+            <h2 class="h2FullArticle col-lg-8">Article Complet: </h2>
+            <article class="fullArticle col-lg-8"> </article>
+        </section>
 
 
 {% endblock %}

@@ -75,6 +75,12 @@ function parseWordPonct(word, ponct, ponctUsed) {
         }
 
         html += punctuation + word['#text'] + whiteSpace;
+
+        if(word.w){                     // WARNING: should not happen
+            console.warn("WARNING: w shoud not happen within another w");
+            console.warn(word);
+            html += word.w['#text'] + (word.w.wsAfter === "true" ? " " : "");
+        }
     }
     //console.log('w:%s', html);
     return { html: html, ponctUsed: ponctUsed };
