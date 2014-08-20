@@ -32,18 +32,22 @@ function parseGeneric (element) {
 
             var h = Number(value['subtype'].substr(5)) + 2;
 
-            html += '<h' + h + ' class="headFullArticle">' + parseGeneric(value) + '</h' + h + '>';
+            html += '<h' + h + ' class="headFullArticle h3FullArticle">' + parseGeneric(value) + '</h' + h + '>';
 
         }
         else if (key === 'p') {
             //console.log("default:%s", key);
-            html += '<p>' + parseGeneric(value) + '</p>';
+            html += '<p class="pFullArticle">' + parseGeneric(value) + '</p>';
         }
 
+        /*else if (key === 'rend' && value === 'figure-title') {
+            //console.log('figure-title');
+            html += '<figure><figcaption>' + parseWordPonct(element.w) + '</figcaption> '
+        }*/
+
         else if (key === 'graphic') {
-            //console.log("default:%s", key);
-            console.log(value.url);
-            html += '<h1/>' + value.url + '</h1>';
+            //console.log(value.url, typeof value.url);
+            html += '<img style="margin: 0 auto;display:block;padding-top:20px;padding-bottom:20px;" src="' + value['url'] + '"/>';
             parseGeneric(value);
         }
         else {
@@ -59,6 +63,16 @@ function parseGeneric (element) {
 
     if (typeof element === 'string') { // Nothing to do with that yet!
         return "";
+    }
+
+    if(element['rend'] == 'figure-title'){
+        var obj = Object.keys(element, which);
+        var texte="";
+                obj.each(function (e) {
+                    texte += parseGeneric(e);
+                });
+        console.log(texte);
+        //html += '<figure><figcaption>' + parseWordPonct(obj.w) + '</figcaption></figure>';
     }
 
     if ((element instanceof Array)  && (element.length > 0)) { // If it's an Array

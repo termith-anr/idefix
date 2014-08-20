@@ -502,6 +502,8 @@ table tr[data-href] {
     color:#333;
     font-family: 'segoepr';
     font-size: 35px;
+    padding-bottom: 20px;
+    padding-top: 20px;
 }
 
 .fullArticle{
@@ -530,4 +532,8 @@ table tr[data-href] {
     margin: 0 auto;
     max-width:100%;
 
+}
+
+.pFullArticle{
+    padding: 15px;
 }
