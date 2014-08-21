@@ -52,12 +52,15 @@
 
                         <h3 class="h3KeywordsDisplayDocs">Utilitaires:</h3>
 
+                        <ul>
 
-                        {%  for keywordsAdv in keywords.term %}
+                            {%  for keywordsAdv in keywords.term %}
 
-                             <span class="btn btn-default keywordsUtilsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
+                                 <li class="btn btn-default keywordsUtilsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
 
-                        {% endfor %}
+                            {% endfor %}
+
+                        </ul>
 
                     {% endif %}
 
@@ -77,11 +80,15 @@
 
                         {% endif %}
 
-                        {%  for keywordsAdv in keywords.term %}
+                        <ul>
 
-                            <span class="btn btn-default keywordsinistDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
+                            {%  for keywordsAdv in keywords.term %}
 
-                        {% endfor %}
+                                <li class="btn btn-default keywordsinistDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                            {% endfor %}
+
+                        </ul>
 
                     {% endif %}
 
@@ -102,11 +109,15 @@
 
                         {% endif %}
 
-                        {%  for keywordsAdv in keywords.term %}
+                        <ul>
 
-                            <span class="btn btn-default keywordsAuthorsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
+                            {%  for keywordsAdv in keywords.term %}
 
-                        {% endfor %}
+                                <li class="btn btn-default keywordsAuthorsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                            {% endfor %}
+
+                        </ul>
 
                     {% endif %}
 
@@ -127,11 +138,15 @@
 
                         {% endif %}
 
-                        {%  for keywordsAdv in keywords.term %}
+                        <ul>
 
-                            <span class="btn btn-default keywordsLinasDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </span>
+                            {%  for keywordsAdv in keywords.term %}
 
-                        {% endfor %}
+                                <li class="btn btn-default keywordsLinasDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                            {% endfor %}
+
+                        </ul>
 
                     {% endif %}
 
@@ -152,11 +167,16 @@
 
                         {% endif %}
 
-                        {%  for keywordsAdv in keywords.term %}
 
-                            <span class="btn btn-default keywordsLinasDisplay">{{ keywordsAdv['#text']|d('de mots clés') }} </span>
+                        <ul>
 
-                        {% endfor %}
+                            {%  for keywordsAdv in keywords.term %}
+
+                                <li class="btn btn-default keywordsLinasDisplay">{{ keywordsAdv['#text']|d('de mots clés') }} </li>
+
+                            {% endfor %}
+
+                        </ul>
 
                     {% endif %}
 
