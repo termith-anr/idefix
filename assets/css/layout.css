@@ -52,7 +52,9 @@ body {
 }
 
 #content{
-    width:100%;
+    height: auto;
+    margin: 0 auto;
+    float:none;
 }
 
 #bodyBrowse{
@@ -81,6 +83,7 @@ body {
     margin-bottom: 70px;
     border-radius: 75px 0 75px 0;
 }
+
 
 .resumeAndKeywords{
     margin: 0 auto;
@@ -292,20 +295,71 @@ table tr[data-href] {
 */
 
 
-.h1DisplayDocs{
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: 2px solid #fff;
-    border-radius: 75px 0;
-    color: #fff;
-    font-family: verdana;
-    font-size: 23px;
-    margin: 0 auto;
-    float:none;
-    padding-left:5%;
-    padding-right:5%;
-    padding-bottom: 50px;
-    padding-top: 50px;
+
+.headerDisplayInfos{
+    padding:0;
+    margin:0;
+}
+
+.authorAndyear{
+    padding:0;
+    margin:0;
+    height:300px;
+}
+
+.displayYear{
+    background: #44B2BA ;
+    color:  #fff;
+    font-family: 'segoeuisl';
+    height: 100px;
     text-align: center;
+    font-size: 27px;
+    line-height: 3.5;
+}
+
+.displayAuthor{
+    padding:4px;
+    color: #fff;
+    background: #34CDB8;
+    font-family: 'segoepr';
+    height: 100px;
+    text-align: center;
+    font-size: 27px;
+    line-height: 3.5;
+}
+
+.displayMark{
+    padding:4px;
+    background: #FFA65A;
+    color: #fff;
+    font-family: 'segoepr';
+    height: 100px;
+    text-align: center;
+    font-size: 27px;
+    line-height: 3.5;
+}
+
+.divHoverH1Display{
+    height:300px;
+    line-height: 300px;
+    border-bottom: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-top: 2px solid #fff;
+}
+
+
+#h1DisplayDocs{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+
+    color: #fff;
+    float: none;
+    font-family: verdana;
+    font-size: 26px;
+    margin: 0 auto;
+    text-align: center;
+    vertical-align:middle;
+    display:inline-block;
+    line-height:normal;
 }
 
 
@@ -564,3 +618,4 @@ table tr[data-href] {
 .figcaptionFullArticle{
     margin-bottom:10px;
 }
+
