@@ -17,6 +17,7 @@ function parseGeneric(element){
     // cases of key (div , w , p...)
     var which = function  (key, value) {
 
+
         switch(key){
 
 
@@ -24,21 +25,45 @@ function parseGeneric(element){
                 html += parseGeneric(value);
                 break;
 
+            case 'ref':
+                html += '<dfn class="defPictures">' + parseWordPonct(element['w'], element.pc , 0).html + '</dfn>';
+                break;
+
             case 'rend':
                 if(value === 'figure-title')
-                {html += '<figure><figcaption>' + parseWordPonct(element.w, element.pc , 0).html + '</figcaption>';}
+                {html += '<figure class="figureFullArticle"><figcaption class="bold figcaptionFullArticle">' + parseWordPonct(element['w'], element.pc , 0).html + '</figcaption>';}
+                else if(value === 'italic')
+                {html += '<em lang="en" class="italic">' + parseWordPonct(element['w'], element.pc , 0).html + '</em>';}
                 break;
 
             case 'w':
-                if(element['rend'] !== 'figure-title'){html += parseWordPonct(value, element['pc'], 0).html;}
+                if((element['rend'] !== 'figure-title') && (element['rend'] !== 'italic') && (!element['ref'])){html += parseWordPonct(value, element['pc'], 0).html ;}
                 break;
 
             case 'head':
                 var h = Number(value['subtype'].substr(5)) + 2;
                 html += '<h' + h + ' class="headFullArticle h3FullArticle">' + parseGeneric(value) + '</h' + h + '>';
                 break;
+
             case 'p':
-                html += '<p class="pFullArticle">' + parseGeneric(value) + '</p>';
+                if(value instanceof Array){
+                    value.each( function(p){
+                        if(p.w) {
+                            html += '<div class="pFullArticle">' + parseGeneric(p) + '</div>';
+                        }
+                        else{
+                            html +=  parseGeneric(p);
+                        }
+                    });
+                }
+                else {
+                    if(value.w) {
+                        html += '<div class="pFullArticle">' + parseGeneric(value) + '</div>';
+                    }
+                    else{
+                        html +=  parseGeneric(value);
+                    }
+                }
                 break;
 
             case 'graphic':

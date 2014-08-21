@@ -36,6 +36,15 @@
     background: #ff7a85;
 }
 
+.italic{
+    font-style: italic;
+    font-size: 12px;
+}
+
+.bold{
+    font-weight: bold;
+}
+
 
 body {
     width: 100%;
@@ -53,6 +62,7 @@ body {
 #divOverTableBrowse{
     margin: 0 auto;
     float:none;
+    padding: 0;
 }
 
 
@@ -68,13 +78,14 @@ body {
     background: none;
     border: 2px solid #fff;
     margin: 0 auto;
-    margin-bottom: 80px;
+    margin-bottom: 70px;
     border-radius: 75px 0 75px 0;
 }
 
 .resumeAndKeywords{
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
+    float:none;
 }
 
 #browseTable{
@@ -287,7 +298,7 @@ table tr[data-href] {
     border-radius: 75px 0;
     color: #fff;
     font-family: verdana;
-    font-size: 27px;
+    font-size: 23px;
     margin: 0 auto;
     float:none;
     padding-left:5%;
@@ -301,11 +312,15 @@ table tr[data-href] {
 .sectionLeftDisplayDocs{
     margin-top: 99px;
     text-align:center;
+    padding: 0;
+
+
 }
 
 .sectionRightDisplayDocs{
     margin-top: 99px;
     text-align:center;
+    padding:0;
 }
 
 
@@ -314,12 +329,17 @@ table tr[data-href] {
     font-family: 'segoeuisl';
     font-size: 19px;
     margin: 0 auto;
-    padding: 60px;
-    width: 80%;
+    padding: 18px;
+    width: 100%;
+    border-left: 6px solid #FFA65A;
+    border-bottom: 6px solid #FFA65A;
 }
 
 .divSectionRightDisplayDocs{
     padding: 60px;
+    border-left: 6px dotted #fff;
+    border-right: 6px solid #FF7A85;
+    border-bottom: 6px solid #FF7A85;
 }
 
 .h2SectionsDisplayDocs{
@@ -328,7 +348,6 @@ table tr[data-href] {
     font-family: 'segoeprb';
     font-size: 30px;
     margin: 0 auto;
-    max-width: 80%;
     padding: 26px;
 }
 
@@ -536,4 +555,12 @@ table tr[data-href] {
 
 .pFullArticle{
     padding: 15px;
+}
+
+.figureFullArticle{
+    text-align: center;
+}
+
+.figcaptionFullArticle{
+    margin-bottom:10px;
 }
