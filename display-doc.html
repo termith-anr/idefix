@@ -220,4 +220,19 @@
         <script src="assets/js/parseWordPonct.function.js"></script>
         <script src="assets/js/parseGeneric.function.js"></script>
         <script src="assets/js/dmap.js"></script>
+        <script>
+            window.b = 0;
+            $("#sectionResumeDisplayDocs").off('click').click(function(){
+                if(window.b === 0) {
+                    $("#content").css({"opacity" : "0.5"});
+
+                    window.b = 1;
+                }
+                else{
+                    $("#content").css({"opacity" : "1"});
+                    window.b = 0;
+                }
+            });
+
+        </script>
     {% endblock %}
