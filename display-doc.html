@@ -37,14 +37,14 @@
 
         <section class="resumeKeywordsFull col-lg-12">
 
-            <section class="sectionCompletArticle col-lg-3">
+            <section id="sectionCompletArticle" class="col-lg-3">
                 <h2 class="h2FullArticle col-lg-12">Article Complet: </h2>
-                <article class="fullArticle col-lg-12"></article>
+                <article id="fullArticle" class="col-lg-12"></article>
             </section>
 
-            <section class="col-lg-6 sectionResumeDisplayDocs">
+            <section id="sectionResumeDisplayDocs" class="col-lg-6">
                 <h2 class="h2SectionsDisplayDocs test">Résumé: </h2>
-                <article class="articleSectionLeftDisplayDocs">
+                <article id="articleSectionResumeDisplay" class="">
 
                     {% if item.content.json.TEI.teiHeader.profileDesc.abstract['xml#lang'] == 'fr' %}
 
@@ -61,9 +61,9 @@
                 </article>
             </section>
 
-            <section class="col-lg-3 sectionKeywordsDocs">
+            <section id="sectionKeywordsDocs" class="col-lg-3">
                 <h2 class="h2SectionsDisplayDocs bgRed">Mots Clés: </h2>
-                <div class="divSectionRightDisplayDocs">
+                <div  id="divSectionKeywordsDisplay" class="">
 
 
                     {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}

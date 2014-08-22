@@ -14,7 +14,7 @@ $(document).ready(function() {
     .get('/display-'+ wid +'.json')
     .end(function(res){
         var html = parseGeneric(res.body.item.content.json.TEI.text.body.div , 0);
-        $('.fullArticle').append(html);
+        $('#fullArticle').append(html);
         /*console.log("HTML: %s", html);*/
     });
 

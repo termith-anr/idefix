@@ -366,7 +366,7 @@ table tr[data-href] {
 }
 
 
-.sectionResumeDisplayDocs{
+#sectionResumeDisplayDocs{
     margin-top: 0px;
     text-align:center;
     padding: 0;
@@ -374,33 +374,44 @@ table tr[data-href] {
 
 }
 
-.sectionKeywordsDocs{
+#sectionKeywordsDocs{
     margin-top: 0px;
     text-align:center;
     padding:0;
 }
 
 
-.articleSectionLeftDisplayDocs{
+#articleSectionResumeDisplay{
     color: #fff;
     font-family: 'segoeuisl';
     font-size: 19px;
     margin: 0 auto;
     padding: 18px;
     width: 100%;
+    border-bottom: 12px solid #BB9FF5;
     border-left: 6px dotted #fff;
-    border-bottom: 6px solid #BB9FF5;
+    height: 300px;
+    max-height:300px;
+    overflow: hidden;
+    word-wrap: break-word;
+
+
 }
 
-.divSectionRightDisplayDocs{
-    padding: 0px;
+#divSectionKeywordsDisplay{
+    padding-left: 6px;
     padding-top:60px;
     border-left: 6px dotted #fff;
-    border-right: 6px solid #FF7A85;
-    border-bottom: 6px solid #FF7A85;
+    border-right: 12px solid #FF7A85;
+    border-bottom: 12px solid #FF7A85;
+    height: 300px;
+    max-height:300px;
+    overflow: hidden;
+    word-wrap: break-word;
+
 }
 
-.divSectionRightDisplayDocs ul{
+#divSectionKeywordsDisplay ul{
     padding: 0;
     max-width: 100%;
     overflow: hidden;
@@ -414,6 +425,8 @@ table tr[data-href] {
     font-size: 30px;
     margin: 0 auto;
     padding: 26px;
+    transition: all 750ms;
+
 }
 
 
@@ -565,11 +578,59 @@ table tr[data-href] {
 *Under : Full article
 */
 
-.sectionCompletArticle{
+#sectionCompletArticle{
     padding:0;
     margin:0;
 
 }
+
+#sectionCompletArticle:hover .h2FullArticle{
+    background: #fff;
+    color: #555;
+}
+
+#sectionCompletArticle:hover #fullArticle{
+    border-color: #fff;
+    border-right: 6px solid #fff;
+    padding-right: 12px;
+}
+
+#sectionCompletArticle:hover ~ #sectionResumeDisplayDocs #articleSectionResumeDisplay{
+    border-left: none;
+    padding-left: 23px;
+}
+
+
+
+#sectionKeywordsDocs:hover .h2SectionsDisplayDocs{
+    background: #fff;
+    color: #555;
+}
+
+#sectionKeywordsDocs:hover #divSectionKeywordsDisplay{
+    border-color: #fff;
+    border-left: 6px solid #fff;
+}
+
+#sectionResumeDisplayDocs:hover .h2SectionsDisplayDocs{
+    background: #fff;
+    color: #555;
+}
+
+#sectionResumeDisplayDocs:hover #articleSectionResumeDisplay{
+    border-color: #fff;
+    border-right: 6px solid #fff;
+    border-left: 6px solid #fff;
+    padding-right: 13px;
+}
+
+#sectionResumeDisplayDocs:hover ~ #sectionKeywordsDocs #divSectionKeywordsDisplay{
+    border-left: none;
+    padding-left:12px;
+
+}
+
+
 
 .h2FullArticle{
     color:#fff;
@@ -581,6 +642,7 @@ table tr[data-href] {
     font-size: 30px;
     padding: 26px;
     background: #D98E66;
+    transition: all 750ms;
 }
 
 .h3FullArticle{
@@ -592,15 +654,19 @@ table tr[data-href] {
     text-align: center;
 }
 
-.fullArticle{
+#fullArticle{
     color: #fff;
     margin: 0 auto;
     float:none;
     height: auto;
     margin-top:0;
-    padding:3%;
-    border-bottom: 6px solid #D98E66;
-    border-left: 6px solid #D98E66;
+    padding:18px;
+    border-bottom: 12px solid #D98E66;
+    border-left: 12px solid #D98E66;
+    height: 300px;
+    max-height:300px;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
 .divFullArticle{
