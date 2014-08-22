@@ -36,6 +36,11 @@
     background: #ff7a85;
 }
 
+.test{
+    background: #bb9ff5;
+
+}
+
 .italic{
     font-style: italic;
     font-size: 12px;
@@ -85,7 +90,7 @@ body {
 }
 
 
-.resumeAndKeywords{
+.resumeKeywordsFull{
     margin: 0 auto;
     padding: 0;
     float:none;
@@ -342,37 +347,35 @@ table tr[data-href] {
 .divHoverH1Display{
     height:300px;
     line-height: 300px;
-    border-bottom: 2px solid #fff;
-    border-left: 2px solid #fff;
-    border-top: 2px solid #fff;
+    background: #5bb1fc;
 }
 
 
 #h1DisplayDocs{
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-
     color: #fff;
     float: none;
-    font-family: verdana;
-    font-size: 26px;
+    font-family: 'segoeuisl';
+    font-size: 24px;
     margin: 0 auto;
     text-align: center;
     vertical-align:middle;
     display:inline-block;
     line-height:normal;
+    padding: 30px;
 }
 
 
-.sectionLeftDisplayDocs{
-    margin-top: 99px;
+.sectionResumeDisplayDocs{
+    margin-top: 0px;
     text-align:center;
     padding: 0;
 
 
 }
 
-.sectionRightDisplayDocs{
-    margin-top: 99px;
+.sectionKeywordsDocs{
+    margin-top: 0px;
     text-align:center;
     padding:0;
 }
@@ -385,15 +388,23 @@ table tr[data-href] {
     margin: 0 auto;
     padding: 18px;
     width: 100%;
-    border-left: 6px solid #FFA65A;
-    border-bottom: 6px solid #FFA65A;
+    border-left: 6px dotted #fff;
+    border-bottom: 6px solid #BB9FF5;
 }
 
 .divSectionRightDisplayDocs{
-    padding: 60px;
+    padding: 0px;
+    padding-top:60px;
     border-left: 6px dotted #fff;
     border-right: 6px solid #FF7A85;
     border-bottom: 6px solid #FF7A85;
+}
+
+.divSectionRightDisplayDocs ul{
+    padding: 0;
+    max-width: 100%;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
 .h2SectionsDisplayDocs{
@@ -554,39 +565,42 @@ table tr[data-href] {
 *Under : Full article
 */
 
-.completArticle{
+.sectionCompletArticle{
     padding:0;
     margin:0;
+
 }
 
 .h2FullArticle{
     color:#fff;
-    background: #bb9ff5;
     text-align: center;
     margin: 0 auto;
     float:none;
-    margin-top:70px;
+    margin-top:0px;
     font-family: 'segoeprb';
     font-size: 30px;
     padding: 26px;
+    background: #D98E66;
 }
 
 .h3FullArticle{
-    color:#333;
+    color:#fff;
     font-family: 'segoepr';
     font-size: 35px;
     padding-bottom: 20px;
     padding-top: 20px;
+    text-align: center;
 }
 
 .fullArticle{
-    background: #fff;
-    color: #333;
+    color: #fff;
     margin: 0 auto;
     float:none;
     height: auto;
     margin-top:0;
     padding:3%;
+    border-bottom: 6px solid #D98E66;
+    border-left: 6px solid #D98E66;
 }
 
 .divFullArticle{
