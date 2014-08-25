@@ -11,19 +11,6 @@
 
     <div id="content" class="col-lg-10">
 
-        <header>
-            <nav>
-                <ul>
-                    <li>
-                        <a href=""></a>
-                    </li>
-                    <li>
-                        <a href=""></a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-
         <header class="row col-lg-12 headerDisplayInfos" style="height:300px">
 
             <div class="col-lg-8 divHoverH1Display" ><h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre pour ce documents') }}</h1></div>
@@ -248,11 +235,22 @@
                 }
             });*/
 
-            $("#sectionResumeDisplayDocs").click(function(){
-                $("#showOnClickDiv").removeAttr('id').show().addClass('col-lg-10 showOnClickDivView');
-                jQuery(this).clone().appendTo("#showOnClickDiv");
-                jQuery(this).removeClass('col-lg-6').addClass('sectionResumeDisplayDocsView col-lg-12');
-            });
+                $("#sectionResumeDisplayDocs").click(function () {
+                    if(!(window.resumeClone)) {
+                        var $theClone = jQuery(this).clone();
+                        $theClone.appendTo('#showOnClickDiv');
+                        $div = $('#showOnClickDiv');
+                        $div.show().addClass('showOnClickDivView');
+                        $div.find('h2').css({'background':'#fff', 'color': '#333'}).append('<span class="glyphicon glyphicon-remove crossToQuit"></span>');
+                        $div.find('#sectionResumeDisplayDocs').removeClass('col-lg-6').addClass('col-lg-12').css('border' , '8px solid #fff');
+                        $div.find('article').addClass('articleSectionResumeDisplayView').css('border', 'none');
+                        $('#content').fadeTo( 500 , 0.12 );;
+                        window.resumeClone = 1;
+
+
+                    }
+                });
+
 
         </script>
     {% endblock %}
