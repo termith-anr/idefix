@@ -6,28 +6,40 @@
 </head>
 <body id="bodyBrowse">
 
-    <header>
-        <nav>
-            <ul>
-                <li>
-                    <a href=""></a>
-                </li>
-                <li>
-                    <a href=""></a>
-                </li>
-            </ul>
-        </nav>
-    </header>
+    <div id="showOnClickDiv"></div>
 
 
     <div id="content" class="col-lg-10">
+
+        <header>
+            <nav>
+                <ul>
+                    <li>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <a href=""></a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
 
         <header class="row col-lg-12 headerDisplayInfos" style="height:300px">
 
             <div class="col-lg-8 divHoverH1Display" ><h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre pour ce documents') }}</h1></div>
 
             <section class="authorAndyear col-lg-4">
-                <div class="col-lg-12 displayAuthor">{{item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].forename['#text']|d('Pas d\'auteur') +" " + item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].surname['#text']|d(" ") }}</div>
+                <div class="col-lg-12 displayAuthor">
+                    {% if item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.forename['#text'] %}
+                        {{item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.forename['#text']|d('Pas d\'auteur') +" " + item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.surname['#text']|d(" ") }}
+                    {% elif item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName[0] %}
+                        {% for authors in item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName %}
+                            {{ authors.forename['#text'] + ' ' + authors.surname['#text'] + '.' }}
+                        {% endfor %}
+                    {% else %}
+                        <p>?</p>
+                    {% endif %}
+                </div>
                 <div class="col-lg-12 displayYear">{{item.content.json.TEI.teiHeader.fileDesc.publicationStmt.availability.licence["notBefore"]|d('Pas d\'année') }}</div>
                 <div class="col-lg-12 displayMark">{{ item.mark|d('/20') }}</div>
             </section>
@@ -222,16 +234,24 @@
         <script src="assets/js/dmap.js"></script>
         <script>
             window.b = 0;
-            $("#sectionResumeDisplayDocs").off('click').click(function(){
+           /* $("#sectionResumeDisplayDocs").click(function(){
                 if(window.b === 0) {
-                    $("#content").css({"opacity" : "0.5"});
-
+                    $("#content").css({"opacity" : "0.2"});
                     window.b = 1;
+                    $("#articleSectionResumeDisplay")
+                            .appendTo("#showOnClickDiv").addClass('articleSectionResumeDisplayFull');
+                    $("#showOnClickDiv").show().addClass('showOnClickDivView col-lg-10', 10000, 'easeInBack').css('background', '#bb9ff5');
                 }
                 else{
                     $("#content").css({"opacity" : "1"});
                     window.b = 0;
                 }
+            });*/
+
+            $("#sectionResumeDisplayDocs").click(function(){
+                $("#showOnClickDiv").removeAttr('id').show().addClass('col-lg-10 showOnClickDivView');
+                jQuery(this).clone().appendTo("#showOnClickDiv");
+                jQuery(this).removeClass('col-lg-6').addClass('sectionResumeDisplayDocsView col-lg-12');
             });
 
         </script>
