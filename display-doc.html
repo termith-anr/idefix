@@ -24,7 +24,7 @@
 
         <header class="row col-lg-12 headerDisplayInfos" style="height:300px">
 
-            <div class="col-lg-8 divHoverH1Display" ><h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre pour ce documents') }}</h1></div>
+            <div class="col-lg-8 divHoverH1Display" ><h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre pour ce document') }}</h1></div>
 
             <section class="authorAndyear col-lg-4">
                 <div class="col-lg-12 displayAuthor">{{item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].forename['#text']|d('Pas d\'auteur') +" " + item.content.json.TEI.teiHeader.fileDesc.titleStmt.respStmt.persName[0].surname['#text']|d(" ") }}</div>
