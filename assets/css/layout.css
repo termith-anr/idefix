@@ -37,7 +37,7 @@ html{
 }
 
 .bgRed{
-    background: #ff7a85;
+    background: #FF7471;
 }
 
 .test{
@@ -85,6 +85,7 @@ body > header{
     float:none;
     top: 5%;
     padding: 0;
+    box-shadow: 6px 6px 1px #444;
 }
 
 #bodyBrowse{
@@ -382,6 +383,8 @@ table tr[data-href] {
     vertical-align:middle;
     display:table-cell;
     line-height:normal;
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 
@@ -406,12 +409,9 @@ table tr[data-href] {
     margin: 0 auto;
     padding: 18px;
     width: 100%;
-    border-bottom: 12px solid #BB9FF5;
-    border-left: 6px dotted #fff;
-    height: 300px;
-    max-height:300px;
     overflow: hidden;
     word-wrap: break-word;
+    background: #5BB1FC;
 }
 
 .articleSectionResumeDisplayView{
@@ -451,7 +451,7 @@ table tr[data-href] {
     color: #fff;
     float: none;
     font-family: 'segoeprb';
-    font-size: 30px;
+    font-size: 38px;
     margin: 0;
     padding: 26px;
     transition: all 750ms;
@@ -459,27 +459,31 @@ table tr[data-href] {
 }
 
 
-.h3KeywordsDisplayDocs{
-    color:#fff;
-    font-size:25px;
+.h3KeywordsDisplayDocs {
+    background: none repeat scroll 0 0 white;
+    border-radius: 10px;
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+    color: #333;
     font-family: 'segoepr';
-    margin-bottom:25px;
-    padding:20px;
-    border-top: 2px solid rgba(255, 255, 255, .4);
-    margin-top: 50px;
-    padding-top: 20px;
+    font-size: 25px;
+    margin: 50px auto 0;
+    padding: 20px;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
 }
 
 .h3KeywordsDisplayDocs:first-Child{
     border:0;
     margin-top:0;
-    padding-top: 0px;
+    margin-top: 50px;
 }
 
 .keywordsUtilsDisplay{
     background-image:none;
-    background: #FF7A85;
-    color:#fff;
+    background: #fff;
+    color:#333;
     border:0;
     margin:6px;
     font-size: 16px;
@@ -497,8 +501,8 @@ table tr[data-href] {
 
 .keywordsinistDisplay{
     background-image:none;
-    background: #5bb1fc;
-    color:#fff;
+    background: #fff;
+    color:#333;
     border:0;
     margin:6px;
     font-size: 16px;
@@ -517,8 +521,8 @@ table tr[data-href] {
 
 .keywordsAuthorsDisplay{
     background-image:none;
-    background: #BB9FF5;
-    color:#fff;
+    background: #fff;
+    color:#333;
     border:0;
     margin:6px;
     font-size: 16px;
@@ -536,8 +540,8 @@ table tr[data-href] {
 
 .keywordsLinasDisplay{
     background-image:none;
-    background: #44b2ba;
-    color:#fff;
+    background: #fff;
+    color:#333;
     border:0;
     margin:6px;
     font-size: 16px;
