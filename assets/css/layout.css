@@ -352,7 +352,7 @@ table tr[data-href] {
     background: #34CDB8;
     font-family: 'segoe';
     text-align: center;
-    font-size: 14px;
+    font-size: 17px;
 }
 
 .displayMark{
@@ -411,7 +411,7 @@ table tr[data-href] {
     width: 100%;
     overflow: hidden;
     word-wrap: break-word;
-    background: #5BB1FC;
+    background: #D98E66;
 }
 
 .articleSectionResumeDisplayView{
@@ -451,7 +451,7 @@ table tr[data-href] {
     color: #fff;
     float: none;
     font-family: 'segoeprb';
-    font-size: 38px;
+    font-size: 25px;
     margin: 0;
     padding: 26px;
     transition: all 750ms;
@@ -461,7 +461,7 @@ table tr[data-href] {
 
 .h3KeywordsDisplayDocs {
     background: none repeat scroll 0 0 white;
-    border-radius: 10px;
+    border-radius: 5px;
     border-top: 2px solid rgba(255, 255, 255, 0.3);
     color: #333;
     font-family: 'segoepr';
