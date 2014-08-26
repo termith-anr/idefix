@@ -26,6 +26,10 @@
     font-family: 'segoeuisl'; src: url('../fonts/segoeuisl.ttf');
 }
 
+html{
+    height: 100%;
+
+}
 
 
 .bgYellow{
@@ -54,8 +58,6 @@
 body {
     width: 100%;
     height: 100%;
-    padding-top: 50px;
-
 }
 
 body > header{
@@ -78,9 +80,11 @@ body > header{
 }
 
 #content{
-    height: auto;
+    height: 90%;
     margin: 0 auto;
     float:none;
+    top: 5%;
+    padding: 0;
 }
 
 #bodyBrowse{
@@ -337,39 +341,34 @@ table tr[data-href] {
     background: #44B2BA ;
     color:  #fff;
     font-family: 'segoeuisl';
-    height: 100px;
     text-align: center;
-    font-size: 27px;
-    line-height: 3.5;
+    font-size: 18px;
 }
 
 .displayAuthor{
-    padding:4px;
+    padding:2px;
     color: #fff;
     background: #34CDB8;
-    font-family: 'segoepr';
-    height: 100px;
+    font-family: 'segoe';
     text-align: center;
-    font-size: 27px;
-    line-height: 3.5;
+    font-size: 14px;
 }
 
 .displayMark{
-    padding:4px;
+    padding:2px;
     background: #FFA65A;
     color: #fff;
     font-family: 'segoepr';
-    height: 100px;
     text-align: center;
-    font-size: 27px;
-    line-height: 3.5;
+    font-size: 19px;
 }
 
 .divHoverH1Display{
-    height:300px;
-    line-height: 300px;
+    line-height: normal;
     background: #5bb1fc;
 }
+
+
 
 
 #h1DisplayDocs{
@@ -377,13 +376,12 @@ table tr[data-href] {
     color: #fff;
     float: none;
     font-family: 'segoeuisl';
-    font-size: 24px;
+    font-size: 15px;
     margin: 0 auto;
     text-align: center;
     vertical-align:middle;
-    display:inline-block;
+    display:table-cell;
     line-height:normal;
-    padding: 30px;
 }
 
 
@@ -454,7 +452,7 @@ table tr[data-href] {
     float: none;
     font-family: 'segoeprb';
     font-size: 30px;
-    margin: 0 auto;
+    margin: 0;
     padding: 26px;
     transition: all 750ms;
 
