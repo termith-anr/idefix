@@ -52,7 +52,7 @@
                     </div>
 
                     <!-- RESUM%E HEAD BLOC -->
-                    <div class="divHoverResume">
+                    <div class="divHoverResume" data-toggle="modal" data-target="#fullArticleModal">
                         <span class="glyphicon glyphicon-align-left resumeGliph"></span>
                         <h2 id="linkFullArticle">
                             Article Complet
@@ -230,6 +230,22 @@
                             {% endfor %}
                     </div>
             </section>
+
+            <div id="fullArticleModal" class="modal fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-2" style="display: none;">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">ARTICLE COMPLET</h4>
+            </div>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <article id="fullArticle" class="col-lg-12"></article>
+                </div>
+            </div>
+
+
+
+            </div>
 
 
 
@@ -443,7 +459,8 @@
         <script src="assets/js/parseGeneric.function.js"></script>
         <script src="assets/js/dmap.js"></script>
         <script src="assets/js/jquery.fs.scroller.min.js"></script>
-        <script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+            <script>
 
             $("#sectionArticle").scroller({
                 customClass: "advanced",

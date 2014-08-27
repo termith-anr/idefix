@@ -477,6 +477,8 @@ table tr[data-href] {
     height: 15%;
     display:table;
     width: 100%;
+    transition: all 650ms;
+    cursor: pointer;
 }
 
 .resumeGliph{
@@ -489,6 +491,7 @@ table tr[data-href] {
     width: 0;
     background: #D98E66;
     color:#fff;
+    transition: all 650ms;
 }
 
 #linkFullArticle{
@@ -499,14 +502,15 @@ table tr[data-href] {
     font-size:18px;
     font-family: 'segoeprb';
     color:#fff;
+    transition: all 650ms;
 }
 
-.divHoverResum:hover + h2{
+.divHoverResume:hover #linkFullArticle{
     background: #ffffff !important;
-    color: #333 !important;
+    color: #444 !important;
 }
 
-.divHoverResume:hover + span {
+.divHoverResume:hover  span{
     background: #ffffff !important;
     color: #333 !important;
 }
@@ -515,6 +519,8 @@ table tr[data-href] {
     background: #ffffff;
     color: #333;
 }
+
+
 
 
 
@@ -870,7 +876,7 @@ table tr[data-href] {
 }
 
 .h3FullArticle{
-    color:#fff;
+    color:#333;
     font-family: 'segoepr';
     font-size: 35px;
     padding-bottom: 20px;
@@ -879,16 +885,13 @@ table tr[data-href] {
 }
 
 #fullArticle{
-    color: #fff;
+    color: #333;
     margin: 0 auto;
     float:none;
     height: auto;
     margin-top:0;
     padding:18px;
-    border-bottom: 12px solid #D98E66;
-    border-left: 12px solid #D98E66;
-    height: 300px;
-    max-height:300px;
+    max-width:100%;
     overflow: hidden;
     word-wrap: break-word;
 }

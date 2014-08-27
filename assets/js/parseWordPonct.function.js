@@ -52,34 +52,38 @@ function parseWordPonct(word, ponct, ponctUsed) {
     else {
         // Compute white space
 
-        var whiteSpace = (word.wsAfter === "true" ? " " : ""), //add space if wsafter is true
-            punctuation = "",
-            currentPc;
+        if(!(word === undefined)) {
 
-        if ((ponct instanceof Array)  && (ponct.length > 0)) {
-            if (ponctUsed >= ponct.length) {
-                currentPc = null;
+
+            var whiteSpace = (word.wsAfter === "true" ? " " : ""), //add space if wsafter is true
+                punctuation = "",
+                currentPc;
+
+            if ((ponct instanceof Array) && (ponct.length > 0)) {
+                if (ponctUsed >= ponct.length) {
+                    currentPc = null;
+                }
+                else {
+                    currentPc = ponct[ponctUsed];
+                }
             }
+
             else {
-                currentPc = ponct[ponctUsed];
+                currentPc = ponct;
             }
-        }
 
-        else {
-            currentPc = ponct;
-        }
+            if (currentPc && currentPc['xml#id'] < word['xml#id']) { // WARNING: string comparaison instead of numbers
+                punctuation = currentPc['#text'] + (currentPc.wsAfter === "true" ? " " : "");
+                ponctUsed++; // next time: next punctuation
+            }
 
-        if (currentPc && currentPc['xml#id'] < word['xml#id']) { // WARNING: string comparaison instead of numbers
-            punctuation = currentPc['#text'] + (currentPc.wsAfter === "true" ? " " : "");
-            ponctUsed ++; // next time: next punctuation
-        }
+            html += punctuation + word['#text'] + whiteSpace;
 
-        html += punctuation + word['#text'] + whiteSpace;
-
-        if(word.w){                     // WARNING: should not happen
-            console.warn("WARNING: w shoud not happen within another w");
-            console.warn(word);
-            html += word.w['#text'] + (word.w.wsAfter === "true" ? " " : "");
+            if (word.w) {                     // WARNING: should not happen
+                console.warn("WARNING: w shoud not happen within another w");
+                console.warn(word);
+                html += word.w['#text'] + (word.w.wsAfter === "true" ? " " : "");
+            }
         }
     }
     //console.log('w:%s', html);
