@@ -113,6 +113,7 @@ body > header{
     margin: 0 auto;
     margin-bottom: 70px;
     border-radius: 75px 0 75px 0;
+    margin-top:50px;
 }
 
 
@@ -326,6 +327,17 @@ table tr[data-href] {
 */
 
 
+#leftSection{
+    height: 90%;
+    text-align: center;
+    padding:0;
+}
+
+#headerInfoDisplayDocs{
+    height:40%;
+    background:#D98E66;
+}
+
 
 .headerDisplayInfos{
     padding:0;
@@ -344,6 +356,25 @@ table tr[data-href] {
     font-family: 'segoeuisl';
     text-align: center;
     font-size: 18px;
+    height:28%;
+    display:table;
+    width: 100%;
+}
+
+.timeGliph{
+    margin: 0 auto;
+    font-size: 20px;
+    display: table-cell;
+    vertical-align: middle;
+    padding-left:7px;
+    padding-right: 7px;
+    width: 0;
+}
+
+.timeInfoDispaly{
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 23px;
 }
 
 .displayAuthor{
@@ -353,6 +384,24 @@ table tr[data-href] {
     font-family: 'segoe';
     text-align: center;
     font-size: 17px;
+    height:28%;
+    display:table;
+    width: 100%;
+}
+
+.authorGliph{
+    margin: 0 auto;
+    font-size: 20px;
+    display: table-cell;
+    vertical-align: middle;
+    padding-left:7px;
+    padding-right: 7px;
+    width: 0;
+}
+
+.authorsNameDisplayD{
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .displayMark{
@@ -362,11 +411,35 @@ table tr[data-href] {
     font-family: 'segoepr';
     text-align: center;
     font-size: 19px;
+    height:28%;
+    display:table;
+    width: 100%;
+}
+
+.markGliph{
+    margin: 0 auto;
+    font-size: 20px;
+    display: table-cell;
+    vertical-align: middle;
+    padding-left:7px;
+    padding-right: 7px;
+    width: 0;
+}
+
+.markInfoDisplay{
+    display:table-cell;
+    vertical-align: middle;
+    font-weight: bold;
+    font-size:21px;
 }
 
 .divHoverH1Display{
     line-height: normal;
     background: #5bb1fc;
+    height:10%;
+    display:table;
+    width: 100%;
+    margin: 0;
 }
 
 
@@ -376,15 +449,14 @@ table tr[data-href] {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     color: #fff;
     float: none;
-    font-family: 'segoeuisl';
-    font-size: 15px;
+    font-family: verdana;
+    font-size: 20px;
     margin: 0 auto;
     text-align: center;
     vertical-align:middle;
     display:table-cell;
     line-height:normal;
-    text-decoration: underline;
-    font-weight: bold;
+
 }
 
 
@@ -401,17 +473,118 @@ table tr[data-href] {
     padding:0;
 }
 
+.divHoverResume{
+    height: 15%;
+    display:table;
+    width: 100%;
+}
+
+.resumeGliph{
+    margin: 0 auto;
+    font-size: 20px;
+    display: table-cell;
+    vertical-align: middle;
+    padding-left:7px;
+    padding-right: 7px;
+    width: 0;
+    background: #D98E66;
+    color:#fff;
+}
+
+#linkFullArticle{
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    background: #D98E66;
+    font-size:18px;
+    font-family: 'segoeprb';
+    color:#fff;
+}
+
+.divHoverResum:hover + h2{
+    background: #ffffff !important;
+    color: #333 !important;
+}
+
+.divHoverResume:hover + span {
+    background: #ffffff !important;
+    color: #333 !important;
+}
+
+.divHoverResume:hover {
+    background: #ffffff;
+    color: #333;
+}
+
+
+
+.scroller-content{
+    padding: 0 !important;
+}
+
+#sectionArticle{
+    height:60%;
+    width: 100%;
+    max-height: 60%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#sectionArticle .scroller-content{
+
+    background:#D98E66;
+
+}
+
+#sectionArticle .scroller-handle{
+    background: none repeat scroll 0 0 #D98E66;
+    border-radius: 2px;
+}
+
+#keywordsSection{
+    max-width:90%;
+    text-align:center;
+    height:90%;
+    padding:0;
+    overflow-y: auto;
+    overflow-x:hidden;
+    hyphens: auto;
+    word-wrap: normal;
+}
+
+.keywordsGliph{
+    float:right;
+    color:#fff;
+    font-size:35px;
+    margin-top:19px;
+    margin-right:35px;
+}
+
+#keywordsSection .scroller-content{
+
+    background:#FF7471;
+
+}
+
+#keywordsSection .scroller-handle{
+    background: none repeat scroll 0 0 #FF7471;
+    border-radius: 2px;
+}
 
 #articleSectionResumeDisplay{
     color: #fff;
-    font-family: 'segoeuisl';
-    font-size: 19px;
     margin: 0 auto;
     padding: 18px;
     width: 100%;
     overflow: hidden;
     word-wrap: break-word;
     background: #D98E66;
+    font-size:16px;
+    display: table-cell;
+    vertical-align: middle;
+    max-height: 100%;
+    font-family: verdanna;
+    padding-top:5px;
 }
 
 .articleSectionResumeDisplayView{
@@ -427,6 +600,21 @@ table tr[data-href] {
 
 }
 
+#keywordsDisplayDiv{
+    padding-top: 25px;
+    background:#FF7471;
+}
+
+
+.divForListKeywords{
+    min-height: 250px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    width:75%;
+    margin: 0 auto;
+    padding-bottom:40px;
+}
+
+
 #divSectionKeywordsDisplay{
     padding-left: 6px;
     padding-top:60px;
@@ -438,6 +626,10 @@ table tr[data-href] {
     overflow: hidden;
     word-wrap: break-word;
 
+}
+
+.keywordsScrollBar{
+    background: blue;
 }
 
 #divSectionKeywordsDisplay ul{

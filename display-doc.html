@@ -11,16 +11,21 @@
 
     <div id="content" class="col-lg-10" style="border-top: 1px solid #fff;border-left: 1px solid #fff;">
 
-        <!-- <header class="row col-lg-12 headerDisplayInfos" style="height:300px"> -->
+            <!-- THE TITLE -->
+            <div class="divHoverH1Display row col-lg-12">
+                <h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|truncate( 99, False, '...') |d('Pas de titre pour ce documents') }}</h1>
+            </div>
 
-            <section class="col-lg-4" style="height: 100%;text-align: center;padding:0">
-                <header style="height:40%">
-                    <div class="divHoverH1Display" style="height:20%;display:table;width: 100%; padding:2px;">
-                        <h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|truncate( 99, False, '...') |d('Pas de titre pour ce documents') }}</h1>
-                    </div>
-                    <div class="displayAuthor" style="height:20%;display:table;width: 100%;">
-                        <span class="glyphicon glyphicon-user" style="margin: 0 auto;font-size: 20px;display: table-cell;vertical-align: middle;padding-left:7px;padding-right: 7px;width: 0;"></span>
-                        <div  style="display: table-cell;vertical-align: middle">
+            <!-- LEFT BLOC -->
+            <section id="leftSection" class="col-lg-4">
+
+                <header id="headerInfoDisplayDocs">
+
+                    <!-- AUTHORS BLOC -->
+                    <div class="displayAuthor">
+
+                        <span class="glyphicon glyphicon-user authorGliph"></span>
+                        <div  class="authorsNameDisplayD">
                             {% if item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.forename['#text'] %}
                                 <span>{{item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.forename['#text']|d('Pas d\'auteur') +" " + item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.surname['#text']|d(" ") }} </span>
                             {% elif item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName[0] %}
@@ -31,24 +36,35 @@
                                 ?
                             {% endif %}
                         </div>
+
                     </div>
-                    <div class="displayYear" style="height:20%;display:table;width: 100%;">
-                        <span class="glyphicon glyphicon-time" style="margin: 0 auto;font-size: 20px;display: table-cell;vertical-align: middle;padding-left:7px;padding-right: 7px;width: 0;"></span>
-                        <time style="display: table-cell;vertical-align: middle">{{item.content.json.TEI.teiHeader.fileDesc.publicationStmt.availability.licence["notBefore"]|d('Pas d\'année') }}</time>
+
+                    <!-- YEAR BLOC -->
+                    <div class="displayYear">
+                        <span class="glyphicon glyphicon-time timeGliph"></span>
+                        <time class="timeInfoDispaly">{{item.content.json.TEI.teiHeader.fileDesc.publicationStmt.availability.licence["notBefore"]|d('Pas d\'année') }}</time>
                     </div>
-                    <div class="displayMark" style="height:20%;display:table;width: 100%;">
-                        <span class="glyphicon glyphicon-bookmark" style="margin: 0 auto;font-size: 20px;display: table-cell;vertical-align: middle;padding-left:7px;padding-right: 7px;width: 0;"></span>
-                        <div style="display:table-cell;vertical-align: middle">{{ item.mark|d('/20') }}</div>
+
+                    <!-- MARK BLOC -->
+                    <div class="displayMark">
+                        <span class="glyphicon glyphicon-bookmark markGliph" style=""></span>
+                        <div class="markInfoDisplay">{{ item.mark|d('/4') }}</div>
                     </div>
-                    <div style="height: 20%;display:table;width: 100%;">
-                        <span class="glyphicon glyphicon-align-left" style="margin: 0 auto;font-size: 20px;display: table-cell;vertical-align: middle;padding-left:7px;padding-right: 7px;width: 0;background: #D98E66;color:#fff"></span>
-                        <h2 id="linkFullArticle" style="height: 100%;display: table-cell;vertical-align: middle;background: #D98E66;font-size:18px;font-family: 'segoeprb';color:#fff;">
+
+                    <!-- RESUM%E HEAD BLOC -->
+                    <div class="divHoverResume">
+                        <span class="glyphicon glyphicon-align-left resumeGliph"></span>
+                        <h2 id="linkFullArticle">
                             Article Complet
                         </h2>
                     </div>
+
                 </header>
-                <section style="height:60%;width: 100%;max-height: 60%;overflow-y: scroll;overflow-x: hidden">
-                    <article id="articleSectionResumeDisplay" style="display: table-cell;vertical-align: middle;max-height: 100%;overflow-y: scroll;overflow-x: hidden;font-family: verdanna">
+
+                <!-- RESUME BLOC -->
+                <section id="sectionArticle">
+
+                    <article id="articleSectionResumeDisplay" style="">
 
                         <!--{% if item.content.json.TEI.teiHeader.profileDesc.abstract['xml#lang'] == 'fr' %}
 
@@ -63,17 +79,19 @@
                         <p>{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de résumé pour cet article') }}</p>
 
                     </article>
+
                 </section>
             </section>
 
-            <section class="col-lg-8" style="max-width:90%;text-align:center;height:100%;padding:0;overflow-y: auto;overflow-x:hidden;hyphens: auto;word-wrap: normal">
+            <section id="keywordsSection" class="col-lg-8">
 
-                        <h2 class="h2SectionsDisplayDocs bgRed">Mots Clés: </h2>
-                        <div style="padding-top: 25px;background:#FFADB4" id="" class="">
+                        <span class="glyphicon glyphicon-tags keywordsGliph"></span>
+
+                        <div id="keywordsDisplayDiv">
 
                             {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
 
-                                <div style="min-height: 250px;border-bottom: 1px solid rgba(255, 255, 255, 0.5);width:75%;margin: 0 auto;padding-bottom:40px;">
+                                <div class="divForListKeywords">
 
                             {% if keywords.scheme == 'cc' %}
 
@@ -424,7 +442,17 @@
         <script src="assets/js/parseWordPonct.function.js"></script>
         <script src="assets/js/parseGeneric.function.js"></script>
         <script src="assets/js/dmap.js"></script>
+        <script src="assets/js/jquery.fs.scroller.min.js"></script>
         <script>
+
+            $("#sectionArticle").scroller({
+                customClass: "advanced",
+            });
+
+            $("#keywordsSection").scroller({
+                customClass: "advanced",
+            });
+
             window.b = 0;
            /* $("#sectionResumeDisplayDocs").click(function(){
                 if(window.b === 0) {
