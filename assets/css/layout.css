@@ -368,7 +368,7 @@ table tr[data-href] {
     vertical-align: middle;
     padding-left:7px;
     padding-right: 7px;
-    width: 0;
+    width: 1px;
 }
 
 .timeInfoDispaly{
@@ -396,7 +396,7 @@ table tr[data-href] {
     vertical-align: middle;
     padding-left:7px;
     padding-right: 7px;
-    width: 0;
+    width: 1px;
 }
 
 .authorsNameDisplayD{
@@ -423,7 +423,7 @@ table tr[data-href] {
     vertical-align: middle;
     padding-left:7px;
     padding-right: 7px;
-    width: 0;
+    width: 1px;
 }
 
 .markInfoDisplay{
@@ -488,7 +488,7 @@ table tr[data-href] {
     vertical-align: middle;
     padding-left:7px;
     padding-right: 7px;
-    width: 0;
+    width: 1px;
     background: #D98E66;
     color:#fff;
     transition: all 650ms;
@@ -662,7 +662,7 @@ table tr[data-href] {
     border-radius: 5px;
     border-top: 2px solid rgba(255, 255, 255, 0.3);
     color: #333;
-    font-family: 'segoepr';
+    font-family: verdana;
     font-size: 25px;
     margin: 50px auto 0;
     padding: 20px;
