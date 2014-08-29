@@ -51,7 +51,6 @@ function parseWordPonct(word, ponct, ponctUsed) {
     }
     else {
         // Compute white space
-
         if(!(word === undefined)) { // si le mot n'est pas indéfinit
 
 
