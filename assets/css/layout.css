@@ -401,6 +401,9 @@ table tr[data-href] {
 .authorsNameDisplayD{
     display: table-cell;
     vertical-align: middle;
+    text-align: left;
+    padding-left: 13%;
+    font-style: italic;
 }
 
 .displayMark{
@@ -430,9 +433,18 @@ table tr[data-href] {
 .markInfoDisplay{
     display:table-cell;
     vertical-align: middle;
-    font-weight: bold;
-    font-size:21px;
+    font-size:23px;
 }
+
+.divTopDisplay{
+    line-height: normal;
+    height:10%;
+    display:table;
+    width: 100%;
+    margin: 0;
+    background: #AB4B10;
+}
+
 
 .divHoverH1Display{
     line-height: normal;
@@ -449,15 +461,14 @@ table tr[data-href] {
 #h1DisplayDocs{
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     color: #fff;
+    display: table-cell;
     float: none;
     font-family: 'segoe';
     font-size: 22px;
+    line-height: normal;
     margin: 0 auto;
     text-align: center;
-    vertical-align:middle;
-    display:table-cell;
-    line-height:normal;
-
+    vertical-align: middle;
 }
 
 
@@ -545,6 +556,7 @@ table tr[data-href] {
 #sectionArticle .scroller-handle{
     background: none repeat scroll 0 0 #fff;
     border-radius: 2px;
+    opacity: 0.1;
 }
 
 
@@ -596,7 +608,7 @@ span .authorsNameDisplayD{
     display: table-cell;
     vertical-align: middle;
     max-height: 100%;
-    font-family: verdanna;
+    font-family: 'segoe';
     padding-top:5px;
 }
 

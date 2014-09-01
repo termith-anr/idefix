@@ -12,8 +12,10 @@
     <div id="content" class="col-lg-11" style="border-top: 1px solid #fff;border-left: 1px solid #fff;">
 
             <!-- THE TITLE -->
-            <div class="divHoverH1Display row col-lg-12">
-                <h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|truncate( 99, False, '...') |d('Pas de titre pour ce documents') }}</h1>
+            <div class="divTopDisplay row col-lg-12">
+                   <div style="text-align:center;color:#fff; font-size:39px;height: 100%;display: table-cell" class="col-lg-4"><span class="glyphicon glyphicon-chevron-left"></span></div>
+                   <div style="color:#fff; font-size:39px;" class="col-lg-4">LISTE</div>
+                   <div class="col-lg-4"><span class="glyphicon glyphicon-chevron-right" style="text-align:center;color:#fff; font-size:39px;"></span></div>
             </div>
 
             <!-- LEFT BLOC -->
@@ -36,7 +38,7 @@
                                 <span>{{item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.forename['#text']|d('Pas d\'auteur') +" " + item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.surname['#text']|d(" ") }} </span>
                             {% elif item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName[0] %}
                                 {% for authors in item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName %}
-                                    <div>{{ authors.forename['#text'] + ' ' + authors.surname['#text'] + '.' }}</div>
+                                    <div>- {{ authors.forename['#text'] + ' ' + authors.surname['#text'] + '.' }}</div>
                                 {% endfor %}
                             {% else %}
                                 ?
@@ -80,6 +82,17 @@
             </section>
 
             <section id="keywordsSection" class="col-lg-10">
+
+                        <div  style="background: #10A8AB;display:block;border-radius: 0 0 0 2px;height: 25%;padding: 0" class="divHoverH1Display row col-lg-12">
+                            <div style="display:table;height:50%;width: 100%"><h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|truncate( 99, False, '...') |d('Pas de titre pour ce documents') }}</h1></div>
+                            <div style="background: none repeat scroll 0 0 #4a4e4f;
+    border-radius: 50% / 100% 100% 0 0;
+    bottom: 0;
+    height: 50%;
+    margin: 0 auto;
+    position: absolute;
+    width: 100%;"></div>
+                        </div>
 
                         <span class="glyphicon glyphicon-tags keywordsGliph"></span>
 
@@ -185,9 +198,10 @@
         <script src="assets/js/dmap.js"></script>
         <script src="assets/js/jquery.fs.scroller.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
             <script>
 
-            $("#articleSectionResumeDisplay").scroller({
+            $("#sectionArticle").scroller({
                 customClass: "advanced",
             });
 
