@@ -1,6 +1,6 @@
 /**
  * Created by Matthias.D &  François.P on 14/08/14.
- */
+
 
 $(document).ready(function() {
     'use strict';
@@ -15,10 +15,10 @@ $(document).ready(function() {
     .end(function(res){
         var html = parseGeneric(res.body.item.content.json.TEI.text.body.div , 0);
         $('#fullArticle').append(html);
-        /*console.log("HTML: %s", html);*/
+        /*console.log("HTML: %s", html);
     });
 
 
-});
+});*/
 
 

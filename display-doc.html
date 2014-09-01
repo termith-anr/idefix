@@ -17,9 +17,15 @@
             </div>
 
             <!-- LEFT BLOC -->
-            <section id="leftSection" class="col-lg-4">
+            <section id="leftSection" class="col-lg-2">
 
                 <header id="headerInfoDisplayDocs">
+
+                    <!-- MARK BLOC -->
+                    <div class="displayMark">
+                        <span class="glyphicon glyphicon-bookmark markGliph" style=""></span>
+                        <div class="markInfoDisplay">{{ item.mark|d('/4') }}</div>
+                    </div>
 
                     <!-- AUTHORS BLOC -->
                     <div class="displayAuthor">
@@ -30,7 +36,7 @@
                                 <span>{{item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.forename['#text']|d('Pas d\'auteur') +" " + item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.surname['#text']|d(" ") }} </span>
                             {% elif item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName[0] %}
                                 {% for authors in item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName %}
-                                    <span>{{ authors.forename['#text'] + ' ' + authors.surname['#text'] + '.' }}</span>
+                                    <div>{{ authors.forename['#text'] + ' ' + authors.surname['#text'] + '.' }}</div>
                                 {% endfor %}
                             {% else %}
                                 ?
@@ -39,30 +45,20 @@
 
                     </div>
 
-                    <!-- YEAR BLOC -->
+                    <!-- YEAR BLOC
                     <div class="displayYear">
                         <span class="glyphicon glyphicon-time timeGliph"></span>
                         <time class="timeInfoDispaly">{{item.content.json.TEI.teiHeader.fileDesc.publicationStmt.availability.licence["notBefore"]|d('Pas d\'année') }}</time>
                     </div>
 
-                    <!-- MARK BLOC -->
-                    <div class="displayMark">
-                        <span class="glyphicon glyphicon-bookmark markGliph" style=""></span>
-                        <div class="markInfoDisplay">{{ item.mark|d('/4') }}</div>
-                    </div>
-
-                    <!-- RESUM%E HEAD BLOC -->
-                    <div class="divHoverResume" data-toggle="modal" data-target="#fullArticleModal">
-                        <span class="glyphicon glyphicon-align-left resumeGliph"></span>
-                        <h2 id="linkFullArticle">
-                            Article Complet
-                        </h2>
-                    </div>
 
                 </header>
 
                 <!-- RESUME BLOC -->
                 <section id="sectionArticle">
+
+                    <span class="glyphicon glyphicon-align-left resumeGliph"></span>
+
 
                     <article id="articleSectionResumeDisplay" style="">
 
@@ -83,7 +79,7 @@
                 </section>
             </section>
 
-            <section id="keywordsSection" class="col-lg-8">
+            <section id="keywordsSection" class="col-lg-10">
 
                         <span class="glyphicon glyphicon-tags keywordsGliph"></span>
 
@@ -91,83 +87,11 @@
 
                             {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
 
-                                <div class="divForListKeywords">
-
-                            {% if keywords.scheme == 'cc' %}
-
-                            <h3 class="h3KeywordsDisplayDocs">Utilitaires:</h3>
-
-                            <ul>
-
-                                {%  for keywordsAdv in keywords.term %}
-
-                                <li class="btn btn-default keywordsUtilsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
-
-                                {% endfor %}
-
-                            </ul>
-
-                            {% endif %}
-
-                            {% if keywords.scheme == 'inist-francis' or keywords.scheme == 'inist-pascal' %}
-
-                            <h3 class="h3KeywordsDisplayDocs">Mots Clés Inist</h3>
-
-                            {% if keywords['xml#lang'] == 'fr' %}
-
-                            <div class="frenchFlag"><span class="frenchFlagBlue"></span><span class="frenchFlagRed"></span></div>
-
-                            {% endif %}
-
-                            {% if keywords['xml#lang'] == 'en' %}
-
-                            <div class="englandFlag"><div class="englandFlagVertical"></div><div class="englandFlagHorizontal"></div></div>
-
-                            {% endif %}
-
-                            <ul>
-
-                                {%  for keywordsAdv in keywords.term %}
-
-                                <li class="btn btn-default keywordsinistDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
-
-                                {% endfor %}
-
-                            </ul>
-
-                            {% endif %}
-
-                            {% if keywords.scheme == 'author' %}
-
-                            <h3 class="h3KeywordsDisplayDocs">Mots Clés Auteur</h3>
-
-                            {% if keywords['xml#lang'] == 'fr' %}
-
-                            <div class="frenchFlag"><span class="frenchFlagBlue"></span><span class="frenchFlagRed"></span></div>
-
-                            {% endif %}
-
-                            {% if keywords['xml#lang'] == 'en' %}
-
-                            <div class="englandFlag"><div class="englandFlagVertical"></div><div class="englandFlagHorizontal"></div></div>
-
-
-                            {% endif %}
-
-                            <ul>
-
-                                {%  for keywordsAdv in keywords.term %}
-
-                                <li class="btn btn-default keywordsAuthorsDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }} </li>
-
-                                {% endfor %}
-
-                            </ul>
-
-                            {% endif %}
-
-
                             {% if keywords.scheme == 'lina1:notice' %}
+
+
+                            <div class="divForListKeywords">
+
 
                             <h3 class="h3KeywordsDisplayDocs">Mots Clés Lina 1</h3>
 
@@ -223,9 +147,10 @@
 
                             </ul>
 
-                            {% endif %}
+
 
                                 </div>
+                            {% endif %}
 
                             {% endfor %}
                     </div>
@@ -239,7 +164,9 @@
             </div>
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <article id="fullArticle" class="col-lg-12"></article>
+                    <article id="fullArticle" class="col-lg-12">
+                        {{ body.item.content.json.TEI.text.body.div }}
+                    </article>
                 </div>
             </div>
 
@@ -260,7 +187,7 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
             <script>
 
-            $("#sectionArticle").scroller({
+            $("#articleSectionResumeDisplay").scroller({
                 customClass: "advanced",
             });
 

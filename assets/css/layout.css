@@ -89,7 +89,7 @@ body > header{
 }
 
 #bodyBrowse{
-    background: #2874C0 ;
+    background: #4A4E4F ;
 }
 
 #divOverTableBrowse{
@@ -334,8 +334,7 @@ table tr[data-href] {
 }
 
 #headerInfoDisplayDocs{
-    height:40%;
-    background:#D98E66;
+    height:50%;
 }
 
 
@@ -378,13 +377,11 @@ table tr[data-href] {
 }
 
 .displayAuthor{
-    padding:2px;
     color: #fff;
-    background: #34CDB8;
     font-family: 'segoe';
     text-align: center;
     font-size: 17px;
-    height:28%;
+    height:50%;
     display:table;
     width: 100%;
 }
@@ -397,6 +394,8 @@ table tr[data-href] {
     padding-left:7px;
     padding-right: 7px;
     width: 1px;
+    background-color: #AB4B10;
+    color: #fff;
 }
 
 .authorsNameDisplayD{
@@ -405,15 +404,16 @@ table tr[data-href] {
 }
 
 .displayMark{
-    padding:2px;
-    background: #FFA65A;
+    background: #10A8AB;
     color: #fff;
     font-family: 'segoepr';
+    border-radius: 0 0 100% 0;
     text-align: center;
     font-size: 19px;
-    height:28%;
+    height:50%;
     display:table;
     width: 100%;
+    border-right: 6px solid #fff;
 }
 
 .markGliph{
@@ -424,6 +424,7 @@ table tr[data-href] {
     padding-left:7px;
     padding-right: 7px;
     width: 1px;
+    background: #AB4B10;
 }
 
 .markInfoDisplay{
@@ -435,11 +436,11 @@ table tr[data-href] {
 
 .divHoverH1Display{
     line-height: normal;
-    background: #5bb1fc;
     height:10%;
     display:table;
     width: 100%;
     margin: 0;
+    background: #AB4B10;
 }
 
 
@@ -449,8 +450,8 @@ table tr[data-href] {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     color: #fff;
     float: none;
-    font-family: verdana;
-    font-size: 20px;
+    font-family: 'segoe';
+    font-size: 22px;
     margin: 0 auto;
     text-align: center;
     vertical-align:middle;
@@ -485,20 +486,21 @@ table tr[data-href] {
     margin: 0 auto;
     font-size: 20px;
     display: table-cell;
-    vertical-align: middle;
     padding-left:7px;
     padding-right: 7px;
     width: 1px;
-    background: #D98E66;
+    background: #AB4B10;
     color:#fff;
     transition: all 650ms;
+    vertical-align: middle;
+    height: 100%;
+    max-height: 100%;
 }
 
 #linkFullArticle{
     height: 100%;
     display: table-cell;
     vertical-align: middle;
-    background: #D98E66;
     font-size:18px;
     font-family: 'segoeprb';
     color:#fff;
@@ -529,23 +531,31 @@ table tr[data-href] {
 }
 
 #sectionArticle{
-    height:60%;
+    height:100%;
     width: 100%;
-    max-height: 60%;
+    max-height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 #sectionArticle .scroller-content{
 
-    background:#D98E66;
-
 }
 
 #sectionArticle .scroller-handle{
-    background: none repeat scroll 0 0 #D98E66;
+    background: none repeat scroll 0 0 #fff;
     border-radius: 2px;
 }
+
+
+div .authorsNameDisplayD{
+    font-size: 15px;
+}
+
+span .authorsNameDisplayD{
+    font-size: 17px;
+}
+
 
 #keywordsSection{
     max-width:90%;
@@ -568,12 +578,10 @@ table tr[data-href] {
 
 #keywordsSection .scroller-content{
 
-    background:#FF7471;
 
 }
 
 #keywordsSection .scroller-handle{
-    background: none repeat scroll 0 0 #FF7471;
     border-radius: 2px;
 }
 
@@ -584,7 +592,6 @@ table tr[data-href] {
     width: 100%;
     overflow: hidden;
     word-wrap: break-word;
-    background: #D98E66;
     font-size:16px;
     display: table-cell;
     vertical-align: middle;
@@ -608,7 +615,6 @@ table tr[data-href] {
 
 #keywordsDisplayDiv{
     padding-top: 25px;
-    background:#FF7471;
 }
 
 
@@ -926,3 +932,11 @@ table tr[data-href] {
     margin-bottom:10px;
 }
 
+.scroller-track{
+    background: #4A4E4F !important;
+}
+
+
+.scroller-bar{
+    border-left: 0 !important;
+}
