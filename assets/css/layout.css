@@ -331,7 +331,7 @@ table tr[data-href] {
     height: 95%;
     text-align: center;
     padding:0;
-    border-right: 1px solid #fff;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 #headerInfoDisplayDocs{
@@ -429,6 +429,7 @@ table tr[data-href] {
     padding-right: 7px;
     width: 1px;
     background: #AB4B10;
+    box-shadow: 5px 0 2px -1px #4a4e4f;
 }
 
 .markInfoDisplay{
@@ -443,6 +444,8 @@ table tr[data-href] {
     width: 100%;
     margin: 0;
     background: #AB4B10;
+    z-index: 999;
+    box-shadow: 36px 5px 3px -2px rgba(74, 78, 79, 0.7);
 }
 
 
@@ -453,6 +456,8 @@ table tr[data-href] {
     width: 100%;
     margin: 0;
     background: #AB4B10;
+    z-index: 8;
+    margin-bottom: 50px;
 }
 
 
@@ -571,11 +576,11 @@ span .authorsNameDisplayD{
 
 
 #keywordsSection{
-    max-width:90%;
+    max-width:95%;
     text-align:center;
-    height:90%;
+    height:95%;
     padding:0;
-    overflow-y: auto;
+    overflow-y: hidden;
     overflow-x:hidden;
     hyphens: auto;
     word-wrap: normal;
@@ -626,6 +631,8 @@ span .authorsNameDisplayD{
 
 #keywordsDisplayDiv{
     padding-top: 25px;
+    top:25%;
+    position: relative;
 }
 
 

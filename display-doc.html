@@ -13,9 +13,9 @@
 
             <!-- THE TITLE -->
             <div class="divTopDisplay row col-lg-12">
-                   <div style="text-align:center;color:#fff; font-size:29px;height: 100%;display: table-cell" class="col-lg-4"><span style="line-height:normal" class="glyphicon glyphicon-chevron-left"></span></div>
-                   <div style="text-align:center;color:#fff; font-size:29px;" class="col-lg-4"><p style="line-height: normal">LISTE</p></div>
-                   <div style="display: table-cell;text-align: center;height:100%;font-size:29px;" class="col-lg-4"><span class="glyphicon glyphicon-chevron-right" style="text-align:center;color:#fff; font-size:29px;line-height: normal;"></span></div>
+                   <div style="text-align:center;color:#fff; font-size:29px;height: 100%;display: table-cell;max-height:100%;overflow;hidden" class="col-lg-4"><span style="line-height:normal" class="glyphicon glyphicon-chevron-left"></span></div>
+                   <div style="text-align:center;color:#fff; font-size:29px;max-height:100%;overflow;hidden" class="col-lg-4"><p style="line-height: normal">LISTE</p></div>
+                   <div style="display: table-cell;text-align: center;height:100%;font-size:29px;max-height:100%;overflow;hidden" class="col-lg-4"><span class="glyphicon glyphicon-chevron-right" style="text-align:center;color:#fff; font-size:29px;line-height: normal;"></span></div>
             </div>
             <!-- LEFT BLOC -->
             <section id="leftSection" class="col-lg-2">
@@ -85,14 +85,19 @@
             <section id="keywordsSection" class="col-lg-10">
 
                         <div  style="background: #10A8AB;display:block;border-radius: 0 0 0 2px;height: 25%;padding: 0" class="divHoverH1Display row col-lg-12">
-                            <div style="display:table;height:50%;width: 100%"><h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|truncate( 99, False, '...') |d('Pas de titre pour ce documents') }}</h1></div>
-                            <div style="background: none repeat scroll 0 0 #4a4e4f;
+                            <div style="display:table;height:70%;width: 100%"><h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|truncate( 99, False, '...') |d('Pas de titre pour ce documents') }}</h1></div>
+                            <div style="background: none repeat scroll 0 0 #AB4B10;
     border-radius: 50% / 100% 100% 0 0;
     bottom: 0;
-    height: 50%;
+    height: 30%;
     margin: 0 auto;
     position: absolute;
-    width: 100%;"></div>
+    width: 100%;
+    box-shadow: 0 -5px 3px -6px rgba(74, 78, 79, 0.7)
+    z-index: 9;border-bottom: 1px solid #fff;">
+                                <div style="height: 100%;width:50%;float:left;display:table;border-right:1px solid #fff"><p style="display: table-cell;vertical-align: middle;color: #fff;font-size:22px;padding-right: 20%;text-align: right;">Lina 1</p></div>
+                                <div style="height: 100%;width:50%;float:left;display:table"><p style="display: table-cell;vertical-align: middle;color:#fff;font-size: 22px;padding-left: 20%;text-align: left;">Lina 2</p></div>
+    </div>
                         </div>
 
                         <span class="glyphicon glyphicon-tags keywordsGliph"></span>
@@ -201,10 +206,6 @@
             <script>
 
             $("#sectionArticle").scroller({
-                customClass: "advanced",
-            });
-
-            $("#keywordsSection").scroller({
                 customClass: "advanced",
             });
 
