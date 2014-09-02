@@ -24,7 +24,7 @@
   "homepage": "https://github.com/castorjs/castor-theme-termith",
   "filters": {
 
-      "teiMaf2html": "filters/teiMaf2html.js"
+      "teiMaf2html": "teiMaf2html.js"
 
   }
 }
