@@ -458,7 +458,6 @@ table tr[data-href] {
     margin: 0;
     background: #AB4B10;
     z-index: 8;
-    margin-bottom: 50px;
 }
 
 
@@ -767,29 +766,27 @@ span .authorsNameDisplayD{
 }
 
 .keywordsLinasDisplay{
-    background-image:none;
-    background: #10A8AB;
-    color:#fff;
-    border:0;
-    margin:6px;
-    font-size: 16px;
+    background: none repeat scroll 0 0 transparent;
+    border: 1px solid #30f4f7;
+    color: #fff;
     font-family: verdanna;
-    text-shadow: none;
+    font-size: 15px;
     font-style: italic;
-    font-size: 14px;
-    transition: all 600ms;
+    margin: 10px;
+    text-shadow: none;
 }
 
 .keywordsLinasDisplay2{
     background-image:none;
     background: transparent;
-    color:#fff;
+    color:rgba(255,255,255, 0.7);
     margin:6px;
     font-size: 14px;
     font-family: verdanna;
     font-style: italic;
     text-shadow: none;
-    border: 1px solid rgba(255,255,255, 0.5);
+    border: 1px solid rgba(255,255,255, 0.4);
+    text-decoration: line-through;
 }
 
 .keywordsLinasDisplay:hover{
@@ -797,8 +794,9 @@ span .authorsNameDisplayD{
     background: #fff;
     color:#333;
     border:0;
-    margin:6px;
-    font-size: 14px;
+    margin:10px;
+    border: 1px solid rgba(255,255,255, 0.5);
+    font-size: 15px;
 }
 
 .frenchFlag{
