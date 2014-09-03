@@ -442,6 +442,7 @@ table tr[data-href] {
     line-height: normal;
     height:5%;
     width: 100%;
+    padding-left: 12.25%;
     margin: 0;
     background: #AB4B10;
     z-index: 999;
@@ -469,8 +470,9 @@ table tr[data-href] {
     display: table-cell;
     float: none;
     font-family: 'segoe';
-    font-size: 22px;
+    font-size: 19px;
     line-height: normal;
+    font-style: italic;
     margin: 0 auto;
     text-align: center;
     vertical-align: middle;
@@ -631,17 +633,20 @@ span .authorsNameDisplayD{
 
 #keywordsDisplayDiv{
     padding-top: 25px;
-    top:25%;
+    top:55px;
     position: relative;
 }
 
 
 .divForListKeywords{
-    min-height: 250px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    min-height: 200px;
     width:75%;
     margin: 0 auto;
     padding-bottom:40px;
+}
+
+.divForListKeywords ul{
+    margin-bottom: 50px;
 }
 
 
@@ -657,6 +662,7 @@ span .authorsNameDisplayD{
     word-wrap: break-word;
 
 }
+
 
 .keywordsScrollBar{
     background: blue;
@@ -762,12 +768,28 @@ span .authorsNameDisplayD{
 
 .keywordsLinasDisplay{
     background-image:none;
-    background: #fff;
-    color:#333;
+    background: #10A8AB;
+    color:#fff;
     border:0;
     margin:6px;
     font-size: 16px;
-    font-family: 'segoeuisl';
+    font-family: verdanna;
+    text-shadow: none;
+    font-style: italic;
+    font-size: 14px;
+    transition: all 600ms;
+}
+
+.keywordsLinasDisplay2{
+    background-image:none;
+    background: transparent;
+    color:#fff;
+    margin:6px;
+    font-size: 14px;
+    font-family: verdanna;
+    font-style: italic;
+    text-shadow: none;
+    border: 1px solid rgba(255,255,255, 0.5);
 }
 
 .keywordsLinasDisplay:hover{
@@ -776,7 +798,7 @@ span .authorsNameDisplayD{
     color:#333;
     border:0;
     margin:6px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .frenchFlag{
