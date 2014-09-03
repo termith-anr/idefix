@@ -86,10 +86,12 @@ body > header{
     top: 5%;
     padding: 0;
     box-shadow: 6px 6px 1px #444;
+    overflow: hidden;
+    background: #ffffff;
 }
 
 #bodyBrowse{
-    background: #4A4E4F ;
+    background: #E5E5E5 ;
 }
 
 #divOverTableBrowse{
@@ -331,7 +333,7 @@ table tr[data-href] {
     height: 95%;
     text-align: center;
     padding:0;
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(51, 51, 51, 0.3);
 }
 
 #headerInfoDisplayDocs{
@@ -378,7 +380,7 @@ table tr[data-href] {
 }
 
 .displayAuthor{
-    color: #fff;
+    color: #333;
     font-family: 'segoe';
     text-align: center;
     font-size: 17px;
@@ -395,7 +397,7 @@ table tr[data-href] {
     padding-left:7px;
     padding-right: 7px;
     width: 1px;
-    background-color: #AB4B10;
+    background-color: #33B266;
     color: #fff;
 }
 
@@ -408,7 +410,7 @@ table tr[data-href] {
 }
 
 .displayMark{
-    background: #10A8AB;
+    background: #FF847C;
     color: #fff;
     font-family: 'segoepr';
     border-radius: 0 0 100% 0;
@@ -428,8 +430,8 @@ table tr[data-href] {
     padding-left:7px;
     padding-right: 7px;
     width: 1px;
-    background: #AB4B10;
-    box-shadow: 5px 0 2px -1px #4a4e4f;
+    background: #33B266;
+    box-shadow: 5px 0 1px -2px #9f6666;
 }
 
 .markInfoDisplay{
@@ -444,9 +446,9 @@ table tr[data-href] {
     width: 100%;
     padding-left: 12.25%;
     margin: 0;
-    background: #AB4B10;
+    background: #33B266;
     z-index: 999;
-    box-shadow: 36px 5px 3px -2px rgba(74, 78, 79, 0.7);
+    box-shadow: 30px 6px 2px -3px rgba(74, 78, 79, 0.6);
 }
 
 
@@ -456,7 +458,7 @@ table tr[data-href] {
     display:table;
     width: 100%;
     margin: 0;
-    background: #AB4B10;
+    background: #FF847C;
     z-index: 8;
 }
 
@@ -467,9 +469,10 @@ table tr[data-href] {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     color: #fff;
     display: table-cell;
+    letter-spacing: 1px;
     float: none;
-    font-family: 'segoe';
-    font-size: 19px;
+    font-family: verdana;
+    font-size: 18px;
     line-height: normal;
     font-style: italic;
     margin: 0 auto;
@@ -500,7 +503,7 @@ table tr[data-href] {
 }
 
 .resumeGliph{
-    background: none repeat scroll 0 0 #ab4b10;
+    background: none repeat scroll 0 0 #33B266;
     color: #fff;
     display: inline-block;
     font-size: 23px;
@@ -558,7 +561,7 @@ table tr[data-href] {
 }
 
 #sectionArticle .scroller-handle{
-    background: none repeat scroll 0 0 #ab4b10;
+    background: none repeat scroll 0 0 #33B266;
     opacity: 1;
     border:0;
     border-radius: 0;
@@ -605,7 +608,7 @@ span .authorsNameDisplayD{
 }
 
 #articleSectionResumeDisplay{
-    color: #fff;
+    color: #333;
     margin: 0 auto;
     padding: 18px;
     word-wrap: break-word;
@@ -618,7 +621,7 @@ span .authorsNameDisplayD{
 }
 
 .articleSectionResumeDisplayView{
-    color: #fff;
+    color: #333;
     font-family: 'segoeuisl';
     font-size: 19px;
     padding: 30px;
@@ -767,8 +770,8 @@ span .authorsNameDisplayD{
 
 .keywordsLinasDisplay{
     background: none repeat scroll 0 0 transparent;
-    border: 1px solid #30f4f7;
-    color: #fff;
+    border: 1px solid #FF9C95;
+    color: #333;
     font-family: verdanna;
     font-size: 15px;
     font-style: italic;
@@ -777,16 +780,15 @@ span .authorsNameDisplayD{
 }
 
 .keywordsLinasDisplay2{
-    background-image:none;
-    background: transparent;
-    color:rgba(255,255,255, 0.7);
-    margin:6px;
-    font-size: 14px;
+    background: none repeat scroll 0 0 #7F6664;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.5);
     font-family: verdanna;
+    font-size: 14px;
     font-style: italic;
-    text-shadow: none;
-    border: 1px solid rgba(255,255,255, 0.4);
+    margin: 6px;
     text-decoration: line-through;
+    text-shadow: none;
 }
 
 .keywordsLinasDisplay:hover{
@@ -971,7 +973,7 @@ span .authorsNameDisplayD{
 }
 
 .scroller-track{
-    background: #4A4E4F !important;
+    background: #E5E5E5 !important;
 }
 
 
