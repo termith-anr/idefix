@@ -13,8 +13,10 @@
 
             <!-- THE TITLE -->
             <div class="divTopDisplay row col-lg-12">
-                   <div style="text-align:center;color:#fff; font-size:22px;height: 100%;display: table-cell;max-height:100%;overflow;hidden" class="col-lg-4"><span style="line-height:normal" class="glyphicon glyphicon-arrow-left"></span></div>
-                   <div style="display:table;height:100%;text-align:center;color:#fff; font-size:20px;max-height:100%;overflow;hidden" class="col-lg-4"><p style="line-height: normal;display:table-cell;vertical-align: middle;">LISTE</p></div>
+                   <div style="text-align:center;color:#fff; font-size:22px;height: 100%;display: table-cell;max-height:100%;overflow;hidden" class="col-lg-4">
+                       <a href=""><span style="line-height:normal" class="glyphicon glyphicon-arrow-left"></span></a></div>
+                   <div style="display:table;height:100%;text-align:center;color:#fff; font-size:20px;max-height:100%;overflow;hidden" class="col-lg-4"><p style="line-height: normal;display:table-cell;vertical-align: middle;">
+                       <a href="/browse-docs.html" style="color:#fff;">LISTE</a></p></div>
                    <div style="display: table-cell;text-align: center;height:100%;font-size:23px;max-height:100%;overflow;hidden" class="col-lg-4"><span class="glyphicon glyphicon-arrow-right" style="text-align:center;color:#fff; font-size:22px;line-height: normal;"></span></div>
             </div>
             <!-- LEFT BLOC -->
@@ -85,7 +87,7 @@
 
             <section id="keywordsSection" class="col-lg-10">
 
-                        <div  style="background: #ff847c;display:block;border-radius: 0 0 0 2px;height: 25%;padding: 0" class="divHoverH1Display col-lg-12">
+                        <div  style="background: #CC6A63;display:block;border-radius: 0 0 0 2px;height: 25%;padding: 0" class="divHoverH1Display col-lg-12">
                             <div style="display:table;height:50%;width: 100%"><h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|truncate( 99, False, '...') |d('Pas de titre pour ce documents') }}</h1></div>
                             <div style="background: none repeat scroll 0 0 #fff;
     border-radius: 50% / 100% 100% 0 0;
@@ -96,7 +98,7 @@
     width: 100%;
     box-shadow: 0 -5px 3px -6px rgba(74, 78, 79, 0.7)
     z-index: 9;">
-                                <div style="background: none repeat scroll 0 0 #33B266;
+                                <div style="background: none repeat scroll 0 0 #CC6A63;
     border-radius: 50% / 100% 100% 0 0;
     height: 60%;
     left: 10%;
@@ -115,7 +117,6 @@
 
                             {% if keywords.scheme == 'lina1:notice' %}
 
-
                             <div class="divForListKeywords">
 
 
@@ -123,7 +124,13 @@
 
                                 {%  for keywordsAdv in keywords.term %}
 
-                                <li class="btn btn-default keywordsLinasDisplay"> {{ keywordsAdv['#text']|teiMaf2html|d('de mots clés') }} </li>
+                                <li class="btn btn-default keywordsLinasDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }}
+                                    {% set currentKeyword = keywordsAdv['#text'] %}
+                                    <form class="formNotedKeyword" name="formNotedKeyword" action="save/8Ec4P" method="post">
+                                        <input type="hidden" name="key" value="notedKeywords.lina1.{{ keywordsAdv['#text'] }}"/>
+                                        <input name="val" type="text" value="{{ item.notedKeywords.lina1[currentKeyword]|d('0') }}"/>
+                                        <input type="submit"  value="OK"/>
+                                    </form></li>
 
                                 {% endfor %}
 
@@ -139,7 +146,12 @@
 
                                 {%  for keywordsAdv in keywords.term %}
 
-                                <li class="btn btn-default keywordsLinasDisplay2">{{ keywordsAdv['#text']|d('de mots clés') }} </li>
+                                <li class="btn btn-default keywordsLinasDisplay2"> {{ keywordsAdv['#text']|d('de mots clés') }}
+                                    <form action="save/8Ec4P" method="post">
+                                        <input type="text" name="key" value="notedKeywords.lina2.{{ keywordsAdv['#text']}}"/>
+                                        <input name="val" type="text" value="0"/>
+                                        <input type="submit"  value="OK"/>
+                                    </form></li>
 
                                 {% endfor %}
 
@@ -184,24 +196,19 @@
 
             <script>
 
+            var currentId = location.pathname.split('-')[1].split(".")[0];
+
+
+
+            /*  Change the scroller style */
             $("#sectionArticle").scroller({
                 customClass: "advanced",
             });
 
+
+            /* Open the resume In full screen*/
+
             window.b = 0;
-           /* $("#sectionResumeDisplayDocs").click(function(){
-                if(window.b === 0) {
-                    $("#content").css({"opacity" : "0.2"});
-                    window.b = 1;
-                    $("#articleSectionResumeDisplay")
-                            .appendTo("#showOnClickDiv").addClass('articleSectionResumeDisplayFull');
-                    $("#showOnClickDiv").show().addClass('showOnClickDivView col-lg-10', 10000, 'easeInBack').css('background', '#bb9ff5');
-                }
-                else{
-                    $("#content").css({"opacity" : "1"});
-                    window.b = 0;
-                }
-            });*/
 
                 $("#sectionResumeDisplayDocs").click(function () {
                     if(!(window.resumeClone)) {
@@ -216,6 +223,31 @@
                         window.resumeClone = 1;
                     }
                 });
+
+            //callback handler for form submit
+            $(".formNotedKeyword").submit(function(e)
+            {
+                var postData = $(this).serializeArray();
+                var formURL = $(this).attr("action");
+                $.ajax(
+                        {
+                            url : formURL,
+                            type: "POST",
+                            data : postData,
+                            success:function(data, textStatus, jqXHR)
+                            {
+                                //data: return data from server
+                            },
+                            error: function(jqXHR, textStatus, errorThrown)
+                            {
+                                //if fails
+                            }
+                        });
+                e.preventDefault(); //STOP default action
+                e.unbind(); //unbind. to stop multiple form submit.
+            });
+
+            $(".ajaxform").submit(); //Submit  the FORM
 
 
         </script>

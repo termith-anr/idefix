@@ -397,7 +397,7 @@ table tr[data-href] {
     padding-left:7px;
     padding-right: 7px;
     width: 1px;
-    background-color: #33B266;
+    background-color: #CC6A63;
     color: #fff;
 }
 
@@ -410,7 +410,7 @@ table tr[data-href] {
 }
 
 .displayMark{
-    background: #FF847C;
+    background: #CC6A63;
     color: #fff;
     font-family: 'segoepr';
     border-radius: 0 0 100% 0;
@@ -430,7 +430,7 @@ table tr[data-href] {
     padding-left:7px;
     padding-right: 7px;
     width: 1px;
-    background: #33B266;
+    background: #CC6A63;
     box-shadow: 5px 0 1px -2px #9f6666;
 }
 
@@ -446,7 +446,7 @@ table tr[data-href] {
     width: 100%;
     padding-left: 12.25%;
     margin: 0;
-    background: #33B266;
+    background: #CC6A63;
     z-index: 999;
     box-shadow: 30px 6px 2px -3px rgba(74, 78, 79, 0.6);
 }
@@ -458,7 +458,7 @@ table tr[data-href] {
     display:table;
     width: 100%;
     margin: 0;
-    background: #FF847C;
+    background: #CC6A63;
     z-index: 8;
 }
 
@@ -503,7 +503,7 @@ table tr[data-href] {
 }
 
 .resumeGliph{
-    background: none repeat scroll 0 0 #33B266;
+    background: none repeat scroll 0 0 #CC6A63;
     color: #fff;
     display: inline-block;
     font-size: 23px;
@@ -561,7 +561,7 @@ table tr[data-href] {
 }
 
 #sectionArticle .scroller-handle{
-    background: none repeat scroll 0 0 #33B266;
+    background: none repeat scroll 0 0 #CC6A63;
     opacity: 1;
     border:0;
     border-radius: 0;
@@ -584,7 +584,7 @@ span .authorsNameDisplayD{
     text-align:center;
     height:95%;
     padding:0;
-    overflow-y: hidden;
+    overflow-y: scroll;
     overflow-x:hidden;
     hyphens: auto;
     word-wrap: normal;
