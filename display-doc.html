@@ -113,6 +113,8 @@
 
                         <div id="keywordsDisplayDiv" class="col-lg-12">
 
+
+
                             {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
 
                             {% if keywords.scheme == 'lina1:notice' %}
@@ -124,12 +126,30 @@
 
                                 {%  for keywordsAdv in keywords.term %}
 
-                                <li class="btn btn-default keywordsLinasDisplay"> {{ keywordsAdv['#text']|d('de mots clés') }}
-                                    {% set currentKeyword = keywordsAdv['#text'] %}
-                                    <form class="formNotedKeyword" name="formNotedKeyword" action="save/8Ec4P" method="post">
+                                {% set currentKeyword = keywordsAdv['#text'] %}
+
+                                <li class="btn btn-default {% if item.notedKeywords.lina1[currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
+
+                                    <form class="formNotedKeyword" id="lina1-{{ loop.index }}" name="formNotedKeyword" action="save/8Ec4P" method="post">
                                         <input type="hidden" name="key" value="notedKeywords.lina1.{{ keywordsAdv['#text'] }}"/>
-                                        <input name="val" type="text" value="{{ item.notedKeywords.lina1[currentKeyword]|d('0') }}"/>
-                                        <input type="submit"  value="OK"/>
+                                        <select name="val" class="selectorValue">
+
+                                            {% if item.notedKeywords.lina1[currentKeyword] == '2' %}
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2" selected="selected">2</option>
+                                            {% elif item.notedKeywords.lina1[currentKeyword] == '1' %}
+                                                <option value="0">0</option>
+                                                <option value="1" selected="selected">1</option>
+                                                <option value="2">2</option>
+                                            {% else %}
+                                                <option value="0" selected="selected">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            {% endif %}
+
+                                        </select>
+                                        <div class="loading"></div>
                                     </form></li>
 
                                 {% endfor %}
@@ -224,30 +244,34 @@
                     }
                 });
 
-            //callback handler for form submit
-            $(".formNotedKeyword").submit(function(e)
+            //submit Ajax form
+            $(".formNotedKeyword .selectorValue").change(function(e)
             {
-                var postData = $(this).serializeArray();
-                var formURL = $(this).attr("action");
+                var id = $(this).parent().attr('id');
+                var postData = $(this).parent().serializeArray();
+                var formURL = $(this).parent().attr("action");
+                $('#' + id + ' .loading').html('<span class="loader-quart" style=""></span>').show();
+
                 $.ajax(
                         {
                             url : formURL,
                             type: "POST",
                             data : postData,
-                            success:function(data, textStatus, jqXHR)
+                            success:function(e)
                             {
-                                //data: return data from server
+                                setTimeout(function () {
+                                    $('#' + id +' .loading').html('<span class="loader-quart-ok" style=""></span>').fadeOut(1000);
+                                }, 900);
+
                             },
-                            error: function(jqXHR, textStatus, errorThrown)
+                            error: function()
                             {
-                                //if fails
+
                             }
                         });
-                e.preventDefault(); //STOP default action
-                e.unbind(); //unbind. to stop multiple form submit.
+                e.preventDefault(); // disable default action
+                location.reload(); // Refresh page
             });
-
-            $(".ajaxform").submit(); //Submit  the FORM
 
 
         </script>
