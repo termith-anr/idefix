@@ -770,24 +770,31 @@ span .authorsNameDisplayD{
 
 .keywordsLinasDisplay{
     background: none repeat scroll 0 0 transparent;
-    border: 1px solid #FF9C95;
+    border: 2px solid #FF9C95;
     color: #333;
     font-family: verdanna;
     font-size: 15px;
     font-style: italic;
     margin: 10px;
     text-shadow: none;
+    transition: all 2000ms;
 }
 
 .keywordsLinasDisplayDone{
     background: none repeat scroll 0 0 transparent;
-    border: 1px solid transparent;
+    border: 1px solid rgba(85,85,85,0.3);
     color: #333;
     font-family: verdanna;
     font-size: 15px;
     font-style: italic;
     margin: 10px;
     text-shadow: none;
+    transition: all 500ms;
+}
+
+.keywordsLinasDisplayDone:hover{
+    background: none repeat scroll 0 0 transparent;
+    transition: all 500ms;
 }
 
 .keywordsLinasDisplay2{
@@ -850,6 +857,105 @@ span .authorsNameDisplayD{
     height: 10px;
     position: relative;
     width: 90px;
+}
+
+input[type=radio] {
+    display:none;
+}
+
+input[type=radio] + label {
+    display:inline-block;
+    margin: 5px;
+    padding: 4px 12px;
+    background-color: #e7e7e7;
+    border-color: #ddd;
+    color: #555;
+    font-weight: normal;
+}
+
+input[type=radio] + label:hover {
+    background: #CC6A63;
+    color: #fff;
+}
+
+
+input[type=radio]:checked + label {
+    background-image: none;
+    background-color:transparent;
+    font-weight: bold;
+}
+
+input[value='0']:checked + label {
+    background-image: none;
+    color: red;
+}
+
+input[value='1']:checked + label {
+    background-image: none;
+    color: orange;
+}
+
+input[value='2']:checked + label {
+    background-image: none;
+    color: green;
+}
+
+.formNotedKeyword{
+    display: table;
+    margin: 0 auto;
+}
+.loader-quart{
+
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    display: inline-block;
+    border: 4px solid rgba(0,0,0,0.3);
+    position: relative;
+
+}
+.loader-quart:after{
+    content: '';
+    border-radius: 30px;
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    left: -3px;
+    right: -3px;
+    border: 4px  solid transparent;
+    border-top-color: rgba(0,0,0,0.6);
+    animation : spin 450ms linear 0s infinite;
+    -webkit-animation : spin 1s linear 0s infinite;
+
+}
+
+.loader-quart-ok{
+
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    display: inline-block;
+    border:4px solid #51D21F;
+    animation : spin 1s linear 0s infinite;
+    position: relative;
+
+}
+
+@keyframes spin{
+    0%{
+        transform :rotate(0deg);
+    }
+    100%{
+        transform :rotate(360deg);
+    }
+}
+@-webkit-keyframes spin{
+    0%{
+        -webkit-transform :rotate(0deg);
+    }
+    100%{
+        -webkit-transform :rotate(360deg);
+    }
 }
 
 
@@ -981,59 +1087,4 @@ span .authorsNameDisplayD{
 
 .scroller-bar{
     border-left: 0 !important;
-}
-
-
-.loader-quart{
-
-    height: 30px;
-    width: 30px;
-    border-radius: 30px;
-    display: inline-block;
-    border: 4px solid rgba(0,0,0,0.3);
-    position: relative;
-
-}
-.loader-quart:after{
-    content: '';
-    border-radius: 30px;
-    position: absolute;
-    top: -3px;
-    bottom: -3px;
-    left: -3px;
-    right: -3px;
-    border: 4px  solid transparent;
-    border-top-color: rgba(0,0,0,0.6);
-    animation : spin 450ms linear 0s infinite;
-    -webkit-animation : spin 1s linear 0s infinite;
-
-}
-
-.loader-quart-ok{
-
-    height: 30px;
-    width: 30px;
-    border-radius: 30px;
-    display: inline-block;
-    border:4px solid #51D21F;
-    animation : spin 1s linear 0s infinite;
-    position: relative;
-
-}
-
-@keyframes spin{
-    0%{
-        transform :rotate(0deg);
-    }
-    100%{
-        transform :rotate(360deg);
-    }
-}
-@-webkit-keyframes spin{
-    0%{
-        -webkit-transform :rotate(0deg);
-    }
-    100%{
-        -webkit-transform :rotate(360deg);
-    }
 }

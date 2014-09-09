@@ -130,26 +130,24 @@
 
                                 <li class="btn btn-default {% if item.notedKeywords.lina1[currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
 
-                                    <form class="formNotedKeyword" id="lina1-{{ loop.index }}" name="formNotedKeyword" action="save/8Ec4P" method="post">
+                                    <form class="formNotedKeyword row" id="lina1-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post">
                                         <input type="hidden" name="key" value="notedKeywords.lina1.{{ keywordsAdv['#text'] }}"/>
-                                        <select name="val" class="selectorValue">
 
                                             {% if item.notedKeywords.lina1[currentKeyword] == '2' %}
-                                                <option value="0">0</option>
-                                                <option value="1">1</option>
-                                                <option value="2" selected="selected">2</option>
+                                                <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
+                                                <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
+                                                <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina1-{{ loop.index }}">2</label>
                                             {% elif item.notedKeywords.lina1[currentKeyword] == '1' %}
-                                                <option value="0">0</option>
-                                                <option value="1" selected="selected">1</option>
-                                                <option value="2">2</option>
+                                                <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
+                                                <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina1-{{ loop.index }}">1</label>
+                                                <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
                                             {% else %}
-                                                <option value="0" selected="selected">0</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
+                                                <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina1-{{ loop.index }}">0</label>
+                                                <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
+                                                <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
                                             {% endif %}
 
-                                        </select>
-                                        <div class="loading"></div>
+                                        <div class="loading" style="display: table-cell;vertical-align: middle;margin-left: 5px"></div>
                                     </form></li>
 
                                 {% endfor %}
@@ -166,12 +164,31 @@
 
                                 {%  for keywordsAdv in keywords.term %}
 
-                                <li class="btn btn-default keywordsLinasDisplay2"> {{ keywordsAdv['#text']|d('de mots clés') }}
-                                    <form action="save/8Ec4P" method="post">
-                                        <input type="text" name="key" value="notedKeywords.lina2.{{ keywordsAdv['#text']}}"/>
-                                        <input name="val" type="text" value="0"/>
-                                        <input type="submit"  value="OK"/>
+                                {% set currentKeyword = keywordsAdv['#text'] %}
+
+
+                                <li class="btn btn-default {% if item.notedKeywords.lina2[currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']}}
+
+                                    <form class="formNotedKeyword row" id="lina2-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post">
+                                        <input type="hidden" name="key" value="notedKeywords.lina2.{{ keywordsAdv['#text'] }}"/>
+
+                                            {% if item.notedKeywords.lina2[currentKeyword] == '2' %}
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2" selected="selected">2</option>
+                                            {% elif item.notedKeywords.lina2[currentKeyword] == '1' %}
+                                            <option value="0">0</option>
+                                            <option value="1" selected="selected">1</option>
+                                            <option value="2">2</option>
+                                            {% else %}
+                                            <option value="0" selected="selected">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            {% endif %}
+
+                                        <div class="loading" style="display: table-cell;float: left;vertical-align: middle;margin-left: 5px"></div>
                                     </form></li>
+
 
                                 {% endfor %}
 
@@ -245,12 +262,15 @@
                 });
 
             //submit Ajax form
-            $(".formNotedKeyword .selectorValue").change(function(e)
+            $(".formNotedKeyword input").change(function(e)
             {
                 var id = $(this).parent().attr('id');
                 var postData = $(this).parent().serializeArray();
                 var formURL = $(this).parent().attr("action");
-                $('#' + id + ' .loading').html('<span class="loader-quart" style=""></span>').show();
+                var li = $(this).parent().parent();
+                console.log(li);
+
+                $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
 
                 $.ajax(
                         {
@@ -260,7 +280,15 @@
                             success:function(e)
                             {
                                 setTimeout(function () {
-                                    $('#' + id +' .loading').html('<span class="loader-quart-ok" style=""></span>').fadeOut(1000);
+                                    $('#' + id +' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
+                                    if(!li.hasClass("keywordsLinasDisplayDone")){
+                                        li.addClass("keywordsLinasDisplayDone");
+                                        li.removeClass("keywordsLinasDisplay");
+                                    }
+                                    li.css('box-shadow', '0px 1px 4px 0px green');
+                                    setTimeout( function(){
+                                        li.css('box-shadow', '');
+                                    },750);
                                 }, 900);
 
                             },
@@ -269,9 +297,10 @@
 
                             }
                         });
-                e.preventDefault(); // disable default action
-                location.reload(); // Refresh page
+                e.preventDefault(); //STOP default action
+
             });
+
 
 
         </script>
