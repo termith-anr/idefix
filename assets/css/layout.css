@@ -90,6 +90,19 @@ body > header{
     background: #ffffff;
 }
 
+#contentDisplay{
+    height: 90%;
+    margin: 0 auto;
+    float:none;
+    top: 5%;
+    padding: 0;
+    box-shadow: 6px 6px 1px #444;
+    overflow: hidden;
+    background: #ffffff;
+    border-top: 1px solid #555;
+    border-left: 1px solid #555;
+}
+
 #bodyBrowse{
     background: #E5E5E5 ;
 }
@@ -328,6 +341,52 @@ table tr[data-href] {
 * Under: Display Docs!
 */
 
+#divArrLeft{
+    text-align:center;
+    color:#fff;
+    font-size:22px;
+    height: 100%;
+    display: table-cell;
+    max-height:100%;
+    overflow:hidden;
+}
+
+#divArrRight{
+    display: table-cell;
+    text-align: center;
+    height:100%;
+    font-size:23px;
+    max-height:100%;
+    overflow:hidden;
+}
+
+#divNavMiddle{
+    display:table;
+    height:100%;
+    text-align:center;
+    color:#fff;
+    font-size:20px;
+    max-height:100%;
+    overflow:hidden;
+}
+
+#divNavMiddle p{
+    line-height: normal;
+    display:table-cell;
+    vertical-align: middle;
+}
+
+#divNavMiddle p a{
+    color: #fff;
+}
+
+.spanArrows{
+    line-height:normal;
+    text-align:center;
+    color:#fff;
+    font-size:22px;
+}
+
 
 #leftSection{
     height: 95%;
@@ -454,15 +513,33 @@ table tr[data-href] {
 
 .divHoverH1Display{
     line-height: normal;
-    height:10%;
-    display:table;
     width: 100%;
     margin: 0;
     background: #CC6A63;
     z-index: 8;
+    display:block;
+    border-radius: 0 0 0 2px;
+    height: 25%;
+    padding: 0;
 }
 
+#arroundedBlock{
+    background: none repeat scroll 0 0 #fff;
+    border-radius: 50% / 100% 100% 0 0;
+    bottom: 0;
+    height: 50%;
+    margin: 0 auto;
+    position: absolute;
+    width: 100%;
+    box-shadow: 0 -5px 3px -6px rgba(74, 78, 79, 0.7)
+    z-index: 9;
+}
 
+#h1Block{
+    display:table;
+    height:50%;
+    width: 100%;
+}
 
 
 #h1DisplayDocs{
@@ -634,9 +711,14 @@ span .authorsNameDisplayD{
 }
 
 #keywordsDisplayDiv{
-    padding-top: 25px;
-    top:55px;
+    padding-top: 15px;
     position: relative;
+}
+
+#keywordsDisplayDivInist{
+    padding-top: 15px;
+    position: relative;
+    display: none;
 }
 
 
@@ -793,6 +875,10 @@ span .authorsNameDisplayD{
 }
 
 .keywordsLinasDisplayDone:hover{
+    background: none repeat scroll 0 0 transparent;
+    transition: all 500ms;
+}
+.keywordsLinasDisplay:hover{
     background: none repeat scroll 0 0 transparent;
     transition: all 500ms;
 }
@@ -1087,4 +1173,16 @@ input[value='2']:checked + label {
 
 .scroller-bar{
     border-left: 0 !important;
+}
+
+
+.loading{
+    display: table-cell;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+
+#lina2ListOfKeywords{
+    display: none;
 }

@@ -4,30 +4,42 @@
 
 <!--end head block  -->
 </head>
+
+
 <body id="bodyBrowse">
 
     <div id="showOnClickDiv"></div>
 
+    <div id="contentDisplay" class="col-lg-11">
 
-    <div id="content" class="col-lg-11" style="border-top: 1px solid #555;border-left: 1px solid #555;">
-
-            <!-- THE TITLE -->
+            <!-- THE NAV BAR -->
             <div class="divTopDisplay row col-lg-12">
-                   <div style="text-align:center;color:#fff; font-size:22px;height: 100%;display: table-cell;max-height:100%;overflow;hidden" class="col-lg-4">
-                       <a href=""><span style="line-height:normal" class="glyphicon glyphicon-arrow-left"></span></a></div>
-                   <div style="display:table;height:100%;text-align:center;color:#fff; font-size:20px;max-height:100%;overflow;hidden" class="col-lg-4"><p style="line-height: normal;display:table-cell;vertical-align: middle;">
-                       <a href="/browse-docs.html" style="color:#fff;">LISTE</a></p></div>
-                   <div style="display: table-cell;text-align: center;height:100%;font-size:23px;max-height:100%;overflow;hidden" class="col-lg-4"><span class="glyphicon glyphicon-arrow-right" style="text-align:center;color:#fff; font-size:22px;line-height: normal;"></span></div>
+
+                   <div id="divArrLeft" class="col-lg-4">
+                       <span class="glyphicon glyphicon-arrow-left spanArrows"></span>
+                   </div>
+
+                   <div id="divNavMiddle" class="col-lg-4">
+                       <p>
+                            <a href="/browse-docs.html">LISTE</a> <!-- Return to browse Docs-->
+                       </p>
+                   </div>
+
+                   <div id="divArrRight" class="col-lg-4">
+                       <span class="glyphicon glyphicon-arrow-right spanArrows"></span>
+                   </div>
+
             </div>
+
             <!-- LEFT BLOC -->
-            <section id="leftSection" class="col-lg-2">
+            <aside id="leftSection" class="col-lg-2">
 
                 <header id="headerInfoDisplayDocs">
 
 
                     <!-- MARK BLOC -->
                     <div class="displayMark">
-                        <span class="glyphicon glyphicon-bookmark markGliph" style=""></span>
+                        <span class="glyphicon glyphicon-bookmark markGliph"></span>
                         <div class="markInfoDisplay">{{ item.mark|d('/4') }}</div>
                     </div>
 
@@ -37,13 +49,21 @@
                         <span class="glyphicon glyphicon-user authorGliph"></span>
                         <div  class="authorsNameDisplayD">
                             {% if item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.forename['#text'] %}
+
                                 <span>{{item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.forename['#text']|d('Pas d\'auteur') +" " + item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.surname['#text']|d(" ") }} </span>
+
                             {% elif item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName[0] %}
+
                                 {% for authors in item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName %}
+
                                     <div>- {{ authors.forename['#text'] + ' ' + authors.surname['#text'] + '.' }}</div>
+
                                 {% endfor %}
+
                             {% else %}
+
                                 ?
+
                             {% endif %}
                         </div>
 
@@ -51,175 +71,246 @@
 
                 </header>
 
-                    <!-- YEAR BLOC
-                    <div class="displayYear">
-                        <span class="glyphicon glyphicon-time timeGliph"></span>
-                        <time class="timeInfoDispaly">{{item.content.json.TEI.teiHeader.fileDesc.publicationStmt.availability.licence["notBefore"]|d('Pas d\'année') }}</time>
-                    </div>
-
-
-
 
                 <!-- RESUME BLOC -->
                 <section id="sectionArticle">
 
                     <span class="glyphicon glyphicon-align-left resumeGliph"></span>
 
-
                     <article id="articleSectionResumeDisplay" style="">
-
-                        <!--{% if item.content.json.TEI.teiHeader.profileDesc.abstract['xml#lang'] == 'fr' %}
-
-                        <div class="frenchFlag"><span class="frenchFlagBlue"></span><span class="frenchFlagRed"></span></div>
-
-                         {% elif item.content.json.TEI.teiHeader.profileDesc.abstract['xml#lang'] == 'en' %}
-
-                        <div class="englandFlag"><div class="englandFlagVertical"></div><div class="englandFlagHorizontal"></div></div>
-
-                        {% endif %} -->
 
                         <p>{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de résumé pour cet article') }}</p>
 
                     </article>
 
                 </section>
-            </section>
 
+            </aside>
+
+
+            <!-- RIGHT  BLOCK (Keywords) -->
             <section id="keywordsSection" class="col-lg-10">
 
-                        <div  style="background: #CC6A63;display:block;border-radius: 0 0 0 2px;height: 25%;padding: 0" class="divHoverH1Display col-lg-12">
-                            <div style="display:table;height:50%;width: 100%"><h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|truncate( 99, False, '...') |d('Pas de titre pour ce documents') }}</h1></div>
-                            <div style="background: none repeat scroll 0 0 #fff;
-    border-radius: 50% / 100% 100% 0 0;
-    bottom: 0;
-    height: 50%;
-    margin: 0 auto;
-    position: absolute;
-    width: 100%;
-    box-shadow: 0 -5px 3px -6px rgba(74, 78, 79, 0.7)
-    z-index: 9;">
-                                <div style="background: none repeat scroll 0 0 #CC6A63;
-    border-radius: 50% / 100% 100% 0 0;
-    height: 60%;
-    left: 10%;
-    margin: 0 auto;
-    position: absolute;
-    top:20%;
-    width: 80%;">
-                                <div style="height: 100%;width:50%;float:left;display:table;border-right:1px solid #fff"><p style="display: table-cell;vertical-align: middle;color: #fff;font-size:22px;padding-right: 20%;text-align: right;">Lina 1</p></div>
-                                <div style="height: 100%;width:50%;float:left;display:table"><p style="display: table-cell;vertical-align: middle;color:#fff;font-size: 22px;padding-left: 20%;text-align: left;">Lina 2</p></div>
-    </div></div>
-                        </div>
+                <div class="divHoverH1Display col-lg-12">
 
-                        <div id="keywordsDisplayDiv" class="col-lg-12">
+                    <div id="h1Block">
+                        <h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|truncate( 99, False, '...') |d('Pas de titre pour ce documents') }}</h1>
+                    </div>
+
+                    <div id="arroundedBlock">
+
+                    </div>
 
 
+                </div>
 
-                            {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
+                <div id="keywordsDisplayDiv" class="col-lg-12">
 
-                            {% if keywords.scheme == 'lina1:notice' %}
+                    {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
+
+                        <!-- Check if lina method 1 or 2 exist and create a global div for both -->
+
+                        {% if keywords.scheme == 'lina1:notice' || keywords.scheme == 'lina2:notice' %}
 
                             <div class="divForListKeywords">
 
+                        {% endif %}
 
-                            <ul>
+                        <!-- First Lina Notice Method -->
 
-                                {%  for keywordsAdv in keywords.term %}
+                        {% if keywords.scheme == 'lina1:notice' %}
 
-                                {% set currentKeyword = keywordsAdv['#text'] %}
+                                <div id="lina1:notice">
 
-                                <li class="btn btn-default {% if item.notedKeywords.lina1[currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
+                                    <h2> First Method </h2>
 
-                                    <form class="formNotedKeyword row" id="lina1-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post">
-                                        <input type="hidden" name="key" value="notedKeywords.lina1.{{ keywordsAdv['#text'] }}"/>
+                                    {%  for keywordsAdv in keywords.term %}
 
-                                            {% if item.notedKeywords.lina1[currentKeyword] == '2' %}
+                                        {% set currentKeyword = keywordsAdv['#text'] %}
+
+                                        <div class="btn btn-default {% if item.notedKeywords.lina1[currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"><!-- Check if keywords has already been evaluated & apply a style -->
+
+                                        {{ keywordsAdv['#text']|d('de mots clés') }}
+
+                                            <form class="formNotedKeyword row" id="lina1-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
+
+                                                <input type="hidden" name="key" value="notedKeywords.lina1.{{ keywordsAdv['#text'] }}"/> <!-- Key Name -->
+
+                                                <!-- Value Name -->
+                                                {% if item.notedKeywords.lina1[currentKeyword] == '2' %}
                                                 <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
                                                 <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
                                                 <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina1-{{ loop.index }}">2</label>
-                                            {% elif item.notedKeywords.lina1[currentKeyword] == '1' %}
+                                                {% elif item.notedKeywords.lina1[currentKeyword] == '1' %}
                                                 <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
                                                 <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina1-{{ loop.index }}">1</label>
                                                 <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
-                                            {% else %}
+                                                {% elif item.notedKeywords.lina1[currentKeyword] == '0' %}
                                                 <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina1-{{ loop.index }}">0</label>
                                                 <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
                                                 <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
-                                            {% endif %}
+                                                {% else %}
+                                                <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
+                                                <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
+                                                <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
+                                                {% endif %}
 
-                                        <div class="loading" style="display: table-cell;vertical-align: middle;margin-left: 5px"></div>
-                                    </form></li>
+                                                <ins class="loading"></ins>
 
-                                {% endfor %}
+                                            </form>
 
-                            </ul>
+                                        </div>
 
-                            {% endif %}
+                                    {% endfor %}
 
-
-                            {% if keywords.scheme == 'lina2:notice' %}
+                                </div> <!-- End of a block keywords for lina1 notice -->
 
 
-                            <ul>
+                        <!-- Second Lina Notice Method -->
+
+                        {% elif keywords.scheme == 'lina2:notice' %}
+
+                            <div id="lina2ListOfKeywords">
+
+                                <h2> LINA 2</h2>
 
                                 {%  for keywordsAdv in keywords.term %}
 
                                 {% set currentKeyword = keywordsAdv['#text'] %}
 
+                                    <div class="btn btn-default {% if item.notedKeywords.lina2[currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
 
-                                <li class="btn btn-default {% if item.notedKeywords.lina2[currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']}}
+                                        <form class="formNotedKeyword row" id="lina2-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
 
-                                    <form class="formNotedKeyword row" id="lina2-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post">
-                                        <input type="hidden" name="key" value="notedKeywords.lina2.{{ keywordsAdv['#text'] }}"/>
+                                            <input type="hidden" name="key" value="notedKeywords.lina2.{{ keywordsAdv['#text'] }}"/><!-- Key Name -->
 
+                                            <!-- Value Name -->
                                             {% if item.notedKeywords.lina2[currentKeyword] == '2' %}
-                                            <option value="0">0</option>
-                                            <option value="1">1</option>
-                                            <option value="2" selected="selected">2</option>
+                                            <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
+                                            <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
+                                            <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina2-{{ loop.index }}">2</label>
                                             {% elif item.notedKeywords.lina2[currentKeyword] == '1' %}
-                                            <option value="0">0</option>
-                                            <option value="1" selected="selected">1</option>
-                                            <option value="2">2</option>
+                                            <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
+                                            <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina2-{{ loop.index }}">1</label>
+                                            <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
+                                            {% elif item.notedKeywords.lina2[currentKeyword] == '0' %}
+                                            <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina2-{{ loop.index }}">0</label>
+                                            <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
+                                            <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
                                             {% else %}
-                                            <option value="0" selected="selected">0</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
+                                            <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
+                                            <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
+                                            <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
                                             {% endif %}
 
-                                        <div class="loading" style="display: table-cell;float: left;vertical-align: middle;margin-left: 5px"></div>
-                                    </form></li>
+                                            <ins class="loading"></ins>
 
+                                        </form>
+
+                                    </div>
 
                                 {% endfor %}
 
-                            </ul>
+                            </div>  <!-- End of a block keywords for lina1 notice -->
+
+                    <!-- Check if lina method 1 or 2 exist and create a global div for both -->
+                    {% if keywords.scheme == 'lina1:notice' || keywords.scheme == 'lina2:notice' %}
+
+                    </div> <!-- End of Lina List keywords Block -->
+
+                    {% endif %}
 
 
 
-                                </div>
-                            {% endif %}
+                    <!-- Check if Inist keywords are present -->
+                    {% if keywords.scheme == 'inist-francis' ||   keywords.scheme == 'inist-pascal' %}
 
-                            {% endfor %}
-                    </div>
-            </section>
+                    <div id="keywordsDisplayDivInist"> <!-- Start Inist Keywords Block-->
 
+                    {% endif %}
+
+                        <!-- Check if Inist keywords are present -->
+                        {% if keywords.scheme == 'inist-francis' && keywords['xml#lang'] == 'fr' %}
+
+                            <div id="inist-francis-{{ keywords['xml#lang'] }}">
+
+                                {% set lang = keywords['xml#lang'] %}
+
+                                <h2> INIST FRANCIS  {{ lang }} </h2>
+
+                                {%  for keywordsAdv in keywords.term %}
+
+                                    {% set currentKeyword = keywordsAdv['#text'] %}
+
+                                    <div class="btn btn-default {% if item.notedKeywords['inist-francis'][lang][currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
+
+                                        <form class="formNotedKeyword row" id="inist-francis-{{ lang }}-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post">
+
+                                            <input type="hidden" name="key" value="notedKeywords.inist-francis.{{ lang }}.{{ keywordsAdv['#text'] }}"/><!-- Key Name -->
+
+                                            <!-- Value Name -->
+                                            {% if item.notedKeywords['inist-francis'][lang][currentKeyword] == '2' %}
+                                            <input id="input0-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-francis.{{ lang }}.{{ loop.index }}">0</label>
+                                            <input id="input1-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-francis.{{ lang }}.{{ loop.index }}">1</label>
+                                            <input id="input2-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-inist-francis.{{ lang }}.{{ loop.index }}">2</label>
+                                            {% elif item.notedKeywords['inist-francis'][lang][currentKeyword] == '1' %}
+                                            <input id="input0-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-francis.{{ lang }}.{{ loop.index }}">0</label>
+                                            <input id="input1-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-inist-francis.{{ lang }}.{{ loop.index }}">1</label>
+                                            <input id="input2-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-francis.{{ lang }}.{{ loop.index }}">2</label>
+                                            {% elif item.notedKeywords['inist-francis'][lang][currentKeyword] == '0' %}
+                                            <input id="input0-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-inist-francis.{{ lang }}.{{ loop.index }}">0</label>
+                                            <input id="input1-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-francis.{{ lang }}.{{ loop.index }}">1</label>
+                                            <input id="input2-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-francis.{{ lang }}.{{ loop.index }}">2</label>
+                                            {% else %}
+                                            <input id="input0-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-francis.{{ lang }}.{{ loop.index }}">0</label>
+                                            <input id="input1-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-francis.{{ lang }}.{{ loop.index }}">1</label>
+                                            <input id="input2-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-francis.{{ lang }}.{{ loop.index }}">2</label>
+                                            {% endif %}
+
+                                            <ins class="loading"></ins>
+
+                                        </form>
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div> <!-- End of Div inist-francis -->
+
+
+                        {% endif %}<!-- End of check if inist-francis if available -->
+
+
+                    {% endfor %}<!-- End of list all keywords -->
+
+
+                </div> <!-- End of Block Keywords -->
+
+            </section> <!-- End of Right  Section (Keywords) -->
+
+
+
+            <div id="inistKeywordsButton" style="height: 90px;width:25px;background: #CC6A63;color:#fff;position: absolute;right: 0;top: calc(50% - 90px);"><span style="transform: rotate(270deg);width: 90px;height: 25px; transform-origin: 48% 165%;display: inline-block">Affiche INIST</span></div>
+
+
+
+            <!-- Block of modal for full article -->
             <div id="fullArticleModal" class="modal fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-2" style="display: none;">
 
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">ARTICLE COMPLET</h4>
-            </div>
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <article id="fullArticle" class="col-lg-12">
-                        {{ body.item.content.json.TEI.text.body.div }}
-                    </article>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">ARTICLE COMPLET</h4>
                 </div>
-            </div>
 
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <article id="fullArticle" class="col-lg-12">
+                            {{ body.item.content.json.TEI.text.body.div }}
+                        </article>
+                    </div>
+                </div>
 
-
-            </div>
+            </div><!-- End of modal for full -->
 
 {% endblock %}
 
@@ -260,6 +351,41 @@
                         window.resumeClone = 1;
                     }
                 });
+
+            $("#keywordsDisplayDivInist").click(
+                    function() {
+                        if($("#keywordsDisplayDivInist").css('display') == 'none') {
+                            $("#keywordsDisplayDivInist").show();
+                        }
+                        else{
+                            $("#keywordsDisplayDivInist").hide();
+                        }
+                    }
+
+            );
+
+
+            $("#lina1Button").click(
+                    function() {
+                        if($("#lina1\\:notice").css('display') == 'none') {
+                            $("#lina2\\:notice").hide();
+                            $("#lina1\\:notice").show();
+                        }
+                    }
+
+            );
+
+
+
+            $("#lina2Button").click(
+                    function() {
+                        if($("#lina2\\:notice").css('display') == 'none') {
+                            $("#lina1\\:notice").hide();
+                            $("#lina2\\:notice").show();
+                        }
+                    }
+
+            );
 
             //submit Ajax form
             $(".formNotedKeyword input").change(function(e)
