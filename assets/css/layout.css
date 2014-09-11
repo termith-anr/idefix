@@ -513,13 +513,14 @@ table tr[data-href] {
 
 .divHoverH1Display{
     line-height: normal;
-    width: 100%;
     margin: 0;
     background: #CC6A63;
     z-index: 8;
     display:block;
     border-radius: 0 0 0 2px;
     height: 25%;
+    position: fixed;
+    width: 76.311%;
     padding: 0;
 }
 
@@ -665,6 +666,11 @@ span .authorsNameDisplayD{
     overflow-x:hidden;
     hyphens: auto;
     word-wrap: normal;
+    position: relative;
+}
+
+#keywordsSection h2{
+    margin-bottom: 40px;
 }
 
 .keywordsGliph{
@@ -710,12 +716,12 @@ span .authorsNameDisplayD{
 
 }
 
-#keywordsDisplayDiv{
+.keywordsDisplayDiv{
     padding-top: 15px;
     position: relative;
 }
 
-#keywordsDisplayDivInist{
+.keywordsDisplayDivInist{
     padding-top: 15px;
     position: relative;
     display: none;
@@ -729,9 +735,6 @@ span .authorsNameDisplayD{
     padding-bottom:40px;
 }
 
-.divForListKeywords ul{
-    margin-bottom: 50px;
-}
 
 
 #divSectionKeywordsDisplay{
@@ -1184,5 +1187,11 @@ input[value='2']:checked + label {
 
 
 #lina2ListOfKeywords{
-    display: none;
+    display: block;
+}
+
+#lina1ListOfKeywords{
+    position: absolute;
+    top: 17%;
+    z-index: 9999999;
 }

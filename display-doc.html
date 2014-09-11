@@ -108,23 +108,12 @@
 
                     {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
 
-                        <!-- Check if lina method 1 or 2 exist and create a global div for both -->
-
-                        {% if keywords.scheme == 'lina1:notice'%}
-
-                            <div class="divForListKeywords">
-
-                        {% elif keywords.scheme == 'lina2:notice'%}
-
-                            <div class="divForListKeywords">
-
-                        {% endif %}
 
                         <!-- First Lina Notice Method -->
 
-                        {% if keywords.scheme == 'lina1:notice' %}
+                        {% if keywords.scheme == 'lina-1:notice:topicrank:candidats-termes' %}
 
-                                <div id="lina1:notice">
+                                <div id="lina1ListOfKeywords">
 
                                     <h2> First Method </h2>
 
@@ -132,13 +121,13 @@
 
                                         {% set currentKeyword = keywordsAdv['#text'] %}
 
-                                        <div class="btn btn-default {% if item.notedKeywords.lina1[currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"><!-- Check if keywords has already been evaluated & apply a style -->
+                                        <div class="btn btn-default {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"><!-- Check if keywords has already been evaluated & apply a style -->
 
                                         {{ keywordsAdv['#text']|d('de mots clés') }}
 
-                                            <form class="formNotedKeyword row" id="lina1-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
+                                            <form class="formNotedKeyword row" id="lina-1-topicrank-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
 
-                                                <input type="hidden" name="key" value="notedKeywords.lina1.{{ keywordsAdv['#text'] }}"/> <!-- Key Name -->
+                                                <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.candidats-termes.{{ keywordsAdv['#text'] }}"/> <!-- Key Name -->
 
                                                 <!-- Value Name -->
                                                 {% if item.notedKeywords.lina1[currentKeyword] == '2' %}
@@ -172,21 +161,21 @@
 
                         <!-- Second Lina Notice Method -->
 
-                        {% elif keywords.scheme == 'lina2:notice' %}
+                        {% elif keywords.scheme == 'lina-1:notice:tfidf:candidats-termes' %}
 
                             <div id="lina2ListOfKeywords">
 
-                                <h2> LINA 2</h2>
+                                <h2> Second Method </h2>
 
                                 {%  for keywordsAdv in keywords.term %}
 
                                 {% set currentKeyword = keywordsAdv['#text'] %}
 
-                                    <div class="btn btn-default {% if item.notedKeywords.lina2[currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
+                                    <div class="btn btn-default {% if item.notedKeywords['lina-1'].tfidf['candidats-termes'][currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
 
-                                        <form class="formNotedKeyword row" id="lina2-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
+                                        <form class="formNotedKeyword row" id="lina-1-tfidf-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
 
-                                            <input type="hidden" name="key" value="notedKeywords.lina2.{{ keywordsAdv['#text'] }}"/><!-- Key Name -->
+                                            <input type="hidden" name="key" value="notedKeywords.lina-1.tfidf.candidats-termes.{{ keywordsAdv['#text'] }}"/><!-- Key Name -->
 
                                             <!-- Value Name -->
                                             {% if item.notedKeywords.lina2[currentKeyword] == '2' %}
@@ -219,31 +208,28 @@
 
                         {% endif %} <!-- End of a if keywords for lina notices -->
 
-                    <!-- Check if lina method 1 or 2 exist and create a global div for both -->
-                    {% if keywords.scheme == 'lina1:notice' %}
 
-                    </div> <!-- End of Lina List keywords Block -->
+                    <!-- Check if Inist keywords are present for div start-->
+                    {% if keywords.scheme == 'inist-francis'  %}
 
-                    {% elif keywords.scheme == 'lina2:notice' %}
+                    {% if  keywords['xml#lang'] == 'fr' %}
 
-                    </div> <!-- End of Lina List keywords Block -->
+                    <div class="keywordsDisplayDivInist"> <!-- Start Inist Keywords Block-->
 
                     {% endif %}
 
-
-
-                    <!-- Check if Inist keywords are present -->
-                    {% if keywords.scheme == 'inist-francis'  %}
-
-                    <div id="keywordsDisplayDivInist"> <!-- Start Inist Keywords Block-->
 
                     {% elif keywords.scheme == 'inist-pascal'  %}
 
-                    <div id="keywordsDisplayDivInist"> <!-- Start Inist Keywords Block-->
+                    {% if  keywords['xml#lang'] == 'fr' %}
+
+                    <div class="keywordsDisplayDivInist"> <!-- Start Inist Keywords Block-->
 
                     {% endif %}
 
-                        <!-- Check if Inist keywords are present -->
+                    {% endif %}
+
+                        <!-- Check if Inist keywords are present for generation-->
                         {% if keywords.scheme == 'inist-francis' %}
 
                           {% if  keywords['xml#lang'] == 'fr' %}
@@ -297,6 +283,16 @@
 
                         {% endif %}<!-- End of check if inist-francis if available -->
 
+                        <!-- Check if Inist keywords are present -->
+                        {% if keywords.scheme == 'inist-francis'  %}
+
+                        </div> <!-- end Inist Keywords Block-->
+
+                        {% elif keywords.scheme == 'inist-pascal'  %}
+
+                        </div> <!-- end Inist Keywords Block-->
+
+                        {% endif %}
 
                     {% endfor %}<!-- End of list all keywords -->
 
