@@ -38,9 +38,9 @@
 
 
                     <!-- MARK BLOC -->
-                    <div class="displayMark">
-                        <span class="glyphicon glyphicon-bookmark markGliph"></span>
-                        <div class="markInfoDisplay">{{ item.mark|d('/4') }}</div>
+                    <div class="displayDiscipline">
+                        <span class="glyphicon glyphicon-bookmark disciplineGliph"></span>
+                        <div class="disciplineInfoDisplay"><span>{{ item.mark|d('Nom discipline') }}</span></div>
                     </div>
 
                     <!-- AUTHORS BLOC -->
@@ -48,23 +48,8 @@
 
                         <span class="glyphicon glyphicon-user authorGliph"></span>
                         <div  class="authorsNameDisplayD">
-                            {% if item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.forename['#text'] %}
-
-                                <span>{{item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.forename['#text']|d('Pas d\'auteur') +" " + item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName.surname['#text']|d(" ") }} </span>
-
-                            {% elif item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName[0] %}
-
-                                {% for authors in item.content.json.TEI.teiHeader.fileDesc.sourceDesc.biblStruct.analytic.author.persName %}
-
-                                    <div>- {{ authors.forename['#text'] + ' ' + authors.surname['#text'] + '.' }}</div>
-
-                                {% endfor %}
-
-                            {% else %}
-
-                                ?
-
-                            {% endif %}
+                            <div class="methodLinkround"><span>Methode 1</span></div>
+                            <div class="methodLinkround"><span>Methode 2</span></div>
                         </div>
 
                     </div>

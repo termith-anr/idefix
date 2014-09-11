@@ -468,20 +468,17 @@ table tr[data-href] {
     font-style: italic;
 }
 
-.displayMark{
-    background: #CC6A63;
+.displayDiscipline{
     color: #fff;
     font-family: 'segoepr';
-    border-radius: 0 0 100% 0;
     text-align: center;
     font-size: 19px;
-    height:50%;
+    height:30%;
     display:table;
     width: 100%;
-    border-right: 6px solid #fff;
 }
 
-.markGliph{
+.disciplineGliph{
     margin: 0 auto;
     font-size: 20px;
     display: table-cell;
@@ -493,10 +490,33 @@ table tr[data-href] {
     box-shadow: 5px 0 1px -2px #9f6666;
 }
 
-.markInfoDisplay{
-    display:table-cell;
+.methodLinkround{
+    border: 10px solid rgba(204, 106, 99, 0.9);
+    border-radius: 85px;
+    display: table;
+    height: 85px;
+    margin: 15px auto 0;
+    position: relative;
     vertical-align: middle;
-    font-size:23px;
+    width: 85px;
+    font-size: 16px;
+}
+
+.disciplineInfoDisplay{
+    background: none repeat scroll 0 0 #cc6a63;
+    border-radius: 130px;
+    display: table;
+    height: 130px;
+    margin: 15px auto 0;
+    position: relative;
+    vertical-align: middle;
+    width: 130px;
+    font-size: 18px;
+}
+
+.disciplineInfoDisplay span{
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .divTopDisplay{
@@ -1187,7 +1207,7 @@ input[value='2']:checked + label {
 
 
 #lina2ListOfKeywords{
-    display: block;
+    display: none;
 }
 
 #lina1ListOfKeywords{
