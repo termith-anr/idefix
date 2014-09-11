@@ -110,7 +110,11 @@
 
                         <!-- Check if lina method 1 or 2 exist and create a global div for both -->
 
-                        {% if keywords.scheme == 'lina1:notice' || keywords.scheme == 'lina2:notice' %}
+                        {% if keywords.scheme == 'lina1:notice'%}
+
+                            <div class="divForListKeywords">
+
+                        {% elif keywords.scheme == 'lina2:notice'%}
 
                             <div class="divForListKeywords">
 
@@ -213,8 +217,14 @@
 
                             </div>  <!-- End of a block keywords for lina1 notice -->
 
+                        {% endif %} <!-- End of a if keywords for lina notices -->
+
                     <!-- Check if lina method 1 or 2 exist and create a global div for both -->
-                    {% if keywords.scheme == 'lina1:notice' || keywords.scheme == 'lina2:notice' %}
+                    {% if keywords.scheme == 'lina1:notice' %}
+
+                    </div> <!-- End of Lina List keywords Block -->
+
+                    {% elif keywords.scheme == 'lina2:notice' %}
 
                     </div> <!-- End of Lina List keywords Block -->
 
@@ -223,14 +233,20 @@
 
 
                     <!-- Check if Inist keywords are present -->
-                    {% if keywords.scheme == 'inist-francis' ||   keywords.scheme == 'inist-pascal' %}
+                    {% if keywords.scheme == 'inist-francis'  %}
+
+                    <div id="keywordsDisplayDivInist"> <!-- Start Inist Keywords Block-->
+
+                    {% elif keywords.scheme == 'inist-pascal'  %}
 
                     <div id="keywordsDisplayDivInist"> <!-- Start Inist Keywords Block-->
 
                     {% endif %}
 
                         <!-- Check if Inist keywords are present -->
-                        {% if keywords.scheme == 'inist-francis' && keywords['xml#lang'] == 'fr' %}
+                        {% if keywords.scheme == 'inist-francis' %}
+
+                          {% if  keywords['xml#lang'] == 'fr' %}
 
                             <div id="inist-francis-{{ keywords['xml#lang'] }}">
 
@@ -277,6 +293,7 @@
 
                             </div> <!-- End of Div inist-francis -->
 
+                          {% endif %}<!-- End of check  fr lang only -->
 
                         {% endif %}<!-- End of check if inist-francis if available -->
 
