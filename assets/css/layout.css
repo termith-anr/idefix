@@ -344,20 +344,30 @@ table tr[data-href] {
 #divArrLeft{
     text-align:center;
     color:#fff;
-    font-size:22px;
+    font-size:17px;
     height: 100%;
-    display: table-cell;
+    display: table;
     max-height:100%;
     overflow:hidden;
 }
 
-#divArrRight{
+#divArrLeft span{
     display: table-cell;
+    vertical-align: middle;
+}
+
+#divArrRight{
+    display: table;
     text-align: center;
     height:100%;
-    font-size:23px;
+    font-size:17px;
     max-height:100%;
     overflow:hidden;
+}
+
+#divArrRight span{
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #divNavMiddle{
@@ -365,7 +375,7 @@ table tr[data-href] {
     height:100%;
     text-align:center;
     color:#fff;
-    font-size:20px;
+    font-size:17px;
     max-height:100%;
     overflow:hidden;
 }
@@ -383,8 +393,9 @@ table tr[data-href] {
 .spanArrows{
     line-height:normal;
     text-align:center;
-    color:#fff;
-    font-size:22px;
+    color: rgba(0,0,0,0.1);
+    font-size:17px;
+
 }
 
 
@@ -478,6 +489,10 @@ table tr[data-href] {
     padding-bottom: 15px;
 }
 
+.methodLinkround:first-child{
+    margin-top: 0 !important;
+}
+
 .displayDiscipline{
     color: #fff;
     font-family: 'segoepr';
@@ -540,13 +555,11 @@ table tr[data-href] {
 
 .divTopDisplay{
     line-height: normal;
-    height:5%;
-    width: 100%;
-    padding-left: 12.25%;
+    width: calc(100% + 1px);
+    padding: 0;
     margin: 0;
+    height: 35px;
     background: #CC6A63;
-    z-index: 999;
-    box-shadow: 30px 6px 2px -3px rgba(74, 78, 79, 0.6);
 }
 
 
@@ -762,6 +775,7 @@ span .methodsameDisplayD{
     float: right;
     overflow-y: auto;
     height: 75%;
+    display: none;
 }
 
 .keywordsDisplayDivInist{
@@ -1244,4 +1258,20 @@ input[value='2']:checked + label {
     z-index: 193;
     width: 100%;
     overflow-y: auto;
+}
+
+#inistKeywordsButton{
+    height: 100px;
+    width:30px;
+    background: rgba(204,106,99,0.6);
+    color:#fff;
+    position: absolute;
+    right: 0;
+    top: calc(50% - 100px);
+    border-radius: 10px 0 0 10px;
+}
+
+#inistKeywordsButton:hover{
+    background: #ff847c !important;
+    color: #f5f5f5;
 }

@@ -12,24 +12,7 @@
 
     <div id="contentDisplay" class="col-lg-11">
 
-            <!-- THE NAV BAR -->
-            <div class="divTopDisplay row col-lg-12">
 
-                   <div id="divArrLeft" class="col-lg-4">
-                       <span class="glyphicon glyphicon-arrow-left spanArrows"></span>
-                   </div>
-
-                   <div id="divNavMiddle" class="col-lg-4">
-                       <p>
-                            <a href="/browse-docs.html">LISTE</a> <!-- Return to browse Docs-->
-                       </p>
-                   </div>
-
-                   <div id="divArrRight" class="col-lg-4">
-                       <span class="glyphicon glyphicon-arrow-right spanArrows"></span>
-                   </div>
-
-            </div>
 
             <!-- LEFT BLOC -->
             <aside id="leftSection" class="col-lg-2">
@@ -37,16 +20,34 @@
                 <header id="headerInfoDisplayDocs">
 
 
-                    <!-- MARK BLOC -->
+                    <!-- THE NAV BAR -->
+                    <div class="divTopDisplay">
+
+                        <div id="divArrLeft" class="col-lg-4">
+                            <span class="glyphicon glyphicon-arrow-left spanArrows"></span>
+                        </div>
+
+                        <div id="divNavMiddle" class="col-lg-4">
+                            <p>
+                                <a href="/browse-docs.html">LISTE</a> <!-- Return to browse Docs-->
+                            </p>
+                        </div>
+
+                        <div id="divArrRight" class="col-lg-4">
+                            <span class="glyphicon glyphicon-arrow-right spanArrows"></span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- NAME BLOC -->
                     <div class="displayDiscipline">
-                        <span class="glyphicon glyphicon-barcode disciplineGliph"></span>
                         <div class="disciplineInfoDisplay"><span>{{ item.mark|d('Nom discipline') }}</span></div>
                     </div>
 
                     <!-- AUTHORS BLOC -->
                     <div class="displayMethodBu">
 
-                        <span class="glyphicon glyphicon-user authorGliph"></span>
                         <div  class="methodsNameDisplayD">
 
                             <div id="method1Button" class="methodLinkround">
@@ -106,7 +107,7 @@
 
                                 <div id="lina1ListOfKeywords">
 
-                                    <h2> First Method </h2>
+                                    <h2> Methode 1 </h2>
 
                                     {%  for keywordsAdv in keywords.term %}
 
@@ -156,7 +157,7 @@
 
                             <div id="lina2ListOfKeywords">
 
-                                <h2> Second Method </h2>
+                                <h2> Methode 2 </h2>
 
                                 {%  for keywordsAdv in keywords.term %}
 
@@ -294,7 +295,7 @@
 
 
 
-            <div id="inistKeywordsButton" style="height: 90px;width:25px;background: #CC6A63;color:#fff;position: absolute;right: 0;top: calc(50% - 90px);"><span style="transform: rotate(270deg);width: 90px;height: 25px; transform-origin: 48% 165%;display: inline-block">Affiche INIST</span></div>
+            <div id="inistKeywordsButton" style=""><span style="transform: rotate(270deg);width: 90px;height: 25px; transform-origin: 53% 166% 0;display: inline-block">Afficher INIST</span></div>
 
 
 
@@ -345,15 +346,21 @@
 
             $("#inistKeywordsButton").click(
                     function() {
-                        if($(".keywordsDisplayDivInist").css('display') == 'none') {
-                            $("#lina1ListOfKeywords").animate({width: '50%'}, 500);
-                            $("#lina2ListOfKeywords").animate({width: '50%'}, 500);
-                            $(".keywordsDisplayDivInist").show("slide", { direction: "right" }, 500);
+                        if($("#keywordsDisplayDiv").css('display') == 'none') {
+                            $("#lina1ListOfKeywords").animate({width: '50%'}, 400);
+                            $("#lina2ListOfKeywords").animate({width: '50%'}, 400);
+                            $("#keywordsDisplayDiv").show();
+                            $(".keywordsDisplayDivInist").show("slide", { direction: "right" }, 400);
+                            $('span', this).html('Cacher INIST');
+                            $(this).css({background: '#CC6A63'})
                         }
                         else{
-                            $("#lina1ListOfKeywords").animate({width: '100%'},500);
-                            $("#lina2ListOfKeywords").animate({width: '100%'},500);
-                            $(".keywordsDisplayDivInist").hide("slide", { direction: "right" }, 500);
+                            $("#lina1ListOfKeywords").animate({width: '100%'},400);
+                            $("#lina2ListOfKeywords").animate({width: '100%'},400);
+                            $(".keywordsDisplayDivInist").hide("slide", { direction: "right" }, 400);
+                            $("#keywordsDisplayDiv").hide();
+                            $('span', this).html('Afficher INIST');
+                            $(this).css({background: ''})
                         }
                     }
 
