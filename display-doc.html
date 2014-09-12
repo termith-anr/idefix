@@ -39,17 +39,23 @@
 
                     <!-- MARK BLOC -->
                     <div class="displayDiscipline">
-                        <span class="glyphicon glyphicon-bookmark disciplineGliph"></span>
+                        <span class="glyphicon glyphicon-barcode disciplineGliph"></span>
                         <div class="disciplineInfoDisplay"><span>{{ item.mark|d('Nom discipline') }}</span></div>
                     </div>
 
                     <!-- AUTHORS BLOC -->
-                    <div class="displayAuthor">
+                    <div class="displayMethodBu">
 
                         <span class="glyphicon glyphicon-user authorGliph"></span>
-                        <div  class="authorsNameDisplayD">
-                            <div class="methodLinkround"><span>Methode 1</span></div>
-                            <div class="methodLinkround"><span>Methode 2</span></div>
+                        <div  class="methodsNameDisplayD">
+
+                            <div id="method1Button" class="methodLinkround">
+                                <span>Methode 1</span>
+                            </div>
+                            <div id="method2Button" class="methodLinkround">
+                                <span>Methode 2</span>
+                            </div>
+
                         </div>
 
                     </div>
@@ -89,7 +95,7 @@
 
                 </div>
 
-                <div id="keywordsDisplayDiv" class="col-lg-12">
+                <div id="keywordsDisplayDiv" class="col-lg-6">
 
                     {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
 
@@ -115,15 +121,15 @@
                                                 <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.candidats-termes.{{ keywordsAdv['#text'] }}"/> <!-- Key Name -->
 
                                                 <!-- Value Name -->
-                                                {% if item.notedKeywords.lina1[currentKeyword] == '2' %}
+                                                {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] == '2' %}
                                                 <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
                                                 <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
                                                 <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina1-{{ loop.index }}">2</label>
-                                                {% elif item.notedKeywords.lina1[currentKeyword] == '1' %}
+                                                {% elif item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] == '1' %}
                                                 <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
                                                 <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina1-{{ loop.index }}">1</label>
                                                 <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
-                                                {% elif item.notedKeywords.lina1[currentKeyword] == '0' %}
+                                                {% elif item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] == '0' %}
                                                 <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina1-{{ loop.index }}">0</label>
                                                 <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
                                                 <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
@@ -163,15 +169,15 @@
                                             <input type="hidden" name="key" value="notedKeywords.lina-1.tfidf.candidats-termes.{{ keywordsAdv['#text'] }}"/><!-- Key Name -->
 
                                             <!-- Value Name -->
-                                            {% if item.notedKeywords.lina2[currentKeyword] == '2' %}
+                                            {% if item.notedKeywords['lina-2'].tfidf['candidats-termes'][currentKeyword] == '2' %}
                                             <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
                                             <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
                                             <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina2-{{ loop.index }}">2</label>
-                                            {% elif item.notedKeywords.lina2[currentKeyword] == '1' %}
+                                            {% elif item.notedKeywords['lina-2'].tfidf['candidats-termes'][currentKeyword] == '1' %}
                                             <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
                                             <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina2-{{ loop.index }}">1</label>
                                             <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
-                                            {% elif item.notedKeywords.lina2[currentKeyword] == '0' %}
+                                            {% elif item.notedKeywords['lina-2'].tfidf['candidats-termes'][currentKeyword] == '0' %}
                                             <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina2-{{ loop.index }}">0</label>
                                             <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
                                             <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
@@ -319,6 +325,7 @@
         <script src="assets/js/dmap.js"></script>
         <script src="assets/js/jquery.fs.scroller.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 
             <script>
 
@@ -336,19 +343,23 @@
 
             window.b = 0;
 
-                $("#sectionResumeDisplayDocs").click(function () {
-                    if(!(window.resumeClone)) {
-                        var $theClone = jQuery(this).clone();
-                        $theClone.appendTo('#showOnClickDiv');
-                        $div = $('#showOnClickDiv');
-                        $div.show().addClass('showOnClickDivView');
-                        $div.find('h2').css({'background':'#fff', 'color': '#333'}).append('<span class="glyphicon glyphicon-remove crossToQuit"></span>');
-                        $div.find('#sectionResumeDisplayDocs').removeClass('col-lg-6').addClass('col-lg-12').css('border' , '8px solid #fff');
-                        $div.find('article').addClass('articleSectionResumeDisplayView').css('border', 'none');
-                        $('#content').fadeTo( 500 , 0.12 );;
-                        window.resumeClone = 1;
+            $("#inistKeywordsButton").click(
+                    function() {
+                        if($(".keywordsDisplayDivInist").css('display') == 'none') {
+                            $("#lina1ListOfKeywords").animate({width: '50%'}, 500);
+                            $("#lina2ListOfKeywords").animate({width: '50%'}, 500);
+                            $(".keywordsDisplayDivInist").show("slide", { direction: "right" }, 500);
+                        }
+                        else{
+                            $("#lina1ListOfKeywords").animate({width: '100%'},500);
+                            $("#lina2ListOfKeywords").animate({width: '100%'},500);
+                            $(".keywordsDisplayDivInist").hide("slide", { direction: "right" }, 500);
+                        }
                     }
-                });
+
+            );
+
+
 
             $("#keywordsDisplayDivInist").click(
                     function() {
@@ -363,11 +374,13 @@
             );
 
 
-            $("#lina1Button").click(
+            $("#method1Button").click(
                     function() {
-                        if($("#lina1\\:notice").css('display') == 'none') {
-                            $("#lina2\\:notice").hide();
-                            $("#lina1\\:notice").show();
+                        if($("#lina1ListOfKeywords").css('display') == 'none') {
+                            $("#lina2ListOfKeywords").hide("slide", { direction: "right" }, 500);
+                            $("#lina1ListOfKeywords").show("slide", { direction: "left" }, 500);
+                            $(this).css('borderColor' , '#CC6A63');
+                            $("#method2Button").css('borderColor' , '')
                         }
                     }
 
@@ -375,11 +388,13 @@
 
 
 
-            $("#lina2Button").click(
+            $("#method2Button").click(
                     function() {
-                        if($("#lina2\\:notice").css('display') == 'none') {
-                            $("#lina1\\:notice").hide();
-                            $("#lina2\\:notice").show();
+                        if($("#lina2ListOfKeywords").css('display') == 'none') {
+                            $("#lina1ListOfKeywords").hide("drop", { direction: "left" }, 500);
+                            $("#lina2ListOfKeywords").show("slide", { direction: "right" }, 500);
+                            $(this).css('borderColor' , '#CC6A63');
+                            $("#method1Button").css('borderColor' , '')
                         }
                     }
 

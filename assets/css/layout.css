@@ -396,7 +396,6 @@ table tr[data-href] {
 }
 
 #headerInfoDisplayDocs{
-    height:50%;
 }
 
 
@@ -438,14 +437,24 @@ table tr[data-href] {
     font-size: 23px;
 }
 
-.displayAuthor{
+.displayMethodBu{
     color: #333;
     font-family: 'segoe';
     text-align: center;
     font-size: 17px;
-    height:50%;
+    height:125px;
     display:table;
     width: 100%;
+    max-height: 125px;
+}
+
+.methodLinkround{
+}
+
+.methodLinkround span{
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 15px;
 }
 
 .authorGliph{
@@ -460,12 +469,13 @@ table tr[data-href] {
     color: #fff;
 }
 
-.authorsNameDisplayD{
-    display: table-cell;
+.methodsNameDisplayD{
+    display: table;
     vertical-align: middle;
     text-align: left;
-    padding-left: 13%;
+    width: 100%;
     font-style: italic;
+    padding-bottom: 15px;
 }
 
 .displayDiscipline{
@@ -473,7 +483,7 @@ table tr[data-href] {
     font-family: 'segoepr';
     text-align: center;
     font-size: 19px;
-    height:30%;
+    height: 135px;
     display:table;
     width: 100%;
 }
@@ -487,31 +497,40 @@ table tr[data-href] {
     padding-right: 7px;
     width: 1px;
     background: #CC6A63;
-    box-shadow: 5px 0 1px -2px #9f6666;
 }
 
 .methodLinkround{
-    border: 10px solid rgba(204, 106, 99, 0.9);
-    border-radius: 85px;
+    border: 11px solid rgba(204, 106, 99, 0.6);
+    border-radius: 95px;
     display: table;
-    height: 85px;
+    height: 95px;
     margin: 15px auto 0;
     position: relative;
     vertical-align: middle;
-    width: 85px;
+    width: 95px;
     font-size: 16px;
+    text-align: center;
+    font-family: segoeuisl;
+    color: #333;
+    font-style: italic;
+    transition: all 250ms;
+}
+
+.methodLinkround:hover{
+    border: 6px solid #FF847C !important;
 }
 
 .disciplineInfoDisplay{
     background: none repeat scroll 0 0 #cc6a63;
-    border-radius: 130px;
+    border-radius: 0 50px;
     display: table;
-    height: 130px;
+    font-size: 18px;
+    height: 100px;
     margin: 15px auto 0;
+    padding: 7px;
     position: relative;
     vertical-align: middle;
-    width: 130px;
-    font-size: 18px;
+    width: 80%;
 }
 
 .disciplineInfoDisplay span{
@@ -668,11 +687,11 @@ table tr[data-href] {
 }
 
 
-div .authorsNameDisplayD{
+div .methodsameDisplayD{
     font-size: 15px;
 }
 
-span .authorsNameDisplayD{
+span .methodsameDisplayD{
     font-size: 17px;
 }
 
@@ -682,7 +701,7 @@ span .authorsNameDisplayD{
     text-align:center;
     height:95%;
     padding:0;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x:hidden;
     hyphens: auto;
     word-wrap: normal;
@@ -736,15 +755,19 @@ span .authorsNameDisplayD{
 
 }
 
-.keywordsDisplayDiv{
-    padding-top: 15px;
+#keywordsDisplayDiv{
     position: relative;
+    top:17%;
+    z-index:99999;
+    float: right;
+    overflow-y: auto;
+    height: 75%;
 }
 
 .keywordsDisplayDivInist{
-    padding-top: 15px;
     position: relative;
     display: none;
+    border-left: 3px dotted rgba(204,106,99,0.6);
 }
 
 
@@ -1207,11 +1230,18 @@ input[value='2']:checked + label {
 
 
 #lina2ListOfKeywords{
+    position: absolute;
+    top: 17%;
+    z-index: 193;
     display: none;
+    overflow-y: auto;
+    width: 100%;
 }
 
 #lina1ListOfKeywords{
     position: absolute;
     top: 17%;
-    z-index: 9999999;
+    z-index: 193;
+    width: 100%;
+    overflow-y: auto;
 }
