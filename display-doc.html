@@ -96,6 +96,9 @@
 
                 </div>
 
+                <p id="abstractFullLenght">{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de résumé pour cet article') }}</p>
+
+
                 <div id="keywordsDisplayDiv" class="col-lg-6">
 
                     {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
@@ -148,7 +151,54 @@
 
                                     {% endfor %}
 
-                                </div> <!-- End of a block keywords for lina1 notice -->
+                                </div> <!-- End of a block keywords for lina1 notice topicrank candidats termes -->
+
+                        {% elif keywords.scheme == 'lina-1:notice:topicrank:n-gramm' %}
+
+                        <div id="lina1ListOfKeywords">
+
+                            <h2> Methode 1 </h2>
+
+                            {%  for keywordsAdv in keywords.term %}
+
+                            {% set currentKeyword = keywordsAdv['#text'] %}
+
+                            <div class="btn btn-default {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"><!-- Check if keywords has already been evaluated & apply a style -->
+
+                                {{ keywordsAdv['#text']|d('de mots clés') }}
+
+                                <form class="formNotedKeyword row" id="lina-1-topicrank-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
+
+                                    <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.candidats-termes.{{ keywordsAdv['#text'] }}"/> <!-- Key Name -->
+
+                                    <!-- Value Name -->
+                                    {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] == '2' %}
+                                    <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
+                                    <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
+                                    <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina1-{{ loop.index }}">2</label>
+                                    {% elif item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] == '1' %}
+                                    <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
+                                    <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina1-{{ loop.index }}">1</label>
+                                    <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
+                                    {% elif item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] == '0' %}
+                                    <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina1-{{ loop.index }}">0</label>
+                                    <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
+                                    <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
+                                    {% else %}
+                                    <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
+                                    <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
+                                    <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
+                                    {% endif %}
+
+                                    <ins class="loading"></ins>
+
+                                </form>
+
+                            </div>
+
+                            {% endfor %}
+
+                        </div> <!-- End of a block keywords for lina1 notice  topicrank n-gramm-->
 
 
                         <!-- Second Lina Notice Method -->
@@ -170,15 +220,15 @@
                                             <input type="hidden" name="key" value="notedKeywords.lina-1.tfidf.candidats-termes.{{ keywordsAdv['#text'] }}"/><!-- Key Name -->
 
                                             <!-- Value Name -->
-                                            {% if item.notedKeywords['lina-2'].tfidf['candidats-termes'][currentKeyword] == '2' %}
+                                            {% if item.notedKeywords['lina-1'].tfidf['candidats-termes'][currentKeyword] == '2' %}
                                             <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
                                             <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
                                             <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina2-{{ loop.index }}">2</label>
-                                            {% elif item.notedKeywords['lina-2'].tfidf['candidats-termes'][currentKeyword] == '1' %}
+                                            {% elif item.notedKeywords['lina-1'].tfidf['candidats-termes'][currentKeyword] == '1' %}
                                             <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
                                             <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina2-{{ loop.index }}">1</label>
                                             <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
-                                            {% elif item.notedKeywords['lina-2'].tfidf['candidats-termes'][currentKeyword] == '0' %}
+                                            {% elif item.notedKeywords['lina-1'].tfidf['candidats-termes'][currentKeyword] == '0' %}
                                             <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina2-{{ loop.index }}">0</label>
                                             <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
                                             <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
@@ -196,7 +246,52 @@
 
                                 {% endfor %}
 
-                            </div>  <!-- End of a block keywords for lina1 notice -->
+                            </div>  <!-- End of a block keywords for lina1 tfidf candidat thermes-->
+
+                        {% elif keywords.scheme == 'lina-1:notice:tfidf:n-gram' %}
+
+                        <div id="lina2ListOfKeywords">
+
+                            <h2> Methode 2 </h2>
+
+                            {%  for keywordsAdv in keywords.term %}
+
+                            {% set currentKeyword = keywordsAdv['#text'] %}
+
+                            <div class="btn btn-default {% if item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
+
+                                <form class="formNotedKeyword row" id="lina-1-tfidf-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
+
+                                    <input type="hidden" name="key" value="notedKeywords.lina-1.tfidf.n-gram.{{ keywordsAdv['#text'] }}"/><!-- Key Name -->
+
+                                    <!-- Value Name -->
+                                    {% if item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword] == '2' %}
+                                    <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
+                                    <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
+                                    <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina2-{{ loop.index }}">2</label>
+                                    {% elif item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword] == '1' %}
+                                    <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
+                                    <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina2-{{ loop.index }}">1</label>
+                                    <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
+                                    {% elif item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword] == '0' %}
+                                    <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina2-{{ loop.index }}">0</label>
+                                    <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
+                                    <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
+                                    {% else %}
+                                    <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
+                                    <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
+                                    <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
+                                    {% endif %}
+
+                                    <ins class="loading"></ins>
+
+                                </form>
+
+                            </div>
+
+                            {% endfor %}
+
+                        </div>  <!-- End of a block keywords for lina1 tfidf n-gramm-->
 
                         {% endif %} <!-- End of a if keywords for lina notices -->
 
@@ -273,7 +368,61 @@
 
                           {% endif %}<!-- End of check  fr lang only -->
 
+                        <!-- Check if Inist pascal keywords are present for generation-->
+                        {% elif keywords.scheme == 'inist-pascal' %}
+
+                        {% if  keywords['xml#lang'] == 'fr' %}
+
+                        <div id="inist-francis-{{ keywords['xml#lang'] }}">
+
+                            {% set lang = keywords['xml#lang'] %}
+
+                            <h2> INIST FRANCIS  {{ lang }} </h2>
+
+                            {%  for keywordsAdv in keywords.term %}
+
+                            {% set currentKeyword = keywordsAdv['#text'] %}
+
+                            <div class="btn btn-default {% if item.notedKeywords['inist-francis'][lang][currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
+
+                                <form class="formNotedKeyword row" id="inist-francis-{{ lang }}-{{ loop.index }}" name="formNotedKeyword" action="save/{{ item.wid }}" method="post">
+
+                                    <input type="hidden" name="key" value="notedKeywords.inist-francis.{{ lang }}.{{ keywordsAdv['#text'] }}"/><!-- Key Name -->
+
+                                    <!-- Value Name -->
+                                    {% if item.notedKeywords['inist-francis'][lang][currentKeyword] == '2' %}
+                                    <input id="input0-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-francis.{{ lang }}.{{ loop.index }}">0</label>
+                                    <input id="input1-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-francis.{{ lang }}.{{ loop.index }}">1</label>
+                                    <input id="input2-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-inist-francis.{{ lang }}.{{ loop.index }}">2</label>
+                                    {% elif item.notedKeywords['inist-francis'][lang][currentKeyword] == '1' %}
+                                    <input id="input0-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-francis.{{ lang }}.{{ loop.index }}">0</label>
+                                    <input id="input1-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-inist-francis.{{ lang }}.{{ loop.index }}">1</label>
+                                    <input id="input2-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-francis.{{ lang }}.{{ loop.index }}">2</label>
+                                    {% elif item.notedKeywords['inist-francis'][lang][currentKeyword] == '0' %}
+                                    <input id="input0-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-inist-francis.{{ lang }}.{{ loop.index }}">0</label>
+                                    <input id="input1-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-francis.{{ lang }}.{{ loop.index }}">1</label>
+                                    <input id="input2-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-francis.{{ lang }}.{{ loop.index }}">2</label>
+                                    {% else %}
+                                    <input id="input0-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-francis.{{ lang }}.{{ loop.index }}">0</label>
+                                    <input id="input1-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-francis.{{ lang }}.{{ loop.index }}">1</label>
+                                    <input id="input2-inist-francis.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-francis.{{ lang }}.{{ loop.index }}">2</label>
+                                    {% endif %}
+
+                                    <ins class="loading"></ins>
+
+                                </form>
+
+                            </div>
+
+                            {% endfor %}
+
+                        </div> <!-- End of Div inist-pascal -->
+
+                        {% endif %}<!-- End of check  fr lang only -->
+
                         {% endif %}<!-- End of check if inist-francis if available -->
+
+
 
                         <!-- Check if Inist keywords are present -->
                         {% if keywords.scheme == 'inist-francis'  %}
@@ -346,6 +495,10 @@
 
             $("#inistKeywordsButton").click(
                     function() {
+                        if($('#abstractFullLenght').css('display') == 'block'){
+                            $('#abstractFullLenght').hide();
+                            $('#sectionArticle').css('opacity','1');
+                        }
                         if($("#keywordsDisplayDiv").css('display') == 'none') {
                             $("#lina1ListOfKeywords").animate({width: '50%'}, 400);
                             $("#lina2ListOfKeywords").animate({width: '50%'}, 400);
@@ -368,21 +521,12 @@
 
 
 
-            $("#keywordsDisplayDivInist").click(
-                    function() {
-                        if($("#keywordsDisplayDivInist").css('display') == 'none') {
-                            $("#keywordsDisplayDivInist").show();
-                        }
-                        else{
-                            $("#keywordsDisplayDivInist").hide();
-                        }
-                    }
-
-            );
-
-
             $("#method1Button").click(
                     function() {
+                        if($('#abstractFullLenght').css('display') == 'block'){
+                            $('#abstractFullLenght').hide();
+                            $('#sectionArticle').css('opacity','1');
+                        }
                         if($("#lina1ListOfKeywords").css('display') == 'none') {
                             $("#lina2ListOfKeywords").hide("slide", { direction: "right" }, 500);
                             $("#lina1ListOfKeywords").show("slide", { direction: "left" }, 500);
@@ -397,6 +541,10 @@
 
             $("#method2Button").click(
                     function() {
+                        if($('#abstractFullLenght').css('display') == 'block'){
+                            $('#abstractFullLenght').hide();
+                            $('#sectionArticle').css('opacity','1');
+                        }
                         if($("#lina2ListOfKeywords").css('display') == 'none') {
                             $("#lina1ListOfKeywords").hide("drop", { direction: "left" }, 500);
                             $("#lina2ListOfKeywords").show("slide", { direction: "right" }, 500);
