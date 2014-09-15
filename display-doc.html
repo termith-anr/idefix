@@ -345,7 +345,7 @@
                                             <input id="input1-inist-francis.topicrank.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-francis.topicrank.{{ loop.index }}">1</label>
                                             <input id="input2-inist-francis.topicrank.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-inist-francis.topicrank.{{ loop.index }}">2</label>
                                             {% elif item.notedKeywords['inist-francis'].topicrank[currentKeyword] == '1' %}
-                                            <input id="input0-inist-francis.topicrank}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-francis.topicrank.{{ loop.index }}">0</label>
+                                            <input id="input0-inist-francis.topicrank.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-francis.topicrank.{{ loop.index }}">0</label>
                                             <input id="input1-inist-francis.topicrank.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-inist-francis.topicrank.{{ loop.index }}">1</label>
                                             <input id="input2-inist-francis.topicrank.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-francis.topicrank.{{ loop.index }}">2</label>
                                             {% elif item.notedKeywords['inist-francis'].topicrank[currentKeyword] == '0' %}
@@ -417,29 +417,29 @@
 
                             {% set currentKeyword = keywordsAdv['#text'] %}
 
-                            <div class="btn btn-default methode2F {% if item.notedKeywords['inist-pascal'][lang][currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
+                            <div class="btn btn-default methode2F {% if item.notedKeywords['inist-pascal'].topicrank.[currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
 
-                                <form class="formNotedKeyword row" id="inist-pascal-{{ lang }}-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
+                                <form class="formNotedKeyword row" id="inist-pascal-topicrank-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
 
-                                    <input type="hidden" name="key" value="notedKeywords.inist-pascal.{{ lang }}.{{ keywordsAdv['#text'] }}"/><!-- Key Name -->
+                                    <input type="hidden" name="key" value="notedKeywords.inist-pascal.topicrank.{{ keywordsAdv['#text'] }}"/><!-- Key Name -->
 
                                     <!-- Value Name -->
-                                    {% if item.notedKeywords['inist-pascal'][lang][currentKeyword] == '2' %}
-                                    <input id="input0-inist-pascal.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-pascal.{{ lang }}.{{ loop.index }}">0</label>
-                                    <input id="input1-inist-pascal.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-pascal.{{ lang }}.{{ loop.index }}">1</label>
-                                    <input id="input2-inist-pascal.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-inist-pascal.{{ lang }}.{{ loop.index }}">2</label>
-                                    {% elif item.notedKeywords['inist-pascal'][lang][currentKeyword] == '1' %}
-                                    <input id="input0-inist-pascal.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-pascal.{{ lang }}.{{ loop.index }}">0</label>
-                                    <input id="input1-inist-pascal.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-inist-pascal.{{ lang }}.{{ loop.index }}">1</label>
-                                    <input id="input2-inist-pascal.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-pascal.{{ lang }}.{{ loop.index }}">2</label>
-                                    {% elif item.notedKeywords['inist-pascal'][lang][currentKeyword] == '0' %}
-                                    <input id="input0-inist-pascal.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-inist-pascal.{{ lang }}.{{ loop.index }}">0</label>
-                                    <input id="input1-inist-pascal.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-pascal.{{ lang }}.{{ loop.index }}">1</label>
-                                    <input id="input2-inist-pascal.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-pascal.{{ lang }}.{{ loop.index }}">2</label>
+                                    {% if item.notedKeywords['inist-pascal'].topicrank.[currentKeyword] == '2' %}
+                                    <input id="input0-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-pascal.topicrank.{{ loop.index }}">0</label>
+                                    <input id="input1-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-pascal.topicrank.{{ loop.index }}">1</label>
+                                    <input id="input2-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-inist-pascal.topicrank.{{ loop.index }}">2</label>
+                                    {% elif item.notedKeywords['inist-pascal'].topicrank.[currentKeyword] == '1' %}
+                                    <input id="input0-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-pascal.topicrank.{{ loop.index }}">0</label>
+                                    <input id="input1-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-inist-pascal.topicrank.{{ loop.index }}">1</label>
+                                    <input id="input2-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-pascal.topicrank.{{ loop.index }}">2</label>
+                                    {% elif item.notedKeywords['inist-pascal'].topicrank.[currentKeyword] == '0' %}
+                                    <input id="input0-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-inist-pascal.topicrank.{{ loop.index }}">0</label>
+                                    <input id="input1-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-pascal.topicrank.{{ loop.index }}">1</label>
+                                    <input id="input2-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-pascal.topicrank.{{ loop.index }}">2</label>
                                     {% else %}
-                                    <input id="input0-inist-pascal.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-pascal.{{ lang }}.{{ loop.index }}">0</label>
-                                    <input id="input1-inist-pascal.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-pascal.{{ lang }}.{{ loop.index }}">1</label>
-                                    <input id="input2-inist-pascal.{{ lang }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-pascal.{{ lang }}.{{ loop.index }}">2</label>
+                                    <input id="input0-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-pascal.topicrank.{{ loop.index }}">0</label>
+                                    <input id="input1-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-pascal.topicrank.{{ loop.index }}">1</label>
+                                    <input id="input2-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-pascal.topicrank.{{ loop.index }}">2</label>
                                     {% endif %}
 
                                     <ins class="loading"></ins>
