@@ -114,6 +114,8 @@
 
                                     <h2> Méthode 1 </h2>
 
+                                    {% set listOfKeyword =  keywords.term %}
+
                                     {%  for keywordsAdv in keywords.term %}
 
                                         {% set currentKeyword = keywordsAdv['#text'] %}
@@ -124,7 +126,7 @@
 
                                             <form class="formNotedKeyword row" id="lina-1-topicrank-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
 
-                                                <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.candidats-termes.{{ keywordsAdv['#text'] }}"/> <!-- Key Name -->
+                                                <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.candidats-termes.{{ keywordsAdv['#text'] }}.note"/> <!-- Key Name -->
 
                                                 <!-- Value Name -->
                                                 {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] == '2' %}
@@ -147,6 +149,23 @@
 
                                                 <ins class="loading"></ins>
 
+                                            </form>
+
+                                            <form class="formNotedKeyword formNotedKeywordsPreference row" id="lina-1-topicrank-preference-{{ loop.index }}" action="/save/{{ item.wid }}">
+
+                                                <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.candidats-termes.{{ keywordsAdv['#text'] }}.preference"/> <!-- Key Name -->
+
+                                                <label for="lina-1-topicrank-preference-list-{{ loop.index }}">Préf: </label>
+                                                <select id="lina-1-topicrank-preference-list-{{ loop.index }}" class="formNotedKeywordList" name="val">
+                                                    <option value=" ">
+
+                                                    </option>
+                                                    {%  for cKeyOfList in listOfKeyword %}
+                                                        <option value="{{ cKeyOfList['#text'] }}">
+                                                            {{ cKeyOfList['#text'] }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
                                             </form>
 
                                         </div>
@@ -417,22 +436,22 @@
 
                             {% set currentKeyword = keywordsAdv['#text'] %}
 
-                            <div class="btn btn-default methode2F {% if item.notedKeywords['inist-pascal'].topicrank.[currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
+                            <div class="btn btn-default methode2F {% if item.notedKeywords['inist-pascal'].topicrank[currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
 
                                 <form class="formNotedKeyword row" id="inist-pascal-topicrank-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
 
                                     <input type="hidden" name="key" value="notedKeywords.inist-pascal.topicrank.{{ keywordsAdv['#text'] }}"/><!-- Key Name -->
 
                                     <!-- Value Name -->
-                                    {% if item.notedKeywords['inist-pascal'].topicrank.[currentKeyword] == '2' %}
+                                    {% if item.notedKeywords['inist-pascal'].topicrank[currentKeyword] == '2' %}
                                     <input id="input0-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-pascal.topicrank.{{ loop.index }}">0</label>
                                     <input id="input1-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-pascal.topicrank.{{ loop.index }}">1</label>
                                     <input id="input2-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-inist-pascal.topicrank.{{ loop.index }}">2</label>
-                                    {% elif item.notedKeywords['inist-pascal'].topicrank.[currentKeyword] == '1' %}
+                                    {% elif item.notedKeywords['inist-pascal'].topicrank[currentKeyword] == '1' %}
                                     <input id="input0-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-inist-pascal.topicrank.{{ loop.index }}">0</label>
                                     <input id="input1-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-inist-pascal.topicrank.{{ loop.index }}">1</label>
                                     <input id="input2-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-pascal.topicrank.{{ loop.index }}">2</label>
-                                    {% elif item.notedKeywords['inist-pascal'].topicrank.[currentKeyword] == '0' %}
+                                    {% elif item.notedKeywords['inist-pascal'].topicrank[currentKeyword] == '0' %}
                                     <input id="input0-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-inist-pascal.topicrank.{{ loop.index }}">0</label>
                                     <input id="input1-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-inist-pascal.topicrank.{{ loop.index }}">1</label>
                                     <input id="input2-inist-pascal.topicrank.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-inist-pascal.topicrank.{{ loop.index }}">2</label>
@@ -629,14 +648,14 @@
 
             );
 
+
             //submit Ajax form
-            $(".formNotedKeyword input").change(function(e)
+            $(".formNotedKeyword input, .formNotedKeyword select").change(function(e)
             {
                 var id = $(this).parent().attr('id');
                 var postData = $(this).parent().serializeArray();
                 var formURL = $(this).parent().attr("action");
                 var li = $(this).parent().parent();
-                console.log(li);
 
                 $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
 

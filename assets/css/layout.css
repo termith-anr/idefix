@@ -702,7 +702,7 @@ table tr[data-href] {
     height:50%;
     width: 100%;
     max-height: 50%;
-    overflow-y: auto;
+    overflow-y: hidden;
     overflow-x: hidden;
     opacity: 0.15;
 }
@@ -744,6 +744,7 @@ span .methodsameDisplayD{
 
 #keywordsSection h2{
     margin-bottom: 40px;
+    color: #444;
 }
 
 .keywordsGliph{
@@ -1313,4 +1314,8 @@ input[value='2']:checked + label {
     width: 75%;
     z-index: 200;
 
+}
+
+.formNotedKeywordsPreference{
+    display: none;
 }
