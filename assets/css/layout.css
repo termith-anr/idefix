@@ -1291,6 +1291,7 @@ input[value='2']:checked + label {
     right: 0;
     top: calc(50% - 100px);
     border-radius: 10px 0 0 10px;
+    display: none;
 }
 
 #inistKeywordsButton:hover{

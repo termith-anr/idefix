@@ -51,10 +51,10 @@
                         <div  class="methodsNameDisplayD">
 
                             <div id="method1Button" class="methodLinkround">
-                                <span>Methode 1</span>
+                                <span>Méthode 1</span>
                             </div>
                             <div id="method2Button" class="methodLinkround">
-                                <span>Methode 2</span>
+                                <span>Méthode 2</span>
                             </div>
 
                         </div>
@@ -112,7 +112,7 @@
 
                                 <div id="lina1ListOfKeywords">
 
-                                    <h2> Methode 1 </h2>
+                                    <h2> Méthode 1 </h2>
 
                                     {%  for keywordsAdv in keywords.term %}
 
@@ -159,7 +159,7 @@
 
                         <div id="lina1ListOfKeywords">
 
-                            <h2> Methode 1 </h2>
+                            <h2> Méthode 1 </h2>
 
                             {%  for keywordsAdv in keywords.term %}
 
@@ -209,7 +209,7 @@
 
                             <div id="lina2ListOfKeywords">
 
-                                <h2> Methode 2 </h2>
+                                <h2> Méthode 2 </h2>
 
                                 {%  for keywordsAdv in keywords.term %}
 
@@ -254,7 +254,7 @@
 
                         <div id="lina2ListOfKeywords">
 
-                            <h2> Methode 2 </h2>
+                            <h2> Méthode 2 </h2>
 
                             {%  for keywordsAdv in keywords.term %}
 
@@ -327,7 +327,7 @@
 
                                 {% set lang = keywords['xml#lang'] %}
 
-                                <h2> INIST FRANCIS </h2>
+                                <h2> INIST </h2>
 
                                 {%  for keywordsAdv in keywords.term %}
 
@@ -411,7 +411,7 @@
 
                             {% set lang = keywords['xml#lang'] %}
 
-                            <h2> INIST FRANCIS  {{ lang }} </h2>
+                            <h2> INIST  </h2>
 
                             {%  for keywordsAdv in keywords.term %}
 
@@ -598,6 +598,9 @@
                             $('.methode2F').css('display', 'none');
                             $('.methode1F').css('display', '');
                         }
+                        if($('#inistKeywordsButton').css('display') == 'none'){
+                            $('#inistKeywordsButton').css('display' ,'block');
+                        }
                     }
 
             );
@@ -618,6 +621,9 @@
                             $('.methode1F').css('display', 'none');
                             $('.methode2F').css('display', '');
 
+                        }
+                        if($('#inistKeywordsButton').css('display') == 'none'){
+                            $('#inistKeywordsButton').css('display' ,'block');
                         }
                     }
 
