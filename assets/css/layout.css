@@ -230,14 +230,16 @@ tbody:before{
 }
 
 .browseYear{
-    background: transparent ;
-    color:  rgba(85,85,85,0.8);
-    font-family: 'segoeuisl';
-    border-right: 1px solid rgba(85,85,85,0.7);
-    border-top: 1px solid rgba(85,85,85,0.7);
-    border-bottom: 1px solid rgba(85,85,85,0.7);
-    padding-left:2%;
-    padding-right:2%;
+    background: none repeat scroll 0 0 transparent;
+    border-bottom: 1px solid rgba(85, 85, 85, 0.7);
+    border-right: 1px solid rgba(85, 85, 85, 0.7);
+    border-top: 1px solid rgba(85, 85, 85, 0.7);
+    color: rgba(85, 85, 85, 0.8);
+    font-family: "segoeuisl";
+    overflow: hidden;
+    padding-left: 2%;
+    padding-right: 2%;
+    word-wrap: break-word;
 }
 
 .abrowseNumber{
@@ -937,11 +939,14 @@ span .methodsameDisplayD{
     border: 2px solid #FF9C95;
     color: #333;
     font-family: verdanna;
-    font-size: 15px;
+    font-size: 16px;
     font-style: italic;
     margin: 10px;
     text-shadow: none;
     transition: all 2000ms;
+    height: 105px;
+    max-height: 105px;
+    overflow-y: hidden;
 }
 
 .keywordsLinasDisplayDone{
@@ -949,11 +954,14 @@ span .methodsameDisplayD{
     border: 1px solid rgba(85,85,85,0.3);
     color: #333;
     font-family: verdanna;
-    font-size: 15px;
+    font-size: 16px;
     font-style: italic;
     margin: 10px;
     text-shadow: none;
     transition: all 500ms;
+    height: 105px;
+    max-height: 105px;
+    overflow-y: hidden;
 }
 
 .keywordsLinasDisplayDone:hover{
@@ -1259,9 +1267,8 @@ input[value='2']:checked + label {
 
 
 .loading{
-    display: table-cell;
-    vertical-align: middle;
-    margin-left: 5px;
+    display: table;
+    margin: 2px auto;
 }
 
 
@@ -1272,6 +1279,7 @@ input[value='2']:checked + label {
     display: none;
     overflow-y: auto;
     width: 100%;
+    height: 75%;
 }
 
 #lina1ListOfKeywords{
@@ -1281,6 +1289,7 @@ input[value='2']:checked + label {
     width: 100%;
     overflow-y: auto;
     display: none;
+    height: 75%;
 }
 
 #inistKeywordsButton{
@@ -1319,3 +1328,26 @@ input[value='2']:checked + label {
 .formNotedKeywordsPreference{
     display: none;
 }
+
+.keywordsLinasDisplayDone .formNotedKeywordsPreference{
+    display: inline-block;
+
+}
+
+.formNotedKeywordsPreference select{
+    color: #fff;
+    font-size: 13px;
+    text-align: center;
+    border: 0px;
+    background: #CC6A63;
+    width: 69px;
+}
+
+.formNotedKeywordsPreference label{
+    font-weight: bold;
+    font-size: 14px;
+    font-family: verdanna;
+    color: #444;
+}
+
+

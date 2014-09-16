@@ -42,7 +42,7 @@
 
                     <!-- NAME BLOC -->
                     <div class="displayDiscipline">
-                        <div class="disciplineInfoDisplay"><span>{{ item.mark|d('Nom discipline') }}</span></div>
+                        <div class="disciplineInfoDisplay"><span>{{ item.mark|d('Linguistique') }}</span></div>
                     </div>
 
                     <!-- AUTHORS BLOC -->
@@ -101,12 +101,17 @@
 
                 <div id="keywordsDisplayDiv" class="col-lg-6">
 
+
+
+
+
                     {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
 
 
                         <!-- First Lina Notice Method -->
 
                         {% if keywords.scheme == 'lina-1:notice:topicrank:candidats-termes' %}
+
 
                             {% set thisScheme = keywords.scheme %}
 
@@ -120,24 +125,24 @@
 
                                         {% set currentKeyword = keywordsAdv['#text'] %}
 
-                                        <div class="btn btn-default {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"><!-- Check if keywords has already been evaluated & apply a style -->
+                                        <div class="btn btn-default  {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].note %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"><!-- Check if keywords has already been evaluated & apply a style -->
 
-                                        {{ keywordsAdv['#text']|d('de mots clés') }}
+                                            <div style="height:22px; font-size: 18px; width: 100%;max-width: 100%;overflow-y: hidden;overflow-x: auto; line-height: 18px">{{ keywordsAdv['#text']|d('de mots clés') }}</div>
 
                                             <form class="formNotedKeyword row" id="lina-1-topicrank-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
 
                                                 <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.candidats-termes.{{ keywordsAdv['#text'] }}.note"/> <!-- Key Name -->
 
                                                 <!-- Value Name -->
-                                                {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] == '2' %}
+                                                {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].note == '2' %}
                                                 <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
                                                 <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
                                                 <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina1-{{ loop.index }}">2</label>
-                                                {% elif item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] == '1' %}
+                                                {% elif item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].note == '1' %}
                                                 <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
                                                 <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina1-{{ loop.index }}">1</label>
                                                 <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
-                                                {% elif item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] == '0' %}
+                                                {% elif item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].note == '0' %}
                                                 <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina1-{{ loop.index }}">0</label>
                                                 <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
                                                 <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
@@ -151,19 +156,50 @@
 
                                             </form>
 
-                                            <form class="formNotedKeyword formNotedKeywordsPreference row" id="lina-1-topicrank-preference-{{ loop.index }}" action="/save/{{ item.wid }}">
+                                            <form class="formNotedKeyword formNotedKeywordsPreference row" id="lina-1-topicrank-exclude-{{ loop.index }}" action="/save/{{ item.wid }}">
 
-                                                <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.candidats-termes.{{ keywordsAdv['#text'] }}.preference"/> <!-- Key Name -->
+                                                <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.candidats-termes.{{ keywordsAdv['#text'] }}.exclude"/> <!-- Key Name -->
 
-                                                <label for="lina-1-topicrank-preference-list-{{ loop.index }}">Préf: </label>
-                                                <select id="lina-1-topicrank-preference-list-{{ loop.index }}" class="formNotedKeywordList" name="val">
-                                                    <option value=" ">
-
+                                                <select id="lina-1-topicrank-exclude-list-{{ loop.index }}" class="formNotedKeywordList" name="val">
+                                                    <option value="<exclude>">
+                                                        Pref:
                                                     </option>
                                                     {%  for cKeyOfList in listOfKeyword %}
-                                                        <option value="{{ cKeyOfList['#text'] }}">
-                                                            {{ cKeyOfList['#text'] }}
+                                                        {% set cKeyListX = cKeyOfList['#text'] %}
+                                                        <option value="{{ cKeyOfList['#text'] }}" {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].exclude == cKeyListX %} selected="selected" style="background: #FF847C"{% endif %}><!-- Select the select word in mongo -->
+                                                            {{ cKeyListX }}
                                                         </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </form>
+
+
+                                            <form class="formNotedKeyword formNotedKeywordsPreference row" id="lina-1-topicrank-corresp-{{ loop.index }}" action="/save/{{ item.wid }}">
+
+                                                <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.candidats-termes.{{ keywordsAdv['#text'] }}.corresp"/> <!-- Key Name -->
+
+                                                <select id="lina-1-topicrank-corresp-list-{{ loop.index }}" class="formNotedKeywordList" name="val">
+                                                    <option value="<corresp>">
+                                                        Corresp:
+                                                    </option>
+                                                    {%  for inistKeywordsList in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords  %}
+
+                                                        {% if inistKeywordsList.scheme == 'inist-francis' %}
+
+                                                            {% if  inistKeywordsList['xml#lang'] == 'fr' %}
+
+                                                                {%  for currentWordInist in inistKeywordsList.term  %}
+
+                                                                    <option value="{{ currentWordInist['#text'] }}" {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].corresp == currentWordInist %} selected="selected" style="background: #FF847C"{% endif %}><!-- Select the select word in mongo -->
+                                                                        {{ currentWordInist['#text'] }}
+                                                                    </option>
+
+                                                                {% endfor %}
+
+                                                            {% endif %}
+
+                                                        {% endif %}
+
                                                     {% endfor %}
                                                 </select>
                                             </form>
@@ -184,24 +220,24 @@
 
                             {% set currentKeyword = keywordsAdv['#text'] %}
 
-                            <div class="btn btn-default {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"><!-- Check if keywords has already been evaluated & apply a style -->
+                            <div class="btn btn-default {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].note %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"><!-- Check if keywords has already been evaluated & apply a style -->
 
                                 {{ keywordsAdv['#text']|d('de mots clés') }}
 
                                 <form class="formNotedKeyword row" id="lina-1-topicrank-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
 
-                                    <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.candidats-termes.{{ keywordsAdv['#text'] }}"/> <!-- Key Name -->
+                                    <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.candidats-termes.{{ keywordsAdv['#text'] }}.note"/> <!-- Key Name -->
 
                                     <!-- Value Name -->
-                                    {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] == '2' %}
+                                    {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].note == '2' %}
                                     <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
                                     <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
                                     <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina1-{{ loop.index }}">2</label>
-                                    {% elif item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] == '1' %}
+                                    {% elif item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].note == '1' %}
                                     <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
                                     <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina1-{{ loop.index }}">1</label>
                                     <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
-                                    {% elif item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword] == '0' %}
+                                    {% elif item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].note == '0' %}
                                     <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina1-{{ loop.index }}">0</label>
                                     <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
                                     <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
@@ -234,22 +270,22 @@
 
                                 {% set currentKeyword = keywordsAdv['#text'] %}
 
-                                    <div class="btn btn-default {% if item.notedKeywords['lina-1'].tfidf['candidats-termes'][currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
+                                    <div class="btn btn-default {% if item.notedKeywords['lina-1'].tfidf['candidats-termes'][currentKeyword].note %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
 
                                         <form class="formNotedKeyword row" id="lina-1-tfidf-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
 
-                                            <input type="hidden" name="key" value="notedKeywords.lina-1.tfidf.candidats-termes.{{ keywordsAdv['#text'] }}"/><!-- Key Name -->
+                                            <input type="hidden" name="key" value="notedKeywords.lina-1.tfidf.candidats-termes.{{ keywordsAdv['#text'] }}.note"/><!-- Key Name -->
 
                                             <!-- Value Name -->
-                                            {% if item.notedKeywords['lina-1'].tfidf['candidats-termes'][currentKeyword] == '2' %}
+                                            {% if item.notedKeywords['lina-1'].tfidf['candidats-termes'][currentKeyword].note == '2' %}
                                             <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
                                             <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
                                             <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina2-{{ loop.index }}">2</label>
-                                            {% elif item.notedKeywords['lina-1'].tfidf['candidats-termes'][currentKeyword] == '1' %}
+                                            {% elif item.notedKeywords['lina-1'].tfidf['candidats-termes'][currentKeyword].note == '1' %}
                                             <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
                                             <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina2-{{ loop.index }}">1</label>
                                             <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
-                                            {% elif item.notedKeywords['lina-1'].tfidf['candidats-termes'][currentKeyword] == '0' %}
+                                            {% elif item.notedKeywords['lina-1'].tfidf['candidats-termes'][currentKeyword].note == '0' %}
                                             <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina2-{{ loop.index }}">0</label>
                                             <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
                                             <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
@@ -279,22 +315,22 @@
 
                             {% set currentKeyword = keywordsAdv['#text'] %}
 
-                            <div class="btn btn-default {% if item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
+                            <div class="btn btn-default {% if item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword].note %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
 
                                 <form class="formNotedKeyword row" id="lina-1-tfidf-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
 
-                                    <input type="hidden" name="key" value="notedKeywords.lina-1.tfidf.n-gram.{{ keywordsAdv['#text'] }}"/><!-- Key Name -->
+                                    <input type="hidden" name="key" value="notedKeywords.lina-1.tfidf.n-gram.{{ keywordsAdv['#text'] }}.note"/><!-- Key Name -->
 
                                     <!-- Value Name -->
-                                    {% if item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword] == '2' %}
+                                    {% if item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword].note == '2' %}
                                     <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
                                     <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
                                     <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina2-{{ loop.index }}">2</label>
-                                    {% elif item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword] == '1' %}
+                                    {% elif item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword].note == '1' %}
                                     <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
                                     <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina2-{{ loop.index }}">1</label>
                                     <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
-                                    {% elif item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword] == '0' %}
+                                    {% elif item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword].note == '0' %}
                                     <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina2-{{ loop.index }}">0</label>
                                     <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
                                     <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
@@ -671,6 +707,7 @@
                                     if(!li.hasClass("keywordsLinasDisplayDone")){
                                         li.addClass("keywordsLinasDisplayDone");
                                         li.removeClass("keywordsLinasDisplay");
+                                        li.children('.formNotedKeywordsPreference').css('display','inline-block');
                                     }
                                     li.css('box-shadow', '0px 1px 4px 0px green');
                                     setTimeout( function(){
