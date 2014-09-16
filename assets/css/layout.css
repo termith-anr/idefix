@@ -596,6 +596,7 @@ table tr[data-href] {
     position: fixed;
     width: 76.311%;
     padding: 0;
+    top:5%;
 }
 
 #arroundedBlock{
@@ -938,7 +939,7 @@ span .methodsameDisplayD{
     background: none repeat scroll 0 0 transparent;
     border: 2px solid #FF9C95;
     color: #333;
-    font-family: verdanna;
+    font-family: 'segoe', verdana;
     font-size: 16px;
     font-style: italic;
     margin: 10px;
@@ -953,7 +954,7 @@ span .methodsameDisplayD{
     background: none repeat scroll 0 0 transparent;
     border: 1px solid rgba(85,85,85,0.3);
     color: #333;
-    font-family: verdanna;
+    font-family: verdana;
     font-size: 16px;
     font-style: italic;
     margin: 10px;
@@ -977,7 +978,7 @@ span .methodsameDisplayD{
     background: none repeat scroll 0 0 #7F6664;
     border: 1px solid rgba(255, 255, 255, 0.4);
     color: rgba(255, 255, 255, 0.5);
-    font-family: verdanna;
+    font-family: verdana;
     font-size: 14px;
     font-style: italic;
     margin: 6px;
@@ -1311,7 +1312,7 @@ input[value='2']:checked + label {
 
 #abstractFullLenght{
     display: block;
-    color: #333;
+    color: #555;
     font-family: verdana;
     font-size: 20px;
     height: 75%;
@@ -1346,7 +1347,7 @@ input[value='2']:checked + label {
 .formNotedKeywordsPreference label{
     font-weight: bold;
     font-size: 14px;
-    font-family: verdanna;
+    font-family: verdana;
     color: #444;
 }
 
