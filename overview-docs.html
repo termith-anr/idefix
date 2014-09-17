@@ -1,12 +1,14 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>{{ page.title }}</h1>
-<h2><a href="/browse-docs.html">{{ totalItems }} documents</a></h2>
-<ul>
-{% for field in fields %}
-<li><a href="/distinct-{{field}}.html">{{ field }}</a></li>
-{% endfor %}
-</ul>
+
+    <h1>{{ page.title }}</h1>
+
+    <h2><a href="/browse.html">{{ totalItems }} documents</a></h2>
+
+    <script>
+        document.location.href = '/browse.html';
+    </script>
+
 
 {% endblock %}

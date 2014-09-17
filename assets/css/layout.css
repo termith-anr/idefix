@@ -1343,7 +1343,7 @@ input[value='2']:checked + label {
 .formNotedKeywordsPreference select{
     background: none repeat scroll 0 0 #fff;
     border: 1px solid #cc6a63;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #333;
     font-size: 13px;
     text-align: center;
