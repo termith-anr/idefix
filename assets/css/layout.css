@@ -26,6 +26,12 @@
     font-family: 'segoeuisl'; src: url('../fonts/segoeuisl.ttf');
 }
 
+@media (min-width: 1600px) {
+
+
+
+}
+
 html{
     height: 100%;
 
@@ -408,9 +414,9 @@ table tr[data-href] {
 
 #divNavMiddle p a{
     color: #fff;
-    font-family: "segoeuisl", verdana;
-    font-size: 18px;
-    font-weight: bold;
+    font-family: verdana;
+    font-size: 19px;
+    font-weight: normal;
     letter-spacing: 1px;
 }
 
@@ -519,10 +525,11 @@ table tr[data-href] {
 
 .displayDiscipline{
     color: #fff;
-    font-family: 'segoepr';
+    font-family: 'segoe';
     text-align: center;
-    font-size: 19px;
+    font-size: 20px;
     height: 105px;
+    letter-spacing: 1px;
     display:table;
     width: 100%;
 }
@@ -624,7 +631,6 @@ table tr[data-href] {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     color: #fff;
     display: table-cell;
-    letter-spacing: 1px;
     float: none;
     font-family: verdana;
     font-size: 18px;
