@@ -965,6 +965,7 @@ span .methodsameDisplayD{
     height: 105px;
     max-height: 105px;
     overflow-y: hidden;
+    opacity: 0.8;
 }
 
 .keywordsLinasDisplayDone:hover{
@@ -1050,6 +1051,8 @@ input[type=radio] + label {
     border-color: #ddd;
     color: #555;
     font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
 }
 
 input[type=radio] + label:hover {
@@ -1066,22 +1069,23 @@ input[type=radio]:checked + label {
 
 input[value='0']:checked + label {
     background-image: none;
-    color: red;
+    color: #ff847c;
 }
 
 input[value='1']:checked + label {
     background-image: none;
-    color: orange;
+    color: #ff847c;
 }
 
 input[value='2']:checked + label {
     background-image: none;
-    color: green;
+    color: #ff847c;
 }
 
 .formNotedKeyword{
     display: table;
     margin: 0 auto;
+    height:40px;
 }
 .loader-quart{
 
