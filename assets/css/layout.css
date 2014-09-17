@@ -408,8 +408,10 @@ table tr[data-href] {
 
 #divNavMiddle p a{
     color: #fff;
-    font-family: 'segoeuisl';
+    font-family: "segoeuisl", verdana;
+    font-size: 18px;
     font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .spanArrows{
@@ -596,7 +598,7 @@ table tr[data-href] {
     position: fixed;
     width: 76.311%;
     padding: 0;
-    top:5%;
+    top: calc(5% + 1px);
 }
 
 #arroundedBlock{
@@ -801,12 +803,12 @@ span .methodsameDisplayD{
     overflow-y: auto;
     height: 75%;
     display: none;
+    border-left: 3px dotted rgba(204, 106, 99, 0.6);
 }
 
 .keywordsDisplayDivInist{
     position: relative;
     display: none;
-    border-left: 3px dotted rgba(204,106,99,0.6);
 }
 
 
@@ -954,7 +956,7 @@ span .methodsameDisplayD{
     background: none repeat scroll 0 0 transparent;
     border: 1px solid rgba(85,85,85,0.3);
     color: #333;
-    font-family: verdana;
+    font-family: 'segoe',verdana;
     font-size: 16px;
     font-style: italic;
     margin: 10px;
@@ -1336,11 +1338,12 @@ input[value='2']:checked + label {
 }
 
 .formNotedKeywordsPreference select{
-    color: #fff;
+    background: none repeat scroll 0 0 #fff;
+    border: 1px solid #cc6a63;
+    border-radius: 5px;
+    color: #333;
     font-size: 13px;
     text-align: center;
-    border: 0px;
-    background: #CC6A63;
     width: 69px;
 }
 

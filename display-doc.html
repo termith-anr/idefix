@@ -10,12 +10,12 @@
 
     <div id="showOnClickDiv"></div>
 
-    <div id="contentDisplay" class="col-lg-11">
+    <div id="contentDisplay" class="col-lg-11 col-md-11 col-sm-11">
 
 
 
             <!-- LEFT BLOC -->
-            <aside id="leftSection" class="col-lg-2">
+            <aside id="leftSection" class="col-lg-2 col-md-2 col-sm-2">
 
                 <header id="headerInfoDisplayDocs">
 
@@ -23,17 +23,17 @@
                     <!-- THE NAV BAR -->
                     <div class="divTopDisplay">
 
-                        <div id="divArrLeft" class="col-lg-4">
+                        <div id="divArrLeft" class="col-lg-4 col-md-4 col-sm-4">
                             <span class="glyphicon glyphicon-arrow-left spanArrows"></span>
                         </div>
 
-                        <div id="divNavMiddle" class="col-lg-4">
+                        <div id="divNavMiddle" class="col-lg-4 col-md-4 col-sm-4">
                             <p>
                                 <a href="/browse.html">Liste</a> <!-- Return to browse Docs-->
                             </p>
                         </div>
 
-                        <div id="divArrRight" class="col-lg-4">
+                        <div id="divArrRight" class="col-lg-4 col-md-4 col-sm-4">
                             <span class="glyphicon glyphicon-arrow-right spanArrows"></span>
                         </div>
 
@@ -81,12 +81,18 @@
 
 
             <!-- RIGHT  BLOCK (Keywords) -->
-            <section id="keywordsSection" class="col-lg-10">
+            <section id="keywordsSection" class="col-lg-10 col-md-10 col-sm-10">
 
-                <div class="divHoverH1Display col-lg-12">
+                <div class="divHoverH1Display col-lg-12 col-md-12 col-sm-12">
 
                     <div id="h1Block">
-                        <h1 id="h1DisplayDocs">{{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|truncate( 99, False, '...') |d('Pas de titre pour ce documents') }}</h1>
+                        <h1 id="h1DisplayDocs">
+                            {% if item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0 ]%}
+                                {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre')}}
+                            {% elif  item.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'] %}
+                                {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text']|d('Pas de titre')}}
+                            {% endif %}
+                        </h1>
                     </div>
 
                     <div id="arroundedBlock">
@@ -99,7 +105,7 @@
                 <p id="abstractFullLenght">{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de résumé pour cet article') }}</p>
 
 
-                <div id="keywordsDisplayDiv" class="col-lg-6">
+                <div id="keywordsDisplayDiv" class="col-lg-6 col-md-6 col-sm-6">
 
 
 
@@ -166,7 +172,7 @@
                                                     </option>
                                                     {%  for cKeyOfList in listOfKeyword %}
                                                         {% set cKeyListX = cKeyOfList['#text'] %}
-                                                        <option value="{{ cKeyOfList['#text'] }}" {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].exclude == cKeyListX %} selected="selected" style="background: #FF847C"{% endif %}><!-- Select the select word in mongo -->
+                                                        <option value="{{ cKeyOfList['#text'] }}" {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].exclude == cKeyListX %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
                                                             {{ cKeyListX }}
                                                         </option>
                                                     {% endfor %}
@@ -190,7 +196,7 @@
 
                                                                 {%  for currentWordInist in inistKeywordsList.term  %}
 
-                                                                    <option value="{{ currentWordInist['#text'] }}" {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].corresp == currentWordInist %} selected="selected" style="background: #FF847C"{% endif %}><!-- Select the select word in mongo -->
+                                                                    <option value="{{ currentWordInist['#text'] }}" {% if item.notedKeywords['lina-1'].topicrank['candidats-termes'][currentKeyword].corresp == currentWordInist %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
                                                                         {{ currentWordInist['#text'] }}
                                                                     </option>
 
@@ -210,7 +216,7 @@
 
                                 </div> <!-- End of a block keywords for lina1 notice topicrank candidats termes -->
 
-                        {% elif keywords.scheme == 'lina-1:notice:topicrank:n-gramm' %}
+                        {% elif keywords.scheme == 'lina-1:notice:topicrank:sequences_nom_adj' %}
 
                         <div id="lina1ListOfKeywords">
 
@@ -222,24 +228,24 @@
 
                             {% set currentKeyword = keywordsAdv['#text'] %}
 
-                            <div class="btn btn-default {% if item.notedKeywords['lina-1'].topicrank['n-gramm'][currentKeyword].note %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"><!-- Check if keywords has already been evaluated & apply a style -->
+                            <div class="btn btn-default {% if item.notedKeywords['lina-1'].topicrank['sequences_nom_adj'][currentKeyword].note %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"><!-- Check if keywords has already been evaluated & apply a style -->
 
                                 {{ keywordsAdv['#text']|d('de mots clés') }}
 
                                 <form class="formNotedKeyword row" id="lina-1-topicrank-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
 
-                                    <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.n-gramm.{{ keywordsAdv['#text'] }}.note"/> <!-- Key Name -->
+                                    <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.sequences_nom_adj.{{ keywordsAdv['#text'] }}.note"/> <!-- Key Name -->
 
                                     <!-- Value Name -->
-                                    {% if item.notedKeywords['lina-1'].topicrank['n-gramm'][currentKeyword].note == '2' %}
+                                    {% if item.notedKeywords['lina-1'].topicrank['sequences_nom_adj'][currentKeyword].note == '2' %}
                                     <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
                                     <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
                                     <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina1-{{ loop.index }}">2</label>
-                                    {% elif item.notedKeywords['lina-1'].topicrank['n-gramm'][currentKeyword].note == '1' %}
+                                    {% elif item.notedKeywords['lina-1'].topicrank['sequences_nom_adj'][currentKeyword].note == '1' %}
                                     <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina1-{{ loop.index }}">0</label>
                                     <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina1-{{ loop.index }}">1</label>
                                     <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
-                                    {% elif item.notedKeywords['lina-1'].topicrank['n-gramm'][currentKeyword].note == '0' %}
+                                    {% elif item.notedKeywords['lina-1'].topicrank['sequences_nom_adj'][currentKeyword].note == '0' %}
                                     <input id="input0-lina1-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina1-{{ loop.index }}">0</label>
                                     <input id="input1-lina1-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina1-{{ loop.index }}">1</label>
                                     <input id="input2-lina1-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina1-{{ loop.index }}">2</label>
@@ -255,7 +261,7 @@
 
                                 <form class="formNotedKeyword formNotedKeywordsPreference row" id="lina-1-topicrank-exclude-{{ loop.index }}" action="/save/{{ item.wid }}">
 
-                                    <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.n-gramm.{{ keywordsAdv['#text'] }}.exclude"/> <!-- Key Name -->
+                                    <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.sequences_nom_adj.{{ keywordsAdv['#text'] }}.exclude"/> <!-- Key Name -->
 
                                     <select id="lina-1-topicrank-exclude-list-{{ loop.index }}" class="formNotedKeywordList" name="val">
                                         <option value="<exclude>">
@@ -263,7 +269,7 @@
                                         </option>
                                         {%  for cKeyOfList in listOfKeyword %}
                                         {% set cKeyListX = cKeyOfList['#text'] %}
-                                        <option value="{{ cKeyOfList['#text'] }}" {% if item.notedKeywords['lina-1'].topicrank['n-gramm'][currentKeyword].exclude == cKeyListX %} selected="selected" style="background: #FF847C"{% endif %}><!-- Select the select word in mongo -->
+                                        <option value="{{ cKeyOfList['#text'] }}" {% if item.notedKeywords['lina-1'].topicrank['sequences_nom_adj'][currentKeyword].exclude == cKeyListX %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
                                         {{ cKeyListX }}
                                         </option>
                                         {% endfor %}
@@ -273,7 +279,7 @@
 
                                 <form class="formNotedKeyword formNotedKeywordsPreference row" id="lina-1-topicrank-corresp-{{ loop.index }}" action="/save/{{ item.wid }}">
 
-                                    <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.n-gramm.{{ keywordsAdv['#text'] }}.corresp"/> <!-- Key Name -->
+                                    <input type="hidden" name="key" value="notedKeywords.lina-1.topicrank.sequences_nom_adj.{{ keywordsAdv['#text'] }}.corresp"/> <!-- Key Name -->
 
                                     <select id="lina-1-topicrank-corresp-list-{{ loop.index }}" class="formNotedKeywordList" name="val">
                                         <option value="<corresp>">
@@ -287,7 +293,7 @@
 
                                         {%  for currentWordInist in inistKeywordsList.term  %}
 
-                                        <option value="{{ currentWordInist['#text'] }}" {% if item.notedKeywords['lina-1'].topicrank['n-gramm'][currentKeyword].corresp == currentWordInist %} selected="selected" style="background: #FF847C"{% endif %}><!-- Select the select word in mongo -->
+                                        <option value="{{ currentWordInist['#text'] }}" {% if item.notedKeywords['lina-1'].topicrank['sequences_nom_adj'][currentKeyword].corresp == currentWordInist %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
                                         {{ currentWordInist['#text'] }}
                                         </option>
 
@@ -405,7 +411,7 @@
 
                             </div>  <!-- End of a block keywords for lina1 tfidf candidat thermes-->
 
-                        {% elif keywords.scheme == 'lina-1:notice:tfidf:n-gram' %}
+                        {% elif keywords.scheme == 'lina-1:notice:tfidf:sequences_nom_adj' %}
 
                         <div id="lina2ListOfKeywords">
 
@@ -417,22 +423,22 @@
 
                             {% set currentKeyword = keywordsAdv['#text'] %}
 
-                            <div class="btn btn-default {% if item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword].note %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
+                            <div class="btn btn-default {% if item.notedKeywords['lina-1'].tfidf['sequences_nom_adj'][currentKeyword].note %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ keywordsAdv['#text']|d('de mots clés') }}
 
                                 <form class="formNotedKeyword row" id="lina-1-tfidf-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post"><!-- Call save with current wid -->
 
-                                    <input type="hidden" name="key" value="notedKeywords.lina-1.tfidf.n-gram.{{ keywordsAdv['#text'] }}.note"/><!-- Key Name -->
+                                    <input type="hidden" name="key" value="notedKeywords.lina-1.tfidf.sequences_nom_adj.{{ keywordsAdv['#text'] }}.note"/><!-- Key Name -->
 
                                     <!-- Value Name -->
-                                    {% if item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword].note == '2' %}
+                                    {% if item.notedKeywords['lina-1'].tfidf['sequences_nom_adj'][currentKeyword].note == '2' %}
                                     <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
                                     <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
                                     <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-lina2-{{ loop.index }}">2</label>
-                                    {% elif item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword].note == '1' %}
+                                    {% elif item.notedKeywords['lina-1'].tfidf['sequences_nom_adj'][currentKeyword].note == '1' %}
                                     <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-lina2-{{ loop.index }}">0</label>
                                     <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-lina2-{{ loop.index }}">1</label>
                                     <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
-                                    {% elif item.notedKeywords['lina-1'].tfidf['n-gram'][currentKeyword].note == '0' %}
+                                    {% elif item.notedKeywords['lina-1'].tfidf['sequences_nom_adj'][currentKeyword].note == '0' %}
                                     <input id="input0-lina2-{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-lina2-{{ loop.index }}">0</label>
                                     <input id="input1-lina2-{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-lina2-{{ loop.index }}">1</label>
                                     <input id="input2-lina2-{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-lina2-{{ loop.index }}">2</label>
@@ -449,7 +455,7 @@
 
                                 <form class="formNotedKeyword formNotedKeywordsPreference row" id="lina-1-tfidf-exclude-{{ loop.index }}" action="/save/{{ item.wid }}">
 
-                                    <input type="hidden" name="key" value="notedKeywords.lina-1.tfidf.n-gramm.{{ keywordsAdv['#text'] }}.exclude"/> <!-- Key Name -->
+                                    <input type="hidden" name="key" value="notedKeywords.lina-1.tfidf.sequences_nom_adj.{{ keywordsAdv['#text'] }}.exclude"/> <!-- Key Name -->
 
                                     <select id="lina-1-tfidf-exclude-list-{{ loop.index }}" class="formNotedKeywordList" name="val">
                                         <option value="<exclude>">
@@ -457,7 +463,7 @@
                                         </option>
                                         {%  for cKeyOfList in listOfKeyword %}
                                         {% set cKeyListX = cKeyOfList['#text'] %}
-                                        <option value="{{ cKeyOfList['#text'] }}" {% if item.notedKeywords['lina-1'].tfidf['n-gramm'][currentKeyword].exclude == cKeyListX %} selected="selected" style="background: #FF847C"{% endif %}><!-- Select the select word in mongo -->
+                                        <option value="{{ cKeyOfList['#text'] }}" {% if item.notedKeywords['lina-1'].tfidf['sequences_nom_adj'][currentKeyword].exclude == cKeyListX %} selected="selected" style="background: #FF847C"{% endif %}><!-- Select the select word in mongo -->
                                         {{ cKeyListX }}
                                         </option>
                                         {% endfor %}
@@ -467,7 +473,7 @@
 
                                 <form class="formNotedKeyword formNotedKeywordsPreference row" id="lina-1-topicrank-corresp-{{ loop.index }}" action="/save/{{ item.wid }}">
 
-                                    <input type="hidden" name="key" value="notedKeywords.lina-1.n-gramm.{{ keywordsAdv['#text'] }}.corresp"/> <!-- Key Name -->
+                                    <input type="hidden" name="key" value="notedKeywords.lina-1.tfidf.sequences_nom_adj.{{ keywordsAdv['#text'] }}.corresp"/> <!-- Key Name -->
 
                                     <select id="lina-1-tfidf-corresp-list-{{ loop.index }}" class="formNotedKeywordList" name="val">
                                         <option value="<corresp>">
@@ -481,7 +487,7 @@
 
                                         {%  for currentWordInist in inistKeywordsList.term  %}
 
-                                        <option value="{{ currentWordInist['#text'] }}" {% if item.notedKeywords['lina-1'].tfidf['n-gramm'][currentKeyword].corresp == currentWordInist %} selected="selected" style="background: #FF847C"{% endif %}><!-- Select the select word in mongo -->
+                                        <option value="{{ currentWordInist['#text'] }}" {% if item.notedKeywords['lina-1'].tfidf['sequences_nom_adj'][currentKeyword].corresp == currentWordInist %} selected="selected" style="background: #FF847C"{% endif %}><!-- Select the select word in mongo -->
                                         {{ currentWordInist['#text'] }}
                                         </option>
 
@@ -730,7 +736,7 @@
 
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <article id="fullArticle" class="col-lg-12">
+                        <article id="fullArticle" class="col-lg-12 col-md-12 col-sm-12">
                             {{ body.item.content.json.TEI.text.body.div }}
                         </article>
                     </div>
