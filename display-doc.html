@@ -111,7 +111,11 @@
 
 
 
+
                     {%  for keywords in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
+
+
+
 
 
                         <!-- First Lina Notice Method -->
@@ -793,6 +797,22 @@
                     }
 
             );
+
+            // Can come back show the resume div and hide all other bothers div
+
+            $("#sectionArticle").on('click', function(){
+                if($(this).css('opacity') !== '0.15'){
+                    if($('#abstractFullLenght').css('display') == 'none'){
+                        $('#abstractFullLenght').css('display', 'block').siblings().not(".divHoverH1Display").hide();
+                        $("#lina1ListOfKeywords").css('width' ,'100%');
+                        $("#lina2ListOfKeywords").css('width' ,'100%');
+                        $("#inistKeywordsButton > span").html('Afficher INIST');
+                        $("#inistKeywordsButton").css('background', 'rgba(204, 106, 99, 0.6)');
+                        $("#method1Button").css('borderColor' , '');
+                        $("#method2Button").css('borderColor' , '');
+                    }
+                }
+            });
 
 
 
