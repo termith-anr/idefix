@@ -744,7 +744,7 @@ span .methodsameDisplayD{
 #keywordsSection{
     max-width:95%;
     text-align:center;
-    height:95%;
+    height:100%;
     padding:0;
     overflow-y: hidden;
     overflow-x:hidden;
@@ -807,14 +807,14 @@ span .methodsameDisplayD{
     z-index:99999;
     float: right;
     overflow-y: auto;
-    height: 75%;
+    height: 83%;
     display: none;
     border-left: 3px dotted rgba(204, 106, 99, 0.6);
+    overflow-x: hidden;
 }
 
-.keywordsDisplayDivInist{
+#keywordsInist{
     position: relative;
-    display: none;
 }
 
 
@@ -1300,7 +1300,6 @@ input[value='2']:checked + label {
     z-index: 193;
     width: 100%;
     overflow-y: auto;
-    display: none;
     height: 75%;
 }
 
