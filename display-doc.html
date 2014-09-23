@@ -106,6 +106,8 @@
 
                     {% set currentNbMethod = 0 %}
 
+                    {% set listOfMethodsName = [] %}
+
                     <!--  Count number of Methods present -->
 
                     {%  for keywordArray in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
@@ -117,6 +119,8 @@
                             {% if (currentScheme != 'inist-francis') or (currentScheme != 'inist-pascal') %}
 
                                 {% set numberOfMethods = numberOfMethods+1 %}
+
+                                {% set listOfMethodsName = listOfMethodsName + currentScheme %}
 
                             {% endif %}
 
@@ -139,17 +143,17 @@
 
                                 <div id="keywordsInist">
 
-                                    <h2> INIST {{ numberOfMethods }}</h2>
+                                    <h2> INIST {{ numberOfMethods }} {{listOfMethodsName}}</h2>
 
                                     {%  for currentInistKw in keywordArray.term %}
 
                                         {% set inistTxt = currentInistKw['#text'] %}
 
-                                        {% for theInist in range(1,numberOfMethods) %}
+                                        {% for theInist in range(0,numberOfMethods -1) %}
 
-                                        <div class="btn btn-default methode1F {% if item.notedKeywords[currentScheme].topicrank[inistTxt] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ inistTxt|d('Pas de mots clés') }}
+                                        <div class="btn btn-default methode1F {{ listOfMethodsName }}{% if item.notedKeywords[currentScheme][listOfMethodsName[theInist]][inistTxt] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ inistTxt|d('Pas de mots clés') }}
 
-                                            <form class="formNotedKeyword row" id="{{ currentScheme }}-topicrank-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
+                                            <form class="formNotedKeyword row" id="{{ currentScheme }}.{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
 
                                                 <input type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.topicrank.{{ inistTxt }}"/><!-- Key Name -->
 
