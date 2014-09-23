@@ -101,7 +101,30 @@
 
                 <div id="keywordsDisplayDiv" class="col-lg-12 col-md-12 col-sm-12">
 
+
                     {% set numberOfMethods = 0 %}
+
+                    {% set currentNbMethod = 0 %}
+
+                    <!--  Count number of Methods present -->
+
+                    {%  for keywordArray in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
+
+                        {% set currentScheme = keywordArray.scheme %}
+
+                        {% if (currentScheme != 'cc') and (currentScheme != 'author') and (keywordArray['xml#lang'] == 'fr') %}
+
+                            {% if (currentScheme != 'inist-francis') or (currentScheme != 'inist-pascal') %}
+
+                                {% set numberOfMethods = numberOfMethods+1 %}
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    {% endfor %}
+
+
 
                     {%  for keywordArray in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
 
@@ -116,11 +139,13 @@
 
                                 <div id="keywordsInist">
 
-                                    <h2> INIST </h2>
+                                    <h2> INIST {{ numberOfMethods }}</h2>
 
                                     {%  for currentInistKw in keywordArray.term %}
 
                                         {% set inistTxt = currentInistKw['#text'] %}
+
+                                        {% for theInist in range(1,numberOfMethods) %}
 
                                         <div class="btn btn-default methode1F {% if item.notedKeywords[currentScheme].topicrank[inistTxt] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ inistTxt|d('Pas de mots clés') }}
 
@@ -153,36 +178,8 @@
 
                                         </div>
 
-                                        <div class="btn btn-default methode2F {% if item.notedKeywords[currentScheme].tfidf[inistTxt] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ inistTxt|d('Pas de mots clés') }}
 
-                                            <form class="formNotedKeyword row" id="{{ currentScheme }}-tfidf-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
-
-                                                <input type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.tfidf.{{ inistTxt }}"/><!-- Key Name -->
-
-                                                <!-- Value Name -->
-                                                {% if item.notedKeywords[currentScheme].tfidf[inistTxt] == '2' %}
-                                                <input id="input0-{{ currentScheme }}.tfidf.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.tfidf.{{ loop.index }}">0</label>
-                                                <input id="input1-{{ currentScheme }}.tfidf.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.tfidf.{{ loop.index }}">1</label>
-                                                <input id="input2-{{ currentScheme }}.tfidf.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-{{ currentScheme }}.tfidf.{{ loop.index }}">2</label>
-                                                {% elif item.notedKeywords[currentScheme].tfidf[inistTxt] == '1' %}
-                                                <input id="input0-{{ currentScheme }}.tfidf.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.tfidf.{{ loop.index }}">0</label>
-                                                <input id="input1-{{ currentScheme }}.tfidf.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-{{ currentScheme }}.tfidf.{{ loop.index }}">1</label>
-                                                <input id="input2-{{ currentScheme }}.tfidf.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.tfidf.{{ loop.index }}">2</label>
-                                                {% elif item.notedKeywords[currentScheme].tfidf[inistTxt] == '0' %}
-                                                <input id="input0-{{ currentScheme }}.tfidf.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-{{ currentScheme }}.tfidf.{{ loop.index }}">0</label>
-                                                <input id="input1-{{ currentScheme }}.tfidf.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.tfidf.{{ loop.index }}">1</label>
-                                                <input id="input2-{{ currentScheme }}.tfidf.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.tfidf.{{ loop.index }}">2</label>
-                                                {% else %}
-                                                <input id="input0-{{ currentScheme }}.tfidf.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.tfidf.{{ loop.index }}">0</label>
-                                                <input id="input1-{{ currentScheme }}.tfidf.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.tfidf.{{ loop.index }}">1</label>
-                                                <input id="input2-{{ currentScheme }}.tfidf.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.tfidf.{{ loop.index }}">2</label>
-                                                {% endif %}
-
-                                                <ins class="loading"></ins>
-
-                                            </form>
-
-                                        </div>
+                                        {% endfor %} <!-- End of multiple repeat inist keywords-->
 
                                     {% endfor %} <!-- End of inist Keywords Array -->
 
@@ -190,11 +187,52 @@
 
                             {% else %} <!-- UNDER: ALL lina method -->
 
-                                <div id="lina1ListOfKeywords" class="linaKeywords">
 
-                                    {% set numberOfMethods = numberOfMethods+1 %}
+                                {% set currentNbMethod = currentNbMethod+1 %}
 
-                                    <h2> Lina {{ numberOfMethods }} </h2>
+                                <div id="lina{{ currentNbMethod }}ListOfKeywords" class="linaKeywords">
+
+                                    <h2> Lina {{ currentNbMethod }} </h2>
+
+
+                                    {%  for currentInistKw in keywordArray.term %}
+
+                                        {% set methodTxt = currentInistKw['#text'] %}
+
+                                            <div class="btn btn-default {% if item.notedKeywords[currentScheme][inistTxt] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ methodTxt|d('Pas de mots clés') }}
+
+                                                <form class="formNotedKeyword row" id="{{ currentScheme }}-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
+
+                                                    <input type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.{{ methodTxt }}"/><!-- Key Name -->
+
+                                                    <!-- Value Name -->
+                                                    {% if item.notedKeywords[currentScheme].tfidf[inistTxt] == '2' %}
+                                                    <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
+                                                    <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
+                                                    <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
+                                                    {% elif item.notedKeywords[currentScheme].tfidf[inistTxt] == '1' %}
+                                                    <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
+                                                    <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
+                                                    <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
+                                                    {% elif item.notedKeywords[currentScheme].tfidf[inistTxt] == '0' %}
+                                                    <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
+                                                    <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
+                                                    <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
+                                                    {% else %}
+                                                    <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
+                                                    <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
+                                                    <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
+                                                    {% endif %}
+
+                                                    <ins class="loading"></ins>
+
+                                                </form>
+
+                                            </div>
+
+
+
+                                    {% endfor %}
 
                                 </div>
 
