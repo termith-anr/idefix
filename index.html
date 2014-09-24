@@ -1,14 +1,59 @@
 {% extends "layout.html" %}
 
 {% block content %}
+    <!--end head block  -->
+    </head>
+    <body id="bodyBrowse">
 
-<h1>{{ page.title }}</h1>
+        <header>
+            <nav>
+                <ul>
+                    <li>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <a href=""></a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
 
-<h2><a href="/browse.html">{{ totalItems }} documents</a></h2>
+        <!-- start body content -->
+        <div class="col-lg-9" id="BrowseDocuBigDiv">
+            <h1 id="h1Browse" class="col-lg-11">L<span style="color: #FF8E80;">i</span>ste d<span style="color: #99E5DB">e</span>s <span style="color: #FF917F">d</span>ocuments</h1>
 
-<script>
-    document.location.href = '/browse.html';
-</script>
-
+            <div id="divOverTableBrowse" class="col-lg-12">
+                <table id="browseTable">
+                    <thead>
+                        <tr>
+                            <th class="browseNumbTh col-lg-1">N°</th>
+                            <th class="browseYearTh  col-lg-2">DOCUMENT</th>
+                            <th class="browseTitleTh  col-lg-6">TITRE</th>
+                        </tr>
+                    </thead>
+               </table>
+            </div>
+        </div>
 
 {% endblock %}
+
+{% block specificScript %}
+<script> var $ = jQuery = require('jquery'); </script>
+<script src="./assets/js/jquery.dataTables.js"></script>
+<script src="./assets/js/dataTables.bootstrap.js"></script>
+<script>
+$(document).ready(function() {
+		$('#browseTable').dataTable({
+			ordering: true,
+			serverSide: true,
+			ajax: "/browse.json",
+			columns: [
+				{ data: 'wid' },
+				{ data: 'object' },
+				{ data: 'content.json.TEI.teiHeader.fileDesc.titleStmt.title.0.#text' }
+			]
+		});
+});
+</script>
+{% endblock %}
+
