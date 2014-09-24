@@ -898,6 +898,11 @@ span .methodsameDisplayD{
     font-family: 'segoeuisl';
 }
 
+.methodsKeywords{
+    display:none;
+    position: absolute;
+}
+
 .keywordsUtilsDisplay:hover{
     background-image:none;
     background: #fff;
@@ -946,7 +951,7 @@ span .methodsameDisplayD{
     font-size: 16px;
 }
 
-.keywordsLinasDisplay{
+.keywordsMethodsDisplay{
     background: none repeat scroll 0 0 transparent;
     border: 2px solid #FF9C95;
     color: #333;
@@ -961,7 +966,7 @@ span .methodsameDisplayD{
     overflow-y: hidden;
 }
 
-.keywordsLinasDisplayDone{
+.keywordsMethodsDisplayDone{
     background: none repeat scroll 0 0 transparent;
     border: 1px solid rgba(85,85,85,0.3);
     color: #333;
@@ -977,25 +982,13 @@ span .methodsameDisplayD{
     opacity: 0.8;
 }
 
-.keywordsLinasDisplayDone:hover{
+.keywordsMethodsDisplayDone:hover{
     background: none repeat scroll 0 0 transparent;
     transition: all 500ms;
 }
-.keywordsLinasDisplay:hover{
+.keywordsMethodsDisplay:hover{
     background: none repeat scroll 0 0 transparent;
     transition: all 500ms;
-}
-
-.keywordsLinasDisplay2{
-    background: none repeat scroll 0 0 #7F6664;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: rgba(255, 255, 255, 0.5);
-    font-family: verdana;
-    font-size: 14px;
-    font-style: italic;
-    margin: 6px;
-    text-decoration: line-through;
-    text-shadow: none;
 }
 
 
@@ -1322,6 +1315,14 @@ input[value='2']:checked + label {
     color: #f5f5f5;
 }
 
+#inistKeywordsButton span{
+    transform: rotate(270deg);
+    width: 90px;
+    height: 25px;
+    transform-origin: 53% 166% 0;
+    display: inline-block;
+}
+
 #abstractFullLenght{
     display: block;
     color: #555;
@@ -1342,7 +1343,7 @@ input[value='2']:checked + label {
     display: none;
 }
 
-.keywordsLinasDisplayDone .formNotedKeywordsPreference{
+.keywordsMethodsDisplayDone .formNotedKeywordsPreference{
     display: inline-block;
 
 }

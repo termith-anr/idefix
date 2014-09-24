@@ -8,6 +8,35 @@
 
 <body id="bodyBrowse">
 
+{% set numberOfMethods = 0 %}
+
+{% set currentNbMethod = 0 %}
+
+{% set listOfMethodsName = [] %}
+
+{% set inistListofKw = 0 %}
+
+<!--  Count number of Methods present -->
+
+{%  for keywordArray in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
+
+    {% set currentScheme = keywordArray.scheme %}
+
+    {% if (currentScheme != 'cc') and (currentScheme != 'author') and (keywordArray['xml#lang'] == 'fr') and (currentScheme != 'inist-francis') and (currentScheme != 'inist-pascal')  %}
+
+            {% set numberOfMethods = numberOfMethods + 1 %}
+
+            {% set listOfMethodsName = listOfMethodsName + currentScheme %}
+
+    {% elif (currentScheme == 'inist-francis') or (currentScheme != 'inist-pascal') %}
+
+            {% set inistListofKw = keywordArray.term %}
+
+    {% endif %}
+
+{% endfor %}
+
+
     <div id="showOnClickDiv"></div>
 
     <div id="contentDisplay" class="col-lg-11 col-md-11 col-sm-11">
@@ -44,12 +73,15 @@
 
                         <div  class="methodsNameDisplayD">
 
-                            <div id="method1Button" class="methodLinkround">
-                                <span>Méthode 1</span>
-                            </div>
-                            <div id="method2Button" class="methodLinkround">
-                                <span>Méthode 2</span>
-                            </div>
+                            {% for buttons in range(0,numberOfMethods) %}
+
+                                <div id="methodButton-{{ loop.index }}" class="methodLinkround">
+
+                                    <span>Méthode {{ loop.index }}</span>
+
+                                </div>
+
+                            {% endfor %}
 
                         </div>
 
@@ -102,40 +134,13 @@
                 <div id="keywordsDisplayDiv" class="col-lg-12 col-md-12 col-sm-12">
 
 
-                    {% set numberOfMethods = 0 %}
-
-                    {% set currentNbMethod = 0 %}
-
-                    {% set listOfMethodsName = [] %}
-
-                    <!--  Count number of Methods present -->
-
-                    {%  for keywordArray in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
-
-                        {% set currentScheme = keywordArray.scheme %}
-
-                        {% if (currentScheme != 'cc') and (currentScheme != 'author') and (keywordArray['xml#lang'] == 'fr') %}
-
-                            {% if (currentScheme != 'inist-francis') or (currentScheme != 'inist-pascal') %}
-
-                                {% set numberOfMethods = numberOfMethods+1 %}
-
-                                {% set listOfMethodsName = listOfMethodsName + currentScheme %}
-
-                            {% endif %}
-
-                        {% endif %}
-
-                    {% endfor %}
-
-
 
                     {%  for keywordArray in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
 
                         {% set currentScheme = keywordArray.scheme %}
 
 
-                        <!-- IF Inist Keywords and others (lina) , all have to be in french-->
+                        <!-- IF Inist Keywords and others (methods) , all have to be in french-->
 
                         {% if (currentScheme != 'cc') and (currentScheme != 'author') and (keywordArray['xml#lang'] == 'fr') %}
 
@@ -143,15 +148,15 @@
 
                                 <div id="keywordsInist">
 
-                                    <h2> INIST {{ numberOfMethods }} {{listOfMethodsName}}</h2>
+                                    <h2> INIST </h2>
 
-                                    {%  for currentInistKw in keywordArray.term %}
+                                    {%  for currentInistKw in inistListofKw %}
 
                                         {% set inistTxt = currentInistKw['#text'] %}
 
-                                        {% for theInist in range(0,numberOfMethods -1) %}
+                                        {% for theInist in range(0,numberOfMethods) %}
 
-                                        <div class="btn btn-default methode1F {{ listOfMethodsName }}{% if item.notedKeywords[currentScheme][listOfMethodsName[theInist]][inistTxt] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ inistTxt|d('Pas de mots clés') }}
+                                        <div class="btn btn-default methode1F {{ listOfMethodsName }}{% if item.notedKeywords[currentScheme][listOfMethodsName[theInist]][inistTxt] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> {{ inistTxt|d('Pas de mots clés') }}
 
                                             <form class="formNotedKeyword row" id="{{ currentScheme }}.{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
 
@@ -189,25 +194,26 @@
 
                                 </div>
 
-                            {% else %} <!-- UNDER: ALL lina method -->
+                            {% else %} <!-- UNDER: ALL  method -->
 
 
                                 {% set currentNbMethod = currentNbMethod+1 %}
 
-                                <div id="lina{{ currentNbMethod }}ListOfKeywords" class="linaKeywords">
+                                <div id="method{{ currentNbMethod }}ListOfKeywords" class="methodsKeywords">
 
-                                    <h2> Lina {{ currentNbMethod }} </h2>
+                                    <h2> Methode {{ currentNbMethod }} </h2>
 
+                                    {% set listOfKeywordsForCurrentMethod = keywordArray.term %}
 
-                                    {%  for currentInistKw in keywordArray.term %}
+                                    {%  for currentInistKw in listOfKeywordsForCurrentMethod %}
 
                                         {% set methodTxt = currentInistKw['#text'] %}
 
-                                            <div class="btn btn-default {% if item.notedKeywords[currentScheme][methodTxt] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ methodTxt|d('Pas de mots clés') }}
+                                            <div class="btn btn-default {% if item.notedKeywords[currentScheme][methodTxt] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> {{ methodTxt|d('Pas de mots clés') }}
 
                                                 <form class="formNotedKeyword row" id="method-{{ currentNbMethod }}-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
 
-                                                    <input type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.{{ methodTxt }}"/><!-- Key Name -->
+                                                    <input type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.{{ methodTxt }}.note"/><!-- Key Name -->
 
                                                     <!-- Value Name -->
                                                     {% if item.notedKeywords[currentScheme][methodTxt] == '2' %}
@@ -230,6 +236,49 @@
 
                                                     <ins class="loading"></ins>
 
+                                                </form>
+
+                                                <form class="formNotedKeyword formNotedKeywordsPreference row" id="prefMethod-{{ currentNbMethod }}-{{ loop.index }}" action="/save/{{ item.wid }}">
+
+                                                    <input type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.{{ methodTxt }}.exclude"/> <!-- Key Name -->
+
+                                                    <select id="method-{{ currentNbMethod }}-exclude-list-{{ loop.index }}" class="formNotedKeywordList" name="val">
+
+                                                        <option value="<exclude>">
+                                                            Pref:
+                                                        </option>
+
+                                                        {%  for sameListKeywords in listOfKeywordsForCurrentMethod %}
+
+                                                            {% set thekeyword = sameListKeywords['#text'] %}
+                                                            <option value="{{ thekeyword }}" {% if item.notedKeywords[currentScheme][methodTxt].exclude == thekeyword %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
+                                                            {{ thekeyword }}
+                                                            </option>
+
+                                                        {% endfor %}
+
+                                                    </select>
+
+                                                </form>
+
+                                                <form class="formNotedKeyword formNotedKeywordsPreference row" id="correspMethod-{{ currentNbMethod }}-{{ loop.index }}" action="/save/{{ item.wid }}">
+
+                                                    <input type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.{{ methodTxt }}.corresp"/> <!-- Key Name -->
+
+                                                    <select id="method-{{ currentNbMethod }}-corresp-list-{{ loop.index }}" class="formNotedKeywordList" name="val">
+                                                        <option value="<corresp>">
+                                                            Corresp:
+                                                        </option>
+                                                        {%  for inistKeyword in inistListofKw  %}
+
+                                                                {% set currentInistKwtxt = inistKeyword['#text'] %}
+
+                                                                <option value="{{ currentInistKwtxt }}" {% if item.notedKeywords[currentScheme][methodTxt].corresp == currentInistKwtxt %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
+                                                                {{ currentInistKwtxt }}
+                                                                </option>
+
+                                                        {% endfor %}
+                                                    </select>
                                                 </form>
 
                                             </div>
@@ -274,7 +323,9 @@
 
     </div>
 
-    <div id="inistKeywordsButton"><span style="transform: rotate(270deg);width: 90px;height: 25px; transform-origin: 53% 166% 0;display: inline-block">Afficher INIST</span></div>
+    <div id="inistKeywordsButton">
+        <span>Afficher INIST</span>  <!-- Button to call Inist Keywords -->
+    </div>
 
 
     {% endblock %}
@@ -297,31 +348,33 @@
             });
 
 
-            /* Open the resume In full screen*/
-
-            window.b = 0;
-
             $("#inistKeywordsButton").click(
                     function() {
                         if($('#abstractFullLenght').css('display') == 'block'){
                             $('#abstractFullLenght').hide();
                             $('#sectionArticle').css('opacity','1');
+                            console.log('0');
                         }
-                        // If Keywords of Methods Or inist are not already show
+
+
+                        /* If Keywords of Methods Or inist are not already show
                         if($("#keywordsDisplayDiv").css('display') == 'none') {
+                            alert('OK');
                             $("#keywordsDisplayDiv").show();
-                            $(".linaKeywords").animate({width: '50%'}, 400);
+                            $(".methodsKeywords").animate({width: '50%'}, 400);
                             $("#keywordsInist").show("slide", { direction: "right" }, 400);
                             $('span', this).html('Cacher INIST');
                             $(this).css({background: '#CC6A63'})
+                            console.log('1');
                         }
                         else{
-                            $(".linaKeywords").animate({width: '100%'},400);
+                            $(".methodsKeywords").animate({width: '100%'},400);
                             $("#keywordsInist").hide("slide", { direction: "right" }, 400);
                             $("#keywordsDisplayDiv").hide();
                             $('span', this).html('Afficher INIST');
                             $(this).css({background: ''})
-                        }
+                            console.log('2');
+                        }*/
                     }
 
             );
@@ -344,45 +397,20 @@
 
 
 
-            $("#method1Button").click(
+            $(".methodLinkround").click(
                     function() {
+                        var id = $(this).attr('id');
+                        var nb = id.split('-');
                         if($('#abstractFullLenght').css('display') == 'block'){
                             $('#abstractFullLenght').hide();
                             $('#sectionArticle').css('opacity','1');
                             $("#keywordsDisplayDiv").show();
+
                         }
-                        if($("#lina1ListOfKeywords").css('display') == 'none') {
-                            $("#lina2ListOfKeywords").hide("slide", { direction: "right" }, 500);
-                            $("#lina1ListOfKeywords").show("slide", { direction: "left" }, 500);
-                            $(this).css('borderColor' , '#CC6A63');
-                            $("#method2Button").css('borderColor' , '');
-                            $('.methode2F').css('display', 'none');
-                            $('.methode1F').css('display', '');
-                        }
-                        if($('#inistKeywordsButton').css('display') == 'none'){
-                            $('#inistKeywordsButton').css('display' ,'block');
-                        }
-                    }
-
-            );
-
-
-
-            $("#method2Button").click(
-                    function() {
-                        if($('#abstractFullLenght').css('display') == 'block'){
-                            $('#abstractFullLenght').hide();
-                            $('#sectionArticle').css('opacity','1');
-                            $("#keywordsDisplayDiv").show();
-                        }
-                        if($("#lina2ListOfKeywords").css('display') == 'none') {
-                            $("#lina1ListOfKeywords").hide("drop", { direction: "left" }, 500);
-                            $("#lina2ListOfKeywords").show("slide", { direction: "right" }, 500);
-                            $(this).css('borderColor' , '#CC6A63');
-                            $("#method1Button").css('borderColor' , '');
-                            $('.methode1F').css('display', 'none');
-                            $('.methode2F').css('display', '');
-
+                        if($("#method" + nb[1] +'ListOfKeywords').css('display') == 'none') {
+                            $('.methodsKeywords').not('#method' + nb[1] +'ListOfKeywords').hide("slide", { direction: "right" }, 500);
+                            $('#method' + nb[1] +'ListOfKeywords').show("slide", { direction: "left" }, 500);
+                            $('#methodButton-' + nb[1] ).css('borderColor' , '#CC6A63').siblings().css('borderColor' , '');
                         }
                         if($('#inistKeywordsButton').css('display') == 'none'){
                             $('#inistKeywordsButton').css('display' ,'block');
