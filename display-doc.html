@@ -203,22 +203,22 @@
 
                                         {% set methodTxt = currentInistKw['#text'] %}
 
-                                            <div class="btn btn-default {% if item.notedKeywords[currentScheme][inistTxt] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ methodTxt|d('Pas de mots clés') }}
+                                            <div class="btn btn-default {% if item.notedKeywords[currentScheme][methodTxt] %} keywordsLinasDisplayDone {% else %} keywordsLinasDisplay {% endif %}"> {{ methodTxt|d('Pas de mots clés') }}
 
-                                                <form class="formNotedKeyword row" id="{{ currentScheme }}-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
+                                                <form class="formNotedKeyword row" id="method-{{ currentNbMethod }}-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
 
                                                     <input type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.{{ methodTxt }}"/><!-- Key Name -->
 
                                                     <!-- Value Name -->
-                                                    {% if item.notedKeywords[currentScheme].tfidf[inistTxt] == '2' %}
+                                                    {% if item.notedKeywords[currentScheme][methodTxt] == '2' %}
                                                     <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
                                                     <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
                                                     <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
-                                                    {% elif item.notedKeywords[currentScheme].tfidf[inistTxt] == '1' %}
+                                                    {% elif item.notedKeywords[currentScheme][methodTxt] == '1' %}
                                                     <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
                                                     <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
                                                     <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
-                                                    {% elif item.notedKeywords[currentScheme].tfidf[inistTxt] == '0' %}
+                                                    {% elif item.notedKeywords[currentScheme][methodTxt] == '0' %}
                                                     <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
                                                     <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
                                                     <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
@@ -274,7 +274,7 @@
 
     </div>
 
-    <div id="inistKeywordsButton" style=""><span style="transform: rotate(270deg);width: 90px;height: 25px; transform-origin: 53% 166% 0;display: inline-block">Afficher INIST</span></div>
+    <div id="inistKeywordsButton"><span style="transform: rotate(270deg);width: 90px;height: 25px; transform-origin: 53% 166% 0;display: inline-block">Afficher INIST</span></div>
 
 
     {% endblock %}
@@ -307,18 +307,17 @@
                             $('#abstractFullLenght').hide();
                             $('#sectionArticle').css('opacity','1');
                         }
+                        // If Keywords of Methods Or inist are not already show
                         if($("#keywordsDisplayDiv").css('display') == 'none') {
-                            $("#lina1ListOfKeywords").animate({width: '50%'}, 400);
-                            $("#lina2ListOfKeywords").animate({width: '50%'}, 400);
                             $("#keywordsDisplayDiv").show();
-                            $(".keywordsDisplayDivInist").show("slide", { direction: "right" }, 400);
+                            $(".linaKeywords").animate({width: '50%'}, 400);
+                            $("#keywordsInist").show("slide", { direction: "right" }, 400);
                             $('span', this).html('Cacher INIST');
                             $(this).css({background: '#CC6A63'})
                         }
                         else{
-                            $("#lina1ListOfKeywords").animate({width: '100%'},400);
-                            $("#lina2ListOfKeywords").animate({width: '100%'},400);
-                            $(".keywordsDisplayDivInist").hide("slide", { direction: "right" }, 400);
+                            $(".linaKeywords").animate({width: '100%'},400);
+                            $("#keywordsInist").hide("slide", { direction: "right" }, 400);
                             $("#keywordsDisplayDiv").hide();
                             $('span', this).html('Afficher INIST');
                             $(this).css({background: ''})
@@ -350,6 +349,7 @@
                         if($('#abstractFullLenght').css('display') == 'block'){
                             $('#abstractFullLenght').hide();
                             $('#sectionArticle').css('opacity','1');
+                            $("#keywordsDisplayDiv").show();
                         }
                         if($("#lina1ListOfKeywords").css('display') == 'none') {
                             $("#lina2ListOfKeywords").hide("slide", { direction: "right" }, 500);
@@ -373,6 +373,7 @@
                         if($('#abstractFullLenght').css('display') == 'block'){
                             $('#abstractFullLenght').hide();
                             $('#sectionArticle').css('opacity','1');
+                            $("#keywordsDisplayDiv").show();
                         }
                         if($("#lina2ListOfKeywords").css('display') == 'none') {
                             $("#lina1ListOfKeywords").hide("drop", { direction: "left" }, 500);
@@ -434,4 +435,5 @@
 
 
         </script>
-    {% endblock %}
+
+{% endblock %}

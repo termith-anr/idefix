@@ -430,10 +430,13 @@ table tr[data-href] {
 
 
 #leftSection{
-    height: 95%;
+    height: 100%;
     text-align: center;
+    overflow-x: hidden;
+    overflow-y: scroll;
     padding:0;
     border-right: 1px solid rgba(51, 51, 51, 0.3);
+    padding-right:-500px ;
 }
 
 #headerInfoDisplayDocs{
@@ -783,7 +786,6 @@ span .methodsameDisplayD{
     font-size:16px;
     display: block;
     vertical-align: middle;
-    max-height: 100%;
     font-family: 'segoe';
     padding-top:5px;
 }
@@ -815,6 +817,7 @@ span .methodsameDisplayD{
 
 #keywordsInist{
     position: relative;
+    display: none;
 }
 
 
@@ -1286,7 +1289,6 @@ input[value='2']:checked + label {
 
 #lina2ListOfKeywords{
     position: absolute;
-    top: 17%;
     z-index: 193;
     display: none;
     overflow-y: auto;
@@ -1296,11 +1298,11 @@ input[value='2']:checked + label {
 
 #lina1ListOfKeywords{
     position: absolute;
-    top: 17%;
     z-index: 193;
     width: 100%;
     overflow-y: auto;
     height: 75%;
+    display: none;
 }
 
 #inistKeywordsButton{
