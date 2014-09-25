@@ -26,7 +26,7 @@
 
             {% set numberOfMethods = numberOfMethods + 1 %}
 
-            {% set listOfMethodsName = listOfMethodsName + currentScheme %}
+            {% set listOfMethodsName = listOfMethodsName + ',,' + currentScheme %}
 
     {% elif (currentScheme == 'inist-francis') or (currentScheme != 'inist-pascal') %}
 
@@ -36,6 +36,7 @@
 
 {% endfor %}
 
+    <span style="display: none;visibility: hidden" id="{{ listOfMethodsName }}" class="theSpanToGetListNameMethod"></span>
 
     <div id="showOnClickDiv"></div>
 
@@ -113,6 +114,7 @@
 
                     <div id="h1Block">
                         <h1 id="h1DisplayDocs">
+                            {{ array2[0] }}
                             {% if item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0 ]%}
                                 {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre')}}
                             {% elif  item.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'] %}
@@ -152,33 +154,35 @@
 
                                     {%  for currentInistKw in inistListofKw %}
 
+                                        {% set inistLoopKeyword  = loop.index %}
+
                                         {% set inistTxt = currentInistKw['#text'] %}
 
                                         {% for theInist in range(0,numberOfMethods) %}
 
-                                        <div class="btn btn-default methode1F {{ listOfMethodsName }}{% if item.notedKeywords[currentScheme][listOfMethodsName[theInist]][inistTxt] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> {{ inistTxt|d('Pas de mots clés') }}
+                                        <div class="btn btn-default inistForMethod-{{ loop.index }} {% if item.notedKeywords[currentScheme].inistMethod[inistLoopKeyword][inistTxt] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> {{ inistTxt|d('Pas de mots clés') }}
 
                                             <form class="formNotedKeyword row" id="{{ currentScheme }}.{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
 
-                                                <input type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.topicrank.{{ inistTxt }}"/><!-- Key Name -->
+                                                <input class="inistKey" type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.method-{{ loop.index }}.{{ inistTxt }}.note"/><!-- Key Name -->
 
                                                 <!-- Value Name -->
-                                                {% if item.notedKeywords[currentScheme].topicrank[inistTxt] == '2' %}
-                                                <input id="input0-{{ currentScheme }}.topicrank.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.topicrank.{{ loop.index }}">0</label>
-                                                <input id="input1-{{ currentScheme }}.topicrank.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.topicrank.{{ loop.index }}">1</label>
-                                                <input id="input2-{{ currentScheme }}.topicrank.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-{{ currentScheme }}.topicrank.{{ loop.index }}">2</label>
-                                                {% elif item.notedKeywords[currentScheme].topicrank[inistTxt] == '1' %}
-                                                <input id="input0-{{ currentScheme }}.topicrank.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.topicrank.{{ loop.index }}">0</label>
-                                                <input id="input1-{{ currentScheme }}.topicrank.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-{{ currentScheme }}.topicrank.{{ loop.index }}">1</label>
-                                                <input id="input2-{{ currentScheme }}.topicrank.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.topicrank.{{ loop.index }}">2</label>
-                                                {% elif item.notedKeywords[currentScheme].topicrank[inistTxt] == '0' %}
-                                                <input id="input0-{{ currentScheme }}.topicrank.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-{{ currentScheme }}.topicrank.{{ loop.index }}">0</label>
-                                                <input id="input1-{{ currentScheme }}.topicrank.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.topicrank.{{ loop.index }}">1</label>
-                                                <input id="input2-{{ currentScheme }}.topicrank.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.topicrank.{{ loop.index }}">2</label>
+                                                {% if item.notedKeywords[currentScheme]['method-[inistLoopKeyword]'][inistTxt] == '2' %}
+                                                <input id="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">0</label>
+                                                <input id="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">1</label>
+                                                <input id="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="2" checked><label for="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">2</label>
+                                                {% elif item.notedKeywords[currentScheme]['method-[inistLoopKeyword]'][inistTxt] == '1' %}
+                                                <input id="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">0</label>
+                                                <input id="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="1" checked><label for="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">1</label>
+                                                <input id="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">2</label>
+                                                {% elif item.notedKeywords[currentScheme]['method-[inistLoopKeyword]'][inistTxt] == '0' %}
+                                                <input id="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="0" checked><label for="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">0</label>
+                                                <input id="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">1</label>
+                                                <input id="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">2</label>
                                                 {% else %}
-                                                <input id="input0-{{ currentScheme }}.topicrank.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.topicrank.{{ loop.index }}">0</label>
-                                                <input id="input1-{{ currentScheme }}.topicrank.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.topicrank.{{ loop.index }}">1</label>
-                                                <input id="input2-{{ currentScheme }}.topicrank.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.topicrank.{{ loop.index }}">2</label>
+                                                <input id="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">0</label>
+                                                <input id="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">1</label>
+                                                <input id="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">2</label>
                                                 {% endif %}
 
                                                 <ins class="loading"></ins>
@@ -342,39 +346,29 @@
             <script>
 
 
+
+
             /*  Change the scroller style */
             $("#sectionArticle").scroller({
                 customClass: "advanced",
             });
 
-
             $("#inistKeywordsButton").click(
                     function() {
-                        if($('#abstractFullLenght').css('display') == 'block'){
-                            $('#abstractFullLenght').hide();
-                            $('#sectionArticle').css('opacity','1');
-                            console.log('0');
-                        }
 
-
-                        /* If Keywords of Methods Or inist are not already show
-                        if($("#keywordsDisplayDiv").css('display') == 'none') {
-                            alert('OK');
-                            $("#keywordsDisplayDiv").show();
+                        if($('#keywordsInist').css('display') == 'none'){
                             $(".methodsKeywords").animate({width: '50%'}, 400);
-                            $("#keywordsInist").show("slide", { direction: "right" }, 400);
+                            $('#keywordsInist').show("slide", { direction: "right" }, 500);
                             $('span', this).html('Cacher INIST');
-                            $(this).css({background: '#CC6A63'})
-                            console.log('1');
+                            $(this).css({background: '#CC6A63'});
                         }
                         else{
                             $(".methodsKeywords").animate({width: '100%'},400);
                             $("#keywordsInist").hide("slide", { direction: "right" }, 400);
-                            $("#keywordsDisplayDiv").hide();
                             $('span', this).html('Afficher INIST');
                             $(this).css({background: ''})
-                            console.log('2');
-                        }*/
+                        }
+
                     }
 
             );
@@ -398,6 +392,7 @@
 
 
             $(".methodLinkround").click(
+
                     function() {
                         var id = $(this).attr('id');
                         var nb = id.split('-');
@@ -411,6 +406,8 @@
                             $('.methodsKeywords').not('#method' + nb[1] +'ListOfKeywords').hide("slide", { direction: "right" }, 500);
                             $('#method' + nb[1] +'ListOfKeywords').show("slide", { direction: "left" }, 500);
                             $('#methodButton-' + nb[1] ).css('borderColor' , '#CC6A63').siblings().css('borderColor' , '');
+                            $('#keywordsInist .btn-default').hide();
+                            $('.inistForMethod-' + nb[1]).show();
                         }
                         if($('#inistKeywordsButton').css('display') == 'none'){
                             $('#inistKeywordsButton').css('display' ,'block');
@@ -419,6 +416,19 @@
 
             );
 
+
+            var listOfMethodsName = $('.theSpanToGetListNameMethod').attr('id').split(',,');
+
+            $( ".inistKey" ).each(function() {
+
+                var value = $(this).val();
+                var pattern = /[0-9]+/;
+                var matches = value.match(pattern);
+
+                value = value.replace('method-' + matches, listOfMethodsName[matches]);
+
+                $(this).val(value);
+            });
 
             //submit Ajax form
             $(".formNotedKeyword input, .formNotedKeyword select").change(function(e)

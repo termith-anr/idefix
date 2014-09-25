@@ -811,13 +811,16 @@ span .methodsameDisplayD{
     overflow-y: auto;
     height: 83%;
     display: none;
-    border-left: 3px dotted rgba(204, 106, 99, 0.6);
     overflow-x: hidden;
+    padding: 0;
 }
 
 #keywordsInist{
     position: relative;
     display: none;
+    width: 50%;
+    float: right;
+    border-left: 3px dotted rgba(204, 106, 99, 0.6);
 }
 
 
