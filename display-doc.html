@@ -16,7 +16,7 @@
 
 {% set inistListofKw = 0 %}
 
-<!--  Count number of Methods present -->
+<!--  Count number of Methods present and their names -->
 
 {%  for keywordArray in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
 
@@ -28,7 +28,7 @@
 
             {% set listOfMethodsName = listOfMethodsName + ',,' + currentScheme %}
 
-    {% elif (currentScheme == 'inist-francis') or (currentScheme != 'inist-pascal') %}
+    {% elif ((currentScheme == 'inist-francis') or (currentScheme != 'inist-pascal'))  and (keywordArray['xml#lang'] == 'fr') %}
 
             {% set inistListofKw = keywordArray.term %}
 
@@ -147,6 +147,7 @@
                         {% if (currentScheme != 'cc') and (currentScheme != 'author') and (keywordArray['xml#lang'] == 'fr') %}
 
                             {% if (currentScheme == 'inist-francis') or (currentScheme == 'inist-pascal') %}
+                                <!-- INIST {{keywordArray['xml#lang']}} -->
 
                                 <div id="keywordsInist">
 
@@ -341,134 +342,162 @@
         <script src="../assets/js/dmap.js"></script>
         <script src="../assets/js/jquery.fs.scroller.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-            <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 
             <script>
 
 
+            /* --- CHANGE VALUE INIST BY METHOD--- */
+
+                var listOfMethodsName = $('.theSpanToGetListNameMethod').attr('id').split(',,');
+
+                $( ".inistKey" ).each(function() {
+
+                    var value = $(this).val();
+                    var pattern = /[0-9]+/;
+                    var matches = value.match(pattern);
+
+                    value = value.replace('method-' + matches, listOfMethodsName[matches]);
+
+                    $(this).val(value);
+                });
+
+            /* --- END OF CHANGE VALUE ---*/
 
 
-            /*  Change the scroller style */
-            $("#sectionArticle").scroller({
-                customClass: "advanced",
-            });
 
-            $("#inistKeywordsButton").click(
-                    function() {
 
-                        if($('#keywordsInist').css('display') == 'none'){
-                            $(".methodsKeywords").animate({width: '50%'}, 400);
-                            $('#keywordsInist').show("slide", { direction: "right" }, 500);
-                            $('span', this).html('Cacher INIST');
-                            $(this).css({background: '#CC6A63'});
+            /* --- CHANGE SCROLL STYLE --- */
+
+                $("#sectionArticle").scroller({
+                    customClass: "advanced",
+                });
+
+            /* --- END OF CHANGE SCROLL ---*/
+
+
+
+
+            /* --- SHOW INIST KW BY METHOD --- */
+
+                $("#inistKeywordsButton").click(
+                        function() {
+
+                            if($('#keywordsInist').css('display') == 'none'){
+                                $(".methodsKeywords").animate({width: '50%'}, 400);
+                                $('#keywordsInist').show("slide", { direction: "right" }, 500);
+                                $('span', this).html('Cacher INIST');
+                                $(this).css({background: '#CC6A63'});
+                            }
+                            else{
+                                $(".methodsKeywords").animate({width: '100%'},400);
+                                $("#keywordsInist").hide("slide", { direction: "right" }, 400);
+                                $('span', this).html('Afficher INIST');
+                                $(this).css({background: ''})
+                            }
+
                         }
-                        else{
-                            $(".methodsKeywords").animate({width: '100%'},400);
-                            $("#keywordsInist").hide("slide", { direction: "right" }, 400);
-                            $('span', this).html('Afficher INIST');
-                            $(this).css({background: ''})
-                        }
 
+                );
+
+            /* --- END OF SHOW INIST ---*/
+
+
+
+            /* --- COME BACK TO RESUME --- */
+
+                $("#sectionArticle").on('click', function(){
+                    if($(this).css('opacity') !== '0.15'){
+                        if($('#abstractFullLenght').css('display') == 'none'){
+                            $('#abstractFullLenght').css('display', 'block').siblings().not(".divHoverH1Display").hide();
+                            $("#lina1ListOfKeywords").css('width' ,'100%');
+                            $("#lina2ListOfKeywords").css('width' ,'100%');
+                            $("#inistKeywordsButton > span").html('Afficher INIST');
+                            $("#inistKeywordsButton").css('background', 'rgba(204, 106, 99, 0.6)');
+                            $("#method1Button").css('borderColor' , '');
+                            $("#method2Button").css('borderColor' , '');
+                        }
                     }
+                });
 
-            );
-
-            // Can come back show the resume div and hide all other bothers div
-
-            $("#sectionArticle").on('click', function(){
-                if($(this).css('opacity') !== '0.15'){
-                    if($('#abstractFullLenght').css('display') == 'none'){
-                        $('#abstractFullLenght').css('display', 'block').siblings().not(".divHoverH1Display").hide();
-                        $("#lina1ListOfKeywords").css('width' ,'100%');
-                        $("#lina2ListOfKeywords").css('width' ,'100%');
-                        $("#inistKeywordsButton > span").html('Afficher INIST');
-                        $("#inistKeywordsButton").css('background', 'rgba(204, 106, 99, 0.6)');
-                        $("#method1Button").css('borderColor' , '');
-                        $("#method2Button").css('borderColor' , '');
-                    }
-                }
-            });
+            /* --- END OF COME RESUME ---*/
 
 
+            /* ---CHANGE THE METHOD SHOW --- */
 
-            $(".methodLinkround").click(
+                $(".methodLinkround").click(
 
-                    function() {
-                        var id = $(this).attr('id');
-                        var nb = id.split('-');
-                        if($('#abstractFullLenght').css('display') == 'block'){
-                            $('#abstractFullLenght').hide();
-                            $('#sectionArticle').css('opacity','1');
-                            $("#keywordsDisplayDiv").show();
-
-                        }
-                        if($("#method" + nb[1] +'ListOfKeywords').css('display') == 'none') {
-                            $('.methodsKeywords').not('#method' + nb[1] +'ListOfKeywords').hide("slide", { direction: "right" }, 500);
-                            $('#method' + nb[1] +'ListOfKeywords').show("slide", { direction: "left" }, 500);
-                            $('#methodButton-' + nb[1] ).css('borderColor' , '#CC6A63').siblings().css('borderColor' , '');
-                            $('#keywordsInist .btn-default').hide();
-                            $('.inistForMethod-' + nb[1]).show();
-                        }
-                        if($('#inistKeywordsButton').css('display') == 'none'){
-                            $('#inistKeywordsButton').css('display' ,'block');
-                        }
-                    }
-
-            );
-
-
-            var listOfMethodsName = $('.theSpanToGetListNameMethod').attr('id').split(',,');
-
-            $( ".inistKey" ).each(function() {
-
-                var value = $(this).val();
-                var pattern = /[0-9]+/;
-                var matches = value.match(pattern);
-
-                value = value.replace('method-' + matches, listOfMethodsName[matches]);
-
-                $(this).val(value);
-            });
-
-            //submit Ajax form
-            $(".formNotedKeyword input, .formNotedKeyword select").change(function(e)
-            {
-                var id = $(this).parent().attr('id');
-                var postData = $(this).parent().serializeArray();
-                var formURL = $(this).parent().attr("action");
-                var li = $(this).parent().parent();
-
-                $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
-
-                $.ajax(
-                        {
-                            url : formURL,
-                            type: "POST",
-                            data : postData,
-                            success:function(e)
-                            {
-                                setTimeout(function () {
-                                    $('#' + id +' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
-                                    if(!li.hasClass("keywordsLinasDisplayDone")){
-                                        li.addClass("keywordsLinasDisplayDone");
-                                        li.removeClass("keywordsLinasDisplay");
-                                        li.children('.formNotedKeywordsPreference').css('display','inline-block');
-                                    }
-                                    li.css('box-shadow', '0px 1px 4px 0px green');
-                                    setTimeout( function(){
-                                        li.css('box-shadow', '');
-                                    },750);
-                                }, 900);
-
-                            },
-                            error: function()
-                            {
+                        function() {
+                            var id = $(this).attr('id');
+                            var nb = id.split('-');
+                            if($('#abstractFullLenght').css('display') == 'block'){
+                                $('#abstractFullLenght').hide();
+                                $('#sectionArticle').css('opacity','1');
+                                $("#keywordsDisplayDiv").show();
 
                             }
-                        });
-                e.preventDefault(); //STOP default action
+                            if($("#method" + nb[1] +'ListOfKeywords').css('display') == 'none') {
+                                $('.methodsKeywords').not('#method' + nb[1] +'ListOfKeywords').hide("slide", { direction: "right" }, 500);
+                                $('#method' + nb[1] +'ListOfKeywords').show("slide", { direction: "left" }, 500);
+                                $('#methodButton-' + nb[1] ).css('borderColor' , '#CC6A63').siblings().css('borderColor' , '');
+                                $('#keywordsInist .btn-default').hide();
+                                $('.inistForMethod-' + nb[1]).show();
+                            }
+                            if($('#inistKeywordsButton').css('display') == 'none'){
+                                $('#inistKeywordsButton').css('display' ,'block');
+                            }
+                        }
 
-            });
+                );
+
+            /* --- END OF CHANGE METHOD ---*/
+
+
+
+            /* ---SUBMIT AJAX FORMS --- */
+
+                $(".formNotedKeyword input, .formNotedKeyword select").change(function(e)
+                {
+                    var id = $(this).parent().attr('id');
+                    var postData = $(this).parent().serializeArray();
+                    var formURL = $(this).parent().attr("action");
+                    var li = $(this).parent().parent();
+
+                    console.log(li);
+
+                    $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
+
+                    $.ajax(
+                            {
+                                url : formURL,
+                                type: "POST",
+                                data : postData,
+                                success:function(e)
+                                {
+                                    setTimeout(function () {
+                                        $('#' + id +' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
+                                        if(!li.hasClass("keywordsMethodsDisplayDone")){
+                                            li.addClass("keywordsMethodsDisplayDone");
+                                            li.removeClass("keywordsMethodsisplay");
+                                            li.children('.formNotedKeywordsPreference').css('display','inline-block');
+                                        }
+                                        li.css('box-shadow', '0px 1px 4px 0px green');
+                                        setTimeout( function(){
+                                            li.css('box-shadow', '');
+                                        },750);
+                                    }, 900);
+
+                                },
+                                error: function()
+                                {
+
+                                }
+                            });
+                    e.preventDefault(); //STOP default action
+
+                });
+
+            /* --- END OF SUBMIT AJAX ---*/
 
 
 
