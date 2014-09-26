@@ -1,8 +1,14 @@
 'use strict';
 
 module.exports = function(config) {
+
     return function(input,separator) {
-        var array = input.split(separator);
-        return array;
+
+        if(typeof(input) == 'string') { //  Split only on a string  !
+            var array = input.split(separator);
+            return array;
+        }
+        return String(input);
     }
+
 }

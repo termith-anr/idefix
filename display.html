@@ -14,6 +14,8 @@
 
 {% set listOfMethodsName = [] %}
 
+{% set listOfMethodsName2 = [] %}
+
 {% set inistListofKw = 0 %}
 
 <!--  Count number of Methods present and their names -->
@@ -26,8 +28,7 @@
 
             {% set numberOfMethods = numberOfMethods + 1 %}
 
-            {% set listOfMethodsName = listOfMethodsName + ',,' + currentScheme %}
-
+            {% set listOfMethodsName = listOfMethodsName|add2Array(currentScheme) %}
 
     {% elif ((currentScheme == 'inist-francis') or (currentScheme != 'inist-pascal'))  and (keywordArray['xml#lang'] == 'fr') %}
 
@@ -37,7 +38,6 @@
 
 {% endfor %}
 
-    <span style="display: none;visibility: hidden" id="{{ listOfMethodsName }}" class="theSpanToGetListNameMethod"></span>
 
     <div id="showOnClickDiv"></div>
 
@@ -115,7 +115,6 @@
 
                     <div id="h1Block">
                         <h1 id="h1DisplayDocs">
-                            {{ array2[0] }}
                             {% if item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0 ]%}
                                 {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre')}}
                             {% elif  item.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'] %}
@@ -162,29 +161,31 @@
 
                                         {% for theInist in range(0,numberOfMethods) %}
 
-                                        <div class="btn btn-default inistForMethod-{{ loop.index }} {% if item.notedKeywords[currentScheme].inistMethod[inistLoopKeyword][inistTxt] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> {{ inistTxt|d('Pas de mots clés') }}
+                                            {% set loopIndexMethodInist = loop.index %}
 
-                                            <form class="formNotedKeyword row" id="{{ currentScheme }}.{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
+                                        <div class="btn btn-default inistForMethod-{{ loopIndexMethodInist }} {% if item.notedKeywords[currentScheme][listOfMethodsName[loopIndexMethodInist-1]][inistTxt] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> {{ inistTxt|d('Pas de mots clés') }}
 
-                                                <input class="inistKey" type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.method-{{ loop.index }}.{{ inistTxt }}.note"/><!-- Key Name -->
+                                            <form class="formNotedKeyword row" id="{{ currentScheme }}-{{ loopIndexMethodInist }}-{{ inistLoopKeyword }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
+
+                                                <input class="inistKey" type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist-1]}}.{{ inistTxt }}.note"/><!-- Key Name -->
 
                                                 <!-- Value Name -->
-                                                {% if item.notedKeywords[currentScheme]['method-[inistLoopKeyword]'][inistTxt] == '2' %}
-                                                <input id="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">0</label>
-                                                <input id="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">1</label>
-                                                <input id="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="2" checked><label for="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">2</label>
-                                                {% elif item.notedKeywords[currentScheme]['method-[inistLoopKeyword]'][inistTxt] == '1' %}
-                                                <input id="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">0</label>
-                                                <input id="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="1" checked><label for="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">1</label>
-                                                <input id="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">2</label>
-                                                {% elif item.notedKeywords[currentScheme]['method-[inistLoopKeyword]'][inistTxt] == '0' %}
-                                                <input id="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="0" checked><label for="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">0</label>
-                                                <input id="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">1</label>
-                                                <input id="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">2</label>
+                                                {% if item.notedKeywords[currentScheme][listOfMethodsName[loopIndexMethodInist-1]][inistTxt].note == '2' %}
+                                                <input id="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">0</label>
+                                                <input id="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">1</label>
+                                                <input id="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="2" checked><label for="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">2</label>
+                                                {% elif item.notedKeywords[currentScheme][listOfMethodsName[loopIndexMethodInist-1]][inistTxt].note == '1' %}
+                                                <input id="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">0</label>
+                                                <input id="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="1" checked><label for="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">1</label>
+                                                <input id="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">2</label>
+                                                {% elif item.notedKeywords[currentScheme][listOfMethodsName[loopIndexMethodInist-1]][inistTxt].note == '0' %}
+                                                <input id="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="0" checked><label for="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">0</label>
+                                                <input id="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">1</label>
+                                                <input id="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">2</label>
                                                 {% else %}
-                                                <input id="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">0</label>
-                                                <input id="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">1</label>
-                                                <input id="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.method-{{ loop.index }}.{{ inistLoopKeyword }}">2</label>
+                                                <input id="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">0</label>
+                                                <input id="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">1</label>
+                                                <input id="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">2</label>
                                                 {% endif %}
 
                                                 <ins class="loading"></ins>
@@ -222,15 +223,15 @@
                                                     <input type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.{{ methodTxt }}.note"/><!-- Key Name -->
 
                                                     <!-- Value Name -->
-                                                    {% if item.notedKeywords[currentScheme][methodTxt] == '2' %}
+                                                    {% if item.notedKeywords[currentScheme][methodTxt].note == '2' %}
                                                     <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
                                                     <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
                                                     <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
-                                                    {% elif item.notedKeywords[currentScheme][methodTxt] == '1' %}
+                                                    {% elif item.notedKeywords[currentScheme][methodTxt].note == '1' %}
                                                     <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
                                                     <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
                                                     <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
-                                                    {% elif item.notedKeywords[currentScheme][methodTxt] == '0' %}
+                                                    {% elif item.notedKeywords[currentScheme][methodTxt].note == '0' %}
                                                     <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
                                                     <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
                                                     <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
@@ -348,23 +349,6 @@
             <script>
 
 
-            /* --- CHANGE VALUE INIST BY METHOD--- */
-
-                var listOfMethodsName = $('.theSpanToGetListNameMethod').attr('id').split(',,');
-
-                $( ".inistKey" ).each(function() {
-
-                    var value = $(this).val();
-                    var pattern = /[0-9]+/;
-                    var matches = value.match(pattern);
-
-                    value = value.replace('method-' + matches, listOfMethodsName[matches]);
-
-                    $(this).val(value);
-                });
-
-            /* --- END OF CHANGE VALUE ---*/
-
 
 
 
@@ -464,7 +448,6 @@
                     var formURL = $(this).parent().attr("action");
                     var li = $(this).parent().parent();
 
-                    console.log(li);
 
                     $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
 
