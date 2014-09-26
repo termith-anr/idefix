@@ -1074,17 +1074,17 @@ input[type=radio]:checked + label {
 
 input[value='0']:checked + label {
     background-image: none;
-    color: #ff847c;
+    color: red;
 }
 
 input[value='1']:checked + label {
     background-image: none;
-    color: #ff847c;
+    color: orange;
 }
 
 input[value='2']:checked + label {
     background-image: none;
-    color: #ff847c;
+    color: green;
 }
 
 .formNotedKeyword{
