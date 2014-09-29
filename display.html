@@ -1,9 +1,7 @@
 {% extends "layout.html" %}
 
-{% block content %}
 
-<!--end head block  -->
-</head>
+{% block content %}
 
 
 <body id="bodyBrowse">
@@ -115,7 +113,7 @@
 
                     <div id="h1Block">
                         <h1 id="h1DisplayDocs">
-                            {% if item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0 ]%}
+                            {% if item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]%}
                                 {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre')}}
                             {% elif  item.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'] %}
                                 {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text']|d('Pas de titre')}}
@@ -335,156 +333,155 @@
     </div>
 
 
-    {% endblock %}
 
-    {% block specificScript %}
-        <script> var $ = jQuery = require('jquery'); </script>
-        <script src="../assets/js/parseWordPonct.function.js"></script>
-        <script src="../assets/js/parseGeneric.function.js"></script>
-        <script src="../assets/js/dmap.js"></script>
-        <script src="../assets/js/jquery.fs.scroller.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <!-- SCRIPTS  DISPLAY PAGE -->
 
-            <script>
+    <script src="/assets/js/jquery-1.11.1.min.js"></script>
+    <script src="/assets/js/parseWordPonct.function.js"></script>
+    <script src="/assets/js/parseGeneric.function.js"></script>
+    <script src="/assets/js/dmap.js"></script>
+    <script src="/assets/js/jquery.fs.scroller.min.js"></script>
+    <script src="/assets/js/jquery-ui.min.js"></script>
 
+    <script>
 
 
 
 
-            /* --- CHANGE SCROLL STYLE --- */
 
-                $("#sectionArticle").scroller({
-                    customClass: "advanced",
-                });
+    /* --- CHANGE SCROLL STYLE --- */
 
-            /* --- END OF CHANGE SCROLL ---*/
+        $("#sectionArticle").scroller({
+            customClass: "advanced",
+        });
 
-
-
-
-            /* --- SHOW INIST KW BY METHOD --- */
-
-                $("#inistKeywordsButton").click(
-                        function() {
-
-                            if($('#keywordsInist').css('display') == 'none'){
-                                $(".methodsKeywords").animate({width: '50%'}, 400);
-                                $('#keywordsInist').show("slide", { direction: "right" }, 500);
-                                $('span', this).html('Cacher INIST');
-                                $(this).css({background: '#CC6A63'});
-                            }
-                            else{
-                                $(".methodsKeywords").animate({width: '100%'},400);
-                                $("#keywordsInist").hide("slide", { direction: "right" }, 400);
-                                $('span', this).html('Afficher INIST');
-                                $(this).css({background: ''})
-                            }
-
-                        }
-
-                );
-
-            /* --- END OF SHOW INIST ---*/
+    /* --- END OF CHANGE SCROLL ---*/
 
 
 
-            /* --- COME BACK TO RESUME --- */
 
-                $("#sectionArticle").on('click', function(){
-                    if($(this).css('opacity') !== '0.15'){
-                        if($('#abstractFullLenght').css('display') == 'none'){
-                            $('#abstractFullLenght').css('display', 'block').siblings().not(".divHoverH1Display").hide();
-                            $("#lina1ListOfKeywords").css('width' ,'100%');
-                            $("#lina2ListOfKeywords").css('width' ,'100%');
-                            $("#inistKeywordsButton > span").html('Afficher INIST');
-                            $("#inistKeywordsButton").css('background', 'rgba(204, 106, 99, 0.6)');
-                            $("#method1Button").css('borderColor' , '');
-                            $("#method2Button").css('borderColor' , '');
-                        }
+    /* --- SHOW INIST KW BY METHOD --- */
+
+        $("#inistKeywordsButton").click(
+                function() {
+
+                    if($('#keywordsInist').css('display') == 'none'){
+                        $(".methodsKeywords").animate({width: '50%'}, 400);
+                        $('#keywordsInist').show("slide", { direction: "right" }, 500);
+                        $('span', this).html('Cacher INIST');
+                        $(this).css({background: '#CC6A63'});
                     }
-                });
+                    else{
+                        $(".methodsKeywords").animate({width: '100%'},400);
+                        $("#keywordsInist").hide("slide", { direction: "right" }, 400);
+                        $('span', this).html('Afficher INIST');
+                        $(this).css({background: ''})
+                    }
 
-            /* --- END OF COME RESUME ---*/
+                }
 
+        );
 
-            /* ---CHANGE THE METHOD SHOW --- */
-
-                $(".methodLinkround").click(
-
-                        function() {
-                            var id = $(this).attr('id');
-                            var nb = id.split('-');
-                            if($('#abstractFullLenght').css('display') == 'block'){
-                                $('#abstractFullLenght').hide();
-                                $('#sectionArticle').css('opacity','1');
-                                $("#keywordsDisplayDiv").show();
-
-                            }
-                            if($("#method" + nb[1] +'ListOfKeywords').css('display') == 'none') {
-                                $('.methodsKeywords').not('#method' + nb[1] +'ListOfKeywords').hide("slide", { direction: "right" }, 500);
-                                $('#method' + nb[1] +'ListOfKeywords').show("slide", { direction: "left" }, 500);
-                                $('#methodButton-' + nb[1] ).css('borderColor' , '#CC6A63').siblings().css('borderColor' , '');
-                                $('#keywordsInist .btn-default').hide();
-                                $('.inistForMethod-' + nb[1]).show();
-                            }
-                            if($('#inistKeywordsButton').css('display') == 'none'){
-                                $('#inistKeywordsButton').css('display' ,'block');
-                            }
-                        }
-
-                );
-
-            /* --- END OF CHANGE METHOD ---*/
+    /* --- END OF SHOW INIST ---*/
 
 
 
-            /* ---SUBMIT AJAX FORMS --- */
+    /* --- COME BACK TO RESUME --- */
 
-                $(".formNotedKeyword input, .formNotedKeyword select").change(function(e)
-                {
-                    var id = $(this).parent().attr('id');
-                    var postData = $(this).parent().serializeArray();
-                    var formURL = $(this).parent().attr("action");
-                    var li = $(this).parent().parent();
+        $("#sectionArticle").on('click', function(){
+            if($(this).css('opacity') !== '0.15'){
+                if($('#abstractFullLenght').css('display') == 'none'){
+                    $('#abstractFullLenght').css('display', 'block').siblings().not(".divHoverH1Display").hide();
+                    $('#keywordsInist').hide();
+                    $(".methodsKeywords").css('width' ,'100%');
+                    $("#inistKeywordsButton ").hide();
+                    $("#inistKeywordsButton > span").html('Afficher INIST');
+                    $("#inistKeywordsButton").css('background', 'rgba(204, 106, 99, 0.6)');
+                    $(".methodLinkround").css('borderColor' , '');
+                }
+            }
+        });
+
+    /* --- END OF COME RESUME ---*/
 
 
-                    $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
+    /* ---CHANGE THE METHOD SHOW --- */
 
-                    $.ajax(
-                            {
-                                url : formURL,
-                                type: "POST",
-                                data : postData,
-                                success:function(e)
-                                {
-                                    setTimeout(function () {
-                                        $('#' + id +' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
-                                        if(!li.hasClass("keywordsMethodsDisplayDone")){
-                                            li.addClass("keywordsMethodsDisplayDone");
-                                            li.removeClass("keywordsMethodsisplay");
-                                            li.children('.formNotedKeywordsPreference').css('display','inline-block');
-                                        }
-                                        li.css('box-shadow', '0px 1px 4px 0px green');
-                                        setTimeout( function(){
-                                            li.css('box-shadow', '');
-                                        },750);
-                                    }, 900);
+        $(".methodLinkround").click(
 
-                                },
-                                error: function()
-                                {
+                function() {
+                    var id = $(this).attr('id');
+                    var nb = id.split('-');
+                    if($('#abstractFullLenght').css('display') == 'block'){
+                        $('#abstractFullLenght').hide();
+                        $('#sectionArticle').css('opacity','1');
+                        $("#keywordsDisplayDiv").show();
 
+                    }
+                    if($("#method" + nb[1] +'ListOfKeywords').css('display') == 'none') {
+                        $('.methodsKeywords').not('#method' + nb[1] +'ListOfKeywords').hide("slide", { direction: "right" }, 500);
+                        $('#method' + nb[1] +'ListOfKeywords').show("slide", { direction: "left" }, 500);
+                        $('#methodButton-' + nb[1] ).css('borderColor' , '#CC6A63').siblings().css('borderColor' , '');
+                        $('#keywordsInist .btn-default').hide();
+                        $('.inistForMethod-' + nb[1]).show();
+                    }
+                    if($('#inistKeywordsButton').css('display') == 'none'){
+                        $('#inistKeywordsButton').css('display' ,'block');
+                    }
+                }
+
+        );
+
+    /* --- END OF CHANGE METHOD ---*/
+
+
+
+    /* ---SUBMIT AJAX FORMS --- */
+
+        $(".formNotedKeyword input, .formNotedKeyword select").change(function(e)
+        {
+            var id = $(this).parent().attr('id');
+            var postData = $(this).parent().serializeArray();
+            var formURL = $(this).parent().attr("action");
+            var li = $(this).parent().parent();
+
+
+            $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
+
+            $.ajax(
+                    {
+                        url : formURL,
+                        type: "POST",
+                        data : postData,
+                        success:function(e)
+                        {
+                            setTimeout(function () {
+                                $('#' + id +' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
+                                if(!li.hasClass("keywordsMethodsDisplayDone")){
+                                    li.addClass("keywordsMethodsDisplayDone");
+                                    li.removeClass("keywordsMethodsisplay");
+                                    li.children('.formNotedKeywordsPreference').css('display','inline-block');
                                 }
-                            });
-                    e.preventDefault(); //STOP default action
+                                li.css('box-shadow', '0px 1px 4px 0px green');
+                                setTimeout( function(){
+                                    li.css('box-shadow', '');
+                                },750);
+                            }, 900);
 
-                });
+                        },
+                        error: function()
+                        {
 
-            /* --- END OF SUBMIT AJAX ---*/
+                        }
+                    });
+            e.preventDefault(); //STOP default action
+
+        });
+
+    /* --- END OF SUBMIT AJAX ---*/
 
 
 
-        </script>
+    </script>
 
 {% endblock %}
