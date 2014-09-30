@@ -1,4 +1,6 @@
 module.exports = {
-    "browserifyModules" : [ 'jquery', 'sugar', 'superagent' ]
-  	//"routes" : {"/export2":"export-docs.js"}
+    "browserifyModules" : [ 'jquery', 'sugar', 'superagent' ],
+    "routes": {
+        "/exportf": "export.js"
+    }
 };
