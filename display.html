@@ -1,0 +1,487 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+
+<body id="bodyBrowse">
+
+{% set numberOfMethods = 0 %}
+
+{% set currentNbMethod = 0 %}
+
+{% set listOfMethodsName = [] %}
+
+{% set listOfMethodsName2 = [] %}
+
+{% set inistListofKw = 0 %}
+
+<!--  Count number of Methods present and their names -->
+
+{%  for keywordArray in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
+
+    {% set currentScheme = keywordArray.scheme %}
+
+    {% if (currentScheme != 'cc') and (currentScheme != 'author') and (keywordArray['xml#lang'] == 'fr') and (currentScheme != 'inist-francis') and (currentScheme != 'inist-pascal')  %}
+
+            {% set numberOfMethods = numberOfMethods + 1 %}
+
+            {% set listOfMethodsName = listOfMethodsName|add2Array(currentScheme) %}
+
+    {% elif ((currentScheme == 'inist-francis') or (currentScheme != 'inist-pascal'))  and (keywordArray['xml#lang'] == 'fr') %}
+
+            {% set inistListofKw = keywordArray.term %}
+
+    {% endif %}
+
+{% endfor %}
+
+
+    <div id="showOnClickDiv"></div>
+
+    <div id="contentDisplay" class="col-lg-11 col-md-11 col-sm-11">
+
+
+
+            <!-- LEFT BLOC -->
+            <aside id="leftSection" class="col-lg-2 col-md-2 col-sm-2">
+
+                <header id="headerInfoDisplayDocs">
+
+
+                    <!-- THE NAV BAR -->
+                    <div class="divTopDisplay">
+
+                        <div id="divNavMiddle" class="col-lg-12 col-md-12 col-sm-12">
+                            <p>
+                                <a href="/browse.html">Liste</a> <!-- Return to browse Docs-->
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- NAME BLOC -->
+                    <div class="displayDiscipline">
+                        <div class="disciplineInfoDisplay">
+                            <span>{{ item.mark|d('Linguistique') }}</span>
+                        </div>
+                    </div>
+
+                    <!-- AUTHORS BLOC -->
+                    <div class="displayMethodBu">
+
+                        <div  class="methodsNameDisplayD">
+
+                            {% for buttons in range(0,numberOfMethods) %}
+
+                                <div id="methodButton-{{ loop.index }}" class="methodLinkround">
+
+                                    <span>Méthode {{ loop.index }}</span>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </header>
+
+
+                <!-- RESUME BLOC -->
+                <section id="sectionArticle">
+
+                    <span class="glyphicon glyphicon-align-left resumeGliph"></span>
+
+                    <article id="articleSectionResumeDisplay" style="">
+
+                        <p>{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de résumé pour cet article') }}</p>
+
+                    </article>
+
+                </section>
+
+            </aside>
+
+
+            <!-- RIGHT  BLOCK (Keywords) -->
+            <section id="keywordsSection" class="col-lg-10 col-md-10 col-sm-10">
+
+                <div class="divHoverH1Display col-lg-12 col-md-12 col-sm-12">
+
+                    <div id="h1Block">
+                        <h1 id="h1DisplayDocs">
+                            {% if item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]%}
+                                {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre')}}
+                            {% elif  item.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'] %}
+                                {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text']|d('Pas de titre')}}
+                            {% endif %}
+                        </h1>
+                    </div>
+
+                    <div id="arroundedBlock">
+
+                    </div>
+
+
+                </div>
+
+                <p id="abstractFullLenght">{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de résumé pour cet article') }}</p>
+
+
+                <div id="keywordsDisplayDiv" class="col-lg-12 col-md-12 col-sm-12">
+
+
+
+                    {%  for keywordArray in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
+
+                        {% set currentScheme = keywordArray.scheme %}
+
+
+                        <!-- IF Inist Keywords and others (methods) , all have to be in french-->
+
+                        {% if (currentScheme != 'cc') and (currentScheme != 'author') and (keywordArray['xml#lang'] == 'fr') %}
+
+                            {% if (currentScheme == 'inist-francis') or (currentScheme == 'inist-pascal') %}
+                                <!-- INIST {{keywordArray['xml#lang']}} -->
+
+                                <div id="keywordsInist">
+
+                                    <h2> INIST </h2>
+
+                                    {%  for currentInistKw in inistListofKw %}
+
+                                        {% set inistLoopKeyword  = loop.index %}
+
+                                        {% set inistTxt = currentInistKw['#text'] %}
+
+                                        {% for theInist in range(0,numberOfMethods) %}
+
+                                            {% set loopIndexMethodInist = loop.index %}
+
+                                        <div class="btn btn-default inistForMethod-{{ loopIndexMethodInist }} {% if item.notedKeywords[currentScheme][listOfMethodsName[loopIndexMethodInist-1]][inistTxt] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> {{ inistTxt|d('Pas de mots clés') }}
+
+                                            <form class="formNotedKeyword row" id="{{ currentScheme }}-{{ loopIndexMethodInist }}-{{ inistLoopKeyword }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
+
+                                                <input class="inistKey" type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist-1]}}.{{ inistTxt }}.note"/><!-- Key Name -->
+
+                                                <!-- Value Name -->
+                                                {% if item.notedKeywords[currentScheme][listOfMethodsName[loopIndexMethodInist-1]][inistTxt].note == '2' %}
+                                                <input id="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">0</label>
+                                                <input id="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">1</label>
+                                                <input id="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="2" checked><label for="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">2</label>
+                                                {% elif item.notedKeywords[currentScheme][listOfMethodsName[loopIndexMethodInist-1]][inistTxt].note == '1' %}
+                                                <input id="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">0</label>
+                                                <input id="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="1" checked><label for="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">1</label>
+                                                <input id="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">2</label>
+                                                {% elif item.notedKeywords[currentScheme][listOfMethodsName[loopIndexMethodInist-1]][inistTxt].note == '0' %}
+                                                <input id="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="0" checked><label for="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">0</label>
+                                                <input id="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">1</label>
+                                                <input id="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">2</label>
+                                                {% else %}
+                                                <input id="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">0</label>
+                                                <input id="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">1</label>
+                                                <input id="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{listOfMethodsName[loopIndexMethodInist]}}.{{ inistLoopKeyword }}">2</label>
+                                                {% endif %}
+
+                                                <ins class="loading"></ins>
+
+                                            </form>
+
+                                        </div>
+
+
+                                        {% endfor %} <!-- End of multiple repeat inist keywords-->
+
+                                    {% endfor %} <!-- End of inist Keywords Array -->
+
+                                </div>
+
+                            {% else %} <!-- UNDER: ALL  method -->
+
+
+                                {% set currentNbMethod = currentNbMethod+1 %}
+
+                                <div id="method{{ currentNbMethod }}ListOfKeywords" class="methodsKeywords">
+
+                                    <h2> Methode {{ currentNbMethod }} </h2>
+
+                                    {% set listOfKeywordsForCurrentMethod = keywordArray.term %}
+
+                                    {%  for currentInistKw in listOfKeywordsForCurrentMethod %}
+
+                                        {% set methodTxt = currentInistKw['#text'] %}
+
+                                            <div class="btn btn-default {% if item.notedKeywords[currentScheme][methodTxt] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> {{ methodTxt|d('Pas de mots clés') }}
+
+                                                <form class="formNotedKeyword row" id="method-{{ currentNbMethod }}-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
+
+                                                    <input type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.{{ methodTxt }}.note"/><!-- Key Name -->
+
+                                                    <!-- Value Name -->
+                                                    {% if item.notedKeywords[currentScheme][methodTxt].note == '2' %}
+                                                    <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
+                                                    <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
+                                                    <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
+                                                    {% elif item.notedKeywords[currentScheme][methodTxt].note == '1' %}
+                                                    <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
+                                                    <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
+                                                    <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
+                                                    {% elif item.notedKeywords[currentScheme][methodTxt].note == '0' %}
+                                                    <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
+                                                    <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
+                                                    <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
+                                                    {% else %}
+                                                    <input id="input0-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentScheme }}.{{ loop.index }}">0</label>
+                                                    <input id="input1-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentScheme }}.{{ loop.index }}">1</label>
+                                                    <input id="input2-{{ currentScheme }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentScheme }}.{{ loop.index }}">2</label>
+                                                    {% endif %}
+
+                                                    <ins class="loading"></ins>
+
+                                                </form>
+
+                                                <form class="formNotedKeyword formNotedKeywordsPreference row" id="prefMethod-{{ currentNbMethod }}-{{ loop.index }}" action="/save/{{ item.wid }}">
+
+                                                    <input type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.{{ methodTxt }}.exclude"/> <!-- Key Name -->
+
+                                                    <select id="method-{{ currentNbMethod }}-exclude-list-{{ loop.index }}" class="formNotedKeywordList" name="val">
+
+                                                        <option value="<exclude>">
+                                                            Pref:
+                                                        </option>
+
+                                                        {%  for sameListKeywords in listOfKeywordsForCurrentMethod %}
+
+                                                            {% set thekeyword = sameListKeywords['#text'] %}
+                                                            <option value="{{ thekeyword }}" {% if item.notedKeywords[currentScheme][methodTxt].exclude == thekeyword %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
+                                                            {{ thekeyword }}
+                                                            </option>
+
+                                                        {% endfor %}
+
+                                                    </select>
+
+                                                </form>
+
+                                                <form class="formNotedKeyword formNotedKeywordsPreference row" id="correspMethod-{{ currentNbMethod }}-{{ loop.index }}" action="/save/{{ item.wid }}">
+
+                                                    <input type="hidden" name="key" value="notedKeywords.{{ currentScheme }}.{{ methodTxt }}.corresp"/> <!-- Key Name -->
+
+                                                    <select id="method-{{ currentNbMethod }}-corresp-list-{{ loop.index }}" class="formNotedKeywordList" name="val">
+                                                        <option value="<corresp>">
+                                                            Corresp:
+                                                        </option>
+                                                        {%  for inistKeyword in inistListofKw  %}
+
+                                                                {% set currentInistKwtxt = inistKeyword['#text'] %}
+
+                                                                <option value="{{ currentInistKwtxt }}" {% if item.notedKeywords[currentScheme][methodTxt].corresp == currentInistKwtxt %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
+                                                                {{ currentInistKwtxt }}
+                                                                </option>
+
+                                                        {% endfor %}
+                                                    </select>
+                                                </form>
+
+                                            </div>
+
+
+
+                                    {% endfor %}
+
+                                </div>
+
+                            {% endif %}
+
+                        {% endif %}
+
+
+                    {% endfor %}<!-- End of list all keywords -->
+
+
+                </div> <!-- End of Block Keywords -->
+
+            </section> <!-- End of Right  Section (Keywords) -->
+
+
+
+            <!-- Block of modal for full article -->
+            <div id="fullArticleModal" class="modal fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-2" style="display: none;">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">ARTICLE COMPLET</h4>
+                </div>
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <article id="fullArticle" class="col-lg-12 col-md-12 col-sm-12">
+                            {{ body.item.content.json.TEI.text.body.div }}
+                        </article>
+                    </div>
+                </div>
+
+            </div><!-- End of modal for full -->
+
+    </div>
+
+    <div id="inistKeywordsButton">
+        <span>Afficher INIST</span>  <!-- Button to call Inist Keywords -->
+    </div>
+
+
+
+    <!-- SCRIPTS  DISPLAY PAGE -->
+
+    <script src="/assets/js/jquery-1.11.1.min.js"></script>
+    <script src="/assets/js/parseWordPonct.function.js"></script>
+    <script src="/assets/js/parseGeneric.function.js"></script>
+    <script src="/assets/js/dmap.js"></script>
+    <script src="/assets/js/jquery.fs.scroller.min.js"></script>
+    <script src="/assets/js/jquery-ui.min.js"></script>
+
+    <script>
+
+
+
+
+
+    /* --- CHANGE SCROLL STYLE --- */
+
+        $("#sectionArticle").scroller({
+            customClass: "advanced",
+        });
+
+    /* --- END OF CHANGE SCROLL ---*/
+
+
+
+
+    /* --- SHOW INIST KW BY METHOD --- */
+
+        $("#inistKeywordsButton").click(
+                function() {
+
+                    if($('#keywordsInist').css('display') == 'none'){
+                        $(".methodsKeywords").animate({width: '50%'}, 400);
+                        $('#keywordsInist').show("slide", { direction: "right" }, 500);
+                        $('span', this).html('Cacher INIST');
+                        $(this).css({background: '#CC6A63'});
+                    }
+                    else{
+                        $(".methodsKeywords").animate({width: '100%'},400);
+                        $("#keywordsInist").hide("slide", { direction: "right" }, 400);
+                        $('span', this).html('Afficher INIST');
+                        $(this).css({background: ''})
+                    }
+
+                }
+
+        );
+
+    /* --- END OF SHOW INIST ---*/
+
+
+
+    /* --- COME BACK TO RESUME --- */
+
+        $("#sectionArticle").on('click', function(){
+            if($(this).css('opacity') !== '0.15'){
+                if($('#abstractFullLenght').css('display') == 'none'){
+                    $('#abstractFullLenght').css('display', 'block').siblings().not(".divHoverH1Display").hide();
+                    $('#keywordsInist').hide();
+                    $(".methodsKeywords").css('width' ,'100%');
+                    $("#inistKeywordsButton ").hide();
+                    $("#inistKeywordsButton > span").html('Afficher INIST');
+                    $("#inistKeywordsButton").css('background', 'rgba(204, 106, 99, 0.6)');
+                    $(".methodLinkround").css('borderColor' , '');
+                }
+            }
+        });
+
+    /* --- END OF COME RESUME ---*/
+
+
+    /* ---CHANGE THE METHOD SHOW --- */
+
+        $(".methodLinkround").click(
+
+                function() {
+                    var id = $(this).attr('id');
+                    var nb = id.split('-');
+                    if($('#abstractFullLenght').css('display') == 'block'){
+                        $('#abstractFullLenght').hide();
+                        $('#sectionArticle').css('opacity','1');
+                        $("#keywordsDisplayDiv").show();
+
+                    }
+                    if($("#method" + nb[1] +'ListOfKeywords').css('display') == 'none') {
+                        $('.methodsKeywords').not('#method' + nb[1] +'ListOfKeywords').hide("slide", { direction: "right" }, 500);
+                        $('#method' + nb[1] +'ListOfKeywords').show("slide", { direction: "left" }, 500);
+                        $('#methodButton-' + nb[1] ).css('borderColor' , '#CC6A63').siblings().css('borderColor' , '');
+                        $('#keywordsInist .btn-default').hide();
+                        $('.inistForMethod-' + nb[1]).show();
+                    }
+                    if($('#inistKeywordsButton').css('display') == 'none'){
+                        $('#inistKeywordsButton').css('display' ,'block');
+                    }
+                }
+
+        );
+
+    /* --- END OF CHANGE METHOD ---*/
+
+
+
+    /* ---SUBMIT AJAX FORMS --- */
+
+        $(".formNotedKeyword input, .formNotedKeyword select").change(function(e)
+        {
+            var id = $(this).parent().attr('id');
+            var postData = $(this).parent().serializeArray();
+            var formURL = $(this).parent().attr("action");
+            var li = $(this).parent().parent();
+
+
+            $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
+
+            $.ajax(
+                    {
+                        url : formURL,
+                        type: "POST",
+                        data : postData,
+                        success:function(e)
+                        {
+                            setTimeout(function () {
+                                $('#' + id +' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
+                                if(!li.hasClass("keywordsMethodsDisplayDone")){
+                                    li.addClass("keywordsMethodsDisplayDone");
+                                    li.removeClass("keywordsMethodsisplay");
+                                    li.children('.formNotedKeywordsPreference').css('display','inline-block');
+                                }
+                                li.css('box-shadow', '0px 1px 4px 0px green');
+                                setTimeout( function(){
+                                    li.css('box-shadow', '');
+                                },750);
+                            }, 900);
+
+                        },
+                        error: function()
+                        {
+
+                        }
+                    });
+            e.preventDefault(); //STOP default action
+
+        });
+
+    /* --- END OF SUBMIT AJAX ---*/
+
+
+
+    </script>
+
+{% endblock %}

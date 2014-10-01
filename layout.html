@@ -13,14 +13,17 @@
 
       {% endblock %}
 
+  </head>
+
 	  {% block content %}
+
       {% endblock %}
 
 	{% block scripts %}
         <script src="/bundle.js"></script>
 
         <!-- Primus scripts -->
-        <script src="/primus/primus.js"></script>
+        <script src="node_modules/primus/primus.js"></script>
         <script>
             var primus = Primus.connect('ws://{{url.host}}');
             primus.on('open', function () {
@@ -32,10 +35,6 @@
         </script>
 
 	{% endblock %}
-
-      {% block specificScript %}
-
-      {% endblock %}
 
       </body>
 

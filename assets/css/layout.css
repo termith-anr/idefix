@@ -430,10 +430,13 @@ table tr[data-href] {
 
 
 #leftSection{
-    height: 95%;
+    height: 100%;
     text-align: center;
+    overflow-x: hidden;
+    overflow-y: scroll;
     padding:0;
     border-right: 1px solid rgba(51, 51, 51, 0.3);
+    padding-right:-500px ;
 }
 
 #headerInfoDisplayDocs{
@@ -744,7 +747,7 @@ span .methodsameDisplayD{
 #keywordsSection{
     max-width:95%;
     text-align:center;
-    height:95%;
+    height:100%;
     padding:0;
     overflow-y: hidden;
     overflow-x:hidden;
@@ -783,7 +786,6 @@ span .methodsameDisplayD{
     font-size:16px;
     display: block;
     vertical-align: middle;
-    max-height: 100%;
     font-family: 'segoe';
     padding-top:5px;
 }
@@ -807,14 +809,18 @@ span .methodsameDisplayD{
     z-index:99999;
     float: right;
     overflow-y: auto;
-    height: 75%;
+    height: 83%;
     display: none;
-    border-left: 3px dotted rgba(204, 106, 99, 0.6);
+    overflow-x: hidden;
+    padding: 0;
 }
 
-.keywordsDisplayDivInist{
+#keywordsInist{
     position: relative;
     display: none;
+    width: 50%;
+    float: right;
+    border-left: 3px dotted rgba(204, 106, 99, 0.6);
 }
 
 
@@ -895,6 +901,11 @@ span .methodsameDisplayD{
     font-family: 'segoeuisl';
 }
 
+.methodsKeywords{
+    display:none;
+    position: absolute;
+}
+
 .keywordsUtilsDisplay:hover{
     background-image:none;
     background: #fff;
@@ -943,7 +954,7 @@ span .methodsameDisplayD{
     font-size: 16px;
 }
 
-.keywordsLinasDisplay{
+.keywordsMethodsDisplay{
     background: none repeat scroll 0 0 transparent;
     border: 2px solid #FF9C95;
     color: #333;
@@ -958,7 +969,7 @@ span .methodsameDisplayD{
     overflow-y: hidden;
 }
 
-.keywordsLinasDisplayDone{
+.keywordsMethodsDisplayDone{
     background: none repeat scroll 0 0 transparent;
     border: 1px solid rgba(85,85,85,0.3);
     color: #333;
@@ -974,25 +985,13 @@ span .methodsameDisplayD{
     opacity: 0.8;
 }
 
-.keywordsLinasDisplayDone:hover{
+.keywordsMethodsDisplayDone:hover{
     background: none repeat scroll 0 0 transparent;
     transition: all 500ms;
 }
-.keywordsLinasDisplay:hover{
+.keywordsMethodsDisplay:hover{
     background: none repeat scroll 0 0 transparent;
     transition: all 500ms;
-}
-
-.keywordsLinasDisplay2{
-    background: none repeat scroll 0 0 #7F6664;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: rgba(255, 255, 255, 0.5);
-    font-family: verdana;
-    font-size: 14px;
-    font-style: italic;
-    margin: 6px;
-    text-decoration: line-through;
-    text-shadow: none;
 }
 
 
@@ -1075,17 +1074,17 @@ input[type=radio]:checked + label {
 
 input[value='0']:checked + label {
     background-image: none;
-    color: #ff847c;
+    color: red;
 }
 
 input[value='1']:checked + label {
     background-image: none;
-    color: #ff847c;
+    color: orange;
 }
 
 input[value='2']:checked + label {
     background-image: none;
-    color: #ff847c;
+    color: green;
 }
 
 .formNotedKeyword{
@@ -1286,7 +1285,6 @@ input[value='2']:checked + label {
 
 #lina2ListOfKeywords{
     position: absolute;
-    top: 17%;
     z-index: 193;
     display: none;
     overflow-y: auto;
@@ -1296,12 +1294,11 @@ input[value='2']:checked + label {
 
 #lina1ListOfKeywords{
     position: absolute;
-    top: 17%;
     z-index: 193;
     width: 100%;
     overflow-y: auto;
-    display: none;
     height: 75%;
+    display: none;
 }
 
 #inistKeywordsButton{
@@ -1319,6 +1316,14 @@ input[value='2']:checked + label {
 #inistKeywordsButton:hover{
     background: #ff847c !important;
     color: #f5f5f5;
+}
+
+#inistKeywordsButton span{
+    transform: rotate(270deg);
+    width: 90px;
+    height: 25px;
+    transform-origin: 53% 166% 0;
+    display: inline-block;
 }
 
 #abstractFullLenght{
@@ -1341,7 +1346,7 @@ input[value='2']:checked + label {
     display: none;
 }
 
-.keywordsLinasDisplayDone .formNotedKeywordsPreference{
+.keywordsMethodsDisplayDone .formNotedKeywordsPreference{
     display: inline-block;
 
 }

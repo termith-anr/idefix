@@ -23,7 +23,7 @@
             <h1 id="h1Browse" class="col-lg-11">L<span style="color: #FF8E80;">i</span>ste d<span style="color: #99E5DB">e</span>s <span style="color: #FF917F">d</span>ocuments</h1>
 
             <div id="divOverTableBrowse" class="col-lg-12">
-              {% if items|length > 0  %}
+              {% if data|length > 0  %}
                 <table id="browseTable">
                     <thead>
                         <tr>
@@ -33,7 +33,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                          {% for item in items |sort(attribute='item.object') %}
+                          {% for item in data |sort(attribute='item.object') %}
                             <tr class="trBody" data-href="display/{{ item.wid }}.html">
                                 <td class="browseNumb browseTd"><div class="divAbrowseNumber">{{ loop.index }}</div></td>
                                 <td class="browseYear browseTd">{{item.object|d('Nom à problémes') }}</td>
@@ -78,6 +78,5 @@
             }
 
         </script>
-
 
 {% endblock %}
