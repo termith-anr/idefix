@@ -74,6 +74,7 @@ body > header{
     margin: 0 auto;
     padding-top: 50px ;
     float: none !important;
+    text-align: center;
 }
 
 #showOnClickDiv{
@@ -137,7 +138,7 @@ body > header{
     background: none;
     border: 2px solid rgba(85,85,85,0.7);
     margin: 0 auto;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
     border-radius: 75px 0 75px 0;
     margin-top: 0px;
     box-shadow: 7px 7px 2px 0 rgba(204,106,99,0.6);
@@ -1369,3 +1370,31 @@ input[value='2']:checked + label {
 }
 
 
+
+
+/* Export */
+
+#exportResults{
+    font-family: "manteka" , arial, sans-serif;
+    font-size: 18px;
+    margin: 0 auto;
+    background: rgba(204, 106, 99, 0.6);
+    text-shadow: none;
+    color: #fff;
+    box-shadow: none;
+    border-radius: 1px;
+    border: 0;
+    float: none;
+    margin-bottom: 40px;
+    -webkit-transition: all 850ms ease;
+    -moz-transition: all 850ms ease;
+    -ms-transition: all 850ms ease;
+    -o-transition: all 850ms ease;
+    transition: all 850ms ease;
+
+}
+
+#exportResults:hover{
+    background: #CC6A63;
+    border-radius: 6px;
+}

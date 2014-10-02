@@ -19,8 +19,11 @@
         </header>
 
         <!-- start body content -->
-        <div class="col-lg-9" id="BrowseDocuBigDiv">
+        <div  class="col-lg-9" id="BrowseDocuBigDiv">
+
             <h1 id="h1Browse" class="col-lg-11">L<span style="color: #FF8E80;">i</span>ste d<span style="color: #99E5DB">e</span>s <span style="color: #FF917F">d</span>ocuments</h1>
+
+            <div id="exportResults" class="btn btn-default" data-href="/exportf">Exporter les résultats</div>
 
             <div id="divOverTableBrowse" class="col-lg-12">
               {% if data|length > 0  %}
@@ -59,6 +62,8 @@
             </div>
         </div>
 
+        <script src="/assets/js/jquery-1.11.1.min.js"></script>
+
         <script>
 
             var trs = document.querySelectorAll('.trBody'); // Récupération de tous les TR du tBody
@@ -76,6 +81,11 @@
                 trs[i].addEventListener('click', goToLocation , false);
 
             }
+
+
+            $('#exportResults').on('click' , goToLocation);
+
+
 
         </script>
 
