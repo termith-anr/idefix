@@ -9,7 +9,8 @@
     "jquery": "^2.1.1",
     "promised-mongo": "^0.11.1",
     "sugar": "^1.4.1",
-    "superagent": "^0.18.2"
+    "superagent": "^0.18.2",
+    "castor-load-raw": "^1.0.0"
   },
   "devDependencies": {},
   "scripts": {
