@@ -24,7 +24,8 @@ module.exports = function(config) {
         .find({ notedKeywords : {$exists : true}})
         .toArray()
         .then(function(docs) {
-            if (!docs) {
+            if (!docs || (!docs.length)) {
+                res.status(500).end();
                 throw new Error('no or bad doc');
                 return;
             }
