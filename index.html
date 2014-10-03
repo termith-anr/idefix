@@ -37,11 +37,12 @@
 
 {% endblock %}
 
-{% block specificScript %}
+{% block scripts %}
 <script> var $ = jQuery = require('jquery'); </script>
 <script src="./assets/js/jquery.dataTables.js"></script>
 <script src="./assets/js/dataTables.bootstrap.js"></script>
 <script>
+document.location.href = '/browse.html';
 $(document).ready(function() {
 		$('#browseTable').dataTable({
 			ordering: true,
