@@ -79,13 +79,11 @@ module.exports = function(config) {
 
                 });
 
-                res.end();
 
-            })
 
-            .fail(function(e) {
-                    res.end();
             });
+
+            res.end();
 
 
 
