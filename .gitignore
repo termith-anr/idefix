@@ -7,3 +7,5 @@ coverage/
 *.sw?
 .idea/
 /.idea
+.idea/scopes/
+/.idea/scopes/
