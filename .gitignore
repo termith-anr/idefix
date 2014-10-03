@@ -2,11 +2,7 @@
 *.swp
 *.swo
 README.html
-/node_modules
+node_modules/*
 coverage/
 *.sw?
-.idea/
-/.idea
-.idea/scopes/
-/.idea/scopes/
-scope_settings.xml
+.idea/*
