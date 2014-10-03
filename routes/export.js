@@ -14,12 +14,13 @@ module.exports = function(config) {
 
     return function (req, res) {
 
+        // Set csv header
         res.set({
             'Content-Type': 'text/csv',
             'Content-Disposition':'attachment; filename="export.csv"'
         });
 
-
+        // Get mongodb files wich contain scores
         coll
         .find({ notedKeywords : {$exists : true}})
         .toArray()
@@ -32,11 +33,14 @@ module.exports = function(config) {
 
             var tempDArrayDoc = [];
 
-            docs.forEach(function(entity, index){ // Parcours chaque document : entite  = document
+            docs.forEach(function(entity, index){ // Foreach of all docs : entity  = document
 
+
+                // Get docTitle , Will need to change by custom field
                 var docTitle = (entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0] != undefined) ? entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text'] : entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'];
 
-                Object.keys(entity.notedKeywords ,function(methodName , valueMethod){
+
+                Object.keys(entity.notedKeywords ,function(methodName , valueMethod){ // Foreach of all methods
 
                         if( methodName != 'inist-francis' && methodName != '"inist-pascal') {
 
@@ -44,7 +48,7 @@ module.exports = function(config) {
 
                             var method = methodName;
 
-                            Object.keys(valueMethod , function(word , wordValues){
+                            Object.keys(valueMethod , function(word , wordValues){ // Foreach words
                                 var currentWord = word;
                                 var currentScore = wordValues.note;
                                 var currentPref = wordValues.exclude ? wordValues.exclude : 'N/A';
@@ -54,15 +58,16 @@ module.exports = function(config) {
                             });
 
                         }
-                        else{
+
+                        else{ // For inist method
 
                             var action = 'Silence';
 
-                            Object.keys(valueMethod , function(methodByInistWord , valMethodByInistWord){
+                            Object.keys(valueMethod , function(methodByInistWord , valMethodByInistWord){ // For method by By Inist ex: inist-francis { lina-1{...} lina-2{...}}
 
                                 var method = methodByInistWord;
 
-                                Object.keys(valMethodByInistWord, function(word , wordValues){
+                                Object.keys(valMethodByInistWord, function(word , wordValues){ // Foreach words
 
                                     var currentWord = word;
                                     var currentScore = wordValues.note;
@@ -83,7 +88,7 @@ module.exports = function(config) {
 
             });
 
-            res.end();
+            res.end(); // Stop writting csv after all docs.
 
 
 

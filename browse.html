@@ -66,23 +66,25 @@
 
         <script>
 
-            var trs = document.querySelectorAll('.trBody'); // Récupération de tous les TR du tBody
 
             /*
-            * Fonction qui redirige vers le data-href de l'objet Event "element"
+            * Fonction which get data-href of element
+            *
             * */
             var goToLocation  = function(element){
                 window.location = element.currentTarget.getAttribute('data-href');
             };
 
+            var trs = document.querySelectorAll('.trBody'); // get all tr of Tbody
 
-            for(var i = 0, c = trs.length; i<c ; i++){ // Boucle qui écoute l'evenement click sur les Tr et appelle goToLocation
+
+            for(var i = 0, c = trs.length; i<c ; i++){ // listen to all tr in the table
 
                 trs[i].addEventListener('click', goToLocation , false);
 
             }
 
-
+            // Get data-href of csv score & redirect to it
             $('#exportResults').on('click' , goToLocation);
 
 
