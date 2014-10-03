@@ -64,6 +64,7 @@ html{
 body {
     width: 100%;
     height: 100%;
+    overflow-x: hidden;
 }
 
 body > header{
@@ -434,13 +435,19 @@ table tr[data-href] {
     height: 100%;
     text-align: center;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: hidden;
     padding:0;
     border-right: 1px solid rgba(51, 51, 51, 0.3);
-    padding-right:-500px ;
+    position: relative;
 }
 
 #headerInfoDisplayDocs{
+    width:  100%;
+    height: 60%;
+    position: absolute;
+    top:0;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 
@@ -482,15 +489,18 @@ table tr[data-href] {
     font-size: 23px;
 }
 
-.displayMethodBu{
+.displayMethodBu {
     color: #333;
-    font-family: 'segoe';
-    text-align: center;
+    display: table;
+    font-family: "segoe";
     font-size: 17px;
-    height:125px;
-    display:table;
+    height: calc(100% - 140px);
+    max-height: calc(100% - 140px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
+    text-align: center;
     width: 100%;
-    max-height: 125px;
 }
 
 .methodLinkround{
@@ -514,13 +524,17 @@ table tr[data-href] {
     color: #fff;
 }
 
-.methodsNameDisplayD{
-    display: table;
-    vertical-align: middle;
-    text-align: left;
-    width: 100%;
+.methodsNameDisplayD {
+    display: table-cell;
     font-style: italic;
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
     padding-bottom: 15px;
+    position: absolute;
+    text-align: left;
+    vertical-align: middle;
+    width: 100%;
 }
 
 .methodLinkround:first-child{
@@ -556,7 +570,6 @@ table tr[data-href] {
     height: 95px;
     margin: 15px auto 0;
     position: relative;
-    vertical-align: middle;
     width: 95px;
     font-size: 16px;
     text-align: center;
@@ -714,12 +727,14 @@ table tr[data-href] {
 }
 
 #sectionArticle{
-    height:50%;
+    bottom:0;
+    height:40%;
     width: 100%;
     max-height: 50%;
     overflow-y: hidden;
     overflow-x: hidden;
     opacity: 0.15;
+    position: absolute;
 }
 
 #sectionArticle .scroller-content{
@@ -983,7 +998,7 @@ span .methodsameDisplayD{
     height: 105px;
     max-height: 105px;
     overflow-y: hidden;
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 .keywordsMethodsDisplayDone:hover{

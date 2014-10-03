@@ -1,8 +1,5 @@
 var CSV = require('csv-string'),
-    util = require('util'),
     pmongo = require('promised-mongo'),
-    path = require('path'),
-    basename = path.basename(__filename, '.js');
     sugar = require('sugar');
 
 module.exports = function(config) {
@@ -25,6 +22,8 @@ module.exports = function(config) {
         .find({ notedKeywords : {$exists : true}})
         .toArray()
         .then(function(docs) {
+
+            console
             if (!docs || (!docs.length)) {
                 res.status(500).end();
                 throw new Error('no or bad doc');

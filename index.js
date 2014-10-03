@@ -4,6 +4,6 @@ module.exports = {
       "**/*.xml" : 'castor-load-raw'
     },
     "routes": {
-        "/export-score": "export.js"
+        "/exportscore": "export.js"
     }
 };
