@@ -1426,6 +1426,7 @@ input[value='2']:checked + label {
     cursor: pointer;
 }
 
+
 .isValidated{
     background: rgb(0,178,51); /* Old browsers */
     /* IE9 SVG, needs conditional override of 'filter' to 'none' */
