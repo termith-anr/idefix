@@ -37,7 +37,7 @@
 {% endfor %}
 
 
-    <div id="showOnClickDiv"></div>
+    <div id="validateButton" class="{% if item.validate  == 'yes' %}isValidated{% else %}isNotValidated{% endif %}" data-id="{{ item.wid }}"></div>
 
     <div id="contentDisplay" class="col-lg-11 col-md-11 col-sm-11">
 
@@ -435,10 +435,41 @@
 
     /* ---SUBMIT AJAX FORMS --- */
 
+        // Validator
+
+        $('#validateButton').on('click' , function(){
+
+            var id = $(this).attr('data-id');
+            var url = '/save/' + id;
+
+            if(!$(this).hasClass('isValidated')) {
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: [{ name:"key" , value:"validate"} , { name:"val", value:"yes"}],
+                    success: function (e) {
+                        $('#validateButton').removeClass('isNotValidated').addClass('isValidated');
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: [{ name:"key" , value:"validate"} , { name:"val", value:"no"}],
+                    success: function (e) {
+                        $('#validateButton').removeClass('isValidated').addClass('isNotValidated');
+                    }
+                });
+            }
+        });
+
+        // Keywords
         $(".formNotedKeyword input, .formNotedKeyword select").change(function(e)
         {
             var id = $(this).parent().attr('id');
             var postData = $(this).parent().serializeArray();
+            console.log(postData);
             var formURL = $(this).parent().attr("action");
             var li = $(this).parent().parent();
 

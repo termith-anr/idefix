@@ -37,7 +37,7 @@
                     </thead>
                     <tbody>
                           {% for item in data |sort(attribute='item.object') %}
-                            <tr class="trBody" data-href="display/{{ item.wid }}.html">
+                            <tr class="trBody {% if item.validate == 'yes' %}trValidate{% endif %}" data-href="display/{{ item.wid }}.html">
                                 <td class="browseNumb browseTd"><div class="divAbrowseNumber">{{ loop.index }}</div></td>
                                 <td class="browseYear browseTd">{{item.object|d('Nom à problémes') }}</td>
                                 <td class="browseTitle browseTd"><a class="abrowseTitle" href="display/{{ item.wid }}.html">
