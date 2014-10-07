@@ -38,6 +38,7 @@ module.exports = function(config) {
                 // Get docTitle , Will need to change by custom field
                 var docTitle = (entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0] != undefined) ? entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text'] : entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'];
 
+                res.write(CSV.stringify(['Titre' , 'Méthode' , 'Silence/Eval' , 'Mot-Clé' , 'Score' , 'Pref' , 'Corresp'] ,  ';'));
 
                 Object.keys(entity.notedKeywords ,function(methodName , valueMethod){ // Foreach of all methods
 
