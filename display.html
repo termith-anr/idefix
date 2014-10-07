@@ -109,7 +109,25 @@
 
                     <article id="articleSectionResumeDisplay" style="">
 
-                        <p>{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de résumé pour cet article') }}</p>
+                        <p>
+                            {% if item.content.json.TEI.teiHeader.profileDesc.abstract[0] %} <!-- Si c'est un tableau -->
+
+                                {% for resume in  item.content.json.TEI.teiHeader.profileDesc.abstract %} <!-- Parcours tableau -->
+
+                                    {% if resume['xml#lang'] == 'fr' %} <!-- Si c'est en francais -->
+
+                                    {{ resume.p['#text']|d('Pas de résumé pour cet article') }} <!-- Affiche abstract en francais -->
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            {% else %} <!-- Si ce n'ets pas un tableau -->
+
+                            {{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de résumé pour cet article') }}
+
+                            {% endif %}
+                        </p>
 
                     </article>
 
@@ -140,7 +158,25 @@
 
                 </div>
 
-                <p id="abstractFullLenght">{{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de résumé pour cet article') }}</p>
+                <p id="abstractFullLenght">
+                    {% if item.content.json.TEI.teiHeader.profileDesc.abstract[0] %} <!-- Si c'est un tableau -->
+
+                    {% for resume in  item.content.json.TEI.teiHeader.profileDesc.abstract %} <!-- Parcours tableau -->
+
+                    {% if resume['xml#lang'] == 'fr' %} <!-- Si c'est en francais -->
+
+                    {{ resume.p['#text']|d('Pas de résumé pour cet article') }} <!-- Affiche abstract en francais -->
+
+                    {% endif %}
+
+                    {% endfor %}
+
+                    {% else %} <!-- Si ce n'ets pas un tableau -->
+
+                    {{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de résumé pour cet article') }}
+
+                    {% endif %}
+                </p>
 
 
                 <div id="keywordsDisplayDiv" class="col-lg-12 col-md-12 col-sm-12">

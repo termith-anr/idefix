@@ -1364,6 +1364,7 @@ input[value='2']:checked + label {
 }
 
 .keywordsMethodsDisplayDone .formNotedKeywordsPreference{
+
     display: inline-block;
 
 }
