@@ -1356,7 +1356,7 @@ input[value='2']:checked + label {
     top: 25%;
     width: 75%;
     z-index: 200;
-
+    text-align: justify;
 }
 
 .formNotedKeywordsPreference{
