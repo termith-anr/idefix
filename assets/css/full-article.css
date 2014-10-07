@@ -1,0 +1,184 @@
+/*
+CSS rédigée par Matthias Dieudonné et Nourdine COMBO pour afficher données Pre-Maf en page Web.
+insititut: INIST-CNRS
+projet TermITH
+date de création: 03 oct 2014
+*/
+
+TEI text{
+    left: 9%;
+    padding: 50px;
+    position: absolute;
+    width: 82%;
+    text-align: justify;
+    font-size: 16px;
+}
+
+TEI teiHeader {
+    display: none;
+}
+/* ne pas afficher les références bibliographiques contenues dans l'élément break */
+title {
+    color: red;
+}
+TEI back {
+    display: none;
+}
+TEI front {
+    display: none;
+}
+
+TEI body{
+    width: 75%;
+    left:12.25%;
+    position: absolute;
+}
+
+TEI div[type="div1"]{
+    display: block;
+    margin: 50px;
+}
+
+TEI div[type="div2"]{
+    display: block;
+    margin: 40px;
+}
+
+TEI div[type="div3"]{
+    display: block;
+    margin: 35px;
+}
+
+TEI div[type="div4"]{
+    display: block;
+    margin: 35px;
+}
+
+TEI div[type="div5"]{
+    display: block;
+    margin: 30px;
+}
+
+TEI div[type="div6"]{
+    display: block;
+    margin: 25px;
+}
+
+TEI head[subtype="level1"]{
+    font-size: 30px;
+    font-weight: bold;
+    display: block;
+    color: #333;
+    font-family: verdana;
+    margin-bottom: 25px;
+}
+
+TEI head[subtype="level2"]{
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+    color: #333;
+    font-family: verdana;
+    margin-bottom: 25px;
+}
+
+TEI head[subtype="level3"]{
+    font-size: 19px;
+    font-weight: bold;
+    display: block;
+    color: #333;
+    font-family: verdana;
+    margin-bottom: 25px;
+}
+
+TEI head[subtype="level4"]{
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    color: #333;
+    font-family: verdana;
+    margin-bottom: 25px;
+}
+
+TEI head[subtype="level5"]{
+    font-size: 17px;
+    font-weight: bold;
+    display: block;
+    color: #333;
+    font-family: verdana;
+    margin-bottom: 25px;
+}
+
+TEI head[subtype="level6"]{
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    color: #333;
+    font-family: verdana;
+    margin-bottom: 25px;
+}
+
+TEI p{
+    display: block;
+    color: #fff;
+}
+TEI body > p {
+    display: block;
+    margin-right: 50px;
+}
+TEI p [rend="figure-title"]{
+    margin-right: 50px;
+    color: yellow;
+}
+/* pour p @rend="epigraph"
+p [rend="epigraph"]{
+  display: block;
+  margin-right: 50px;
+}
+*/
+TEI hi:before{
+    content: "\00a0 ";
+}
+
+TEI hi[rend="italic"]{
+    font-style: italic;
+}
+
+TEI hi[rend="bold"]{
+    font-weight: bold;
+}
+
+TEI hi[rend="sub"]{
+    font-size: 13px;
+    line-height: 0.75em;
+}
+
+TEI q[rend="quotation"]{
+
+}
+
+TEI q[rend="quotation"]:before{
+    display: block;
+    content: "\201C";
+    font-size: 35px;
+    color: #7a7a7a;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+/* notes de bas de page. les notes sont mises en coulueur différente du texte pour le distinguer du texte. Actuellement: impossible de renvoyer les notes en bas de page */
+TEI p[rend="footnote"]{
+    background: #EDF7FC;
+    color: #000;
+    padding: 15px;
+    font-size: 12px;
+    font-family: "claireFont";
+}
+
+TEI item{
+}
+
+TEI item:before{
+    content: "-";
+    float: left;
+    margin-right: 10px
+}

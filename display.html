@@ -1,5 +1,8 @@
 {% extends "layout.html" %}
 
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/assets/css/full-article.css">
+{% endblock %}
 
 {% block content %}
 
@@ -39,6 +42,13 @@
 
     <div id="validateButton" class="{% if item.validate  == 'yes' %}isValidated{% else %}isNotValidated{% endif %}" data-id="{{ item.wid }}"></div>
 
+    <div id="buttonFullArticle" class="">
+        <span class="glyphicon glyphicon-align-center" id="spanFullArticle"></span>
+        <span id="closeFullArticle" class="glyphicon glyphicon-remove"></span>
+        <div id="fullArticleSection">
+        </div>
+    </div>
+
     <div id="contentDisplay" class="col-lg-11 col-md-11 col-sm-11">
 
 
@@ -64,7 +74,9 @@
                     <!-- NAME BLOC -->
                     <div class="displayDiscipline">
                         <div class="disciplineInfoDisplay">
-                            <span>{{ item.mark|d('Linguistique') }}</span>
+                            {% set discipline = item.basedir|split('/') %}
+                            {% set nbArrayDisci = discipline|length %}
+                            <span>{{ discipline[nbArrayDisci -1]|capitalize|d('Pas de discipline') }}</span>
                         </div>
                     </div>
 
@@ -342,6 +354,58 @@
 
     <script>
 
+     /* --- DISPLAY FULL ARTICLE --- */
+
+     var isFullArticleShow = 'no',
+         fullLoaded = 'no';
+
+        $('#buttonFullArticle').on('click', function(e){
+            e.stopPropagation();
+            if(isFullArticleShow == 'no') {
+
+                var id = $('#validateButton').attr('data-id');
+                $('#contentDisplay').hide();
+                $(this).css({
+                    height: '100%',
+                    width: '100%',
+                    opacity: 1
+                });
+
+                $('#closeFullArticle').show(400);
+                $('#spanFullArticle').hide();
+
+                if( fullLoaded == 'no') {
+                    $('#fullArticleSection').load('/dump/' + id + '.xml').delay(560).fadeIn(400).delay(400).addClass('fullArticleSectionShow');
+                }
+                else{
+                    $('#fullArticleSection').delay(550).fadeIn();
+                }
+
+                isFullArticleShow = 'yes';
+                fullLoaded = 'yes'
+
+            }
+        });
+
+
+     $('#closeFullArticle').on('click', function(e){
+             e.stopPropagation();
+            isFullArticleShow = 'no';
+            $('#closeFullArticle').hide(300);
+            $('#buttonFullArticle').css({
+                 height: '',
+                 width: '',
+                 opacity: '',
+                 overflow : 'hidden'
+             });
+             $('#fullArticleSection').hide();
+             $('#spanFullArticle').fadeIn();
+             $('#contentDisplay').fadeIn(450);
+
+
+     });
+
+     /* --- END DISPLAY  ARTICLE --- */
 
 
 
