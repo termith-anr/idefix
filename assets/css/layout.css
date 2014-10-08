@@ -494,8 +494,8 @@ table tr[data-href] {
     display: table;
     font-family: "segoe";
     font-size: 17px;
-    height: calc(100% - 180px);
-    max-height: calc(100% - 180px);
+    height: calc(100% - 140px);
+    max-height: calc(100% - 140px);
     overflow-y: scroll;
     overflow-x: hidden;
     position: relative;

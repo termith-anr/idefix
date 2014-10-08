@@ -80,10 +80,10 @@
                         </div>
                     </div>
 
-                    <div id="listOrGrid">
+                   <!-- <div id="listOrGrid">
                         <span id="grid" class="glyphicon glyphicon-th gridOrListButton"></span>
                         <span id="list" class="glyphicon glyphicon-list active gridOrListButton"></span>
-                    </div>
+                    </div> -->
 
                     <!-- AUTHORS BLOC -->
                     <div class="displayMethodBu">
@@ -395,17 +395,17 @@
 
     <script>
 
-    /* --- LIST OR GRID --- */
+    /* --- LIST OR GRID ---
 
     $('.gridOrListButton').on('click', function(){
         var id = $(this).attr('id');
         if( id != 'grid'){
-            $('.keywordsMethodsDisplayDone , .keywordsMethodsDisplay').not('.hiddenKW').css({ display : 'table'});
+            $('.keywordsMethodsDisplayDone , .keywordsMethodsDisplay').addClass('keydorsInList');
         }
         else{
 
         }
-    });
+    });*/
 
     /* --- END LIST OR GRID --- */
 
@@ -540,8 +540,8 @@
                         $('.methodsKeywords').not('#method' + nb[1] +'ListOfKeywords').hide("slide", { direction: "right" }, 500);
                         $('#method' + nb[1] +'ListOfKeywords').show("slide", { direction: "left" }, 500);
                         $('#methodButton-' + nb[1] ).css('borderColor' , '#CC6A63').siblings().css('borderColor' , '');
-                        $('#keywordsInist .btn-default').hide().addClass('hiddenKW');
-                        $('.inistForMethod-' + nb[1]).show().removeClass('hiddenKW');
+                        $('#keywordsInist .btn-default').hide();
+                        $('.inistForMethod-' + nb[1]).show();
                     }
                     if($('#inistKeywordsButton').css('display') == 'none'){
                         $('#inistKeywordsButton').css('display' ,'block');
@@ -609,7 +609,7 @@
                                 if(!li.hasClass("keywordsMethodsDisplayDone")){
                                     li.addClass("keywordsMethodsDisplayDone");
                                     li.removeClass("keywordsMethodsisplay");
-                                    li.children('.formNotedKeywordsPreference').css('display','inline-block');
+                                    li.children('.formNotedKeywordsPreference').css('display','');
                                 }
                                 li.css('box-shadow', '0px 1px 4px 0px green');
                                 setTimeout( function(){
