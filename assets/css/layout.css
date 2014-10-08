@@ -825,11 +825,19 @@ span .methodsameDisplayD{
     top:17%;
     z-index:99999;
     float: right;
-    overflow-y: auto;
+    overflow-y: hidden;
     height: 83%;
     display: none;
     overflow-x: hidden;
     padding: 0;
+    -webkit-border-top-left-radius: 22%;
+    -webkit-border-top-right-radius: 22%;
+    -moz-border-radius-topleft: 22%;
+    -moz-border-radius-topright: 22%;
+    border-top-left-radius: 22%;
+    border-top-right-radius: 22%;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 #keywordsInist{
