@@ -31,7 +31,7 @@
 
             {% set listOfMethodsName = listOfMethodsName|add2Array(currentScheme) %}
 
-    {% elif ((currentScheme == 'inist-francis') or (currentScheme != 'inist-pascal'))  and (keywordArray['xml#lang'] == 'fr') %}
+    {% elif ((currentScheme == 'inist-francis') or (currentScheme != 'inist-pascal'))  and (keywordArray['xml#lang'] == 'fr') and (currentScheme != 'author') %}
 
             {% set inistListofKw = keywordArray.term %}
 
@@ -78,6 +78,11 @@
                             {% set nbArrayDisci = discipline|length %}
                             <span>{{ discipline[nbArrayDisci -1]|capitalize|d('Pas de discipline') }}</span>
                         </div>
+                    </div>
+
+                    <div id="listOrGrid">
+                        <span id="grid" class="glyphicon glyphicon-th gridOrListButton"></span>
+                        <span id="list" class="glyphicon glyphicon-list active gridOrListButton"></span>
                     </div>
 
                     <!-- AUTHORS BLOC -->
@@ -192,7 +197,7 @@
 
                         {% if (currentScheme != 'cc') and (currentScheme != 'author') and (keywordArray['xml#lang'] == 'fr') %}
 
-                            {% if (currentScheme == 'inist-francis') or (currentScheme == 'inist-pascal') %}
+                            {% if (currentScheme == 'inist-francis') or (currentScheme == 'inist-pascal') and (currentScheme != 'author') %}
                                 <!-- INIST {{keywordArray['xml#lang']}} -->
 
                                 <div id="keywordsInist">
@@ -390,6 +395,20 @@
 
     <script>
 
+    /* --- LIST OR GRID --- */
+
+    $('.gridOrListButton').on('click', function(){
+        var id = $(this).attr('id');
+        if( id != 'grid'){
+            $('.keywordsMethodsDisplayDone , .keywordsMethodsDisplay').not('.hiddenKW').css({ display : 'table'});
+        }
+        else{
+
+        }
+    });
+
+    /* --- END LIST OR GRID --- */
+
      /* --- DISPLAY FULL ARTICLE --- */
 
      var isFullArticleShow = 'no',
@@ -489,6 +508,7 @@
         $("#sectionArticle").on('click', function(){
             if($(this).css('opacity') !== '0.15'){
                 if($('#abstractFullLenght').css('display') == 'none'){
+                    $('#listOrGrid span').hide();
                     $('#abstractFullLenght').css('display', 'block').siblings().not(".divHoverH1Display").hide();
                     $('#keywordsInist').hide();
                     $(".methodsKeywords").css('width' ,'100%');
@@ -514,14 +534,14 @@
                         $('#abstractFullLenght').hide();
                         $('#sectionArticle').css('opacity','1');
                         $("#keywordsDisplayDiv").show();
-
+                        $('#listOrGrid span').show();
                     }
                     if($("#method" + nb[1] +'ListOfKeywords').css('display') == 'none') {
                         $('.methodsKeywords').not('#method' + nb[1] +'ListOfKeywords').hide("slide", { direction: "right" }, 500);
                         $('#method' + nb[1] +'ListOfKeywords').show("slide", { direction: "left" }, 500);
                         $('#methodButton-' + nb[1] ).css('borderColor' , '#CC6A63').siblings().css('borderColor' , '');
-                        $('#keywordsInist .btn-default').hide();
-                        $('.inistForMethod-' + nb[1]).show();
+                        $('#keywordsInist .btn-default').hide().addClass('hiddenKW');
+                        $('.inistForMethod-' + nb[1]).show().removeClass('hiddenKW');
                     }
                     if($('#inistKeywordsButton').css('display') == 'none'){
                         $('#inistKeywordsButton').css('display' ,'block');
