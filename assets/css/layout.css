@@ -494,8 +494,8 @@ table tr[data-href] {
     display: table;
     font-family: "segoe";
     font-size: 17px;
-    height: calc(100% - 140px);
-    max-height: calc(100% - 140px);
+    height: calc(100% - 180px);
+    max-height: calc(100% - 180px);
     overflow-y: scroll;
     overflow-x: hidden;
     position: relative;
@@ -821,7 +821,7 @@ span .methodsameDisplayD{
 }
 
 .keydorsInList{
-    display: table !important;
+    display: table;
     float: none !important;
     margin: 25px auto 0 !important;
 }
@@ -1009,7 +1009,7 @@ span .methodsameDisplayD{
     font-style: italic;
     margin: 10px;
     text-shadow: none;
-    transition: all 500ms;
+    transition: background 500ms;
     height: 105px;
     max-height: 105px;
     overflow-y: hidden;
