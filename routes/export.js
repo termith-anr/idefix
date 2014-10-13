@@ -32,28 +32,29 @@ module.exports = function(config) {
 
             var tempDArrayDoc = [];
 
-            docs.forEach(function(entity, index){ // Foreach of all docs : entity  = document
+                res.write(CSV.stringify(['Nom Fichier', 'Titre' , 'Méthode' , 'Evaluation' , 'Mot-Clé' , 'Score' , 'Pref-Termith' , 'Corresp-termith'] ,  ';'));
+
+
+                docs.forEach(function(entity, index){ // Foreach of all docs : entity  = document
 
 
                 // Get docTitle , Will need to change by custom field
-                var docTitle = (entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0] != undefined) ? entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text'] : entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'];
-
-                res.write(CSV.stringify(['Titre' , 'Méthode' , 'Silence/Eval' , 'Mot-Clé' , 'Score' , 'Pref' , 'Corresp'] ,  ';'));
+                var docTitle = (entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0] != undefined) ? entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text'] : entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'],
+                    fileTitle = entity.basename ;
 
                 Object.keys(entity.notedKeywords ,function(methodName , valueMethod){ // Foreach of all methods
 
                         if( methodName != 'inist-francis' && methodName != '"inist-pascal') {
 
-                            var action = 'Evaluation';
+                            var action = 'Pertinence';
 
                             var method = methodName;
 
                             Object.keys(valueMethod , function(word , wordValues){ // Foreach words
                                 var currentWord = word;
                                 var currentScore = wordValues.note;
-                                var currentPref = wordValues.exclude ? wordValues.exclude : 'N/A';
-                                var currentCorresp = wordValues.corresp ? wordValues.corresp : 'N/A';
-                                res.write(CSV.stringify([docTitle , method , action , currentWord , currentScore , currentPref , currentCorresp] ,  ';'))
+                                var currentPref = wordValues.exclude ? wordValues.exclude : ' ';
+                                res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , currentPref , '-'] ,  ';'))
 
                             });
 
@@ -71,8 +72,9 @@ module.exports = function(config) {
 
                                     var currentWord = word;
                                     var currentScore = wordValues.note;
+                                    var currentCorresp = wordValues.corresp ? wordValues.corresp : ' ';
 
-                                    res.write(CSV.stringify([docTitle , method , action , currentWord , currentScore , 'rien', 'rien'] ,  ';'))
+                                    res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , '-', currentCorresp] ,  ';'))
 
                                 });
 
