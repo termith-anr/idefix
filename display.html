@@ -291,6 +291,8 @@
 
                                             {% for methodsWord in methods %}
 
+
+
                                             <div class="btn btn-default {% if item.notedKeywords[listOfMethodsName[currentNbMethod-1]][methodsWord] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> {{ methodsWord|d('Pas de mots clés') }}
 
                                                 <form class="formNotedKeyword row" id="method-{{ currentNbMethod }}-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
@@ -342,6 +344,22 @@
 
                                                 </form>
 
+                                                <div class="divComments">
+                                                    <span class="etcSpanComment" style="color: #fff; font-size: 20px;">...</span>
+
+                                                    <span class="quitSpanComment">X</span>
+
+                                                    <div class="testtttt" style="line-height: 100px;height: 100%;display:none; font-size: 20px;color:#333; background: #cc6a63; max-width: 100%;overflow-x: hidden;overflow-y: hidden">
+
+                                                        <form  data-id="{{ item.wid }}" action="/save/{{ item.wid }}" style="height:100%;padding:0; margin: 0">
+                                                            <input type="hidden" name="key" value="notedKeywords.{{ listOfMethodsName[currentNbMethod-1] }}.{{ methodsWord }}.commentaire"/> <!-- Key Name -->
+                                                            <input name="val" class="inputComment" style="background: #fff; height: 45px;width: 87%;border-radius: 10px;border: 0" type="text" value="{{ notedKeywords.listOfMethodsName[currentNbMethod-1].methodsWord.commentaire }}"/>
+                                                        </form>
+                                                    </div>
+
+                                                </div>
+
+
 
                                             </div>
 
@@ -392,6 +410,49 @@
     <script src="/assets/js/jquery-ui.min.js"></script>
 
     <script>
+
+    /* --- SHOW/ADD COMMENT--- */
+
+    $('.divComments').on('click' , function(e){
+        e.stopPropagation();
+        $('.etcSpanComment' , this).hide();
+        $(this).addClass('divCommentsOpened');
+        $('.quitSpanComment',  this).show();
+        $('.testtttt' ,  this).show();
+    });
+
+    $('.inputComment').keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        var postData = $(this).parent().serializeArray();
+        var id = $(this).parent().attr('data-id');
+        var input = $(this);
+        if(keycode == '13'){
+            var url = '/save/' + id;
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: postData,
+                success: function (e) {
+                    input.css({
+                        'box-shadow' : '0px 2px 4px 0px green'
+                    });
+                    setTimeout( function(){
+                        input.css('box-shadow', '');
+                    },750);
+                }
+            });
+        }
+    });
+
+    $('.quitSpanComment').on('click', function(e){
+        e.stopPropagation();
+        var parr = $(this).parent();
+        parr.removeClass('divCommentsOpened');
+    });
+
+    /* --- END SHOW/ADD COMMENT---- */
+
 
     /* --- LIST OR GRID --- */
 
