@@ -345,15 +345,15 @@
                                                 </form>
 
                                                 <div class="divComments">
-                                                    <span class="etcSpanComment" style="color: #fff; font-size: 20px;">...</span>
+                                                    <span class="etcSpanComment">...</span>
 
                                                     <span class="quitSpanComment">X</span>
 
-                                                    <div class="testtttt" style="line-height: 100px;height: 100%;display:none; font-size: 20px;color:#333; background: #cc6a63; max-width: 100%;overflow-x: hidden;overflow-y: hidden">
+                                                    <div class="divFormComments">
 
                                                         <form  data-id="{{ item.wid }}" action="/save/{{ item.wid }}" style="height:100%;padding:0; margin: 0">
                                                             <input type="hidden" name="key" value="notedKeywords.{{ listOfMethodsName[currentNbMethod-1] }}.{{ methodsWord }}.commentaire"/> <!-- Key Name -->
-                                                            <input name="val" class="inputComment" style="background: #fff; height: 45px;width: 87%;border-radius: 10px;border: 0" type="text" value="{{ notedKeywords.listOfMethodsName[currentNbMethod-1].methodsWord.commentaire }}"/>
+                                                            <input name="val" class="inputComment" style="position: absolute; left: 6.5%; top: 29%;background: #fff; height: 45px;width: 87%;border-radius: 10px;border: 0" type="text" placeholder="Commentaire :" value="{{ item.notedKeywords[listOfMethodsName[currentNbMethod-1]][methodsWord].commentaire }}"/>
                                                         </form>
                                                     </div>
 
@@ -418,7 +418,7 @@
         $('.etcSpanComment' , this).hide();
         $(this).addClass('divCommentsOpened');
         $('.quitSpanComment',  this).show();
-        $('.testtttt' ,  this).show();
+        $('.divFormComments' ,  this).show();
     });
 
     $('.inputComment').keypress(function(event){
@@ -447,8 +447,12 @@
 
     $('.quitSpanComment').on('click', function(e){
         e.stopPropagation();
+        $(this).hide();
         var parr = $(this).parent();
         parr.removeClass('divCommentsOpened');
+        $('.divFormComments' ,  parr).hide();
+        $('.etcSpanComment' , parr).fadeIn();
+
     });
 
     /* --- END SHOW/ADD COMMENT---- */

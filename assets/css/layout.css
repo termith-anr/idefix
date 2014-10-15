@@ -1616,7 +1616,7 @@ input[value='2']:checked + label {
     color: #fff;
     display: block;
     font-size: 20px;
-    height: 105px;
+    height: 100%;
     left: 0;
     position: absolute;
     top: 0;
@@ -1624,7 +1624,8 @@ input[value='2']:checked + label {
 }
 
 .etcSpanComment{
-
+    color: #fff;
+    font-size: 20px;
 }
 
 .quitSpanComment{
@@ -1633,4 +1634,17 @@ input[value='2']:checked + label {
     position: absolute;
     top: 3%;
     right: 4%;
+}
+
+
+.divFormComments{
+    line-height: 100px;
+    height: 100%;
+    display:none;
+    font-size: 20px;
+    color:#333;
+    background: #cc6a63;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
