@@ -1630,7 +1630,7 @@ input[value='2']:checked + label {
 
 .quitSpanComment{
     display: none;
-    font-size: 16px;
+    font-size: 18px;
     position: absolute;
     top: 3%;
     right: 4%;
@@ -1647,4 +1647,15 @@ input[value='2']:checked + label {
     max-width: 100%;
     overflow-x: hidden;
     overflow-y: hidden;
+}
+
+.inputComment{
+    position: absolute;
+    left: 6.5%;
+    top: 29%;
+    background: #fff;
+    height: 45px;
+    width: 87%;
+    border-radius: 10px;
+    border: 0;
 }

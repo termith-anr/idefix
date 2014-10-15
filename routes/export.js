@@ -32,7 +32,7 @@ module.exports = function(config) {
 
             var tempDArrayDoc = [];
 
-                res.write(CSV.stringify(['Nom Fichier', 'Titre' , 'Méthode' , 'Evaluation' , 'Mot-Clé' , 'Score' , 'Pref-Termith' , 'Corresp-termith'] ,  ';'));
+                res.write(CSV.stringify(['Nom Fichier', 'Titre' , 'Méthode' , 'Evaluation' , 'Mot-Clé' , 'Score' , 'Pref-Termith' , 'Corresp-termith' , 'Commentaire'] ,  ';'));
 
 
                 docs.forEach(function(entity, index){ // Foreach of all docs : entity  = document
@@ -54,7 +54,8 @@ module.exports = function(config) {
                                 var currentWord = word;
                                 var currentScore = wordValues.note;
                                 var currentPref = wordValues.exclude ? wordValues.exclude : ' ';
-                                res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , currentPref , '-'] ,  ';'))
+                                var comment = wordValues.commentaire;
+                                res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , currentPref , '-' ,  comment] ,  ';'))
 
                             });
 
@@ -73,8 +74,9 @@ module.exports = function(config) {
                                     var currentWord = word;
                                     var currentScore = wordValues.note;
                                     var currentCorresp = wordValues.corresp ? wordValues.corresp : ' ';
+                                    var comment = wordValues.commentaire;
 
-                                    res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , '-', currentCorresp] ,  ';'))
+                                    res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , '-', currentCorresp ,  comment] ,  ';'))
 
                                 });
 
