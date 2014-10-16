@@ -1,3 +1,8 @@
+/**
+ * Export will need refact code NEARLY ! 15/10
+ */
+
+
 var CSV = require('csv-string'),
     pmongo = require('promised-mongo'),
     sugar = require('sugar');

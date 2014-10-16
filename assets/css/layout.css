@@ -1562,6 +1562,13 @@ input[value='2']:checked + label {
     font-size: 35px;
 }
 
+#grid{
+    cursor: pointer;
+}
+
+#list{
+    cursor: pointer;
+}
 
 #listOrGrid{
     width: 100%;

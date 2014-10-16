@@ -429,14 +429,19 @@
     /* --- SHOW/ADD COMMENT--- */
 
     $('.divComments').on('click' , function(e){
+        var divComment =   $(this),
+            quitSpan   =   $('.quitSpanComment',  this),
+            etcSpan    =   $('.etcSpanComment' , this),
+            divFormComments = $('.divFormComments' ,  this);
         e.stopPropagation();
-        $('.etcSpanComment' , this).hide();
-        $(this).addClass('divCommentsOpened');
-        $('.quitSpanComment',  this).show();
-        $('.divFormComments' ,  this).show();
+        etcSpan.hide();
+        divComment.addClass('divCommentsOpened');
+        quitSpan.show();
+        divFormComments.show();
+        $('.inputComment' ,  this).focus();
     });
 
-    $('.inputComment').keypress(function(event){
+    $('.inputComment').keydown(function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);
         var postData = $(this).parent().serializeArray();
         var id = $(this).parent().attr('data-id');
@@ -457,6 +462,16 @@
                     },750);
                 }
             });
+        }
+        else if(keycode == '27'){
+            var divComment =   $(this).closest('.divComments'),
+                    quitSpan   =   $('.quitSpanComment',  divComment),
+                    etcSpan    =   $('.etcSpanComment' , divComment),
+                    divFormComments = $('.divFormComments' ,  divComment);
+            quitSpan.hide();
+            divComment.removeClass('divCommentsOpened');
+            divFormComments.hide();
+            etcSpan.fadeIn();
         }
     });
 
