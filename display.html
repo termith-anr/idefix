@@ -9,6 +9,10 @@
 
 <body id="bodyBrowse">
 
+
+
+
+
 {% set numberOfMethods = 0 %}
 
 {% set currentNbMethod = 0 %}
@@ -20,6 +24,12 @@
 {% set inistListofKw = []%}
 
 {% set inistScheme = '' %}
+
+{% set isFullArticle = config.fullArticle %}
+
+{% set isInistKeywords = config.inistKeywords %}
+
+
 
 
 <!--  Count number of Methods present and their names -->
@@ -44,7 +54,7 @@
 
             {% set allKeywordsMethods =  allKeywordsMethods|add2Array(tmpArrayListKw) %}
 
-    {% elif ((currentScheme == 'inist-francis') or (currentScheme == 'inist-pascal'))  and (keywordArray['xml#lang'] == 'fr') %}
+    {% elif ((currentScheme == 'inist-francis') or (currentScheme == 'inist-pascal'))  and (keywordArray['xml#lang'] == 'fr') and ( isInistKeywords == true )%}
 
             {% set inistScheme = currentScheme %}
 
@@ -61,14 +71,17 @@
 {% set numberOfMethods = listOfMethodsName|length %}
 
 
-    <div id="validateButton" class="{% if item.validate  == 'yes' %}isValidated{% else %}isNotValidated{% endif %}" data-id="{{ item.wid }}"></div>
+    <div id="validateButton" title="Valider votre document" class="{% if item.validate  == 'yes' %}isValidated{% else %}isNotValidated{% endif %}" data-id="{{ item.wid }}"></div>
 
+    <!-- Block of modal for full article -->
+    {% if isFullArticle == true %}
     <div id="buttonFullArticle" class="">
         <span class="glyphicon glyphicon-align-center" id="spanFullArticle"></span>
         <span id="closeFullArticle" class="glyphicon glyphicon-remove"></span>
         <div id="fullArticleSection">
         </div>
     </div>
+    {% endif %}
 
     <div id="contentDisplay" class="col-lg-11 col-md-11 col-sm-11">
 
@@ -95,9 +108,7 @@
                     <!-- NAME BLOC -->
                     <div class="displayDiscipline">
                         <div class="disciplineInfoDisplay">
-                            {% set discipline = item.basedir|split('/') %}
-                            {% set nbArrayDisci = discipline|length %}
-                            <span>{{ discipline[nbArrayDisci -1]|capitalize|d('Pas de discipline') }}</span>
+                            <span>{{ config.domain|d('non renseigné !') }}</span>
                         </div>
                     </div>
 
@@ -169,11 +180,15 @@
 
                     <div id="h1Block">
                         <h1 id="h1DisplayDocs">
-                            {% if item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]%}
-                                {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre')}}
-                            {% elif  item.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'] %}
-                                {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text']|d('Pas de titre')}}
-                            {% endif %}
+                            {% set titleArr = [] %}
+                            {% for element in item.fields.title %}
+                                {% if element != null  %}
+                                    {% set titleArr = titleArr|add2Array(element) %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {{ titleArr[0] }}
+
                         </h1>
                     </div>
 
@@ -208,7 +223,7 @@
                 <div id="keywordsDisplayDiv" class="col-lg-12 col-md-12 col-sm-12">
 
 
-                            {% if (inistListofKw != '') and (inistListofKw != []) and (inistListofKw != undifined) %}
+                            {% if ( isInistKeywords == true) and (inistListofKw != '') and (inistListofKw != []) and (inistListofKw != undifined) %}
 
                                 <div id="keywordsInist">
 
@@ -222,7 +237,7 @@
 
                                             {% set loopIndexMethodInist = loop.index %}
 
-                                        <div class="btn btn-default inistForMethod-{{ loopIndexMethodInist }} {% if item.notedKeywords[inistScheme][listOfMethodsName[loopIndexMethodInist-1]][currentInistKw] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> {{ currentInistKw|d('Pas de mots clés') }}
+                                        <div class="btn btn-default inistForMethod-{{ loopIndexMethodInist }} {% if item.notedKeywords[inistScheme][listOfMethodsName[loopIndexMethodInist-1]][currentInistKw] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"><span class="idOfWord">{{ inistLoopKeyword }} - </span> {{ currentInistKw|d('Pas de mots clés') }}
 
                                             <form class="formNotedKeyword row" id="{{ inistScheme }}-{{ loopIndexMethodInist }}-{{ inistLoopKeyword }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
 
@@ -308,7 +323,7 @@
 
 
 
-                                            <div class="btn btn-default {% if item.notedKeywords[listOfMethodsName[currentNbMethod-1]][methodsWord] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> {{ methodsWord|d('Pas de mots clés') }}
+                                            <div class="btn btn-default {% if item.notedKeywords[listOfMethodsName[currentNbMethod-1]][methodsWord] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> <span class="idOfWord">{{ loop.index }} - </span>{{ methodsWord|d('Pas de mots clés') }}
 
                                                 <form class="formNotedKeyword row" id="method-{{ currentNbMethod }}-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
 
@@ -391,30 +406,13 @@
             </section> <!-- End of Right  Section (Keywords) -->
 
 
-
-            <!-- Block of modal for full article -->
-            <div id="fullArticleModal" class="modal fade" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-2" style="display: none;">
-
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">ARTICLE COMPLET</h4>
-                </div>
-
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <article id="fullArticle" class="col-lg-12 col-md-12 col-sm-12">
-                            {{ body.item.content.json.TEI.text.body.div }}
-                        </article>
-                    </div>
-                </div>
-
-            </div><!-- End of modal for full -->
-
     </div>
 
-    <div id="inistKeywordsButton">
-        <span>Afficher INIST</span>  <!-- Button to call Inist Keywords -->
-    </div>
+    {% if isInistKeywords ==true %}
+        <div id="inistKeywordsButton">
+            <span>Afficher INIST</span>  <!-- Button to call Inist Keywords -->
+        </div>
+    {% endif %}
 
 
 
@@ -494,12 +492,14 @@
         if($(this).css('opacity') != 1) {
             var id = $(this).attr('id');
             if (id != 'grid') {
+                $('.idOfWord').hide();
                 $('.methodsKeywords').css('position', 'static');
                 $('.keywordsMethodsDisplayDone , .keywordsMethodsDisplay').addClass('keydorsInList');
                 $(this).css('opacity', '1');
                 $(this).siblings().css('opacity', '');
             }
             else {
+                $('.idOfWord').show();
                 $('.methodsKeywords').css('position', '');
                 $('.keywordsMethodsDisplayDone , .keywordsMethodsDisplay').removeClass('keydorsInList');
                 $(this).css('opacity', '1');
