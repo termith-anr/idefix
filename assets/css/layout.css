@@ -177,6 +177,10 @@ body > header{
     font-family: 'segoe';
 }
 
+tHead .browseTd{
+    height: auto;
+}
+
 .browseTr{
     height:135px;
 }
@@ -232,15 +236,16 @@ tbody:before{
     height:35px;
 }
 
-.browseNumb{
+tbody .browseNumb{
     background: #CC6A63;
     color: #fff;
     font-family: 'manteka';
     border: 1px solid #CC6A63 ;
 
+
 }
 
-.browseYear{
+tbody .browseYear{
     background: none repeat scroll 0 0 transparent;
     border-bottom: 1px solid rgba(85, 85, 85, 0.7);
     border-right: 1px solid rgba(85, 85, 85, 0.7);
@@ -253,7 +258,7 @@ tbody:before{
     word-wrap: break-word;
 }
 
-.abrowseNumber{
+tbody .abrowseNumber{
     color: #fff;
     transition: all 700ms;
     height: 100%;
@@ -263,7 +268,7 @@ tbody:before{
     transition: all 1500ms;
 }
 
-.abrowseNumber:hover{
+tbody .abrowseNumber:hover{
     background: #8F44AD;
     height: 100%;
     width: 100%;
@@ -271,7 +276,7 @@ tbody:before{
     color: #fff;
 }
 
-.divAbrowseNumber{
+tbody .divAbrowseNumber{
     height:100%;
     width:100%;
     display:inline;
@@ -279,7 +284,7 @@ tbody:before{
 }
 
 
-.browseTitle{
+tbody .browseTitle{
     padding-left:2%;
     padding-right:2%;
     background: transparent;
@@ -290,14 +295,14 @@ tbody:before{
     border-bottom: 1px solid rgba(85,85,85,0.7);
 }
 
-.abrowseTitle{
+tbody .abrowseTitle{
     color: rgba(85,85,85,1);
     transition: all 700ms;
     font-size:20px;
     font-family: 'segoeuisl';
 }
 
-.abrowseTitle:hover{
+tbody .abrowseTitle:hover{
     color: #fff;
 }
 
