@@ -180,14 +180,8 @@
 
                     <div id="h1Block">
                         <h1 id="h1DisplayDocs">
-                            {% set titleArr = [] %}
-                            {% for element in item.fields.title %}
-                                {% if element != null  %}
-                                    {% set titleArr = titleArr|add2Array(element) %}
-                                {% endif %}
-                            {% endfor %}
 
-                            {{ titleArr[0] }}
+                            {{ item.fields.title|d('Pas de titre') }}
 
                         </h1>
                     </div>
@@ -200,23 +194,7 @@
                 </div>
 
                 <p id="abstractFullLenght">
-                    {% if item.content.json.TEI.teiHeader.profileDesc.abstract[0] %} <!-- Si c'est un tableau -->
-
-                    {% for resume in  item.content.json.TEI.teiHeader.profileDesc.abstract %} <!-- Parcours tableau -->
-
-                    {% if resume['xml#lang'] == 'fr' %} <!-- Si c'est en francais -->
-
-                    {{ resume.p['#text']|d('Pas de résumé pour cet article') }} <!-- Affiche abstract en francais -->
-
-                    {% endif %}
-
-                    {% endfor %}
-
-                    {% else %} <!-- Si ce n'ets pas un tableau -->
-
-                    {{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de résumé pour cet article') }}
-
-                    {% endif %}
+                    {{ item.fields.resume|d('Pas de resume') }}
                 </p>
 
 

@@ -60,12 +60,7 @@
                                 <td class="browseNumb browseTd"><div class="divAbrowseNumber">{{ loop.index }}</div></td>
                                 <td class="browseYear browseTd">{{item.object|d('Nom à problémes') }}</td>
                                 <td class="browseTitle browseTd"><a class="abrowseTitle" href="display/{{ item.wid }}.html">
-                                    {% if item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0 ]%}
-                                        {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text']|d('Pas de titre')|capitalize|truncate( 99, False, '...') }}
-                                    {% elif  item.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'] %}
-                                        {{ item.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text']|d('Pas de titre')|capitalize|truncate( 99, False, '...') }}
-                                    {% endif %}
-
+                                    {{ item.fields.title }}
                                 </a>
                                 </td>
                             </tr>
