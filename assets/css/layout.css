@@ -337,6 +337,11 @@ td{
     transition: all 550ms;
 }
 
+.trBody > td{
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
 .trBody:hover  .browseNumb, .trBody:hover  .browseMark,  .trBody:hover .browseCategory, .trBody:hover  .browseTitle, .trBody:hover  .browseAuthor, .trBody:hover  .browseYear {
     background: #CC6A63 !important;
     color: #fff !important;
