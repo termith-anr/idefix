@@ -162,13 +162,10 @@ body > header{
     width: 100%;
 }
 
-#browseTable thead tr th {
-    text-align: center;
-    font-family: 'segoeuisl';
-    font-size:23px;
-    letter-spacing: 3px;
-    color: rgba(85,85,85,0.8);
-    text-shadow: 1px 1px 1px rgba(85, 85, 85, 0.52);
+#browseTable tbody tr {
+    float: left;
+    width: 100%;
+    margin-bottom: 50px; 
 }
 
 .browseTd{
@@ -240,22 +237,22 @@ tbody .browseNumb{
     background: #CC6A63;
     color: #fff;
     font-family: 'manteka';
-    border: 1px solid #CC6A63 ;
 
 
 }
 
 tbody .browseYear{
     background: none repeat scroll 0 0 transparent;
-    border-bottom: 1px solid rgba(85, 85, 85, 0.7);
-    border-right: 1px solid rgba(85, 85, 85, 0.7);
-    border-top: 1px solid rgba(85, 85, 85, 0.7);
-    color: rgba(85, 85, 85, 0.8);
+    border-bottom: 1px solid rgba(85, 85, 85, 0.4);
+    border-right: 1px solid rgba(85, 85, 85, 0.4);
+    border-top: 1px solid rgba(85, 85, 85, 0.4);
     font-family: "segoeuisl";
     overflow: hidden;
     padding-left: 2%;
     padding-right: 2%;
     word-wrap: break-word;
+    background: #CC6A63;
+    color: #fff;
 }
 
 tbody .abrowseNumber{
