@@ -1783,3 +1783,27 @@ input[value='2']:checked + label {
     font-size: 15px;
     font-style: italic;
 }
+
+
+.pagination > li > a{
+    color: #555 ;
+}
+
+.pagination > li > a:hover{
+    background: #CC6A63;
+    color: #fff;
+}
+
+
+
+.paginate_button.active a {
+    background: rgba(204, 106, 99, 0.6);
+    border : 1px solid rgba(204, 106, 99, 0.6);
+    font-weight: bold;
+
+}
+
+.paginate_button.active a:hover {
+    background: rgba(204, 106, 99, 0.6);
+    border : 1px solid rgba(204, 106, 99, 0.6);
+}

@@ -55,6 +55,12 @@ $(document).ready(function() {
             info : false,
 			ajax: "/browse.json",
             serverSide: true,
+            "language": {
+              "paginate": {
+                  "previous": "Précédent",
+                  "next" : "Suivant"
+              }
+            },
 			columns: [
 				{ data: 'wid' , className: "browseNumb browseTd" , visible : false},
 				{ data: 'object' , className: "browseYear browseTd"},
