@@ -91,18 +91,14 @@ $(document).ready(function() {
             },
 			columns: [
 				{ data: 'wid' , visible : false , searchable: false},
-				{ data: 'validate', visible : false , searchable: false , defaultContent: 'no' },
+				{ data: 'validate', visible : true , searchable: false , defaultContent: "no"  },
 				{ data: 'object' , className: "browseYear browseTd", searchable: true},
 				{ data: 'fields.title' , className: "browseTitle browseTd", searchable: true}
 			],
 
-            "rowCallback": function ( row ) {
-            },
-
-            "fnDrawCallback": function(){
+            fnDrawCallback: function(){
 
                 $('tbody tr').on('click',function() {
-                    //var id = $(this).find('td:first').text();
                     var position =  oTable.fnGetPosition(this);
                     var docID = oTable.fnGetData( position );
                     document.location.href = "/display/" + docID.wid + '.html';
@@ -118,16 +114,16 @@ $(document).ready(function() {
             }
 		});
 
-        /* Add event listener to the dropdown input */
         $('#browseChangeList').on('change', function() {
             if( $(this).val() == 'traites'){
                 oTable.fnFilter( 'yes' , 1 );
             }
             else if( $(this).val() == 'nonTraites'){
+
                 oTable.fnFilter( 'no' , 1 );
             }
-            else{
-                oTable.fnGetData( '' , 1);
+            else if( $(this).val() == 'tous'){
+                oTable.fnDraw();
             }
         } );
 
