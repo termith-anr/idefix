@@ -51,6 +51,9 @@
 $(document).ready(function() {
 
 		  var oTable = $('#browseTable').dataTable({
+            "search" : {
+                "regex" : true
+            },
 			ordering: true,
             info : false,
 			ajax: "/browse.json",
@@ -65,15 +68,16 @@ $(document).ready(function() {
               }
             },
 			columns: [
-				{ data: 'wid' , className: "browseNumb browseTd" , visible : false},
-				{ data: 'object' , className: "browseYear browseTd"},
-				{ data: 'fields.title' , className: "browseTitle browseTd" }
+				{ data: 'wid' , className: "browseNumb browseTd" , visible : false , searchable: false},
+				{ data: 'object' , className: "browseYear browseTd", searchable: true},
+				{ data: 'fields.title' , className: "browseTitle browseTd", searchable: true}
 			],
 
             "rowCallback": function ( row ) {
             },
 
             "fnDrawCallback": function(){
+
                 $('tbody tr').on('click',function() {
                     //var id = $(this).find('td:first').text();
                     var position =  oTable.fnGetPosition(this);
