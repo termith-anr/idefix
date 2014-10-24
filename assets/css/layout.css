@@ -124,6 +124,11 @@ body > header{
 #divOverTableBrowse{
     margin: 0 auto;
     float:none;
+    padding-bottom: 150px;
+}
+
+#menuThead{
+    transition :  all 350ms;
 }
 
 .fixedThead{
