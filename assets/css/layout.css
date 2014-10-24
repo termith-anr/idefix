@@ -126,6 +126,32 @@ body > header{
     float:none;
 }
 
+.fixedThead{
+    position: fixed;
+    top: 0;
+    background: rgba(85, 85, 85, 1);
+    color : #fff !important;
+    cursor: text !important;
+    -webkit-box-shadow: 0px 6px 3px 0px rgba(50, 50, 50, 0.6);
+    -moz-box-shadow:    0px 6px 3px 0px rgba(50, 50, 50, 0.6);
+    box-shadow:         0px 6px 3px 0px rgba(50, 50, 50, 0.6);
+}
+
+.fixedThead .browseYearTh{
+   color : #fff !important;
+    border-right: 1px solid #fff;
+    cursor: text !important;
+
+}
+
+.fixedThead .browseTitleTh{
+    color : #fff !important;
+    cursor: text !important;
+
+}
+
+
+
 
 #h1Browse{
     font-size: 39px;
@@ -223,6 +249,7 @@ tHead .browseTd{
     padding-top: 17px;
     color: rgba(85, 85, 85, 0.8);
     text-align: center;
+    width: 25%;
 
 }
 
@@ -238,6 +265,8 @@ tHead .browseTd{
     padding-bottom: 17px;
     padding-top: 17px;
     text-align: center;
+    width: 75%;
+
 
 }
 
@@ -277,6 +306,7 @@ tbody .browseYear{
     word-wrap: break-word;
     background: #CC6A63;
     color: #fff;
+    width: 25% !important;
 }
 
 tbody .abrowseNumber{
@@ -317,6 +347,8 @@ tbody .browseTitle{
     transition: all 700ms ease 0s;
     font-size: 20px;
     font-family: "segoeuisl" , sans-serif;
+    width: 75% !important;
+
 }
 
 tbody .abrowseTitle{
