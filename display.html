@@ -174,7 +174,6 @@
 
                     </div>
 
-
                 </div>
 
                 <p id="abstractFullLenght">
@@ -649,6 +648,11 @@
                     data: [{ name:"key" , value:"validate"} , { name:"val", value:"no"}],
                     success: function (e) {
                         $('#validateButton').removeClass('isValidated').addClass('isNotValidated');
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: [{ name:"key" , value:"fields.validate"} , { name:"val", value:"no"}]
+                        });
                     }
                 });
             }
