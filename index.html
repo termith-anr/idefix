@@ -90,11 +90,22 @@ $(document).ready(function() {
               }
             },
 			columns: [
-				{ data: 'wid' , visible : false , searchable: false},
-				{ data: 'fields.validate', visible : false , searchable: false},
+                { data: 'wid' , visible : false , searchable: false},
+                { data: 'fields.validate', visible : false , searchable: false},
 				{ data: 'object' , className: "browseYear browseTd", searchable: true},
 				{ data: 'fields.title' , className: "browseTitle browseTd", searchable: true}
 			],
+
+            "fnCreatedRow": function( row, td, index ) {
+
+                var rowValue = oTable.fnGetData( index );
+
+                if(rowValue['validate'] == "yes"){
+
+                    $(row).attr('class', 'trValidate');
+                }
+
+            },
 
             fnDrawCallback: function(){
 
@@ -103,16 +114,9 @@ $(document).ready(function() {
                     var docID = oTable.fnGetData( position );
                     document.location.href = "/display/" + docID.wid + '.html';
                 }).addClass('trBody');
-
-
-
-                $('.trBody').hover(function() {
-                    $(this).css('cursor', 'pointer');
-                }, function() {
-                    $(this).css('cursor', 'auto');
-                });
             }
-		});
+		}),
+                  thead = $('#menuThead');
 
         $('#browseChangeList').on('change', function() {
             if( $(this).val() == 'traites'){
@@ -126,11 +130,6 @@ $(document).ready(function() {
                 oTable.fnFilter('',1);
             }
         } );
-
-
-        var thead = $('#menuThead');
-        var off = thead.offset();
-
 
         $(window).scroll(function () {
             if ($(this).scrollTop() > 541) {

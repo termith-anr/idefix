@@ -398,6 +398,10 @@ td{
     transition: all 550ms;
 }
 
+.trBody:hover{
+    cursor: pointer;
+}
+
 .trBody > td{
     border-collapse: separate;
     border-spacing: 10px;
