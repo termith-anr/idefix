@@ -147,23 +147,7 @@
                     <article id="articleSectionResumeDisplay" style="">
 
                         <p>
-                            {% if item.content.json.TEI.teiHeader.profileDesc.abstract[0] %} <!-- Si c'est un tableau -->
-
-                                {% for resume in  item.content.json.TEI.teiHeader.profileDesc.abstract %} <!-- Parcours tableau -->
-
-                                    {% if resume['xml#lang'] == 'fr' %} <!-- Si c'est en francais -->
-
-                                    {{ resume.p['#text']|d('Pas de résumé pour cet article') }} <!-- Affiche abstract en francais -->
-
-                                    {% endif %}
-
-                                {% endfor %}
-
-                            {% else %} <!-- Si ce n'ets pas un tableau -->
-
-                            {{ item.content.json.TEI.teiHeader.profileDesc.abstract.p['#text']|d('Pas de résumé pour cet article') }}
-
-                            {% endif %}
+                            {{ item.fields.abstract|d('Pas de resume') }}
                         </p>
 
                     </article>
@@ -194,7 +178,7 @@
                 </div>
 
                 <p id="abstractFullLenght">
-                    {{ item.fields.resume|d('Pas de resume') }}
+                    {{ item.fields.abstract|d('Pas de resume') }}
                 </p>
 
 
@@ -582,7 +566,7 @@
 
 
 
-    /* --- COME BACK TO RESUME --- */
+    /* --- COME BACK TO ABSTRACT --- */
 
         $("#sectionArticle").on('click', function(){
             if($(this).css('opacity') !== '0.15'){
@@ -599,7 +583,7 @@
             }
         });
 
-    /* --- END OF COME RESUME ---*/
+    /* --- END OF COME AbSTRACT ---*/
 
 
     /* ---CHANGE THE METHOD SHOW --- */
