@@ -614,6 +614,7 @@
                         $('#sectionArticle').css('opacity','1');
                         $("#keywordsDisplayDiv").show();
                         $('#listOrGrid span').show();
+                        $('#methodButton-' + nb[1] ).css('borderColor' , '#CC6A63').siblings().css('borderColor' , '');
                     }
                     if($("#method" + nb[1] +'ListOfKeywords').css('display') == 'none') {
                         $('.methodsKeywords').not('#method' + nb[1] +'ListOfKeywords').hide("slide", { direction: "right" }, 500);
