@@ -1816,3 +1816,12 @@ input[value='2']:checked + label {
     background: rgba(204, 106, 99, 0.6);
     border : 1px solid rgba(204, 106, 99, 0.6);
 }
+
+
+#browseTable_info{
+    text-align: left;
+    margin-bottom: 40px;
+    color: #444;
+    font-size: 14px;
+    font-family: "segoe" , sans-serif;
+}
