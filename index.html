@@ -91,7 +91,7 @@ $(document).ready(function() {
             },
 			columns: [
 				{ data: 'wid' , visible : false , searchable: false},
-				{ data: 'validate', visible : true , searchable: false , defaultContent: "no"  },
+				{ data: 'fields.validate', visible : false , searchable: false},
 				{ data: 'object' , className: "browseYear browseTd", searchable: true},
 				{ data: 'fields.title' , className: "browseTitle browseTd", searchable: true}
 			],
@@ -126,7 +126,6 @@ $(document).ready(function() {
                 oTable.fnDraw();
             }
         } );
-
 
 
         var thead = $('#menuThead');

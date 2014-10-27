@@ -635,7 +635,7 @@
 
     /* ---SUBMIT AJAX FORMS --- */
 
-        // Validator
+        // Validation
 
         $('#validateButton').on('click' , function(){
 
@@ -649,6 +649,11 @@
                     data: [{ name:"key" , value:"validate"} , { name:"val", value:"yes"}],
                     success: function (e) {
                         $('#validateButton').removeClass('isNotValidated').addClass('isValidated');
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: [{ name:"key" , value:"fields.validate"} , { name:"val", value:"yes"}]
+                        });
                     }
                 });
             }
