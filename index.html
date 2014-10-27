@@ -5,18 +5,6 @@
     </head>
     <body id="bodyBrowse">
 
-        <header>
-            <nav>
-                <ul>
-                    <li>
-                        <a href=""></a>
-                    </li>
-                    <li>
-                        <a href=""></a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
 
         <!-- start body content -->
         <div class="col-lg-9" id="BrowseDocuBigDiv">
@@ -138,6 +126,18 @@ $(document).ready(function() {
                 thead.removeClass("fixedThead");
             }
         });
+
+
+
+        // Get data-href of csv score & redirect to it
+
+        var goToLocation  = function(element){
+                window.location = element.currentTarget.getAttribute('data-href');
+            };
+
+
+        $('#exportResults').on('click' , goToLocation);
+
 });
 
 </script>
