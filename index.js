@@ -1,5 +1,5 @@
 module.exports = {
-    "browserifyModules" : [ 'jquery', 'sugar', 'superagent' ],
+    "browserifyModules" : [ 'jquery', 'sugar', 'superagent' , "jquery-ui" ],
     "loaders" : {
       "**/*.xml" : 'castor-load-raw'
     },
