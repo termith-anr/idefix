@@ -334,15 +334,26 @@ $(document).ready(function() {
                                 nbOfTotalNotedKeywords += nbOfNotedKw;
                             }
 
-                            console.log(nbOfTotalNotedKeywords/nbOfTotalSourceKeywords);
+                            var ratio = nbOfTotalNotedKeywords/nbOfTotalSourceKeywords;
+
+                            $.ajax(
+                                {
+                                    url: formURL,
+                                    type: "POST",
+                                    data: [
+                                        { name: "key", value: "progressNotedKeywords"} ,
+                                        { name: "val", value: ratio}
+                                    ]
+                                }
+                            );
 
                             if((nbOfTotalNotedKeywords/nbOfTotalSourceKeywords) === 1){
                                 $('#validateButton').toggleClass("isDisable isNotValidated");
-                                console.log("Tous les KW sont notés");
                             }
 
 
                         });
+
 
 
                     }, 900);
