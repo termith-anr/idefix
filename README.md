@@ -1,4 +1,4 @@
-castor-theme-termith
-====================
+IDEFIX
+======
 
-Castor theme for TermITH project using bootstrap framework
+Interface d'évaluation de l'indexation Termith
