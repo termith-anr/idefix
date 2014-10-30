@@ -71,7 +71,7 @@
 {% set numberOfMethods = listOfMethodsName|length %}
 
 
-    <div id="validateButton" title="Valider votre document" class="{% if item.validate  == 'yes' %}isValidated{% else %}isNotValidated{% endif %}" data-id="{{ item.wid }}"></div>
+    <div id="validateButton" title="Valider votre document" class="{% if item.validate  == 'yes' %}isValidated{% else %}isDisable{% endif %}" data-id="{{ item.wid }}"></div>
 
     <!-- Block of modal for full article -->
     {% if isFullArticle == true %}
@@ -385,5 +385,6 @@
 
 <script src="/assets/js/jquery.fs.scroller.min.js"></script>
 
-<script src="/assets/js/display-min.js"></script>
+<script src="/assets/js/display.js"></script>
+
 {% endblock %}

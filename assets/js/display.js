@@ -3,6 +3,7 @@
  */
 $(document).ready(function() {
 
+
     /* --- SHOW/ADD COMMENT--- */
 
     $('.divComments').on('click', function (e) {
@@ -283,7 +284,6 @@ $(document).ready(function() {
     $(".formNotedKeyword input, .formNotedKeyword select").change(function (e) {
         var id = $(this).parent().attr('id');
         var postData = $(this).parent().serializeArray();
-        console.log(postData);
         var formURL = $(this).parent().attr("action");
         var li = $(this).parent().parent();
 
@@ -307,6 +307,44 @@ $(document).ready(function() {
                         setTimeout(function () {
                             li.css('box-shadow', '');
                         }, 750);
+
+                        // Check How many Keyworkds Are noted.
+
+                        var pageId = $('#validateButton').attr('data-id');
+
+                        $.getJSON( "/display/" + pageId + ".json", function( data ) {
+
+                            var sourceKeywordsList = data.item.content.json.TEI.teiHeader.profileDesc.textClass.keywords,
+                                nbSourceKeywordsListObject = Object.keys(sourceKeywordsList).length,
+                                nbOfTotalSourceKeywords = 0;
+
+                            for(var i = 0 ; i < nbSourceKeywordsListObject ; i ++){
+                                if( (sourceKeywordsList[i].scheme != "inist-francis") && (sourceKeywordsList[i].scheme != "inist-pascal") && (sourceKeywordsList[i].scheme != "cc") && (sourceKeywordsList[i].scheme != "author") && (sourceKeywordsList[i]["xml#lang"] == "fr" )){
+                                    var nbKW = Object.keys(sourceKeywordsList[i].term).length; // Get nb Of Keywords / Method
+                                    nbOfTotalSourceKeywords += nbKW;
+                                }
+                            }
+
+
+                            var notedKeywordsList = data.item.notedKeywords,
+                                nbOfTotalNotedKeywords = 0;
+
+                            for (var key in notedKeywordsList) {
+                                var nbOfNotedKw = Object.keys(notedKeywordsList[key]).length; // Get nb Of Noted Keywords / Method
+                                nbOfTotalNotedKeywords += nbOfNotedKw;
+                            }
+
+                            console.log(nbOfTotalNotedKeywords/nbOfTotalSourceKeywords);
+
+                            if((nbOfTotalNotedKeywords/nbOfTotalSourceKeywords) === 1){
+                                $('#validateButton').toggleClass("isDisable isNotValidated");
+                                console.log("Tous les KW sont notés");
+                            }
+
+
+                        });
+
+
                     }, 900);
 
                 },
