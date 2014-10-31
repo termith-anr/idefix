@@ -3,6 +3,8 @@
  */
 $(document).ready(function() {
 
+    $( "#progressbar" ).progressbar({ max: 1 , value : 0 });
+
 
     /* --- SHOW/ADD COMMENT--- */
 
@@ -227,6 +229,7 @@ $(document).ready(function() {
     /* --- END OF CHANGE METHOD ---*/
 
 
+
     /* ---SUBMIT AJAX FORMS --- */
 
     // Validation
@@ -290,6 +293,8 @@ $(document).ready(function() {
 
         $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
 
+
+
         $.ajax(
             {
                 url: formURL,
@@ -307,6 +312,7 @@ $(document).ready(function() {
                         setTimeout(function () {
                             li.css('box-shadow', '');
                         }, 750);
+
 
                         // Check How many Keyworkds Are noted.
 
@@ -350,6 +356,38 @@ $(document).ready(function() {
                             if((nbOfTotalNotedKeywords/nbOfTotalSourceKeywords) === 1){
                                 $('#validateButton').toggleClass("isDisable isNotValidated");
                             }
+
+                            console.log(ratio);
+
+                            $( "#progressbar" ).progressbar({
+                                value: ratio
+                            });
+
+                            if(!($( ".ui-progressbar-value").hasClass('progress-bar-danger'))) {
+                                if (ratio <= 0.25) {
+                                    $( ".ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
+                                }
+                            }
+                            if(!$( ".ui-progressbar-value").hasClass('progress-bar-warning')) {
+                                if (ratio > 0.25 && ratio <= 0.6) {
+                                    $( ".ui-progressbar-value").toggleClass("progress-bar-danger progress-bar-warning");
+                                }
+                            }
+
+                            if(!$( ".ui-progressbar-value").hasClass('progress-bar-success')) {
+                                if (ratio > 0.6 && ratio < 1) {
+                                    $( ".ui-progressbar-value").toggleClass("progress-bar-warning progress-bar-success");
+                                }
+                            }
+
+                            if(!$( ".ui-progressbar-value").hasClass('progress-bar-info')) {
+                                if (ratio === 1) {
+                                    $( ".ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info");
+                                }
+                            }
+
+                            $( ".ui-progressbar-value").html(ratio*100 + "%");
+
 
 
                         });

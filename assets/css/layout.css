@@ -1872,3 +1872,19 @@ input[value='2']:checked + label {
     font-size: 14px;
     font-family: "segoe" , sans-serif;
 }
+
+#progressbar{
+         border: 0;
+         height: 18px;
+         border-radius: 9px;
+        width: 70%;
+        float: left;
+        margin-left: 15%;
+}
+
+.ui-progressbar-value {
+    height: 100%;
+    transition : width 1500ms linear;
+    -webkit-transition : width  1500ms linear;
+    color: #fff;
+}
