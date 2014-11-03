@@ -3,7 +3,39 @@
  */
 $(document).ready(function() {
 
-    $( "#progressbar" ).progressbar({ max: 1 , value : 0 });
+    var pageId = $('#validateButton').attr('data-id');
+
+    $.getJSON( "/display/" + pageId + ".json", function( data ) {
+        var startPageRatio = 0;
+
+        if(data.item.progressNotedKeywords){
+            startPageRatio = parseFloat(data.item.progressNotedKeywords);
+        }
+
+        $( "#progressbar" ).progressbar({ max: 1 , value : startPageRatio });
+
+        if (startPageRatio <= 0.25) {
+            $( ".ui-progressbar-value").addClass("progress-bar-striped progress-bar-danger progress-bar-striped");
+        }
+
+        if (startPageRatio > 0.25 && startPageRatio <= 0.6) {
+            $( ".ui-progressbar-value").addClass("progress-bar-striped progress-bar-warning");
+        }
+
+
+        if (startPageRatio > 0.6 && startPageRatio < 1) {
+            $( ".ui-progressbar-value").addClass("progress-bar-striped progress-bar-success");
+        }
+
+
+        if (startPageRatio === 1) {
+            $( ".ui-progressbar-value").addClass("progress-bar-info");
+        }
+
+        $( ".ui-progressbar-value").html(startPageRatio*100 + "%");
+
+
+    });
 
 
     /* --- SHOW/ADD COMMENT--- */
