@@ -3,7 +3,7 @@
  */
 $(document).ready(function() {
 
-    var pageId = $('#validateButton').attr('data-id');
+    var pageId = $('#validateMethodBar').attr('data-id');
 
     $.getJSON( "/display/" + pageId + ".json", function( data ) {
         var startPageRatio = 0;
@@ -12,7 +12,7 @@ $(document).ready(function() {
             startPageRatio = parseFloat(data.item.progressNotedKeywords);
         }
 
-        $( "#progressbar" ).progressbar({ max: 1 , value : startPageRatio });
+        $( "#validateMethodBar" ).progressbar({ max: 1 , value : startPageRatio });
 
         if (startPageRatio <= 0.25) {
             $( ".ui-progressbar-value").addClass("progress-bar-striped progress-bar-danger progress-bar-striped");
@@ -32,7 +32,7 @@ $(document).ready(function() {
             $( ".ui-progressbar-value").addClass("progress-bar-info");
         }
 
-        $( ".ui-progressbar-value").html(startPageRatio*100 + "%");
+        $( ".ui-progressbar-value").html((startPageRatio*100).toFixed() + "%");
 
 
     });
@@ -133,7 +133,7 @@ $(document).ready(function() {
         e.stopPropagation();
         if (isFullArticleShow == 'no') {
 
-            var id = $('#validateButton').attr('data-id');
+            var id = $('#validateMethodBar').attr('data-id');
             $('#contentDisplay').hide();
             $(this).css({
                 height: '100%',
@@ -266,7 +266,7 @@ $(document).ready(function() {
 
     // Validation
 
-    $('#validateButton').on('click', function () {
+    $('#validateMethodBar').on('click', function () {
 
         var id = $(this).attr('data-id');
         var url = '/save/' + id;
@@ -280,7 +280,7 @@ $(document).ready(function() {
                     { name: "val", value: "yes"}
                 ],
                 success: function (e) {
-                    $('#validateButton').removeClass('isNotValidated').addClass('isValidated');
+                    $('#validateMethodBar').removeClass('isNotValidated').addClass('isValidated');
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -301,7 +301,7 @@ $(document).ready(function() {
                     { name: "val", value: "no"}
                 ],
                 success: function (e) {
-                    $('#validateButton').removeClass('isValidated').addClass('isNotValidated');
+                    $('#validateMethodBar').removeClass('isValidated').addClass('isNotValidated');
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -346,9 +346,9 @@ $(document).ready(function() {
                         }, 750);
 
 
-                        // Check How many Keyworkds Are noted.
+                        // Check How many Keyworkds Are noted & update progressbar
 
-                        var pageId = $('#validateButton').attr('data-id');
+                        var pageId = $('#validateMethodBar').attr('data-id');
 
                         $.getJSON( "/display/" + pageId + ".json", function( data ) {
 
@@ -386,12 +386,11 @@ $(document).ready(function() {
                             );
 
                             if((nbOfTotalNotedKeywords/nbOfTotalSourceKeywords) === 1){
-                                $('#validateButton').toggleClass("isDisable isNotValidated");
+                                $('#validateMethodBar').toggleClass("isDisable isNotValidated");
                             }
 
-                            console.log(ratio);
 
-                            $( "#progressbar" ).progressbar({
+                            $( "#validateMethodBar" ).progressbar({
                                 value: ratio
                             });
 
@@ -400,6 +399,7 @@ $(document).ready(function() {
                                     $( ".ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
                                 }
                             }
+
                             if(!$( ".ui-progressbar-value").hasClass('progress-bar-warning')) {
                                 if (ratio > 0.25 && ratio <= 0.6) {
                                     $( ".ui-progressbar-value").toggleClass("progress-bar-danger progress-bar-warning");
@@ -414,11 +414,19 @@ $(document).ready(function() {
 
                             if(!$( ".ui-progressbar-value").hasClass('progress-bar-info')) {
                                 if (ratio === 1) {
+                                    console.log('ratio vaut 1');
                                     $( ".ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info");
+                                    console.log(data.item);
+                                    if(data.item.fields.validate == "no"){
+                                        var validateMethodButton =  $( "#validateMethodBar");
+                                        validateMethodButton.addClass('isNotValidated');
+                                        $( ".ui-progressbar-value").html("100% Pensez à valider !");
+                                    }
                                 }
+
                             }
 
-                            $( ".ui-progressbar-value").html(ratio*100 + "%");
+                            $( ".ui-progressbar-value").html((ratio*100).toFixed() + "%");
 
 
 

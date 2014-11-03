@@ -71,8 +71,6 @@
 {% set numberOfMethods = listOfMethodsName|length %}
 
 
-    <div id="validateButton" title="Valider votre document" class="{% if item.validate  == 'yes' %}isValidated{% else %}isDisable{% endif %}" data-id="{{ item.wid }}"></div>
-
     <!-- Block of modal for full article -->
     {% if isFullArticle == true %}
     <div id="buttonFullArticle" class="">
@@ -117,7 +115,7 @@
                         <span id="list" class="glyphicon glyphicon-list active gridOrListButton"></span>
                     </div>
 
-                    <div id="progressbar" class="progress">
+                    <div data-id="{{ item.wid }}" id="validateMethodBar" class="progress {% if item.validate  == 'yes' %}isValidated{% else %}isDisable{% endif %}">
                     </div>
 
                     <!-- METHOD BLOC -->
