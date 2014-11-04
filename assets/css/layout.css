@@ -1541,17 +1541,10 @@ input[value='2']:checked + label {
 
 
 .isValidated{
-    background: rgb(0,178,51); /* Old browsers */
-    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwMGIyMzMiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiNlNmU2ZTYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvcmFkaWFsR3JhZGllbnQ+CiAgPHJlY3QgeD0iLTUwIiB5PSItNTAiIHdpZHRoPSIxMDEiIGhlaWdodD0iMTAxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
-    background: -moz-radial-gradient(center, ellipse cover,  rgba(0,178,51,1) 0%, rgba(230,230,230,1) 50%); /* FF3.6+ */
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,178,51,1)), color-stop(50%,rgba(230,230,230,1))); /* Chrome,Safari4+ */
-    background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,178,51,1) 0%,rgba(230,230,230,1) 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-radial-gradient(center, ellipse cover,  rgba(0,178,51,1) 0%,rgba(230,230,230,1) 50%); /* Opera 12+ */
-    background: -ms-radial-gradient(center, ellipse cover,  rgba(0,178,51,1) 0%,rgba(230,230,230,1) 50%); /* IE10+ */
-    background: radial-gradient(ellipse at center,  rgba(0,178,51,1) 0%,rgba(230,230,230,1) 50%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b233', endColorstr='#e6e6e6',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
-
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+    cursor: text;
 }
 
 .isNotValidated {
@@ -1560,16 +1553,7 @@ input[value='2']:checked + label {
     -ms-animation: blink 1s linear infinite;
     -o-animation: blink 1s linear infinite;
     animation: blink 1s linear infinite;
-    background: rgb(217,144,139); /* Old browsers */
-    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNkOTkwOGIiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiNlNmU2ZTYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvcmFkaWFsR3JhZGllbnQ+CiAgPHJlY3QgeD0iLTUwIiB5PSItNTAiIHdpZHRoPSIxMDEiIGhlaWdodD0iMTAxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
-    background: -moz-radial-gradient(center, ellipse cover,  rgba(217,144,139,1) 0%, rgba(230,230,230,1) 50%); /* FF3.6+ */
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(217,144,139,1)), color-stop(50%,rgba(230,230,230,1))); /* Chrome,Safari4+ */
-    background: -webkit-radial-gradient(center, ellipse cover,  rgba(217,144,139,1) 0%,rgba(230,230,230,1) 50%); /* Chrome10+,Safari5.1+ */
-    background: -o-radial-gradient(center, ellipse cover,  rgba(217,144,139,1) 0%,rgba(230,230,230,1) 50%); /* Opera 12+ */
-    background: -ms-radial-gradient(center, ellipse cover,  rgba(217,144,139,1) 0%,rgba(230,230,230,1) 50%); /* IE10+ */
-    background: radial-gradient(ellipse at center,  rgba(217,144,139,1) 0%,rgba(230,230,230,1) 50%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d9908b', endColorstr='#e6e6e6',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
+    cursor: pointer;
 }
 
 .isDisable {
@@ -1877,4 +1861,24 @@ input[value='2']:checked + label {
     width: 70%;
     float: left;
     margin-left: 15%;
+    margin-right: 15%;
+}
+
+#validateDocument{
+    background: rgba(104,104,104,0.5);
+    border: 0;
+    height: 18px;
+    border-radius: 9px;
+    width: 70%;
+    float: left;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.labelBlock{
+    display: block !important;
+    font-size: 22px !important;
+}
+.labelHide{
+    display: none !important;
 }

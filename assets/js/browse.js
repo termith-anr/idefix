@@ -26,7 +26,7 @@ $(document).ready(function() {
             },
             columns: [
                 { data: 'wid' , visible : false , searchable: false},
-                { data: 'fields.validate', visible : false , searchable: false},
+                { data: 'fields.validationMethods', visible : false , searchable: false},
                 { data: 'object' , className: "browseYear browseTd", searchable: true},
                 { data: 'fields.title' , className: "browseTitle browseTd", searchable: true}
             ],
@@ -35,7 +35,7 @@ $(document).ready(function() {
 
                 var rowValue = oTable.fnGetData( index );
 
-                if(rowValue['validate'] == "yes"){
+                if(rowValue['valiationMethods'] == "yes"){
 
                     $(row).attr('class', 'trValidate');
                 }

@@ -115,8 +115,11 @@
                         <span id="list" class="glyphicon glyphicon-list active gridOrListButton"></span>
                     </div>
 
-                    <div data-id="{{ item.wid }}" id="validateMethodBar" class="progress {% if item.validate  == 'yes' %}isValidated{% else %}isDisable{% endif %}">
+                    <div data-id="{{ item.wid }}" id="validateMethodBar" class="progress {% if item.validate  == 'yes' %}isValidated{% endif %}">
                     </div>
+
+                    <div id="validateDocument" class="progress {% if item.validateDocument  == 'yes' %}isValidated{% endif %}" {% if item.validationMethods == "yes" %}style="display:block"{% else %}style="display:none"{% endif %}></div>
+
 
                     <!-- METHOD BLOC -->
                     <div class="displayMethodBu">
@@ -293,28 +296,28 @@
 
                                                     <!-- Value Name -->
                                                     {% if item.notedKeywords[listOfMethodsName[currentNbMethod-1]][methodsWord].note == '2' %}
-                                                    <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}">0</label>
-                                                    <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}">1</label>
-                                                    <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}">2</label>
+                                                    <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
+                                                    <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1" ><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
+                                                    <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">2</label>
                                                     {% elif item.notedKeywords[listOfMethodsName[currentNbMethod-1]][methodsWord].note == '1' %}
-                                                    <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}">0</label>
-                                                    <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}">1</label>
-                                                    <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}">2</label>
+                                                    <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
+                                                    <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">1</label>
+                                                    <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
                                                     {% elif item.notedKeywords[listOfMethodsName[currentNbMethod-1]][methodsWord].note == '0' %}
-                                                    <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}">0</label>
-                                                    <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}">1</label>
-                                                    <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}">2</label>
+                                                    <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">0</label>
+                                                    <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
+                                                    <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
                                                     {% else %}
-                                                    <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}">0</label>
-                                                    <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}">1</label>
-                                                    <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}">2</label>
+                                                    <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
+                                                    <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
+                                                    <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
                                                     {% endif %}
 
                                                     <ins class="loading"></ins>
 
                                                 </form>
 
-                                                <form class="formNotedKeyword formNotedKeywordsPreference row" id="prefMethod-{{ currentNbMethod }}-{{ loop.index }}" action="/save/{{ item.wid }}">
+                                                <form class="formNotedKeyword formNotedKeywordsPreference row {% if item.validationMethods == 'yes' %}labelHide{% endif %}" id="prefMethod-{{ currentNbMethod }}-{{ loop.index }}" action="/save/{{ item.wid }}">
 
                                                     <input type="hidden" name="key" value="notedKeywords.{{ listOfMethodsName[currentNbMethod-1] }}.{{ methodsWord }}.exclude"/> <!-- Key Name -->
 
@@ -336,7 +339,7 @@
 
                                                 </form>
 
-                                                <div class="divComments">
+                                                <div class="divComments {% if item.validationMethods == 'yes' %}labelHide{% endif %}">
                                                     <span class="etcSpanComment">...</span>
 
                                                     <span class="quitSpanComment">X</span>
