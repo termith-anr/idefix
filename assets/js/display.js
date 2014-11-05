@@ -409,76 +409,172 @@ $(document).ready(function() {
                                 nbSourceKeywordsListObject = Object.keys(sourceKeywordsList).length,
                                 nbOfTotalSourceKeywords = 0;
 
-                            for(var i = 0 ; i < nbSourceKeywordsListObject ; i ++){
-                                if( (sourceKeywordsList[i].scheme != "inist-francis") && (sourceKeywordsList[i].scheme != "inist-pascal") && (sourceKeywordsList[i].scheme != "cc") && (sourceKeywordsList[i].scheme != "author") && (sourceKeywordsList[i]["xml#lang"] == "fr" )){
-                                    var nbKW = Object.keys(sourceKeywordsList[i].term).length; // Get nb Of Keywords / Method
-                                    nbOfTotalSourceKeywords += nbKW;
+                            if(data.item.fields.validationMethods == "no") {
+
+
+                                for (var i = 0; i < nbSourceKeywordsListObject; i++) {
+                                    if ((sourceKeywordsList[i].scheme != "inist-francis") && (sourceKeywordsList[i].scheme != "inist-pascal") && (sourceKeywordsList[i].scheme != "cc") && (sourceKeywordsList[i].scheme != "author") && (sourceKeywordsList[i]["xml#lang"] == "fr" )) {
+                                        var nbKW = Object.keys(sourceKeywordsList[i].term).length; // Get nb Of Keywords / Method
+                                        nbOfTotalSourceKeywords += nbKW;
+                                    }
                                 }
-                            }
 
 
                             var notedKeywordsList = data.item.notedKeywords,
                                 nbOfTotalNotedKeywords = 0;
 
-                            for (var key in notedKeywordsList) {
-                                var nbOfNotedKw = Object.keys(notedKeywordsList[key]).length; // Get nb Of Noted Keywords / Method
-                                nbOfTotalNotedKeywords += nbOfNotedKw;
-                            }
+                                    for (var key in notedKeywordsList) {
+                                        if((key.indexOf("inist")) == -1) {
+                                            console.log('je passe');
+                                            var nbOfNotedKw = Object.keys(notedKeywordsList[key]).length; // Get nb Of Noted Keywords / Method
+                                            nbOfTotalNotedKeywords += nbOfNotedKw;
+                                        }
+                                    }
+
 
                             var ratio = nbOfTotalNotedKeywords/nbOfTotalSourceKeywords;
 
-                            $.ajax(
-                                {
-                                    url: formURL,
-                                    type: "POST",
-                                    data: [
-                                        { name: "key", value: "progressNotedKeywords"} ,
-                                        { name: "val", value: ratio}
-                                    ]
-                                }
-                            );
 
-                            if((nbOfTotalNotedKeywords/nbOfTotalSourceKeywords) === 1){
-                                $('#validateMethodBar').toggleClass("isDisable isNotValidated");
-                            }
+                                $.ajax(
+                                    {
+                                        url: formURL,
+                                        type: "POST",
+                                        data: [
+                                            { name: "key", value: "progressNotedKeywords"} ,
+                                            { name: "val", value: ratio}
+                                        ]
+                                    }
+                                );
 
 
-                            $( "#validateMethodBar" ).progressbar({
-                                value: ratio
-                            });
-
-                            $( ".ui-progressbar-value").html((ratio*100).toFixed() + "%");
-
-
-                            if(!($( ".ui-progressbar-value").hasClass('progress-bar-danger'))) {
-                                if (ratio <= 0.25) {
-                                    $( ".ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
-                                }
-                            }
-
-                            if(!$( ".ui-progressbar-value").hasClass('progress-bar-warning')) {
-                                if (ratio > 0.25 && ratio <= 0.6) {
-                                    $( ".ui-progressbar-value").toggleClass("progress-bar-danger progress-bar-warning");
-                                }
-                            }
-
-                            if(!$( ".ui-progressbar-value").hasClass('progress-bar-success')) {
-                                if (ratio > 0.6 && ratio < 1) {
-                                    $( ".ui-progressbar-value").toggleClass("progress-bar-warning progress-bar-success");
-                                }
-                            }
-
-                            if(!$( ".ui-progressbar-value").hasClass('progress-bar-info')) {
                                 if (ratio === 1) {
-                                    $( ".ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info");
-                                    if(data.item.fields.validate == "no"){
-                                        var validateMethodButton =  $( "#validateMethodBar");
-                                        validateMethodButton.addClass('isNotValidated');
-                                        $( ".ui-progressbar-value").html("METHODES : 100% , VALIDEZ");
+                                    $('#validateMethodBar').toggleClass("isDisable isNotValidated");
+                                }
+
+
+                                $("#validateMethodBar").progressbar({
+                                    value: ratio
+                                });
+
+                                $("#validateMethodBar .ui-progressbar-value").html((ratio * 100).toFixed() + "%");
+
+
+                                if (!($("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-danger'))) {
+                                    if (ratio <= 0.25) {
+                                        $("#validateMethodBar .ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
+                                    }
+                                }
+
+                                if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-warning')) {
+                                    if (ratio > 0.25 && ratio <= 0.6) {
+                                        $(".ui-progressbar-value").toggleClass("progress-bar-danger progress-bar-warning");
+                                    }
+                                }
+
+                                if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-success')) {
+                                    if (ratio > 0.6 && ratio < 1) {
+                                        $(".ui-progressbar-value").toggleClass("progress-bar-warning progress-bar-success");
+                                    }
+                                }
+
+                                if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-info')) {
+                                    if (ratio === 1) {
+                                        $("#validateMethodBar .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info");
+                                        if (data.item.fields.validate == "no") {
+                                            var validateMethodButton = $("#validateMethodBar");
+                                            validateMethodButton.addClass('isNotValidated');
+                                            $("#validateMethodBar .ui-progressbar-value").html("METHODES : 100% , VALIDEZ");
+                                        }
+
                                     }
 
                                 }
+                            }
 
+
+                            else if(data.item.fields.validationMethods == "yes") {
+
+
+                                for (var i = 0; i < nbSourceKeywordsListObject; i++) {
+                                    if ((sourceKeywordsList[i].scheme == "inist-francis") || (sourceKeywordsList[i].scheme == "inist-pascal") && (sourceKeywordsList[i]["xml#lang"] == "fr" )) {
+                                        var nbKW = Object.keys(sourceKeywordsList[i].term).length; // Get nb Of Keywords / Method
+                                        nbOfTotalSourceKeywords += nbKW;
+                                    }
+                                }
+
+
+                                var notedKeywordsList = data.item.notedKeywords,
+                                    nbOfTotalSilenceKeywords = 0;
+
+
+                                for (var key in notedKeywordsList) {
+                                    if(key.indexOf("inist") > -1) {
+                                        for(var method in notedKeywordsList[key]){
+                                            console.log(Object.keys(notedKeywordsList[key][method]).length);
+                                        }
+                                        var nbOfNotedKw = Object.keys(notedKeywordsList[key]).length; // Get nb Of Noted INIST Keywords
+                                        nbOfTotalSilenceKeywords += nbOfNotedKw;
+                                    }
+                                }
+
+
+                                var ratio = nbOfTotalSilenceKeywords/nbOfTotalSourceKeywords;
+
+
+                                $.ajax(
+                                    {
+                                        url: formURL,
+                                        type: "POST",
+                                        data: [
+                                            { name: "key", value: "progressSilenceKeywords"} ,
+                                            { name: "val", value: ratio}
+                                        ]
+                                    }
+                                );
+
+
+                                if (ratio === 1) {
+                                    $('#validateMethodBar').toggleClass("isDisable isNotValidated");
+                                }
+
+
+                                $("#validateDocument").progressbar({
+                                    value: ratio
+                                });
+
+                                $("#validateDocument .ui-progressbar-value").html((ratio * 100).toFixed() + "%");
+
+
+                                if (!($("#validateDocument .ui-progressbar-value").hasClass('progress-bar-danger'))) {
+                                    if (ratio <= 0.25) {
+                                        $("#validateDocument .ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
+                                    }
+                                }
+
+                                if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-warning')) {
+                                    if (ratio > 0.25 && ratio <= 0.6) {
+                                        $(".ui-progressbar-value").toggleClass("progress-bar-danger progress-bar-warning");
+                                    }
+                                }
+
+                                if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-success')) {
+                                    if (ratio > 0.6 && ratio < 1) {
+                                        $(".ui-progressbar-value").toggleClass("progress-bar-warning progress-bar-success");
+                                    }
+                                }
+
+                                if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-info')) {
+                                    if (ratio === 1) {
+                                        $("#validateDocument .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info");
+                                        if (data.item.fields.validate == "no") {
+                                            var validateMethodButton = $("#validateDocument");
+                                            validateMethodButton.addClass('isNotValidated');
+                                            $("#validateDocument .ui-progressbar-value").html("INIST : 100% , VALIDEZ");
+                                        }
+
+                                    }
+
+                                }
                             }
 
 
