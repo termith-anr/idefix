@@ -1,10 +1,20 @@
 {
-
   "name": "idefix",
   "version": "2.2.1",
+  "author": [],
+  "contributors": [],
   "description": "",
+  "keywords": [],
+  "homepage": "http://github.com/termith-anr/idefix",
   "main": "index.js",
+  "bin": {
+    "idefix": "./idefix"
+  },
+  "scripts": {
+    "start": "node ./server.js"
+  },
   "dependencies": {
+    "castor-core": "^0.4.1",
     "datamodel": "^1.0.7",
     "debug": "^2.0.0",
     "jquery": "^2.1.1",
@@ -16,21 +26,12 @@
     "castor-load-raw": "^1.0.0",
     "csv-string": "^2.2.2"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/castorjs/idefix.git"
+    "url": "https://github.com/touv/termith-anr/idefix.git"
   },
-  "author": "",
-  "license": "",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/castorjs/castor-theme-termith/issues"
-  },
-  "homepage": "https://github.com/castorjs/castor-theme-termith",
-  "filters": {
-    "teiMaf2html": "teiMaf2html.js"
+    "url": "https://github.com/termith-anr/idefix/issues"
   }
 }
