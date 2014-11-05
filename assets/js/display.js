@@ -4,54 +4,75 @@
 $(document).ready(function() {
 
     var validateMethodBar = $('#validateMethodBar'),
+        validateDocument = $('validateDocument'),
         pageId = $('#validateMethodBar').attr('data-id');
 
-    $.getJSON( "/display/" + pageId + ".json", function( data ) {
 
-        var startPageRatio = 0;
+        $.getJSON("/display/" + pageId + ".json", function (data) {
 
-        if(data.item.progressNotedKeywords){
-            startPageRatio = parseFloat(data.item.progressNotedKeywords);
-        }
+            if(data.item.fields.validationMethods == "no") {
 
-        validateMethodBar.progressbar({ max: 1 , value : startPageRatio });
+                var startPageRatio = 0;
 
-        $( ".ui-progressbar-value", validateMethodBar).html((startPageRatio*100).toFixed() + "%");
+                if (data.item.progressNotedKeywords) {
+                    startPageRatio = parseFloat(data.item.progressNotedKeywords);
+                }
 
+                validateMethodBar.progressbar({ max: 1, value: startPageRatio });
 
-        if (startPageRatio <= 0.25) {
-            $( ".ui-progressbar-value" , validateMethodBar).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
-        }
-
-        if (startPageRatio > 0.25 && startPageRatio <= 0.6) {
-            $( ".ui-progressbar-value", validateMethodBar).addClass("progress-bar-striped progress-bar-warning isDisable");
-        }
+                $(".ui-progressbar-value", validateMethodBar).html((startPageRatio * 100).toFixed() + "%");
 
 
-        if (startPageRatio > 0.6 && startPageRatio < 1) {
-            $( ".ui-progressbar-value", validateMethodBar).addClass("progress-bar-striped progress-bar-success isDisable");
-        }
+                if (startPageRatio <= 0.25) {
+                    $(".ui-progressbar-value", validateMethodBar).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
+                }
+
+                if (startPageRatio > 0.25 && startPageRatio <= 0.6) {
+                    $(".ui-progressbar-value", validateMethodBar).addClass("progress-bar-striped progress-bar-warning isDisable");
+                }
 
 
-        if (startPageRatio === 1) {
-            $( ".ui-progressbar-value", validateMethodBar).addClass("progress-bar-info");
+                if (startPageRatio > 0.6 && startPageRatio < 1) {
+                    $(".ui-progressbar-value", validateMethodBar).addClass("progress-bar-striped progress-bar-success isDisable");
+                }
 
-            if(data.item.fields.validationMethods == "no"){
-                $( ".ui-progressbar-value", validateMethodBar).parent().addClass('isNotValidated');
-                $( ".ui-progressbar-value", validateMethodBar).html('100% : VALIDEZ');
+
+                if (startPageRatio === 1) {
+                    $(".ui-progressbar-value", validateMethodBar).addClass("progress-bar-info");
+
+                    if (data.item.fields.validationMethods == "no") {
+                        $(".ui-progressbar-value", validateMethodBar).parent().addClass('isNotValidated');
+                        $(".ui-progressbar-value", validateMethodBar).html('100% : VALIDEZ');
+                    }
+
+
+                }
+
+
+
             }
 
-            if(data.item.fields.validationMethods == "yes"){
-                $( ".ui-progressbar-value", validateMethodBar).parent().addClass('isValidated');
+            else if (data.item.fields.validationMethods == "yes") {
+
+                validateMethodBar.progressbar({ max: 1, value: 1 });
+
+                $(".ui-progressbar-value", validateMethodBar).parent().addClass('isValidated');
+                $(".ui-progressbar-value", validateMethodBar).html(" 100%");
+
+                var startPageRatio = 0;
+
+                if (data.item.progressSilenceKeywords) {
+                    startPageRatio = parseFloat(data.item.progressSilenceKeywords);
+                }
+
+                validateDocument.progressbar({ max: 1, value: startPageRatio });
+
             }
 
-        }
 
-        $('.methodsKeywords .formNotedKeyword input:checked').addClass('TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
-
+        });
 
 
-    });
 
 
     /* --- SHOW/ADD COMMENT--- */
@@ -310,6 +331,14 @@ $(document).ready(function() {
                                 { name: "val", value: "yes"}
                             ]
                         });
+                        var inpuChecked = $('.methodsKeywords .formNotedKeyword input:checked ');
+                        $(".methodsKeywords :input").prop("disabled", true);
+                        $('.methodsKeywords .formNotedKeywordsPreference , .divComments').hide();
+                        for( var i = 0 ; i < inpuChecked.length ; i++ ){
+                            var label = $("label[for='"+ $(inpuChecked[i]).attr('id')+"']");
+                            label.siblings('label').addClass('labelHide');
+                            label.addClass('labelBlock');
+                        }
 
                     }
                 });
@@ -447,6 +476,7 @@ $(document).ready(function() {
                                         validateMethodButton.addClass('isNotValidated');
                                         $( ".ui-progressbar-value").html("METHODES : 100% , VALIDEZ");
                                     }
+
                                 }
 
                             }
