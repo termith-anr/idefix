@@ -373,8 +373,8 @@
 
     </div>
 
-    {% if isInistKeywords ==true %}
-        <div id="inistKeywordsButton">
+    {% if isInistKeywords == true %}
+        <div id="inistKeywordsButton" {% if item.validationMethods == "yes" %}style="display : block"{% else %}style="display: none"{% endif %}">
             <span>Afficher INIST</span>  <!-- Button to call Inist Keywords -->
         </div>
     {% endif %}

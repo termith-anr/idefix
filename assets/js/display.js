@@ -4,7 +4,7 @@
 $(document).ready(function() {
 
     var validateMethodBar = $('#validateMethodBar'),
-        validateDocument = $('validateDocument'),
+        validateDocument = $('#validateDocument'),
         pageId = $('#validateMethodBar').attr('data-id');
 
 
@@ -289,9 +289,6 @@ $(document).ready(function() {
                 $('#keywordsInist .btn-default').hide();
                 $('.inistForMethod-' + nb[1]).fadeIn().css('display', '');
             }
-            if ($('#inistKeywordsButton').css('display') == 'none') {
-                $('#inistKeywordsButton').css('display', 'block');
-            }
         }
     );
 
@@ -339,6 +336,12 @@ $(document).ready(function() {
                             label.siblings('label').addClass('labelHide');
                             label.addClass('labelBlock');
                         }
+
+                        validateDocument.progressbar({ max: 1, value: 0 });
+                        validateDocument.show();
+
+                        $('#inistKeywordsButton').show();
+
 
                     }
                 });
@@ -425,7 +428,6 @@ $(document).ready(function() {
 
                                     for (var key in notedKeywordsList) {
                                         if((key.indexOf("inist")) == -1) {
-                                            console.log('je passe');
                                             var nbOfNotedKw = Object.keys(notedKeywordsList[key]).length; // Get nb Of Noted Keywords / Method
                                             nbOfTotalNotedKeywords += nbOfNotedKw;
                                         }
@@ -496,9 +498,10 @@ $(document).ready(function() {
 
 
                                 for (var i = 0; i < nbSourceKeywordsListObject; i++) {
-                                    if ((sourceKeywordsList[i].scheme == "inist-francis") || (sourceKeywordsList[i].scheme == "inist-pascal") && (sourceKeywordsList[i]["xml#lang"] == "fr" )) {
+                                    if (((sourceKeywordsList[i].scheme == "inist-francis") || (sourceKeywordsList[i].scheme == "inist-pascal")) && (sourceKeywordsList[i]["xml#lang"] == "fr" )) {
                                         var nbKW = Object.keys(sourceKeywordsList[i].term).length; // Get nb Of Keywords / Method
                                         nbOfTotalSourceKeywords += nbKW;
+                                        nbOfTotalSourceKeywords *= 2;
                                     }
                                 }
 
@@ -510,10 +513,10 @@ $(document).ready(function() {
                                 for (var key in notedKeywordsList) {
                                     if(key.indexOf("inist") > -1) {
                                         for(var method in notedKeywordsList[key]){
-                                            console.log(Object.keys(notedKeywordsList[key][method]).length);
+                                            var nbOfNotedKw = Object.keys(notedKeywordsList[key][method]).length;
+                                            nbOfTotalSilenceKeywords += nbOfNotedKw;
                                         }
-                                        var nbOfNotedKw = Object.keys(notedKeywordsList[key]).length; // Get nb Of Noted INIST Keywords
-                                        nbOfTotalSilenceKeywords += nbOfNotedKw;
+
                                     }
                                 }
 
