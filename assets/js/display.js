@@ -67,6 +67,38 @@ $(document).ready(function() {
 
                 validateDocument.progressbar({ max: 1, value: startPageRatio });
 
+                $(".ui-progressbar-value", validateDocument).html((startPageRatio * 100).toFixed() + "%");
+
+
+                if (validateDocument <= 0.25) {
+                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
+                }
+
+                if (validateDocument > 0.25 && startPageRatio <= 0.6) {
+                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-warning isDisable");
+                }
+
+
+                if (validateDocument > 0.6 && startPageRatio < 1) {
+                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-success isDisable");
+                }
+
+
+                if (startPageRatio === 1) {
+                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-info");
+
+                    if (data.item.fields.validationMethods == "no") {
+                        $(".ui-progressbar-value", validateDocument).parent().addClass('isNotValidated');
+                        $(".ui-progressbar-value", validateDocument).html('100% : VALIDEZ');
+                    }
+
+
+                }
+
+                if (data.item.fields.validationDocument == "yes") {
+
+                }
+
             }
 
 
@@ -300,75 +332,91 @@ $(document).ready(function() {
 
     // Validation
 
-    $('#validateMethodBar').on('click', function () {
+    $('#validateMethodBar , #validateDocument').on('click', function (e) {
 
-        if($(this).attr('aria-valuenow') != "1"){
+        if($(this).attr('id') == "validateMethodBar" ){
+
+            var barre  = $("#validateMethodBar"),
+                barreField = "validationMethods";
+
+        }
+        else if($(this).attr('id') == "validateDocument" ){
+
+            var barre  = $("#validateDocument"),
+                barreField = "validationDocument";
+
+        }
+
+        console.log(barreField);
+
+
+
+        if(barre.attr('aria-valuenow') != "1"){
             return;
         }
 
-        var id = $(this).attr('data-id');
-        var url = '/save/' + id;
-
-        if (!$(this).hasClass('isValidated')) {
+        if (!barre.hasClass('isValidated')) {
             if(confirm('Souhaitez-vous valider définitivement les Mot-Clés Méthodes ?')) {
+
+                var id = barre.attr('data-id');
+                var url = '/save/' + id;
+
+                console.log( "url1 : " , url );
+
+
                 $.ajax({
                     type: "POST",
                     url: url,
                     data: [
-                        { name: "key", value: "validationMethods"} ,
+                        { name: "key", value: barreField} ,
                         { name: "val", value: "yes"}
                     ],
                     success: function (e) {
-                        $('#validateMethodBar').removeClass('isNotValidated').addClass('isValidated');
+
+                        console.log( "urlprofond : " , url );
+
+                        barre.removeClass('isNotValidated').addClass('isValidated');
                         $.ajax({
                             type: "POST",
                             url: url,
                             data: [
-                                { name: "key", value: "fields.validationMethods"} ,
+                                { name: "key", value: "fields." + barreField} ,
                                 { name: "val", value: "yes"}
-                            ]
+                            ],
+                            success : function(){
+                                console.log(" fields passé ");
+                            }
                         });
-                        var inpuChecked = $('.methodsKeywords .formNotedKeyword input:checked ');
-                        $(".methodsKeywords :input").prop("disabled", true);
-                        $('.methodsKeywords .formNotedKeywordsPreference , .divComments').hide();
+
+                        if(barreField == "validationMethods"){
+                            var inpuChecked = $('.methodsKeywords .formNotedKeyword input:checked ');
+                            $(".methodsKeywords :input").prop("disabled", true);
+                            $('.methodsKeywords .formNotedKeywordsPreference , .divComments').hide();
+                            validateDocument.progressbar({ max: 1, value: 0 });
+                            validateDocument.show();
+
+                            $('#inistKeywordsButton').show();
+
+
+                        }
+                        else if (barreField = "validationDocument"){
+                            var inpuChecked = $('#keywordsInist .formNotedKeyword input:checked ');
+                            $("#keywordsInist :input").prop("disabled", true);
+                            $('#keywordsInist .formNotedKeywordsPreference , .divComments').hide();
+                        }
+
                         for( var i = 0 ; i < inpuChecked.length ; i++ ){
                             var label = $("label[for='"+ $(inpuChecked[i]).attr('id')+"']");
                             label.siblings('label').addClass('labelHide');
                             label.addClass('labelBlock');
                         }
 
-                        validateDocument.progressbar({ max: 1, value: 0 });
-                        validateDocument.show();
-
-                        $('#inistKeywordsButton').show();
-
 
                     }
                 });
             }
         }
-        /* UNDER : COME BACK ON VALIDATION FOR METHODS
-        else {
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: [
-                    { name: "key", value: "validationMethods"} ,
-                    { name: "val", value: "no"}
-                ],
-                success: function (e) {
-                    $('#validateMethodBar').removeClass('isValidated').addClass('isNotValidated');
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: [
-                            { name: "key", value: "fields.validationMethods"} ,
-                            { name: "val", value: "no"}
-                        ]
-                    });
-                }
-            });
-        }*/
+
     });
 
     // Keywords
@@ -537,7 +585,7 @@ $(document).ready(function() {
 
 
                                 if (ratio === 1) {
-                                    $('#validateMethodBar').toggleClass("isDisable isNotValidated");
+                                    $('#validateDocument').toggleClass("isDisable isNotValidated");
                                 }
 
 

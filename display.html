@@ -118,7 +118,7 @@
                     <div data-id="{{ item.wid }}" id="validateMethodBar" class="progress {% if item.validate  == 'yes' %}isValidated{% endif %}">
                     </div>
 
-                    <div id="validateDocument" class="progress {% if item.validateDocument  == 'yes' %}isValidated{% endif %}" {% if item.validationMethods == "yes" %}style="display:block"{% else %}style="display:none"{% endif %}></div>
+                    <div id="validateDocument" data-id="{{ item.wid }}" class="progress {% if item.validateDocument  == 'yes' %}isValidated{% endif %}" {% if item.validationMethods == "yes" %}style="display:block"{% else %}style="display:none"{% endif %}></div>
 
 
                     <!-- METHOD BLOC -->
