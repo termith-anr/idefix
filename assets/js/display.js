@@ -87,15 +87,16 @@ $(document).ready(function() {
                 if (startPageRatio === 1) {
                     $(".ui-progressbar-value", validateDocument).addClass("progress-bar-info");
 
-                    if (data.item.fields.validationMethods == "no") {
+                    if (data.item.fields.validationDocument == "no") {
                         $(".ui-progressbar-value", validateDocument).parent().addClass('isNotValidated');
                         $(".ui-progressbar-value", validateDocument).html('100% : VALIDEZ');
                     }
+                    else if (data.item.fields.validationDocument == "yes") {
+                        $(".ui-progressbar-value", validateDocument).parent().addClass('isValidated');
+                        $(".ui-progressbar-value", validateDocument).html('100%');
+                    }
 
 
-                }
-
-                if (data.item.fields.validationDocument == "yes") {
 
                 }
 
@@ -347,8 +348,6 @@ $(document).ready(function() {
 
         }
 
-        console.log(barreField);
-
 
 
         if(barre.attr('aria-valuenow') != "1"){
@@ -361,9 +360,6 @@ $(document).ready(function() {
                 var id = barre.attr('data-id');
                 var url = '/save/' + id;
 
-                console.log( "url1 : " , url );
-
-
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -373,8 +369,6 @@ $(document).ready(function() {
                     ],
                     success: function (e) {
 
-                        console.log( "urlprofond : " , url );
-
                         barre.removeClass('isNotValidated').addClass('isValidated');
                         $.ajax({
                             type: "POST",
@@ -382,10 +376,7 @@ $(document).ready(function() {
                             data: [
                                 { name: "key", value: "fields." + barreField} ,
                                 { name: "val", value: "yes"}
-                            ],
-                            success : function(){
-                                console.log(" fields passé ");
-                            }
+                            ]
                         });
 
                         if(barreField == "validationMethods"){
