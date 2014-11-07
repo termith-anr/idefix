@@ -70,16 +70,16 @@ $(document).ready(function() {
                 $(".ui-progressbar-value", validateDocument).html((startPageRatio * 100).toFixed() + "%");
 
 
-                if (validateDocument <= 0.25) {
+                if (startPageRatio <= 0.25) {
                     $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
                 }
 
-                if (validateDocument > 0.25 && startPageRatio <= 0.6) {
+                if (startPageRatio > 0.25 && startPageRatio <= 0.6) {
                     $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-warning isDisable");
                 }
 
 
-                if (validateDocument > 0.6 && startPageRatio < 1) {
+                if (startPageRatio > 0.6 && startPageRatio < 1) {
                     $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-success isDisable");
                 }
 
@@ -488,11 +488,6 @@ $(document).ready(function() {
                                 );
 
 
-                                if (ratio === 1) {
-                                    $('#validateMethodBar').toggleClass("isDisable isNotValidated");
-                                }
-
-
                                 $("#validateMethodBar").progressbar({
                                     value: ratio
                                 });
@@ -520,7 +515,7 @@ $(document).ready(function() {
 
                                 if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-info')) {
                                     if (ratio === 1) {
-                                        $("#validateMethodBar .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info");
+                                        $("#validateMethodBar .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info isDisable isNotValidated");
                                         if (data.item.fields.validate == "no") {
                                             var validateMethodButton = $("#validateMethodBar");
                                             validateMethodButton.addClass('isNotValidated');
