@@ -38,7 +38,45 @@ $(document).ready(function() {
                 if(rowValue['validationDocument'] == "yes"){
 
                     $(row).attr('class', 'trValidate');
+
                 }
+                else if((rowValue['validationMethods'] == "yes") && (rowValue['fields']['validationDocument'] == "no")) {
+
+                    var ratioINIST = rowValue['progressSilenceKeywords'] ? rowValue['progressSilenceKeywords'] : 0,
+                        ratioDocument = ((1+parseFloat(ratioINIST))/2)*100 + "%";
+
+                    $(".browseTitle" ,row).css({
+                        "background": "rgba(98,125,77,1)",
+                        "background": "-moz-linear-gradient(left, rgba(69,69,69,0.1) " + ratioDocument + ", transparent " + ratioDocument + ")",
+                        "background": "-webkit-gradient(left top, right top, color-stop(" + ratioDocument + ", rgba(69,69,69,0.1)), color-stop(" + ratioDocument + ", transparent)))",
+                        "background": "-webkit-linear-gradient(left, rgba(69,69,69,0.1) " + ratioDocument + ", transparent " + ratioDocument + ")",
+                        "background": "-o-linear-gradient(left, rgba(69,69,69,0.1) " + ratioDocument + ", transparent " + ratioDocument + ")",
+                        "background": "-ms-linear-gradient(left, rgba(69,69,69,0.1) " + ratioDocument + ", transparent " + ratioDocument + ")",
+                        "background": "linear-gradient(to right, rgba(69,69,69,0.1) " + ratioDocument + ", transparent " + ratioDocument + ")"
+                    });
+
+
+                }
+                else if(rowValue['fields']['validationMethods'] == "no") {
+                    var ratioMethods = rowValue['progressNotedKeywords'] ? rowValue['progressNotedKeywords'] : 0;
+
+                    if (parseFloat(ratioMethods) > 0) {
+
+                        var ratioDocument = ((parseFloat(ratioMethods)) / 2) * 100 + "%";
+
+                            $(".browseTitle", row).css({
+                                "background": "rgba(98,125,77,1)",
+                                "background": "-moz-linear-gradient(left, rgba(69,69,69,0.1) " + ratioDocument + ", transparent " + ratioDocument + ")",
+                                "background": "-webkit-gradient(left top, right top, color-stop(" + ratioDocument + ", rgba(69,69,69,0.1)), color-stop(" + ratioDocument + ", transparent)))",
+                                "background": "-webkit-linear-gradient(left, rgba(69,69,69,0.1) " + ratioDocument + ", transparent " + ratioDocument + ")",
+                                "background": "-o-linear-gradient(left, rgba(69,69,69,0.1) " + ratioDocument + ", transparent " + ratioDocument + ")",
+                                "background": "-ms-linear-gradient(left, rgba(69,69,69,0.1) " + ratioDocument + ", transparent " + ratioDocument + ")",
+                                "background": "linear-gradient(to right, rgba(69,69,69,0.1) " + ratioDocument + ", transparent " + ratioDocument + ")"
+                            });
+
+                    }
+                }
+
 
             },
 
