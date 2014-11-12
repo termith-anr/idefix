@@ -42,7 +42,7 @@ $(document).ready(function() {
 
                     if (data.item.fields.validationMethods == "no") {
                         $(".ui-progressbar-value", validateMethodBar).parent().addClass('isNotValidated');
-                        $(".ui-progressbar-value", validateMethodBar).html('100% : VALIDEZ');
+                        $(".ui-progressbar-value", validateMethodBar).html('100% : VALIDEZ!');
                     }
 
 
@@ -89,7 +89,7 @@ $(document).ready(function() {
 
                     if (data.item.fields.validationDocument == "no") {
                         $(".ui-progressbar-value", validateDocument).parent().addClass('isNotValidated');
-                        $(".ui-progressbar-value", validateDocument).html('100% : VALIDEZ');
+                        $(".ui-progressbar-value", validateDocument).html('100% : VALIDEZ!');
                     }
                     else if (data.item.fields.validationDocument == "yes") {
                         $(".ui-progressbar-value", validateDocument).parent().addClass('isValidated');
@@ -385,6 +385,7 @@ $(document).ready(function() {
                             $('.methodsKeywords .formNotedKeywordsPreference , .divComments').hide();
                             validateDocument.progressbar({ max: 1, value: 0 });
                             validateDocument.show();
+                            $(".ui-progressbar-value", barre).removeClass('isNotValidated').addClass('isValidated').html('100%');
 
                             $('#inistKeywordsButton').show();
 
@@ -394,6 +395,8 @@ $(document).ready(function() {
                             var inpuChecked = $('#keywordsInist .formNotedKeyword input:checked ');
                             $("#keywordsInist :input").prop("disabled", true);
                             $('#keywordsInist .formNotedKeywordsPreference , .divComments').hide();
+                            $(".ui-progressbar-value", barre).removeClass('isNotValidated').addClass('isValidated').html('100%');
+
                         }
 
                         for( var i = 0 ; i < inpuChecked.length ; i++ ){
@@ -492,34 +495,32 @@ $(document).ready(function() {
                                     value: ratio
                                 });
 
-                                $("#validateMethodBar .ui-progressbar-value").html((ratio * 100).toFixed() + "%");
-
 
                                 if (!($("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-danger'))) {
                                     if (ratio <= 0.25) {
-                                        $("#validateMethodBar .ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
+                                        $("#validateMethodBar .ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped").html((ratio * 100).toFixed() + "%");
                                     }
                                 }
 
                                 if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-warning')) {
                                     if (ratio > 0.25 && ratio <= 0.6) {
-                                        $(".ui-progressbar-value").toggleClass("progress-bar-danger progress-bar-warning");
+                                        $(".ui-progressbar-value").toggleClass("progress-bar-danger progress-bar-warning").html((ratio * 100).toFixed() + "%");
                                     }
                                 }
 
                                 if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-success')) {
                                     if (ratio > 0.6 && ratio < 1) {
-                                        $(".ui-progressbar-value").toggleClass("progress-bar-warning progress-bar-success");
+                                        $(".ui-progressbar-value").toggleClass("progress-bar-warning progress-bar-success").html((ratio * 100).toFixed() + "%");
                                     }
                                 }
 
                                 if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-info')) {
                                     if (ratio === 1) {
                                         $("#validateMethodBar .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info isDisable isNotValidated");
-                                        if (data.item.fields.validate == "no") {
+                                        if (data.item.fields.validationDocument == "no") {
                                             var validateMethodButton = $("#validateMethodBar");
                                             validateMethodButton.addClass('isNotValidated');
-                                            $("#validateMethodBar .ui-progressbar-value").html("METHODES : 100% , VALIDEZ");
+                                            $("#validateMethodBar .ui-progressbar-value").html("100% : Validez !");
                                         }
 
                                     }
@@ -582,6 +583,7 @@ $(document).ready(function() {
                                 $("#validateDocument .ui-progressbar-value").html((ratio * 100).toFixed() + "%");
 
 
+
                                 if (!($("#validateDocument .ui-progressbar-value").hasClass('progress-bar-danger'))) {
                                     if (ratio <= 0.25) {
                                         $("#validateDocument .ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
@@ -601,16 +603,20 @@ $(document).ready(function() {
                                 }
 
                                 if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-info')) {
+
                                     if (ratio === 1) {
                                         $("#validateDocument .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info");
                                         if (data.item.fields.validate == "no") {
-                                            var validateMethodButton = $("#validateDocument");
-                                            validateMethodButton.addClass('isNotValidated');
-                                            $("#validateDocument .ui-progressbar-value").html("INIST : 100% , VALIDEZ");
+                                            var validateButton = $("#validateDocument");
+                                            validateButton.addClass('isNotValidated');
+                                            $("#validateDocument .ui-progressbar-value").html("100%: Validez!");
                                         }
 
                                     }
 
+                                }
+                                else if($("#validateDocument .ui-progressbar-value").hasClass('progress-bar-info')){
+                                    $("#validateDocument .ui-progressbar-value").html("100%: Validez!");
                                 }
                             }
 
