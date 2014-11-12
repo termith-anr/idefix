@@ -558,7 +558,6 @@ $(document).ready(function() {
 
                                 var ratio = nbOfTotalSilenceKeywords/nbOfTotalSourceKeywords;
 
-
                                 $.ajax(
                                     {
                                         url: formURL,
