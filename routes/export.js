@@ -37,15 +37,16 @@ module.exports = function(config) {
 
             var tempDArrayDoc = [];
 
-                res.write(CSV.stringify(['Nom Fichier', 'Titre' , 'Méthode' , 'Evaluation' , 'Mot-Clé' , 'Score' , 'Pref-Termith' , 'Corresp-termith' , 'Commentaire'] ,  ';'));
+                res.write(CSV.stringify(['Nom Fichier', 'Titre' , 'Méthode' , 'Evaluation' , 'Mot-Clé' , 'Score' , 'Pref-Termith' , 'Corresp-termith' , 'Commentaire' , 'temps'] ,  ';'));
 
 
                 docs.forEach(function(entity, index){ // Foreach of all docs : entity  = document
 
 
                 // Get docTitle , Will need to change by custom field
-                var docTitle = (entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0] != undefined) ? entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text'] : entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'],
-                    fileTitle = entity.basename ;
+                var docTitle  = (entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0] != undefined) ? entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text'] : entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'],
+                    fileTitle = entity.basename,
+                    time      = entity.timeJob  ? entity.timeJob : "-";
 
                 Object.keys(entity.notedKeywords ,function(methodName , valueMethod){ // Foreach of all methods
 
@@ -56,11 +57,13 @@ module.exports = function(config) {
                             var method = methodName;
 
                             Object.keys(valueMethod , function(word , wordValues){ // Foreach words
-                                var currentWord = word;
-                                var currentScore = wordValues.note;
-                                var currentPref = wordValues.exclude ? wordValues.exclude : ' ';
-                                var comment = wordValues.commentaire;
-                                res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , currentPref , '-' ,  comment] ,  ';'))
+                                var  currentWord = word,
+                                     currentScore = wordValues.note,
+                                     currentPref = wordValues.exclude ? wordValues.exclude : ' ',
+                                     comment = wordValues.commentaire;
+
+
+                                res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , currentPref , '-' ,  comment , time] , ';'))
 
                             });
 
@@ -81,7 +84,7 @@ module.exports = function(config) {
                                     var currentCorresp = wordValues.corresp ? wordValues.corresp : ' ';
                                     var comment = wordValues.commentaire;
 
-                                    res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , '-', currentCorresp ,  comment] ,  ';'))
+                                    res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , '-', currentCorresp ,  comment , time] ,  ';'))
 
                                 });
 

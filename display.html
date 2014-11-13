@@ -101,12 +101,12 @@
                         </div>
 
                     </div>
-
                     <div id="timer">
 
                     </div>
-                    <span class="glyphicon glyphicon-play isRunning" id="startOrStop"></span>
-
+                    {% if item.validationDocument != 'yes' %}
+                        <span class="glyphicon glyphicon-play isRunning" id="startOrStop"></span>
+                    {% endif %}
 
                     <!-- NAME BLOC -->
                     <div class="displayDiscipline">

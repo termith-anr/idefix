@@ -12,21 +12,20 @@ $(document).ready(function() {
 
         $.getJSON("/display/" + pageId + ".json", function (data) {
 
-            var timeJob = data.item.timeJob ? parseFloat(data.item.timeJob) : 0;
-            var id = $("#validateMethodBar").attr('data-id');
-            var url = '/save/' + id;
+            var timeJob = data.item.timeJob ? parseFloat(data.item.timeJob) : 0,
+                url = '/save/' + pageId,
+                stop = (data.item.validationDocument == "yes") ? timeJob : null;
 
             // INIT TIMMER
             $('#timer').runner({
                 autostart: true,
                 startAt: timeJob,
+                stopAt : stop,
                 milliseconds: true,
                 format: function(time){
                     var seconds = Math.floor((time / 1000) % 60);
                     var minutes = Math.floor((time / (60 * 1000)) % 60);
 
-                    console.log('Temps lors du chargement du timer (ms) : ' , time);
-                    console.log('Temps lors du chargement du timer variable timeJob : ' , timeJob);
 
                     return minutes + "mn " + seconds + "s";
                 }
