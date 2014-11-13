@@ -155,6 +155,16 @@ body > header{
 
 }
 
+#timer{
+    width: 100%;
+    height: 23px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 23px;
+    color: #CC6A63;
+    line-height: 23px;
+}
+
 
 
 
@@ -521,11 +531,11 @@ table tr[data-href] {
 
 #headerInfoDisplayDocs{
     width:  100%;
-    height: 60%;
+    height: 65%;
     position: absolute;
     top:0;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 
 
@@ -574,9 +584,7 @@ table tr[data-href] {
     font-size: 17px;
     height: calc(100% - 256px);
     max-height: calc(100% - 256px);
-    overflow-y: scroll;
-    overflow-x: hidden;
-    position: relative;
+    overflow: hidden;
     text-align: center;
     width: 100%;
 }
@@ -807,9 +815,9 @@ table tr[data-href] {
 
 #sectionArticle{
     bottom:0;
-    height:40%;
+    height:35%;
     width: 100%;
-    max-height: 50%;
+    max-height: 35%;
     overflow-y: hidden;
     overflow-x: hidden;
     opacity: 0.15;

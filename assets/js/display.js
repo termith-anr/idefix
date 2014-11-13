@@ -3,6 +3,14 @@
  */
 $(document).ready(function() {
 
+    // INIT TIMMER
+    $('#timer').runner({
+        autostart: true,
+        startAt: 15000
+    });
+
+
+    // INIT PROGRESSBAR
     var validateMethodBar = $('#validateMethodBar'),
         validateDocument = $('#validateDocument'),
         pageId = $('#validateMethodBar').attr('data-id');
@@ -496,26 +504,34 @@ $(document).ready(function() {
                                 });
 
 
-                                if (!($("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-danger'))) {
-                                    if (ratio <= 0.25) {
-                                        $("#validateMethodBar .ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped").html((ratio * 100).toFixed() + "%");
+                                if(ratio < 1) {
+
+                                    $("#validateMethodBar .ui-progressbar-value").html((ratio * 100).toFixed() + "%");
+
+
+                                    if (!($("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-danger'))) {
+                                        if (ratio <= 0.25) {
+                                            $("#validateMethodBar .ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
+                                        }
+                                    }
+
+                                    if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-warning')) {
+                                        if (ratio > 0.25 && ratio <= 0.6) {
+                                            $(".ui-progressbar-value").toggleClass("progress-bar-danger progress-bar-warning");
+                                        }
+                                    }
+
+                                    if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-success')) {
+                                        if (ratio > 0.6 && ratio < 1) {
+                                            $(".ui-progressbar-value").toggleClass("progress-bar-warning progress-bar-success");
+                                        }
                                     }
                                 }
 
-                                if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-warning')) {
-                                    if (ratio > 0.25 && ratio <= 0.6) {
-                                        $(".ui-progressbar-value").toggleClass("progress-bar-danger progress-bar-warning").html((ratio * 100).toFixed() + "%");
-                                    }
-                                }
+                                if (ratio == 1) {
 
-                                if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-success')) {
-                                    if (ratio > 0.6 && ratio < 1) {
-                                        $(".ui-progressbar-value").toggleClass("progress-bar-warning progress-bar-success").html((ratio * 100).toFixed() + "%");
-                                    }
-                                }
 
-                                if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-info')) {
-                                    if (ratio === 1) {
+                                    if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-info')) {
                                         $("#validateMethodBar .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info isDisable isNotValidated");
                                         if (data.item.fields.validationDocument == "no") {
                                             var validateMethodButton = $("#validateMethodBar");
@@ -570,52 +586,57 @@ $(document).ready(function() {
                                 );
 
 
-                                if (ratio === 1) {
-                                    $('#validateDocument').toggleClass("isDisable isNotValidated");
-                                }
-
-
                                 $("#validateDocument").progressbar({
                                     value: ratio
                                 });
 
-                                $("#validateDocument .ui-progressbar-value").html((ratio * 100).toFixed() + "%");
+                                if(ratio < 1) {
+
+                                    console.log('ici');
+
+                                    $("#validateDocument .ui-progressbar-value").html((ratio * 100).toFixed() + "%");
 
 
+                                    if (!($("#validateDocument .ui-progressbar-value").hasClass('progress-bar-danger'))) {
+                                        if (ratio <= 0.25) {
+                                            $("#validateDocument .ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
+                                        }
+                                    }
 
-                                if (!($("#validateDocument .ui-progressbar-value").hasClass('progress-bar-danger'))) {
-                                    if (ratio <= 0.25) {
-                                        $("#validateDocument .ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
+                                    if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-warning')) {
+                                        if (ratio > 0.25 && ratio <= 0.6) {
+                                            $(".ui-progressbar-value").toggleClass("progress-bar-danger progress-bar-warning");
+                                        }
+                                    }
+
+                                    if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-success')) {
+                                        if (ratio > 0.6 && ratio < 1) {
+                                            $(".ui-progressbar-value").toggleClass("progress-bar-warning progress-bar-success");
+                                        }
                                     }
                                 }
 
-                                if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-warning')) {
-                                    if (ratio > 0.25 && ratio <= 0.6) {
-                                        $(".ui-progressbar-value").toggleClass("progress-bar-danger progress-bar-warning");
-                                    }
-                                }
+                                else if (ratio == 1) {
 
-                                if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-success')) {
-                                    if (ratio > 0.6 && ratio < 1) {
-                                        $(".ui-progressbar-value").toggleClass("progress-bar-warning progress-bar-success");
-                                    }
-                                }
+                                    console.log('la');
 
-                                if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-info')) {
 
-                                    if (ratio === 1) {
+                                    if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-info')) {
+
+                                        console.log('La bas');
+
+                                        $('#validateDocument').toggleClass("isDisable isNotValidated");
+
                                         $("#validateDocument .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info");
-                                        if (data.item.fields.validate == "no") {
+                                        if (data.item.fields.validationDocument == "no") {
                                             var validateButton = $("#validateDocument");
                                             validateButton.addClass('isNotValidated');
                                             $("#validateDocument .ui-progressbar-value").html("100%: Validez!");
+                                            console.log('Validez INISt !!!!!!!!!!!');
                                         }
 
-                                    }
 
-                                }
-                                else if($("#validateDocument .ui-progressbar-value").hasClass('progress-bar-info')){
-                                    $("#validateDocument .ui-progressbar-value").html("100%: Validez!");
+                                    }
                                 }
                             }
 
