@@ -3,20 +3,89 @@
  */
 $(document).ready(function() {
 
-    // INIT TIMMER
-    $('#timer').runner({
-        autostart: true,
-        startAt: 15000
-    });
 
-
-    // INIT PROGRESSBAR
+    // ProgressBar & Timer ( getting json info )
     var validateMethodBar = $('#validateMethodBar'),
         validateDocument = $('#validateDocument'),
         pageId = $('#validateMethodBar').attr('data-id');
 
 
         $.getJSON("/display/" + pageId + ".json", function (data) {
+
+            var timeJob = data.item.timeJob ? parseFloat(data.item.timeJob) : 0;
+            var id = $("#validateMethodBar").attr('data-id');
+            var url = '/save/' + id;
+
+            // INIT TIMMER
+            $('#timer').runner({
+                autostart: true,
+                startAt: timeJob,
+                milliseconds: true,
+                format: function(time){
+                    var seconds = Math.floor((time / 1000) % 60);
+                    var minutes = Math.floor((time / (60 * 1000)) % 60);
+
+                    console.log('Temps lors du chargement du timer (ms) : ' , time);
+                    console.log('Temps lors du chargement du timer variable timeJob : ' , timeJob);
+
+                    return minutes + "mn " + seconds + "s";
+                }
+
+            });
+
+            $('#startOrStop').click(function() {
+                if($(this).hasClass('isRunning')){
+                    $('#timer').runner('stop');
+                    $(this).toggleClass('isRunning stopped glyphicon-play glyphicon-pause stopedByButton');
+                    var timerInfo = $('#timer').runner('info'),
+                        timeToSave = timerInfo.time;
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: [
+                            { name: "key", value: "timeJob"} ,
+                            { name: "val", value: timeToSave}
+                        ]
+                    });
+                }
+
+                else if ($(this).hasClass('stopped')){
+                    $('#timer').runner('start');
+                    $(this).toggleClass('isRunning stopped glyphicon-play glyphicon-pause stopedByButton');
+                }
+            });
+
+            $('#bodyBrowse').mouseleave(function() {
+                if($('#startOrStop').hasClass('isRunning')){
+                    $('#timer').runner('stop');
+                    $('#startOrStop').toggleClass('isRunning stopped glyphicon-play glyphicon-pause');
+                    var timerInfo = $('#timer').runner('info'),
+                        timeToSave = timerInfo.time;
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: [
+                            { name: "key", value: "timeJob"} ,
+                            { name: "val", value: timeToSave}
+                        ]
+                    });
+
+                }
+            });
+
+            $('#bodyBrowse').mouseenter(function() {
+                if(!$('#startOrStop').hasClass('stopedByButton')) {
+                    if ($('#startOrStop').hasClass('stopped')) {
+                        $('#timer').runner('start');
+                        $('#startOrStop').toggleClass('isRunning stopped glyphicon-play glyphicon-pause');
+                    }
+                }
+            });
+
 
             if(data.item.fields.validationMethods == "no") {
 
