@@ -43,18 +43,21 @@ module.exports = function(config) {
                 docs.forEach(function(entity, index){ // Foreach of all docs : entity  = document
 
 
-                // Get docTitle , Will need to change by custom field
+                // TODO :: Get docTitle , Will need to change by custom field
+
+
                 var docTitle  = (entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0] != undefined) ? entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text'] : entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'],
                     fileTitle = entity.basename,
-                    time      = entity.timeJob  ? entity.timeJob : "-";
+                    timeMs = entity.timeJob,
+                    time      = entity.timeJob  ? (Math.floor(((entity.timeJob) / (60 * 1000)) % 60) + "Mn " + Math.floor(((entity.timeJob) / 1000) % 60) + "s" ): "-";
 
                 Object.keys(entity.notedKeywords ,function(methodName , valueMethod){ // Foreach of all methods
 
                         if( methodName != 'inist-francis' && methodName != '"inist-pascal') {
 
-                            var action = 'Pertinence';
+                            var action = 'Pertinence',
+                                method = methodName;
 
-                            var method = methodName;
 
                             Object.keys(valueMethod , function(word , wordValues){ // Foreach words
                                 var  currentWord = word,
