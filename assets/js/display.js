@@ -456,11 +456,16 @@ $(document).ready(function() {
                         });
 
                         if(barreField == "validationMethods"){
+                            var progressDoc = 0;
+                            $.getJSON("/display/" + pageId + ".json", function (data) {
+                                progressDoc = data.item.progressSilenceKeywords ? data.item.progressSilenceKeywords : 0;
+                                console.log( 'intern :' ,progressDoc);
+                                validateDocument.progressbar({ max: 1, value: progressDoc });
+                                validateDocument.show();
+                            });
                             var inpuChecked = $('.methodsKeywords .formNotedKeyword input:checked ');
                             $(".methodsKeywords :input").prop("disabled", true);
                             $('.methodsKeywords .formNotedKeywordsPreference , .divComments').hide();
-                            validateDocument.progressbar({ max: 1, value: 0 });
-                            validateDocument.show();
                             $(".ui-progressbar-value", barre).removeClass('isNotValidated').addClass('isValidated').html('100%');
 
                             $('#inistKeywordsButton').show();
