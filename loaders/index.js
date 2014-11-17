@@ -8,7 +8,8 @@ module.exports = function(options) {
 
         if(input.content.json.TEI.teiHeader.profileDesc.textClass.keywords){
             var arrayMethodsKeywords = [],
-                arrayInistKeywords = [];
+                arrayInistKeywords = [],
+                inistName = "";
             Object.keys((input.content.json.TEI.teiHeader.profileDesc.textClass.keywords) , function(index , valueMethod){
                 if( (valueMethod.scheme != 'inist-francis') && (valueMethod.scheme != 'inist-pascal') && (valueMethod.scheme != 'cc') && (valueMethod.scheme != 'author') && (valueMethod['xml#lang'] == 'fr')) {
                      var interArrayMethodsKeywords = [];
@@ -22,15 +23,19 @@ module.exports = function(options) {
                 }
 
                 else if( ((valueMethod.scheme == 'inist-francis') || (valueMethod.scheme == 'inist-pascal')) && valueMethod['xml#lang'] == 'fr') {
-
                     Object.keys(valueMethod.term , function( wordNb , wordValue){
                         arrayInistKeywords.push(wordValue['#text']);
                     });
+
+                    inistName = valueMethod.scheme;
+
+
 
                 }
 
 
             });
+
 
             Object.keys(arrayMethodsKeywords , function( idArray , value){
                 var listOfMetKw = value;
@@ -46,9 +51,16 @@ module.exports = function(options) {
 
                                 input.notedKeywords = {};
                                 input.notedKeywords[idArray] = {};
+                                input.notedKeywords[inistName] = {};
+                                input.notedKeywords[inistName][idArray] = {};
                                 input.notedKeywords[idArray][methodWord] = {
                                     "note": 2
                                 };
+
+                                input.notedKeywords[inistName][idArray][methodWord] = {
+                                    "note": 0
+                                };
+
 
                             }
                             // SI noted K EXISTE
@@ -68,9 +80,25 @@ module.exports = function(options) {
                                     };
                                 }
 
+                                if((input.notedKeywords[inistName][idArray] == undefined) || (input.notedKeywords[idArray] == null)){
+
+                                    input.notedKeywords[inistName][idArray] = {};
+
+                                    input.notedKeywords[inistName][idArray][methodWord] = {
+                                        "note": 0
+                                    };
+
+                                }
+                                else{
+
+                                    input.notedKeywords[inistName][idArray][methodWord] = {
+                                        "note": 0
+                                    };
+
+
+                                }
+
                             }
-
-
 
 
                         }
@@ -78,8 +106,6 @@ module.exports = function(options) {
                     });
                 });
             });
-
-            console.log(input.notedKeywords);
 
 
 
