@@ -37,7 +37,7 @@ module.exports = function(config) {
 
             var tempDArrayDoc = [];
 
-                res.write(CSV.stringify(['Nom Fichier', 'Titre' , 'Méthode' , 'Evaluation' , 'Mot-Clé' , 'Score' , 'Pref-Termith' , 'Corresp-termith' , 'Commentaire' , 'temps'] ,  ';'));
+                res.write(CSV.stringify(['Nom Fichier', 'Titre' , 'Méthode' , 'Evaluation' , 'Mot-Clé' , 'Score' , 'Pref-Termith' , 'Corresp-termith' , 'Commentaire' , 'temps' , 'temps/mot'] ,  ';'));
 
 
                 docs.forEach(function(entity, index){ // Foreach of all docs : entity  = document
@@ -49,7 +49,27 @@ module.exports = function(config) {
                 var docTitle  = (entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0] != undefined) ? entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text'] : entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'],
                     fileTitle = entity.basename,
                     timeMs = entity.timeJob,
-                    time      = entity.timeJob  ? (Math.floor(((entity.timeJob) / (60 * 1000)) % 60) + "Mn " + Math.floor(((entity.timeJob) / 1000) % 60) + "s" ): "-";
+                    time      = entity.timeJob  ? (Math.floor(((entity.timeJob) / (60 * 1000)) % 60) + "Mn " + Math.floor(((entity.timeJob) / 1000) % 60) + "s" ): "-",
+                    nbOfNotedWords = 0;
+
+
+                //Bellow :  get the median/Middle time spend on each word
+
+
+
+                Object.keys(entity.notedKeywords ,function(methodName , valueMethod){
+                    if( methodName != 'inist-francis' && methodName != '"inist-pascal') {
+                        nbOfNotedWords += Object.keys(valueMethod).length;
+                    }
+                    else{
+                        nbOfNotedWords += Object.keys(valueMethod).length;
+                    }
+                });
+
+                var middleTime =  (timeMs/nbOfNotedWords)  ? (Math.floor(( parseFloat(timeMs/nbOfNotedWords) / (60 * 1000)) % 60) + "Mn " + Math.floor(( parseFloat(timeMs/nbOfNotedWords) / 1000) % 60) + "s" ) : 0;
+
+
+                //Below Start generating & wrtting csv Lines
 
                 Object.keys(entity.notedKeywords ,function(methodName , valueMethod){ // Foreach of all methods
 
@@ -59,6 +79,8 @@ module.exports = function(config) {
                                 method = methodName;
 
 
+
+
                             Object.keys(valueMethod , function(word , wordValues){ // Foreach words
                                 var  currentWord = word,
                                      currentScore = wordValues.note,
@@ -66,7 +88,7 @@ module.exports = function(config) {
                                      comment = wordValues.commentaire;
 
 
-                                res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , currentPref , '-' ,  comment , time] , ';'))
+                                res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , currentPref , '-' ,  comment , time , middleTime ] , ';'))
 
                             });
 
@@ -87,7 +109,7 @@ module.exports = function(config) {
                                     var currentCorresp = wordValues.corresp ? wordValues.corresp : ' ';
                                     var comment = wordValues.commentaire;
 
-                                    res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , '-', currentCorresp ,  comment , time] ,  ';'))
+                                    res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , '-', currentCorresp ,  comment , time , middleTime] ,  ';'))
 
                                 });
 
