@@ -13,7 +13,8 @@ module.exports = function(options) {
                     inistName = "",
                     nbOfMethodlKw = 0,
                     nbOfInistKw = 0,
-                    nbOfNotedKw = 0;
+                    nbOfNotedKw = 0,
+                    listOfMethodName = [];
 
                 Object.keys((input.content.json.TEI.teiHeader.profileDesc.textClass.keywords), function (index, valueMethod) {
                     if ((valueMethod.scheme != 'inist-francis') && (valueMethod.scheme != 'inist-pascal') && (valueMethod.scheme != 'cc') && (valueMethod.scheme != 'author') && (valueMethod['xml#lang'] == 'fr')) {
@@ -26,6 +27,8 @@ module.exports = function(options) {
                         arrayMethodsKeywords[valueMethod.scheme] = (interArrayMethodsKeywords);
 
                         nbOfMethodlKw += Object.keys(valueMethod.term).length;
+
+                        listOfMethodName.push(valueMethod.scheme);
 
                     }
 
@@ -52,20 +55,22 @@ module.exports = function(options) {
 
                                 //console.log( 'NOM :', idArray,  'methode : ' , valueW , ' -  Valeur Inist : ' , valueInist);
 
-                                // SI noted K n'existe PAS
+                                // SI notedKeywords n'existe PAS
                                 if ((input.notedKeywords == undefined) || (input.notedKeywords == null)) {
 
                                     input.notedKeywords = {};
                                     input.notedKeywords[idArray] = {};
                                     input.notedKeywords[inistName] = {};
-                                    input.notedKeywords[inistName][idArray] = {};
                                     input.notedKeywords[idArray][valueW] = {
                                         "note": 2
                                     };
 
-                                    input.notedKeywords[inistName][idArray][valueInist] = {
-                                        "note": 0
-                                    };
+                                    for(var i = 0 ; i < listOfMethodName.length ; i++) {
+                                        input.notedKeywords[inistName][listOfMethodName[i]] = {};
+                                        input.notedKeywords[inistName][listOfMethodName[i]][valueInist] = {
+                                            "note": 0
+                                        };
+                                    }
 
                                     ++nbOfNotedKw;
 
@@ -92,21 +97,16 @@ module.exports = function(options) {
 
                                     }
 
-                                    if ((input.notedKeywords[inistName][idArray] == undefined) || (input.notedKeywords[idArray] == null)) {
 
-                                        input.notedKeywords[inistName][idArray] = {};
+                                    for(var i = 0 ; i < listOfMethodName.length ; i++){
 
-                                        input.notedKeywords[inistName][idArray][valueInist] = {
+                                        if((input.notedKeywords[inistName][listOfMethodName[i]] == undefined) || (input.notedKeywords[inistName][listOfMethodName[i]] == null)){
+                                            input.notedKeywords[inistName][listOfMethodName[i]] = {};
+                                        }
+
+                                        input.notedKeywords[inistName][listOfMethodName[i]][valueInist] = {
                                             "note": 0
                                         };
-
-                                    }
-                                    else {
-
-                                        input.notedKeywords[inistName][idArray][valueInist] = {
-                                            "note": 0
-                                        };
-
 
                                     }
 
