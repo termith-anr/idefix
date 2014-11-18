@@ -6,6 +6,7 @@ module.exports = function(options) {
     options = options || {};
     return function (input, submit) {
 
+
             if (input.content.json.TEI.teiHeader.profileDesc.textClass.keywords) {
 
                 var arrayMethodsKeywords = [],
