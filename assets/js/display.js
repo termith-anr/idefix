@@ -85,6 +85,30 @@ $(document).ready(function() {
                 }
             });
 
+            $('#divNavMiddle a').on('click' , function(){
+
+                var href = this.href,
+                    timerInfo = $('#timer').runner('info'),
+                    timeToSave = timerInfo.time;
+
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: [
+                        { name: "key", value: "timeJob"} ,
+                        { name: "val", value: timeToSave}
+                    ],
+                    success: function(){
+                        window.location.href = href;
+                    }
+                });
+
+                return false;
+
+
+            });
+
 
             if(data.item.fields.validationMethods == "no") {
 
@@ -460,8 +484,48 @@ $(document).ready(function() {
                             $.getJSON("/display/" + pageId + ".json", function (data) {
                                 progressDoc = data.item.progressSilenceKeywords ? data.item.progressSilenceKeywords : 0;
                                 console.log( 'intern :' ,progressDoc);
-                                validateDocument.progressbar({ max: 1, value: progressDoc });
                                 validateDocument.show();
+
+                                var startPageRatio = 0;
+
+                                if (data.item.progressSilenceKeywords) {
+                                    startPageRatio = parseFloat(data.item.progressSilenceKeywords);
+                                }
+
+                                validateDocument.progressbar({ max: 1, value: startPageRatio });
+
+                                $(".ui-progressbar-value", validateDocument).html((startPageRatio * 100).toFixed() + "%");
+
+
+                                if (startPageRatio <= 0.25) {
+                                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
+                                }
+
+                                if (startPageRatio > 0.25 && startPageRatio <= 0.6) {
+                                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-warning isDisable");
+                                }
+
+
+                                if (startPageRatio > 0.6 && startPageRatio < 1) {
+                                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-success isDisable");
+                                }
+
+
+                                if (startPageRatio === 1) {
+                                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-info").removeClass('isDisable');
+
+                                    if (data.item.fields.validationDocument == "no") {
+                                        $(".ui-progressbar-value", validateDocument).parent().addClass('isNotValidated').removeClass('isDisable');
+                                        $(".ui-progressbar-value", validateDocument).html('100% : VALIDEZ!');
+                                    }
+                                    else if (data.item.fields.validationDocument == "yes") {
+                                        $(".ui-progressbar-value", validateDocument).parent().addClass('isValidated');
+                                        $(".ui-progressbar-value", validateDocument).html('100%');
+                                    }
+
+
+
+                                }
                             });
                             var inpuChecked = $('.methodsKeywords .formNotedKeyword input:checked ');
                             $(".methodsKeywords :input").prop("disabled", true);
@@ -473,6 +537,8 @@ $(document).ready(function() {
 
                         }
                         else if (barreField = "validationDocument"){
+                            $('#timer').runner('stop');
+                            $('#startOrStop').hide();
                             var inpuChecked = $('#keywordsInist .formNotedKeyword input:checked ');
                             $("#keywordsInist :input").prop("disabled", true);
                             $('#keywordsInist .formNotedKeywordsPreference , .divComments').hide();
@@ -665,7 +731,6 @@ $(document).ready(function() {
 
                                 if(ratio < 1) {
 
-                                    console.log('ici');
 
                                     $("#validateDocument .ui-progressbar-value").html((ratio * 100).toFixed() + "%");
 
@@ -691,21 +756,17 @@ $(document).ready(function() {
 
                                 else if (ratio == 1) {
 
-                                    console.log('la');
-
 
                                     if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-info')) {
 
-                                        console.log('La bas');
 
                                         $('#validateDocument').toggleClass("isDisable isNotValidated");
 
-                                        $("#validateDocument .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info");
+                                        $("#validateDocument .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info isDisable");
                                         if (data.item.fields.validationDocument == "no") {
                                             var validateButton = $("#validateDocument");
-                                            validateButton.addClass('isNotValidated');
+                                            validateButton.addClass('isNotValidated').removeClass('isDisable');
                                             $("#validateDocument .ui-progressbar-value").html("100%: Validez!");
-                                            console.log('Validez INISt !!!!!!!!!!!');
                                         }
 
 
