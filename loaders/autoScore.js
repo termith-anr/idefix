@@ -4,11 +4,14 @@
 
 var objectPath = require('object-path');
 
-
 'use strict';
 module.exports = function(options) {
     options = options || {};
     return function (input, submit) {
+
+
+
+
 
             if (objectPath.has(input , "content.json.TEI.teiHeader.profileDesc.textClass.keywords")) {
 

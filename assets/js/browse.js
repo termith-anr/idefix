@@ -27,7 +27,7 @@ $(document).ready(function() {
             columns: [
                 { data: 'wid' , visible : false , searchable: false},
                 { data: 'fields.validationDocument', visible : false , searchable: false},
-                { data: 'object' , className: "browseYear browseTd", searchable: true},
+                { data: 'basename' , className: "browseYear browseTd", searchable: true},
                 { data: 'fields.title' , className: "browseTitle browseTd", searchable: true}
             ],
 

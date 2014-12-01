@@ -44,7 +44,7 @@
   "version": "3.0.0",
   "dependencies": {
     "bootstrap": "^  3.2.0",
-    "castor-core": "^0.4.1",
+    "castor-core": "^0.6.1",
     "castor-load-raw": "^1.0.0",
     "csv-string": "^2.2.2",
     "datamodel": "^1.0.7",
