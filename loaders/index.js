@@ -1,13 +1,16 @@
 /**
  * Created by matthias on 14/11/14.
  */
+
+var objectPath = require('object-path');
+
+
 'use strict';
 module.exports = function(options) {
     options = options || {};
     return function (input, submit) {
 
-
-            if (input.content.json.TEI.teiHeader.profileDesc.textClass.keywords) {
+            if (objectPath.has(input , "content.json.TEI.teiHeader.profileDesc.textClass.keywords")) {
 
                 var arrayMethodsKeywords = [],
                     arrayInistKeywords = [],
