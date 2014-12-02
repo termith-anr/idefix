@@ -1,70 +1,37 @@
 {
+  "name": "idefix",
+  "version": "2.2.1",
+  "author": [],
+  "contributors": [],
+  "description": "",
+  "keywords": [],
+  "homepage": "http://github.com/termith-anr/idefix",
+  "main": "index.js",
   "bin": {
     "idefix": "./idefix"
-  },
-  "license": "MIT",
-  "description": "A Validation WebApp",
-  "contributors": [],
-  "author": [],
-  "name": "idefix",
-  "nodejs": true,
-  "bugs": {
-    "url": "https://github.com/termith-anr/idefix/issues"
-  },
-  "webexe_settings": {
-    "linux-x32": true,
-    "download_dir": "/home/matthias/Téléchargements/Web2ExeLinux64/files/downloads",
-    "windows": true,
-    "mac": true,
-    "nw_version": "0.10.3",
-    "force_download": false,
-    "linux-x64": true
-  },
-  "single-instance": true,
-  "repository": {
-    "url": "https://github.com/touv/termith-anr/idefix.git",
-    "type": "git"
-  },
-  "keywords": [],
-  "window": {
-    "fullscreen": false,
-    "resizable": false,
-    "title": "castor-theme-termith",
-    "always-on-top": false,
-    "frame": true,
-    "height": 800,
-    "visible": true,
-    "as_desktop": false,
-    "position": "",
-    "show_in_taskbar": true,
-    "width": 1280,
-    "toolbar": false,
-    "icon": ""
-  },
-  "version": "3.0.0",
-  "dependencies": {
-    "bootstrap": "^  3.2.0",
-    "castor-core": "^0.6.1",
-    "castor-load-raw": "^1.0.0",
-    "csv-string": "^2.2.2",
-    "datamodel": "^1.0.7",
-    "debug": "^2.0.0",
-    "jquery": "^2.1.1",
-    "jquery-ui": "^1.10.5",
-    "object-path": "^0.8.1",
-    "promised-mongo": "^0.11.1",
-    "sugar": "^1.4.1",
-    "superagent": "^0.18.2"
   },
   "scripts": {
     "start": "node ./server.js"
   },
-  "webkit": {
-    "page-cache": false,
-    "java": false,
-    "plugin": true
+  "dependencies": {
+    "castor-core": "^0.6.3",
+    "datamodel": "^1.0.7",
+    "debug": "^2.0.0",
+    "jquery": "^2.1.1",
+    "jquery-ui": "^1.10.5",
+    "bootstrap": "^  3.2.0",
+    "promised-mongo": "^0.11.1",
+    "sugar": "^1.4.1",
+    "superagent": "^0.18.2",
+    "castor-load-raw": "^1.0.0",
+    "csv-string": "^2.2.2"
   },
-  "main": "index.js",
-  "homepage": "http://github.com/termith-anr/idefix",
-  "node-main": ""
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/touv/termith-anr/idefix.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/termith-anr/idefix/issues"
+  }
 }
