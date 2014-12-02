@@ -1,8 +1,15 @@
 /**
+ *
  * Created by matthias on 14/11/14.
+ * Loader to build auto-score
+ *
  */
 
 var objectPath = require('object-path');
+
+var options = {
+        "autoScore" : false
+};
 
 'use strict';
 module.exports = function(options) {
@@ -10,10 +17,7 @@ module.exports = function(options) {
     return function (input, submit) {
 
 
-
-
-
-            if (objectPath.has(input , "content.json.TEI.teiHeader.profileDesc.textClass.keywords")) {
+            if (objectPath.has(input , "content.json.TEI.teiHeader.profileDesc.textClass.keywords") && options.autoScore == true) {
 
                 var arrayMethodsKeywords = [],
                     arrayInistKeywords = [],
@@ -27,9 +31,11 @@ module.exports = function(options) {
                     if ((valueMethod.scheme != 'inist-francis') && (valueMethod.scheme != 'inist-pascal') && (valueMethod.scheme != 'cc') && (valueMethod.scheme != 'author') && (valueMethod['xml#lang'] == 'fr')) {
                         var interArrayMethodsKeywords = [];
 
+
                         Object.keys(valueMethod.term, function (wordNb, wordValue) {
                             interArrayMethodsKeywords.push(wordValue['#text']);
                         });
+
 
                         arrayMethodsKeywords[valueMethod.scheme] = (interArrayMethodsKeywords);
 
