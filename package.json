@@ -14,17 +14,18 @@
     "start": "node ./server.js"
   },
   "dependencies": {
+    "JSONSelect": "^0.4.0",
+    "bootstrap": "^  3.2.0",
     "castor-core": "^0.6.3",
+    "castor-load-raw": "^1.0.0",
+    "csv-string": "^2.2.2",
     "datamodel": "^1.0.7",
     "debug": "^2.0.0",
     "jquery": "^2.1.1",
     "jquery-ui": "^1.10.5",
-    "bootstrap": "^  3.2.0",
     "promised-mongo": "^0.11.1",
     "sugar": "^1.4.1",
-    "superagent": "^0.18.2",
-    "castor-load-raw": "^1.0.0",
-    "csv-string": "^2.2.2"
+    "superagent": "^0.18.2"
   },
   "repository": {
     "type": "git",

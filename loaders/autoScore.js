@@ -7,9 +7,6 @@
 
 var objectPath = require('object-path');
 
-var options = {
-        "autoScore" : false
-};
 
 'use strict';
 module.exports = function(options) {
@@ -140,4 +137,4 @@ module.exports = function(options) {
             }
         submit(null, input);
     }
-}
+};
