@@ -4,51 +4,58 @@
  */
 
 var objectPath = require('object-path');
-var selectJson = require('JSONSelect');
-
 
 'use strict';
 module.exports = function(options) {
     options = options || {};
     return function (input, submit) {
 
-        var keywordsPath = "content.json." + options.keywordsPath; // Direct XML Path WITh dot noation
+        var keywordsSilencePath = "content.json." + options.keywordsSilencePath, // Direct XML Path WITh dot notation silence
+            keywordsEvalPath = "content.json." + options.keywordsEvalPath; // Direct XML Path WITh dot notation eval
 
-        var contentPath = objectPath.get(input ,keywordsPath);
 
+        /*
+         * getContent() get content of path in input
+         * input (obj)
+         * path (string )
+         */
+        var getContent = function(path , method){
 
-        /*if (objectPath.has(input ,keywordsPath)){
-            var contentPath = objectPath.get(input, keywordsPath); // Get Keywords content
-            var inistKeywords = jsonPath.eval(contentPath, "$..keywords[?(@.scheme=='inist-francis')]"); // Get Inist Keywords
-            //var inistFrKeywords = jsonPath.eval(inistKeywords, "$..[?(@.xml#lang=='fr')]"); // Get Inist  FRENCH Keywords
-            var inistKeywordsFr;
+            var filter;
 
-            if(Array.isArray(inistKeywords)) {
-
-                for (i = 0; i < inistKeywords.length; i++) {
-
-                    if(inistKeywords[i]['xml#lang'] == 'fr'){
-                        inistKeywordsFr = inistKeywords[i];
-                    }
-                }
-
+            if(method == 'silence'){
+                filter = function (content) {
+                    return (((content.scheme == "inist-francis" ) ||  (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
+                };
+            }
+            else if (method == 'eval'){
+                filter = function (content) {
+                    return ((content.scheme !== "inist-francis" ) &&  (content.scheme !== "inist-pascal" ) && (content.scheme !== "cc" ) && (content.scheme !== "author" ) && (content['xml#lang'] == "fr" ) );
+                };
             }
 
-            console.log(inistKeywordsFr);
 
-        }*/
+            return objectPath.get(input ,path).filter(filter);
 
-        console.log('-------------- SCHEME CC MATCH ----------------------');
-
-        contentPath = contentPath.filter(function (e) {
-            return ((e.scheme !== "cc" ) && (e.scheme !== "author" ) && (e['xml#lang'] == "fr" ));
-        });
-
-        console.log(contentPath);
+        };
 
 
-        console.log('------------- ----------------------');
 
+        /*
+         * insertKeywords() add content in input
+         * input (obj)
+         * path (string )
+         * content (obj , string , array or number)
+         */
+        var insertKeywords = function(path , content){
+
+            objectPath.ensureExists(input , path , content);
+
+        };
+
+
+        insertKeywords( 'keywords.silence'  ,getContent(keywordsSilencePath , 'silence'));
+        insertKeywords( 'keywords.eval'     ,getContent(keywordsEvalPath , 'eval'));
 
 
         submit(null, input);
