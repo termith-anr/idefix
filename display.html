@@ -1,8 +1,12 @@
 {% extends "layout.html" %}
 
+
+
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/assets/css/full-article.css">
 {% endblock %}
+
+
 
 {% block content %}
 
@@ -14,9 +18,9 @@
 
 {% set numberOfMethods = 0 %}
 
-{% set currentNbMethod = 0 %}
-
 {% set allKeywordsMethods = [] %}
+
+{% set currentNbMethod = 0 %}
 
 {% set listOfMethodsName = [] %}
 
@@ -33,39 +37,30 @@
 
 <!--  Count number of Methods present and their names -->
 
-{%  for keywordArray in item.content.json.TEI.teiHeader.profileDesc.textClass.keywords %}
+{%  for keywordsEval in item.keywords.eval %}
 
-    {% set currentScheme = keywordArray.scheme %}
+    {% set listOfMethodsName = listOfMethodsName|add2Array(keywordsEval.scheme) %}
 
-    {% set currentLang = keywordArray['xml#lang'] %}
+    {% set tempListKw  = [] %}
 
-    {% if (currentScheme != 'cc') and (currentScheme != 'author') and (currentScheme != 'inist-francis') and (currentScheme != 'inist-pascal')  and (currentLang == 'fr') %}
+    {% for currentKeyword in keywordsEval.term %}
 
-            {% set listOfMethodsName = listOfMethodsName|add2Array(currentScheme) %}
+        {% set tempListKw = tempListKw|add2Array(currentKeyword['#text']) %}
 
-            {% set tmpArrayListKw  = [] %}
+    {% endfor %}
 
-            {% for currentKeyword in keywordArray.term %}
-
-                {% set tmpArrayListKw = tmpArrayListKw|add2Array(currentKeyword['#text']) %}
-
-            {% endfor %}
-
-            {% set allKeywordsMethods =  allKeywordsMethods|add2Array(tmpArrayListKw) %}
-
-    {% elif ((currentScheme == 'inist-francis') or (currentScheme == 'inist-pascal'))  and (keywordArray['xml#lang'] == 'fr') and ( isInistKeywords == true )%}
-
-            {% set inistScheme = currentScheme %}
-
-            {% for inistKeywords in keywordArray.term %}
-
-                {% set inistListofKw = inistListofKw|add2Array(inistKeywords['#text']) %}
-
-            {% endfor %}
-
-    {% endif %}
+    {% set allKeywordsMethods =  allKeywordsMethods|add2Array(tempListKw) %}
 
 {% endfor %}
+
+{% set inistScheme = item.keywords.silence[0].scheme %}
+
+{% for currentKeyword in item.keywords.silence[0].term %}
+
+    {% set inistListofKw = inistListofKw|add2Array(currentKeyword['#text']) %}
+
+{% endfor %}
+
 
 {% set numberOfMethods = listOfMethodsName|length %}
 
@@ -290,24 +285,22 @@
 
                                             {% for methodsWord in methods %}
 
-
-
-                                            <div class="btn btn-default {% if item.notedKeywords[listOfMethodsName[currentNbMethod-1]][methodsWord] %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> <span class="idOfWord">{{ loop.index }} - </span>{{ methodsWord|d('Pas de mots clés') }}
+                                            <div class="btn btn-default {% if ((item.keywords.eval[currentNbMethod-1].term[loop.index0].score) or (item.keywords.eval[currentNbMethod-1].term[loop.index0].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> <span class="idOfWord">{{ loop.index }} - </span>{{ methodsWord|d('Pas de mots clés') }}
 
                                                 <form class="formNotedKeyword row" id="method-{{ currentNbMethod }}-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
 
-                                                    <input type="hidden" name="key" value="notedKeywords.{{ listOfMethodsName[currentNbMethod-1] }}.{{ methodsWord }}.note"/><!-- Key Name -->
+                                                    <input type="hidden" name="key" value="keywords.eval.{{ currentNbMethod-1 }}.term.{{ loop.index0 }}.score"/><!-- Key Name -->
 
                                                     <!-- Value Name -->
-                                                    {% if item.notedKeywords[listOfMethodsName[currentNbMethod-1]][methodsWord].note == '2' %}
+                                                    {% if item.keywords.eval[currentNbMethod-1].term[loop.index0].score == '2' %}
                                                     <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
                                                     <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1" ><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
                                                     <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">2</label>
-                                                    {% elif item.notedKeywords[listOfMethodsName[currentNbMethod-1]][methodsWord].note == '1' %}
+                                                    {% elif item.keywords.eval[currentNbMethod-1].term[loop.index0].score == '1' %}
                                                     <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
                                                     <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">1</label>
                                                     <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
-                                                    {% elif item.notedKeywords[listOfMethodsName[currentNbMethod-1]][methodsWord].note == '0' %}
+                                                    {% elif item.keywords.eval[currentNbMethod-1].term[loop.index0].score == '0' %}
                                                     <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">0</label>
                                                     <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
                                                     <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
