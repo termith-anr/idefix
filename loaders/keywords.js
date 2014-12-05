@@ -1,6 +1,7 @@
 /**
  * Created by matthias on 02/12/14.
- * Loader get Keywords by admin
+ * Loader get Keywords from path Options by admin
+ * Then inserts them in input.keywords
  */
 
 var objectPath = require('object-path');
@@ -10,8 +11,9 @@ module.exports = function(options) {
     options = options || {};
     return function (input, submit) {
 
-        var keywordsSilencePath = "content.json." + options.keywordsSilencePath, // Direct XML Path WITh dot notation silence
-            keywordsEvalPath = "content.json." + options.keywordsEvalPath; // Direct XML Path WITh dot notation eval
+        // Direct XML Path WITh dot notation for silence & eval
+        var keywordsSilencePath = "content.json." + options.keywordsSilencePath,
+            keywordsEvalPath = "content.json." + options.keywordsEvalPath;
 
 
         /*
@@ -19,24 +21,51 @@ module.exports = function(options) {
          * input (obj)
          * path (string )
          */
-        var getContent = function(path , method){
+        var getContent = function(path , method , callCount ,  callinsert){
 
-            var filter;
+            var filter,
+                pathToinsert,
+                content;
 
             if(method == 'silence'){
                 filter = function (content) {
                     return (((content.scheme == "inist-francis" ) ||  (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
                 };
+                pathToinsert = "keywords.silence";
             }
+
             else if (method == 'eval'){
                 filter = function (content) {
                     return ((content.scheme !== "inist-francis" ) &&  (content.scheme !== "inist-pascal" ) && (content.scheme !== "cc" ) && (content.scheme !== "author" ) && (content['xml#lang'] == "fr" ) );
                 };
+                pathToinsert = "keywords.eval";
             }
 
+            content = objectPath.get(input ,path).filter(filter);
 
-            return objectPath.get(input ,path).filter(filter);
 
+            if(callCount){
+                content = callCount(content , "term");
+                callinsert(pathToinsert ,content)
+            }
+            else{
+                callinsert(pathToinsert ,content)
+            }
+
+        };
+
+
+        /*
+         * countKeywords() count nb of Keywords in an object
+         * Then inserts the value in object.length
+         * arr (array)
+         * keywordsPath (string)
+         */
+        var countKeywords = function(arr , keywordsPath){
+                for( i = 0 ; i < arr.length ; i++) {
+                    arr[i].size = (objectPath.get(arr[i] ,keywordsPath)).length;
+                }
+                return arr;
         };
 
 
@@ -54,11 +83,12 @@ module.exports = function(options) {
         };
 
 
-        insertKeywords( 'keywords.silence'  ,getContent(keywordsSilencePath , 'silence'));
-        insertKeywords( 'keywords.eval'     ,getContent(keywordsEvalPath , 'eval'));
+        getContent(keywordsSilencePath , 'silence' , countKeywords , insertKeywords);
+        getContent(keywordsEvalPath , 'eval'    , countKeywords , insertKeywords);
 
 
         submit(null, input);
 
     }
+
 };
