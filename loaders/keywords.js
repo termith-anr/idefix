@@ -23,13 +23,14 @@ module.exports = function(options) {
              * input (obj)
              * path (string )
              */
-            var getContent = function (path, method, callCount, callinsert) {
+            var getContent = function (path, method, nbOfEval , callCount, callinsert) {
 
                 var filter,
                     pathToinsert,
                     content;
 
                 if (method == 'silence') {
+                    console.log(nbOfEval);
                     filter = function (content) {
                         return (((content.scheme == "inist-francis" ) || (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
                     };
@@ -44,14 +45,20 @@ module.exports = function(options) {
                 }
 
                 content = objectPath.get(input, path).filter(filter);
-
+                if(method == 'silence'){
+                    for(i = 1 ; i < nbOfEval ; i++){
+                        content[i] = content[0];
+                    }
+                }
 
                 if (callCount) {
                     content = callCount(content, "term");
-                    callinsert(pathToinsert, content)
+                    callinsert(pathToinsert, content);
+                    return content;
                 }
                 else {
-                    callinsert(pathToinsert, content)
+                    callinsert(pathToinsert, content);
+                    return content;
                 }
 
             };
@@ -83,9 +90,9 @@ module.exports = function(options) {
 
             };
 
-
-            getContent(keywordsSilencePath, 'silence', countKeywords, insertKeywords);
-            getContent(keywordsEvalPath, 'eval', countKeywords, insertKeywords);
+            var evalList = getContent(keywordsEvalPath, 'eval', null, countKeywords, insertKeywords);
+            console.log(evalList);
+            getContent(keywordsSilencePath, 'silence', (evalList.length) , countKeywords, insertKeywords);
 
         }
 
