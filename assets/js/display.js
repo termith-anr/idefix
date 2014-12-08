@@ -449,7 +449,6 @@ $(document).ready(function() {
         }
 
 
-
         if(barre.attr('aria-valuenow') != "1"){
             return;
         }
@@ -562,6 +561,7 @@ $(document).ready(function() {
 
     // Keywords
     $(".formNotedKeyword input, .formNotedKeyword select").change(function (e) {
+        console.log('cliqué');
         var id = $(this).parent().attr('id');
         var postData = $(this).parent().serializeArray();
         var formURL = $(this).parent().attr("action");
@@ -578,7 +578,10 @@ $(document).ready(function() {
                 type: "POST",
                 data: postData,
                 success: function (e) {
+                    console.log('envoyé');
                     setTimeout(function () {
+                        console.log('setTimeOut');
+
                         $('#' + id + ' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
                         if (!li.hasClass("keywordsMethodsDisplayDone")) {
                             li.addClass("keywordsMethodsDisplayDone");
@@ -597,31 +600,39 @@ $(document).ready(function() {
 
                         $.getJSON( "/display/" + pageId + ".json", function( data ) {
 
-                            var sourceKeywordsList = data.item.content.json.TEI.teiHeader.profileDesc.textClass.keywords,
-                                nbSourceKeywordsListObject = Object.keys(sourceKeywordsList).length,
+                            console.log('getJsons');
+
+                            var evalKeywords = data.item.keywords.eval,
+                                silenceKeywords = data.item.keywords.silence,
+                                nbEvalWords = Object.keys(evalKeywords).length, // Number of Eval methods
+                                nbSilenceWords = (data.item.keywords.silence[0].term['size'])*2, // Number of Silence Keywords *2
                                 nbOfTotalSourceKeywords = 0;
 
                             if(data.item.fields.validationMethods == "no") {
 
 
-                                for (var i = 0; i < nbSourceKeywordsListObject; i++) {
-                                    if ((sourceKeywordsList[i].scheme != "inist-francis") && (sourceKeywordsList[i].scheme != "inist-pascal") && (sourceKeywordsList[i].scheme != "cc") && (sourceKeywordsList[i].scheme != "author") && (sourceKeywordsList[i]["xml#lang"] == "fr" )) {
-                                        var nbKW = Object.keys(sourceKeywordsList[i].term).length; // Get nb Of Keywords / Method
+                                for (var i = 0; i < nbEvalWords; i++) {
+                                        var nbKW = evalKeywords[i]['size'] ; // Get nb Of Keywords / Method
                                         nbOfTotalSourceKeywords += nbKW;
-                                    }
                                 }
 
+                                console.log(nbOfTotalSourceKeywords);
 
-                            var notedKeywordsList = data.item.notedKeywords,
+
+                            var notedKeywordsList = data.item.keywords.eval,
                                 nbOfTotalNotedKeywords = 0;
 
                                     for (var key in notedKeywordsList) {
-                                        if((key.indexOf("inist")) == -1) {
-                                            var nbOfNotedKw = Object.keys(notedKeywordsList[key]).length; // Get nb Of Noted Keywords / Method
-                                            nbOfTotalNotedKeywords += nbOfNotedKw;
-                                        }
+                                        console.log(notedKeywordsList[key].term);
+
+                                            for( i = 0 ; i < (notedKeywordsList[key].term.length) ; i++){
+                                                if(notedKeywordsList[key].term[i].score){
+                                                    nbOfTotalNotedKeywords++;
+                                                }
+                                            }
                                     }
 
+                                console.log(nbOfTotalNotedKeywords);
 
                             var ratio = nbOfTotalNotedKeywords/nbOfTotalSourceKeywords;
 
@@ -687,27 +698,15 @@ $(document).ready(function() {
                             else if(data.item.fields.validationMethods == "yes") {
 
 
-                                for (var i = 0; i < nbSourceKeywordsListObject; i++) {
-                                    if (((sourceKeywordsList[i].scheme == "inist-francis") || (sourceKeywordsList[i].scheme == "inist-pascal")) && (sourceKeywordsList[i]["xml#lang"] == "fr" )) {
-                                        var nbKW = Object.keys(sourceKeywordsList[i].term).length; // Get nb Of Keywords / Method
-                                        nbOfTotalSourceKeywords += nbKW;
-                                        nbOfTotalSourceKeywords *= 2;
-                                    }
-                                }
-
-
-                                var notedKeywordsList = data.item.notedKeywords,
+                                var notedKeywordsList = data.item.silence[0].term,
                                     nbOfTotalSilenceKeywords = 0;
 
 
                                 for (var key in notedKeywordsList) {
-                                    if(key.indexOf("inist") > -1) {
                                         for(var method in notedKeywordsList[key]){
                                             var nbOfNotedKw = Object.keys(notedKeywordsList[key][method]).length;
                                             nbOfTotalSilenceKeywords += nbOfNotedKw;
                                         }
-
-                                    }
                                 }
 
 

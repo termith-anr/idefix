@@ -285,29 +285,31 @@
 
                                             {% for methodsWord in methods %}
 
-                                            <div class="btn btn-default {% if ((item.keywords.eval[currentNbMethod-1].term[loop.index0].score) or (item.keywords.eval[currentNbMethod-1].term[loop.index0].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> <span class="idOfWord">{{ loop.index }} - </span>{{ methodsWord|d('Pas de mots clés') }}
+                                            {% set wordNumber = loop.index0 %}
+
+                                            <div class="btn btn-default {% if ((item.keywords.eval[currentNbMethod-1].term[wordNumber].score) or (item.keywords.eval[currentNbMethod-1].term[wordNumber].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> <span class="idOfWord">{{ loop.index }} - </span>{{ methodsWord|d('Pas de mots clés') }}
 
                                                 <form class="formNotedKeyword row" id="method-{{ currentNbMethod }}-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
 
-                                                    <input type="hidden" name="key" value="keywords.eval.{{ currentNbMethod-1 }}.term.{{ loop.index0 }}.score"/><!-- Key Name -->
+                                                    <input type="hidden" name="key" value="keywords.eval.{{ currentNbMethod-1 }}.term.{{ wordNumber }}.score"/><!-- Key Name -->
 
                                                     <!-- Value Name -->
-                                                    {% if item.keywords.eval[currentNbMethod-1].term[loop.index0].score == '2' %}
-                                                    <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
-                                                    <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1" ><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
-                                                    <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">2</label>
-                                                    {% elif item.keywords.eval[currentNbMethod-1].term[loop.index0].score == '1' %}
-                                                    <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
-                                                    <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">1</label>
-                                                    <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
-                                                    {% elif item.keywords.eval[currentNbMethod-1].term[loop.index0].score == '0' %}
-                                                    <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">0</label>
-                                                    <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
-                                                    <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
+                                                    {% if item.keywords.eval[currentNbMethod-1].term[wordNumber].score == '2' %}
+                                                    <input id="input0-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
+                                                    <input id="input1-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="1" ><label for="input1-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
+                                                    <input id="input2-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">2</label>
+                                                    {% elif item.keywords.eval[currentNbMethod-1].term[wordNumber].score == '1' %}
+                                                    <input id="input0-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
+                                                    <input id="input1-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">1</label>
+                                                    <input id="input2-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
+                                                    {% elif item.keywords.eval[currentNbMethod-1].term[wordNumber].score == '0' %}
+                                                    <input id="input0-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">0</label>
+                                                    <input id="input1-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
+                                                    <input id="input2-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
                                                     {% else %}
-                                                    <input id="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
-                                                    <input id="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
-                                                    <input id="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ listOfMethodsName[currentNbMethod-1] }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
+                                                    <input id="input0-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
+                                                    <input id="input1-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
+                                                    <input id="input2-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
                                                     {% endif %}
 
                                                     <ins class="loading"></ins>
@@ -316,7 +318,7 @@
 
                                                 <form class="formNotedKeyword formNotedKeywordsPreference row {% if item.validationMethods == 'yes' %}labelHide{% endif %}" id="prefMethod-{{ currentNbMethod }}-{{ loop.index }}" action="/save/{{ item.wid }}">
 
-                                                    <input type="hidden" name="key" value="notedKeywords.{{ listOfMethodsName[currentNbMethod-1] }}.{{ methodsWord }}.exclude"/> <!-- Key Name -->
+                                                    <input type="hidden" name="key" value="keywords.eval.{{ currentNbMethod-1 }}.term.{{ wordNumber }}.exclude"/> <!-- Key Name -->
 
                                                     <select id="method-{{ currentNbMethod }}-exclude-list-{{ loop.index }}" class="formNotedKeywordList" name="val">
 
@@ -325,8 +327,9 @@
                                                         </option>
 
                                                         {%  for sameListKeywords in methods %}
+                                                            <!-- {{ sameListKeywords }} / {{ item.keywords.eval[currentNbMethod-1].term[wordNumber].exclude }} -->
 
-                                                            <option value="{{ sameListKeywords }}"{% if item.notedKeywords[listOfMethodsName[currentNbMethod-1]][methodsWord].exclude == sameListKeywords %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
+                                                            <option value="{{ sameListKeywords }}" {% if item.keywords.eval[currentNbMethod-1].term[wordNumber].exclude == sameListKeywords %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
                                                             {{ sameListKeywords }}
                                                             </option>
 
@@ -344,8 +347,8 @@
                                                     <div class="divFormComments">
 
                                                         <form  data-id="{{ item.wid }}" action="/save/{{ item.wid }}" style="height:100%;padding:0; margin: 0">
-                                                            <input type="hidden" name="key" value="notedKeywords.{{ listOfMethodsName[currentNbMethod-1] }}.{{ methodsWord }}.commentaire"/> <!-- Key Name -->
-                                                            <input name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ item.notedKeywords[listOfMethodsName[currentNbMethod-1]][methodsWord].commentaire }}"/>
+                                                            <input type="hidden" name="key" value="keywords.eval.{{ currentNbMethod-1 }}.term.{{ wordNumber }}.comment"/> <!-- Key Name -->
+                                                            <input name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ item.keywords.eval[currentNbMethod-1].term[wordNumber].comment }}"/>
                                                         </form>
                                                     </div>
 
