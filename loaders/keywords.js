@@ -30,7 +30,6 @@ module.exports = function(options) {
                     content;
 
                 if (method == 'silence') {
-                    console.log(nbOfEval);
                     filter = function (content) {
                         return (((content.scheme == "inist-francis" ) || (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
                     };
@@ -91,7 +90,6 @@ module.exports = function(options) {
             };
 
             var evalList = getContent(keywordsEvalPath, 'eval', null, countKeywords, insertKeywords);
-            console.log(evalList);
             getContent(keywordsSilencePath, 'silence', (evalList.length) , countKeywords, insertKeywords);
 
         }
