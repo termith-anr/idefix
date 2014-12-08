@@ -24,7 +24,7 @@ module.exports = function(config) {
 
         // Get mongodb files wich contain scores
         coll
-        .find({ notedKeywords : {$exists : true}})
+        .find({ keywords : {$exists : true}})
         .toArray()
         .then(function(docs) {
 
@@ -43,10 +43,7 @@ module.exports = function(config) {
                 docs.forEach(function(entity, index){ // Foreach of all docs : entity  = document
 
 
-                // TODO :: Get docTitle , Will need to change by custom field
-
-
-                var docTitle  = (entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0] != undefined) ? entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title[0]['#text'] : entity.content.json.TEI.teiHeader.fileDesc.titleStmt.title['#text'],
+                var docTitle  = (entity.fields.title != undefined) ? entity.fields.title : 'Pas de titre de document',
                     fileTitle = entity.basename,
                     timeMs = entity.timeJob,
                     time      = entity.timeJob  ? (Math.floor(((entity.timeJob) / (60 * 1000)) % 60) + "Mn " + Math.floor(((entity.timeJob) / 1000) % 60) + "s" ): "-",
@@ -54,41 +51,40 @@ module.exports = function(config) {
 
 
                 //Bellow :  get the median/Middle time spend on each word
-
-
-
-                Object.keys(entity.notedKeywords ,function(methodName , valueMethod){
-                    if( methodName != 'inist-francis' && methodName != '"inist-pascal') {
-                        nbOfNotedWords += Object.keys(valueMethod).length;
-                    }
-                    else{
-                        nbOfNotedWords += Object.keys(valueMethod).length;
-                    }
+                Object.keys(entity.keywords.eval ,function(methodNb , valueMethod){
+                        nbOfNotedWords += Object.keys(valueMethod.term).filter(function(content){
+                            return ( (content.score != undefined) && (content.score != null) && (content.score != '') );
+                        }).length;
                 });
 
                 var middleTime =  (timeMs/nbOfNotedWords)  ? (Math.floor(( parseFloat(timeMs/nbOfNotedWords) / (60 * 1000)) % 60) + "Mn " + Math.floor(( parseFloat(timeMs/nbOfNotedWords) / 1000) % 60) + "s" ) : 0;
 
 
                 //Below Start generating & wrtting csv Lines
+                Object.keys(entity.keywords ,function(methodName , valueMethod){ // Foreach of all methods
 
-                Object.keys(entity.notedKeywords ,function(methodName , valueMethod){ // Foreach of all methods
-
-                        if( methodName != 'inist-francis' && methodName != '"inist-pascal') {
+                        if( methodName == 'eval') {
 
                             var action = 'Pertinence',
                                 method = methodName;
 
 
+                            Object.keys(valueMethod , function(nbEval , contentEval){ // Foreach Array
 
+                                var scheme = contentEval.scheme;
 
-                            Object.keys(valueMethod , function(word , wordValues){ // Foreach words
-                                var  currentWord = word,
-                                     currentScore = wordValues.note,
-                                     currentPref = wordValues.exclude ? wordValues.exclude : ' ',
-                                     comment = wordValues.commentaire;
+                                Object.keys(contentEval.term , function(nbWord , wordValues){ // Foreach words
+                                    var currentWord = wordValues['#text'],
+                                        currentScore = wordValues.score ? wordValues.score : null,
+                                        currentPref = wordValues.exclude ? wordValues.exclude : ' ',
+                                        comment = wordValues.commentaire ? wordValues.commentaire  : '';
 
+                                    if(currentScore) {
+                                        console.log(' fileTitle ' , fileTitle , ' docTitle ' , docTitle , ' scheme ' , scheme ,' action ' , action , ' currentWord ' , currentWord , ' currentScore ' , currentScore ,' currentPref ' , currentPref , '-' , ' comment ' ,comment, ' time ' ,time, ' middleTime ', middleTime);
+                                        res.write(CSV.stringify([ fileTitle , docTitle , scheme , action , currentWord , currentScore , currentPref , '-' , comment , time , middleTime ], ';'))
+                                    }
 
-                                res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , currentPref , '-' ,  comment , time , middleTime ] , ';'))
+                                });
 
                             });
 
