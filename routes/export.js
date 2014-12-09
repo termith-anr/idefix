@@ -52,9 +52,11 @@ module.exports = function(config) {
 
                 //Bellow :  get the median/Middle time spend on each word
                 Object.keys(entity.keywords.eval ,function(methodNb , valueMethod){
-                        nbOfNotedWords += Object.keys(valueMethod.term).filter(function(content){
-                            return ( (content.score != undefined) && (content.score != null) && (content.score != '') );
-                        }).length;
+                        Object.keys(valueMethod.term , function(key , value){
+                            if(value.score){
+                                nbOfNotedWords++;
+                            }
+                        });
                 });
 
                 var middleTime =  (timeMs/nbOfNotedWords)  ? (Math.floor(( parseFloat(timeMs/nbOfNotedWords) / (60 * 1000)) % 60) + "Mn " + Math.floor(( parseFloat(timeMs/nbOfNotedWords) / 1000) % 60) + "s" ) : 0;
@@ -65,8 +67,7 @@ module.exports = function(config) {
 
                         if( methodName == 'eval') {
 
-                            var action = 'Pertinence',
-                                method = methodName;
+                            var action = 'Pertinence';
 
 
                             Object.keys(valueMethod , function(nbEval , contentEval){ // Foreach Array
@@ -80,7 +81,6 @@ module.exports = function(config) {
                                         comment = wordValues.commentaire ? wordValues.commentaire  : '';
 
                                     if(currentScore) {
-                                        console.log(' fileTitle ' , fileTitle , ' docTitle ' , docTitle , ' scheme ' , scheme ,' action ' , action , ' currentWord ' , currentWord , ' currentScore ' , currentScore ,' currentPref ' , currentPref , '-' , ' comment ' ,comment, ' time ' ,time, ' middleTime ', middleTime);
                                         res.write(CSV.stringify([ fileTitle , docTitle , scheme , action , currentWord , currentScore , currentPref , '-' , comment , time , middleTime ], ';'))
                                     }
 
@@ -90,23 +90,28 @@ module.exports = function(config) {
 
                         }
 
-                        else{ // For inist method
+                        else{ // For Silence Keywords
 
                             var action = 'Silence';
 
-                            Object.keys(valueMethod , function(methodByInistWord , valMethodByInistWord){ // For method by By Inist ex: inist-francis { lina-1{...} lina-2{...}}
 
-                                var method = methodByInistWord;
 
-                                Object.keys(valMethodByInistWord, function(word , wordValues){ // Foreach words
+                            Object.keys(valueMethod , function(nbSilence , valSilence){ // For method by By Inist ex: inist-francis { lina-1{...} lina-2{...}}
 
-                                    var currentWord = word;
-                                    var currentScore = wordValues.note;
-                                    var currentCorresp = wordValues.corresp ? wordValues.corresp : ' ';
+
+                                var scheme = entity.keywords.eval[nbSilence].scheme;
+
+
+                                Object.keys(valSilence.term, function(wordNb , wordValues){ // Foreach words
+
+                                    var currentWord = wordValues['#text'];
+                                    var currentScore = wordValues.score;
+                                    var currentCorresp = wordValues.correspondance ? wordValues.correspondance : '';
                                     var comment = wordValues.commentaire;
 
-                                    res.write(CSV.stringify([ fileTitle , docTitle , method , action , currentWord , currentScore , '-', currentCorresp ,  comment , time , middleTime] ,  ';'))
-
+                                    if(currentScore) {
+                                        res.write(CSV.stringify([ fileTitle , docTitle , scheme , action , currentWord , currentScore , '-', currentCorresp , comment , time , middleTime], ';'))
+                                    }
                                 });
 
                             });
