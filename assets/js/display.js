@@ -605,7 +605,7 @@ $(document).ready(function() {
                             var evalKeywords = data.item.keywords.eval,
                                 silenceKeywords = data.item.keywords.silence,
                                 nbEvalWords = Object.keys(evalKeywords).length, // Number of Eval methods
-                                nbSilenceWords = (data.item.keywords.silence[0].term['size'])*2, // Number of Silence Keywords *2
+                                nbSilenceWords = (data.item.keywords.silence[0]['size'])*2, // Number of Silence Keywords *2
                                 nbOfTotalSourceKeywords = 0;
 
                             if(data.item.fields.validationMethods == "no") {
@@ -698,19 +698,22 @@ $(document).ready(function() {
                             else if(data.item.fields.validationMethods == "yes") {
 
 
-                                var notedKeywordsList = data.item.silence[0].term,
-                                    nbOfTotalSilenceKeywords = 0;
+                                var nbNotedSilence = 0;
 
 
-                                for (var key in notedKeywordsList) {
-                                        for(var method in notedKeywordsList[key]){
-                                            var nbOfNotedKw = Object.keys(notedKeywordsList[key][method]).length;
-                                            nbOfTotalSilenceKeywords += nbOfNotedKw;
+                                for (var key in silenceKeywords) {
+                                        for(var word in silenceKeywords[key].term){
+                                            if(silenceKeywords[key].term[word].score) {
+                                                console.log(silenceKeywords[key].term[word]);
+                                                ++nbNotedSilence;
+                                            }
                                         }
                                 }
 
+                                console.log(' nbNotedSilence/nbSilenceWords ' , nbNotedSilence , ' / ' ,nbSilenceWords);
 
-                                var ratio = nbOfTotalSilenceKeywords/nbOfTotalSourceKeywords;
+
+                                var ratio = nbNotedSilence/nbSilenceWords;
 
                                 $.ajax(
                                     {
