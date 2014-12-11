@@ -14,127 +14,63 @@ module.exports = function(options) {
     return function (input, submit) {
 
 
-            if (objectPath.has(input , "content.json.TEI.teiHeader.profileDesc.textClass.keywords") && options.autoScore == true) {
+            if ((input.keywords['eval']) && (input.keywords['silence']) && options.autoScore == true) {
 
-                var arrayMethodsKeywords = [],
-                    arrayInistKeywords = [],
-                    inistName = "",
-                    nbOfMethodlKw = 0,
-                    nbOfInistKw = 0,
-                    nbOfNotedKw = 0,
-                    listOfMethodName = [];
-
-                Object.keys((input.content.json.TEI.teiHeader.profileDesc.textClass.keywords), function (index, valueMethod) {
-                    if ((valueMethod.scheme != 'inist-francis') && (valueMethod.scheme != 'inist-pascal') && (valueMethod.scheme != 'cc') && (valueMethod.scheme != 'author') && (valueMethod['xml#lang'] == 'fr')) {
-                        var interArrayMethodsKeywords = [];
+                var nbNotedEval     = 0,
+                    nbNotedSilence  = 0,
+                    nbTotalEval     = 0,
+                    nbTotalSilence       = ((input.keywords['silence']).length) * (input.keywords['silence'][0]['size']);
 
 
-                        Object.keys(valueMethod.term, function (wordNb, wordValue) {
-                            interArrayMethodsKeywords.push(wordValue['#text']);
-                        });
+                Object.keys((input.keywords['eval']), function (index, valueEval) { // For all Eval methods
 
+                    var nbMethod = index;
+                    nbTotalEval += valueEval['size'];
 
-                        arrayMethodsKeywords[valueMethod.scheme] = (interArrayMethodsKeywords);
+                    Object.keys(valueEval.term, function (index, wordEval) { // For all eval's word
 
-                        nbOfMethodlKw += Object.keys(valueMethod.term).length;
+                        var nbEvalWord= index;
 
-                        listOfMethodName.push(valueMethod.scheme);
+                        Object.keys((input.keywords['silence'][0].term) , function(index , wordSilence){ // For all Silence words
 
-                    }
+                            var nbSilence = index;
 
-                    else if (((valueMethod.scheme == 'inist-francis') || (valueMethod.scheme == 'inist-pascal')) && valueMethod['xml#lang'] == 'fr') {
-                        Object.keys(valueMethod.term, function (wordNb, wordValue) {
-                            arrayInistKeywords.push(wordValue['#text']);
-                        });
+                            if((wordEval['#text'].toUpperCase()) === (wordSilence['#text'].toUpperCase())) {
 
-                        inistName = valueMethod.scheme;
+                                if(options.autoSilence) { // Auto Note Silence if option is on "TRUE"
 
-                        nbOfInistKw += Object.keys(valueMethod.term).length;
+                                    for (i = 0; i < ((input.keywords['silence'])).length; i++) { // Note all Silence Array
 
-                    }
+                                        input.keywords.silence[i].term[nbSilence].score = 0;
 
+                                        nbNotedSilence++;
 
-                });
-
-
-                Object.keys(arrayMethodsKeywords, function (idArray, value) {
-                    var listOfMetKw = value;
-                    Object.keys(listOfMetKw, function (idMtWord, valueW) {
-                        Object.keys(arrayInistKeywords, function (idInist, valueInist) {
-                            if (valueW.toUpperCase() == valueInist.toUpperCase()) {
-
-                                //console.log( 'NOM :', idArray,  'methode : ' , valueW , ' -  Valeur Inist : ' , valueInist);
-
-                                // SI notedKeywords n'existe PAS
-                                if ((input.notedKeywords == undefined) || (input.notedKeywords == null)) {
-
-                                    input.notedKeywords = {};
-                                    input.notedKeywords[idArray] = {};
-                                    input.notedKeywords[inistName] = {};
-                                    input.notedKeywords[idArray][valueW] = {
-                                        "note": 2
-                                    };
-
-                                    for(var i = 0 ; i < listOfMethodName.length ; i++) {
-                                        input.notedKeywords[inistName][listOfMethodName[i]] = {};
-                                        input.notedKeywords[inistName][listOfMethodName[i]][valueInist] = {
-                                            "note": 0
-                                        };
+                                        console.log(' POUR CHAQUE : nbTotalSilence'  , nbNotedSilence);
                                     }
-
-                                    ++nbOfNotedKw;
-
-
                                 }
-                                // SI notedKewords EXISTE
-                                else {
 
-                                    // SI La methode N'EXISTE PAS
-                                    if ((input.notedKeywords[idArray] == undefined) || (input.notedKeywords[idArray] == null)) {
-                                        input.notedKeywords[idArray] = {};
-                                        input.notedKeywords[idArray][valueW] = {
-                                            "note": 2
-                                        };
-                                        ++nbOfNotedKw;
-
-                                    }
-                                    // SI La methode existe
-                                    else {
-                                        input.notedKeywords[idArray][valueW] = {
-                                            "note": 2
-                                        };
-                                        ++nbOfNotedKw;
-
-                                    }
-
-
-                                    for(var i = 0 ; i < listOfMethodName.length ; i++){
-
-                                        if((input.notedKeywords[inistName][listOfMethodName[i]] == undefined) || (input.notedKeywords[inistName][listOfMethodName[i]] == null)){
-                                            input.notedKeywords[inistName][listOfMethodName[i]] = {};
-                                        }
-
-                                        input.notedKeywords[inistName][listOfMethodName[i]][valueInist] = {
-                                            "note": 0
-                                        };
-
-                                    }
-
+                                if(options.autoEval) { // Auto Note Eval if option is on "TRUE"
+                                    input.keywords.eval[nbMethod].term[nbEvalWord].score = 2;
+                                    nbNotedEval++;
                                 }
 
 
                             }
-
                         });
+
                     });
+
                 });
 
                 // Now make the calcul for progress on load
 
-                input.progressNotedKeywords = (nbOfNotedKw / nbOfMethodlKw);
-                input.progressSilenceKeywords = (nbOfNotedKw / (nbOfInistKw * 2));
+                if((options.autoEval) && (nbTotalEval !== 0)){input.progressNotedKeywords = (nbNotedEval / nbTotalEval);}
+                if((options.autoSilence) && (nbTotalSilence !== 0)){input.progressSilenceKeywords = (nbNotedSilence / nbTotalSilence);}
 
             }
+
+
+
         submit(null, input);
     }
 };

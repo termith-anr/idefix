@@ -571,7 +571,6 @@ $(document).ready(function() {
         $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
 
 
-
         $.ajax(
             {
                 url: formURL,
