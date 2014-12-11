@@ -25,7 +25,9 @@
     "jquery-ui": "^1.10.5",
     "promised-mongo": "^0.11.1",
     "sugar": "^1.4.1",
-    "superagent": "^0.18.2"
+    "superagent": "^0.18.2",
+    "xmldom": "^0.1.19",
+    "xtraverse": "^0.1.0"
   },
   "repository": {
     "type": "git",
