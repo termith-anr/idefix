@@ -39,19 +39,20 @@ module.exports = function(options) {
 
                                 if(options.autoSilence) { // Auto Note Silence if option is on "TRUE"
 
-                                    for (i = 0; i < ((input.keywords['silence'])).length; i++) { // Note all Silence Array
+                                    input.keywords.silence[nbMethod].term[nbSilence].score = 0;
 
-                                        input.keywords.silence[i].term[nbSilence].score = 0;
+                                    input.keywords.silence[nbMethod].term[nbSilence].correspondance = wordEval['#text'];
 
-                                        nbNotedSilence++;
+                                    nbNotedSilence++;
 
-                                        console.log(' POUR CHAQUE : nbTotalSilence'  , nbNotedSilence);
-                                    }
                                 }
 
                                 if(options.autoEval) { // Auto Note Eval if option is on "TRUE"
+
                                     input.keywords.eval[nbMethod].term[nbEvalWord].score = 2;
+
                                     nbNotedEval++;
+
                                 }
 
 
