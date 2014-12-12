@@ -4,6 +4,7 @@
 $(document).ready(function() {
 
 
+
     // ProgressBar & Timer ( getting json info )
     var validateMethodBar = $('#validateMethodBar'),
         validateDocument = $('#validateDocument'),
@@ -11,6 +12,7 @@ $(document).ready(function() {
 
 
         $.getJSON("/display/" + pageId + ".json", function (data) {
+
 
             var timeJob = data.item.timeJob ? parseFloat(data.item.timeJob) : 0,
                 url = '/save/' + pageId,
@@ -484,7 +486,6 @@ $(document).ready(function() {
                             var progressDoc = 0;
                             $.getJSON("/display/" + pageId + ".json", function (data) {
                                 progressDoc = data.item.progressSilenceKeywords ? data.item.progressSilenceKeywords : 0;
-                                console.log( 'intern :' ,progressDoc);
                                 validateDocument.show();
 
                                 var startPageRatio = 0;
@@ -563,7 +564,6 @@ $(document).ready(function() {
 
     // Keywords
     $(".formNotedKeyword input, .formNotedKeyword select").change(function (e) {
-        console.log('cliqué');
         var id = $(this).parent().attr('id');
         var postData = $(this).parent().serializeArray();
         var formURL = $(this).parent().attr("action");
@@ -579,9 +579,7 @@ $(document).ready(function() {
                 type: "POST",
                 data: postData,
                 success: function (e) {
-                    console.log('envoyé');
                     setTimeout(function () {
-                        console.log('setTimeOut');
 
                         $('#' + id + ' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
                         if (!li.hasClass("keywordsMethodsDisplayDone")) {
@@ -601,12 +599,10 @@ $(document).ready(function() {
 
                         $.getJSON( "/display/" + pageId + ".json", function( data ) {
 
-                            console.log('getJsons');
-
                             var evalKeywords = data.item.keywords.eval,
                                 silenceKeywords = data.item.keywords.silence,
                                 nbEvalWords = Object.keys(evalKeywords).length, // Number of Eval methods
-                                nbSilenceWords = (data.item.keywords.silence[0]['size'])*2, // Number of Silence Keywords *2
+                                nbSilenceWords = (data.item.keywords.silence[0]['size']) * nbEvalWords, // Number of Silence Keywords * nbEvalWords
                                 nbOfTotalSourceKeywords = 0;
 
                             if(data.item.fields.validationMethods == "no") {
@@ -617,15 +613,11 @@ $(document).ready(function() {
                                         nbOfTotalSourceKeywords += nbKW;
                                 }
 
-                                console.log(nbOfTotalSourceKeywords);
-
 
                             var notedKeywordsList = data.item.keywords.eval,
                                 nbOfTotalNotedKeywords = 0;
 
                                     for (var key in notedKeywordsList) {
-                                        console.log(notedKeywordsList[key].term);
-
                                             for( i = 0 ; i < (notedKeywordsList[key].term.length) ; i++){
                                                 if(notedKeywordsList[key].term[i].score){
                                                     nbOfTotalNotedKeywords++;
@@ -633,7 +625,6 @@ $(document).ready(function() {
                                             }
                                     }
 
-                                console.log(nbOfTotalNotedKeywords);
 
                             var ratio = nbOfTotalNotedKeywords/nbOfTotalSourceKeywords;
 
@@ -699,19 +690,20 @@ $(document).ready(function() {
                             else if(data.item.fields.validationMethods == "yes") {
 
 
+
+
                                 var nbNotedSilence = 0;
 
 
                                 for (var key in silenceKeywords) {
-                                        for(var word in silenceKeywords[key].term){
-                                            if(silenceKeywords[key].term[word].score) {
-                                                console.log(silenceKeywords[key].term[word]);
+                                    for(var word in silenceKeywords[key].term){
+                                            if((silenceKeywords[key].term[word].score) || (silenceKeywords[key].term[word].score == '0' )) {
                                                 ++nbNotedSilence;
                                             }
                                         }
                                 }
 
-                                console.log(' nbNotedSilence/nbSilenceWords ' , nbNotedSilence , ' / ' ,nbSilenceWords);
+                                //console.log(' nbNotedSilence/nbSilenceWords ' , nbNotedSilence , ' / ' ,nbSilenceWords);
 
 
                                 var ratio = nbNotedSilence/nbSilenceWords;
