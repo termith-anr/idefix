@@ -384,7 +384,7 @@ $(document).ready(function() {
 
     /* --- COME BACK TO ABSTRACT --- */
 
-    $("#sectionArticle").on('click', function () {
+    $("#backAbsctract").on('click', function () {
         if ($(this).css('opacity') !== '0.15') {
             if ($('#abstractFullLenght').css('display') == 'none') {
                 $('#listOrGrid span').hide();
