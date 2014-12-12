@@ -438,13 +438,15 @@ $(document).ready(function() {
         if($(this).attr('id') == "validateMethodBar" ){
 
             var barre  = $("#validateMethodBar"),
-                barreField = "validationMethods";
+                barreField = "validationMethods",
+                type = "Méthodes";
 
         }
         else if($(this).attr('id') == "validateDocument" ){
 
             var barre  = $("#validateDocument"),
-                barreField = "validationDocument";
+                barreField = "validationDocument",
+                type = "Inist";
 
         }
 
@@ -454,7 +456,7 @@ $(document).ready(function() {
         }
 
         if (!barre.hasClass('isValidated')) {
-            if(confirm('Souhaitez-vous valider définitivement les Mot-Clés Méthodes ?')) {
+            if(confirm('Souhaitez-vous valider définitivement les Mot-Clés ' +  type  + '?')) {
 
                 var id = barre.attr('data-id');
                 var url = '/save/' + id;
@@ -528,7 +530,7 @@ $(document).ready(function() {
                             });
                             var inpuChecked = $('.methodsKeywords .formNotedKeyword input:checked ');
                             $(".methodsKeywords :input").prop("disabled", true);
-                            $('.methodsKeywords .formNotedKeywordsPreference , .divComments').hide();
+                            $('.methodsKeywords .formNotedKeywordsPreference , .methodsKeywords .divComments').hide();
                             $(".ui-progressbar-value", barre).removeClass('isNotValidated').addClass('isValidated').html('100%');
 
                             $('#inistKeywordsButton').show();
@@ -540,7 +542,7 @@ $(document).ready(function() {
                             $('#startOrStop').hide();
                             var inpuChecked = $('#keywordsInist .formNotedKeyword input:checked ');
                             $("#keywordsInist :input").prop("disabled", true);
-                            $('#keywordsInist .formNotedKeywordsPreference , .divComments').hide();
+                            $('#keywordsInist .formNotedKeywordsPreference , #keywordsInist .divComments').hide();
                             $(".ui-progressbar-value", barre).removeClass('isNotValidated').addClass('isValidated').html('100%');
 
                         }

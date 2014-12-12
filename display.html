@@ -201,7 +201,7 @@
 
                                             {% set loopIndexMethodInist = loop.index0 %}
 
-                                        <div class="btn btn-default inistForMethod-{{ loopIndexMethodInist }} {% if item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"><span class="idOfWord">{{ inistLoopKeyword+1 }} - </span> {{ currentInistKw|d('Pas de mots clés') }}
+                                        <div class="btn btn-default inistForMethod-{{ loopIndexMethodInist }} {% if ((item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score) or (item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"><span class="idOfWord">{{ inistLoopKeyword+1 }} - </span> {{ currentInistKw|d('Pas de mots clés') }}
 
                                             <form class="formNotedKeyword row" id="silenceScore-{{ loopIndexMethodInist }}-{{ inistLoopKeyword }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
 
