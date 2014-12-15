@@ -8,7 +8,7 @@ var pmongo = require('promised-mongo'),
     sugar = require('sugar'),
     DOMParser = require('xmldom').DOMParser,
     XMLSerializer = require('xmldom').XMLSerializer,
-    jquery = require('jquery');
+    XMLWriter = require('xml-writer');
 
 
 module.exports = function(config) {
