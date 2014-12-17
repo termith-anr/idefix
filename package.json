@@ -27,6 +27,7 @@
     "promised-mongo": "^0.11.1",
     "sugar": "^1.4.1",
     "superagent": "^0.18.2",
+    "xml-writer": "^1.6.0",
     "xmldom": "^0.1.19",
     "xtraverse": "^0.1.0"
   },

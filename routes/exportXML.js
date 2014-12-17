@@ -24,6 +24,8 @@ module.exports = function(config) {
             'Content-Disposition':'attachment; filename="export.txt"'
         });
 
+        var xw = new XMLWriter;
+        xw.startDocument();
 
 
         coll
@@ -55,11 +57,11 @@ module.exports = function(config) {
 
                             notedKeywords += word + ' : ' + score + ' / '; // Liste de mots clés
 
-                            console.log('---------------------------POUR CHAQUE MOT--------------------------');
+                            //console.log('---------------------------POUR CHAQUE MOT--------------------------');
 
 
-                            console.log('Mot : ' , word);
-                            console.log('SCORE : ' , score);
+                            //console.log('Mot : ' , word);
+                            //console.log('SCORE : ' , score);
 
 
                             var ajoutTXT = docTest.createTextNode(word + ' : ' + score + ' / ');
@@ -69,8 +71,8 @@ module.exports = function(config) {
 
 
 
-                            console.log('---------------------------AJOUTXT--------------------------');
-                            console.log(ajoutTXT);
+                            //console.log('---------------------------AJOUTXT--------------------------');
+                            //console.log(ajoutTXT);
 
 
                         }
@@ -79,18 +81,26 @@ module.exports = function(config) {
 
                     if(notedKeywords) { // Si la liste n'est pas vide
 
-                        console.log('liste de score :', notedKeywords);
+                        //console.log('liste de score :', notedKeywords);
 
                         docTest.documentElement.insertBefore(ajout , abstract[0]);
 
-                        console.log('---------------------------DOCTEST DOM--------------------------');
-                        console.log(docTest);
+                        //console.log('---------------------------DOCTEST DOM--------------------------');
+                        //console.log(docTest);
 
 
-                        console.log('---------------------------DOCTEST XML--------------------------');
-                        console.log('docTest ' ,serializer.serializeToString(docTest.documentElement));
+                        //console.log('---------------------------DOCTEST XML--------------------------');
+                        //console.log('docTest ' ,serializer.serializeToString(docTest.documentElement));
 
-                        res.write(serializer.serializeToString(docTest.documentElement)); // Ecriture de Doctest dans le fichier d'export ( pour chaque mot , juste pour tester )
+                        docTest = serializer.serializeToString(docTest.documentElement); // back to string xml
+
+                        //console.log('docttets: ' , docTest);
+
+                        xw.writeRaw(docTest);
+
+                        console.log('xw : '  , xw.toString());
+
+                        res.write(xw.toString()); // Ecriture de Doctest dans le fichier d'export ( pour chaque mot , juste pour tester )
 
 
                     }
