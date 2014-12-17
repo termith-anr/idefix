@@ -5,7 +5,6 @@
 
 
 var pmongo = require('promised-mongo'),
-    sugar = require('sugar'),
     DOMParser = require('xmldom').DOMParser,
     XMLSerializer = require('xmldom').XMLSerializer,
     XMLWriter = require('xml-writer');
@@ -16,6 +15,7 @@ module.exports = function(config) {
     var coll = pmongo(config.get('connexionURI')).collection(config.get('collectionName'));
 
 
+
     return function (req, res) {
 
         // Set csv header
@@ -24,15 +24,17 @@ module.exports = function(config) {
             'Content-Disposition':'attachment; filename="export.txt"'
         });
 
-        var xw = new XMLWriter;
-        xw.startDocument();
-
-
         coll
             .find({ "content.xml" : {$exists : true}})
             .toArray()
             .then(function(docs){
+
                 console.log('XML : ');
+
+                var xw = new XMLWriter;
+                xw.startDocument();
+                xw.startElement('TEICorpus');
+
                 docs.forEach(function(value , index){
 
                     //console.log(value.content.xml);
@@ -96,20 +98,24 @@ module.exports = function(config) {
 
                         //console.log('docttets: ' , docTest);
 
-                        xw.writeRaw(docTest);
+                        xw.writeRaw(docTest.toString());
 
-                        console.log('xw : '  , xw.toString());
+                        //console.log('-----------------NEW DOC-------------------------');
 
-                        res.write(xw.toString()); // Ecriture de Doctest dans le fichier d'export ( pour chaque mot , juste pour tester )
+                        //console.log('xw : '  , xw.toString());
 
 
                     }
 
                 });
 
-                res.send(); // cloture et envoi
+                xw.endElement();
+                xw.endDocument();
+                res.send(xw.toString()); // cloture et envoi
+
 
             });
+
 
 
     }
