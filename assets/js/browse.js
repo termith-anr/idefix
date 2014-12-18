@@ -121,6 +121,10 @@ $(document).ready(function() {
     };
 
 
-    $('#exportResults').on('click' , goToLocation);
+    $('.exportResults').on('click' , goToLocation);
+
+    $('#exportButton').on('click' , function(){
+        $('#exportMenu').show();
+    });
 
 });
