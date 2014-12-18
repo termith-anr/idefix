@@ -1,16 +1,17 @@
 /**
-* This is tei exportXML file
-* USes Pmongo to get Data
+*
+* This is tei exportZIP file
+* Uses Pmongo to get Data
+* Uses xmlDom to add keywords in xml
+* Uses archiver to make a zip of xml files
+*
 */
 
 
 var pmongo = require('promised-mongo'),
     DOMParser = require('xmldom').DOMParser,
     XMLSerializer = require('xmldom').XMLSerializer,
-    XMLWriter = require('xml-writer'),
-    archiver = require('archiver'),
-    fs = require('fs'),
-    p =require('path');
+    archiver = require('archiver');
 
 
 module.exports = function(config) {
@@ -31,23 +32,76 @@ module.exports = function(config) {
             return res.status(200).send('OK').end();
         });
 
-        res.attachment('archive-name.zip');
+        res.attachment('archive-name.zip'); // name of archive
 
-        archive.pipe(res);
+        archive.pipe(res); // Stream archive
 
-        var xw = new XMLWriter;
-        xw.startDocument();
-        xw.startElement('TEI');
+        /////////////////////////////////
 
-        var test = 'Du text ???????';
+        coll
+            .find({ "content.xml" : {$exists : true}})
+            .toArray()
+            .then(function(docs){
 
-        xw.writeRaw(test);
-        xw.endElement();
-        xw.endDocument();
+                docs.forEach(function(value , index){
 
-        archive.append((xw.toString()), { name: 'test.txt' });
+                    console.log('index: ' , index);
 
 
-        archive.finalize();
+                    var doc = value.content.xml,
+                        docName = value.basename,
+                        keywords = value.keywords.eval[0].term,
+                        notedKeywords = '',
+                        docTest = new DOMParser().parseFromString(doc.toString() , 'text/xml'), // Creation du Doc
+                        serializer = new XMLSerializer(), // DOM -> STRING XML
+                        abstract = docTest.getElementsByTagName('abstract'), // Recuperation d'abstract
+                        ajout = docTest.createElement('notedKeywords'); // Création d'un element de test
+
+
+                    for(i = 0 ; i < keywords.length ; i++){ // Pour chaque mot    ...
+
+                        if((keywords[i].score) || (keywords[i].score == '0')){ // ... Ayant été noté
+
+
+                            var word = keywords[i]['#text'],
+                                score = keywords[i].score;
+
+
+                            notedKeywords += word + ' : ' + score + ' / '; // Liste de mots clés
+
+
+                            var ajoutTXT = docTest.createTextNode(word + ' : ' + score + ' / ');
+
+
+                            ajout.appendChild(ajoutTXT);
+
+                        }
+
+                    }
+
+                    if(notedKeywords) { // If at least one keywords on the doc is noted
+
+
+                        docTest.documentElement.insertBefore(ajout , abstract[0]);// Insert it before abstract
+
+
+                        docTest = serializer.serializeToString(docTest.documentElement); // back to string xml
+
+
+                        archive.append(docTest, { name: docName }); // Add data( docTest ) to archive with name (docName)
+
+                    }
+
+                });
+
+                archive.finalize(); // Close archive
+
+
+            });
+
+        ////////////////////////////////
+
+
+
     }
 };

@@ -1,6 +1,7 @@
 /**
  * This is tei exportXML file
  * USes Pmongo to get Data
+ * Uses xmlDom to manipulate the dom
  */
 
 
@@ -15,13 +16,12 @@ module.exports = function(config) {
     var coll = pmongo(config.get('connexionURI')).collection(config.get('collectionName'));
 
 
-
     return function (req, res) {
 
         // Set csv header
         res.set({
-            'Content-Type': 'text/txt',
-            'Content-Disposition':'attachment; filename="export.txt"'
+            'Content-Type': 'text/xml',
+            'Content-Disposition':'attachment; filename="export.xml"'
         });
 
         coll
@@ -37,7 +37,6 @@ module.exports = function(config) {
 
                 docs.forEach(function(value , index){
 
-                    //console.log(value.content.xml);
 
                     var doc = value.content.xml,
                         keywords = value.keywords.eval[0].term,
@@ -59,59 +58,33 @@ module.exports = function(config) {
 
                             notedKeywords += word + ' : ' + score + ' / '; // Liste de mots clés
 
-                            //console.log('---------------------------POUR CHAQUE MOT--------------------------');
-
-
-                            //console.log('Mot : ' , word);
-                            //console.log('SCORE : ' , score);
-
 
                             var ajoutTXT = docTest.createTextNode(word + ' : ' + score + ' / ');
 
 
                             ajout.appendChild(ajoutTXT);
 
-
-
-                            //console.log('---------------------------AJOUTXT--------------------------');
-                            //console.log(ajoutTXT);
-
-
                         }
 
                     }
 
-                    if(notedKeywords) { // Si la liste n'est pas vide
+                    if(notedKeywords) { // If at least one keywords on the doc is noted
 
-                        //console.log('liste de score :', notedKeywords);
-
-                        docTest.documentElement.insertBefore(ajout , abstract[0]);
-
-                        //console.log('---------------------------DOCTEST DOM--------------------------');
-                        //console.log(docTest);
+                        docTest.documentElement.insertBefore(ajout , abstract[0]); // Insert it before abstract
 
 
-                        //console.log('---------------------------DOCTEST XML--------------------------');
-                        //console.log('docTest ' ,serializer.serializeToString(docTest.documentElement));
+                        docTest = serializer.serializeToString(docTest.documentElement); // Back to string xml
 
-                        docTest = serializer.serializeToString(docTest.documentElement); // back to string xml
 
-                        //console.log('docttets: ' , docTest);
-
-                        xw.writeRaw(docTest.toString());
-
-                        //console.log('-----------------NEW DOC-------------------------');
-
-                        //console.log('xw : '  , xw.toString());
-
+                        xw.writeRaw(docTest.toString()); // Add xml to teicorpus
 
                     }
 
                 });
 
-                xw.endElement();
-                xw.endDocument();
-                res.send(xw.toString()); // cloture et envoi
+                xw.endElement();  // Close TEICORPUS
+                xw.endDocument(); // Close doc
+                res.send(xw.toString()); // Send data
 
 
             });
