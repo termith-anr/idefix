@@ -121,10 +121,16 @@ $(document).ready(function() {
     };
 
 
-    $('.exportResults').on('click' , goToLocation);
+    $('.exportButtons').on('click' , goToLocation);
 
     $('#exportButton').on('click' , function(){
         $('#exportMenu').show();
+        $('body').css('overflow' , 'hidden');
+    });
+
+    $('#exportQuit').on('click', function(){
+        $('body').css('overflow' , '');
+        $('#exportMenu').hide();
     });
 
 });

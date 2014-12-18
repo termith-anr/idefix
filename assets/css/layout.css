@@ -1523,6 +1523,7 @@ input[value='2']:checked + label {
     display: flex;
     justify-content: center;
     align-items: center
+
 }
 
 #exportButton{
@@ -1567,7 +1568,7 @@ input[value='2']:checked + label {
     -ms-transition: all 850ms ease;
     -o-transition: all 850ms ease;
     transition: all 850ms ease;
-    margin: 0 auto;
+    margin: 0 30px;
     vertical-align: middle;
 }
 
