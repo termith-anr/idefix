@@ -11,7 +11,8 @@
 var pmongo = require('promised-mongo'),
     DOMParser = require('xmldom').DOMParser,
     XMLSerializer = require('xmldom').XMLSerializer,
-    archiver = require('archiver');
+    archiver = require('archiver'),
+    dateFormat = require('dateformat');
 
 
 module.exports = function(config) {
@@ -19,6 +20,10 @@ module.exports = function(config) {
     var coll = pmongo(config.get('connexionURI')).collection(config.get('collectionName'));
 
     return function (req, res) {
+
+        // Get current dateTime
+        var datetime = new Date();
+        datetime = dateFormat(datetime , "dd-mm-yyyy");
 
         var archive = archiver('zip');
 
@@ -32,7 +37,7 @@ module.exports = function(config) {
             return res.status(200).send('OK').end();
         });
 
-        res.attachment('archive-name.zip'); // name of archive
+        res.attachment(('export'+ datetime +'.zip')); // name of archive
 
         archive.pipe(res); // Stream archive
 
@@ -44,9 +49,6 @@ module.exports = function(config) {
             .then(function(docs){
 
                 docs.forEach(function(value , index){
-
-                    console.log('index: ' , index);
-
 
                     var doc = value.content.xml,
                         docName = value.basename,

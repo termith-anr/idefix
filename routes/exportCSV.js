@@ -5,7 +5,8 @@
 
 var CSV = require('csv-string'),
     pmongo = require('promised-mongo'),
-    sugar = require('sugar');
+    sugar = require('sugar'),
+    dateFormat = require('dateformat');
 
 module.exports = function(config) {
 
@@ -16,10 +17,14 @@ module.exports = function(config) {
 
     return function (req, res) {
 
+        // Get current dateTime
+        var datetime = new Date();
+        datetime = dateFormat(datetime , "dd-mm-yyyy");
+
         // Set csv header
         res.set({
             'Content-Type': 'text/csv',
-            'Content-Disposition':'attachment; filename="export.csv"'
+            'Content-Disposition':'attachment; filename="export-'+ datetime +'.csv"'
         });
 
         // Get mongodb files wich contain scores

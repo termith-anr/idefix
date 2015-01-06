@@ -8,7 +8,8 @@
 var pmongo = require('promised-mongo'),
     DOMParser = require('xmldom').DOMParser,
     XMLSerializer = require('xmldom').XMLSerializer,
-    XMLWriter = require('xml-writer');
+    XMLWriter = require('xml-writer'),
+    dateFormat = require('dateformat');
 
 
 module.exports = function(config) {
@@ -18,18 +19,20 @@ module.exports = function(config) {
 
     return function (req, res) {
 
+        // Get current dateTime
+        var datetime = new Date();
+        datetime = dateFormat(datetime , "dd-mm-yyyy");
+
         // Set csv header
         res.set({
             'Content-Type': 'text/xml',
-            'Content-Disposition':'attachment; filename="export.xml"'
+            'Content-Disposition':'attachment; filename="export'+ datetime +'.xml"'
         });
 
         coll
             .find({ "content.xml" : {$exists : true}})
             .toArray()
             .then(function(docs){
-
-                console.log('XML : ');
 
                 var xw = new XMLWriter;
                 xw.startDocument();
