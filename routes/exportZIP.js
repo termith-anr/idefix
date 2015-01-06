@@ -111,6 +111,5 @@ module.exports = function(config) {
         else{
             res.redirect('/'); // Redirect to Home if access denied
         }
-
     };
 };
