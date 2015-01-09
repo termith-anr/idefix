@@ -2,6 +2,7 @@
 
 $(document).ready(function() {
 
+    // Config DataTable
     var oTable = $('#browseTable').dataTable({
             "search" : {
                 "regex" : true
@@ -30,16 +31,19 @@ $(document).ready(function() {
                 { data: 'basename' , className: "browseYear browseTd", searchable: true},
                 { data: 'fields.title' , className: "browseTitle browseTd", searchable: true}
             ],
+            stateSave: true,
 
             "fnCreatedRow": function( row, td, index ) {
 
                 var rowValue = oTable.fnGetData( index );
 
+                // IF Silence is 100% validated
                 if(rowValue['validationDocument'] == "yes"){
 
                     $(row).attr('class', 'trValidate');
 
                 }
+                // IF Methods are 100% validated but Silence no
                 else if((rowValue['validationMethods'] == "yes") && (rowValue['fields']['validationDocument'] == "no")) {
 
                     var ratioINIST = rowValue['progressSilenceKeywords'] ? rowValue['progressSilenceKeywords'] : 0,
@@ -57,7 +61,9 @@ $(document).ready(function() {
 
 
                 }
+                // IF Methods are not validated
                 else if(rowValue['fields']['validationMethods'] == "no") {
+
                     var ratioMethods = rowValue['progressNotedKeywords'] ? rowValue['progressNotedKeywords'] : 0;
 
                     if (parseFloat(ratioMethods) > 0) {
@@ -91,19 +97,25 @@ $(document).ready(function() {
         }),
         thead = $('#menuThead');
 
+    // DataTable filters
     $('#browseChangeList').on('change', function() {
+
         if( $(this).val() == 'traites'){
             oTable.fnFilter( 'yes' , 1 );
+            localStorage['selecteur'] = "traites";
         }
         else if( $(this).val() == 'nonTraites'){
-
             oTable.fnFilter( 'no' , 1 );
+            localStorage['selecteur'] = "nonTraites";
         }
         else if( $(this).val() == 'tous'){
             oTable.fnFilter('',1);
+            localStorage['selecteur'] = "tous";
         }
     } );
 
+
+    // Fixed top menu
     $(window).scroll(function () {
         if ($(this).scrollTop() > 541) {
             thead.addClass("fixedThead");
@@ -115,7 +127,6 @@ $(document).ready(function() {
 
 
     // Get data-href of csv score & redirect to it
-
     var goToLocation  = function(element){
         window.location = element.currentTarget.getAttribute('data-href');
     };
@@ -132,5 +143,30 @@ $(document).ready(function() {
         $('body').css('overflow' , '');
         $('#exportMenu').hide();
     });
+
+    if(localStorage['selecteur']){
+
+        switch(localStorage['selecteur']){
+            case 'traites':
+
+                $('#browseChangeList option')[1].selected = true;
+
+                break;
+
+            case 'nonTraites':
+
+                $('#browseChangeList option')[2].selected = true;
+
+                break;
+
+            case 'tous':
+
+                $('#browseChangeList option')[0].selected = true;
+
+                break;
+        }
+    }
+
+
 
 });
