@@ -173,20 +173,30 @@ body > header{
     color: rgba(85,85,85,0.8);
     font-family: verdana;
     letter-spacing: 12px;
-    float:none;
     text-align: center;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 10px;
     background: none;
     border: 2px solid rgba(85,85,85,0.7);
-    margin: 0 auto;
-    margin-bottom: 50px;
-    border-radius: 75px 0 75px 0;
+    border-radius: 75px 0 0 0;
     margin-top: 0px;
+    margin-bottom: 50px;
     box-shadow: 7px 7px 2px 0 rgba(204,106,99,0.6);
-    height: 165px;
-    max-height: 165px;
+    height: 300px;
+    max-height: 300px;
     overflow: hidden;
+    float: left;
+}
+
+#exportDiv{
+    display: flex;
+    height: 300px;
+    max-height: 300px;
+    margin-bottom: 50px;
+    align-items: center;
+    background: grey;
+    box-shadow: 7px 7px 2px 0 rgba(204,106,99,0.6);
+    border-radius: 0 75px 0 0;
+
 }
 
 
@@ -1528,8 +1538,11 @@ input[value='2']:checked + label {
 
 #exportButton{
     font-family: "manteka" , arial, sans-serif;
-    font-size: 18px;
+    font-size: 23px;
+    line-height: 90px;
     margin: 0 auto;
+    height: 100px;
+    width: 300px;
     background: rgba(204, 106, 99, 0.6);
     text-shadow: none;
     color: #fff;
@@ -1549,6 +1562,11 @@ input[value='2']:checked + label {
 #exportButton:hover{
     background: #CC6A63;
     border-radius: 6px;
+}
+
+#headerDiv{
+    padding-right: 45px !important;
+    padding-left: 45px !important;
 }
 
 .exportButtons{
