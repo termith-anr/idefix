@@ -469,6 +469,7 @@ table tr[data-href] {
     font-size: 23px;
     color: #CC6A63;
     line-height: 23px;
+    cursor: pointer;
 }
 
 
@@ -1232,6 +1233,11 @@ input[value='2']:checked + label {
     margin: 0 auto;
     height:40px;
 }
+
+.formNotedKeyword label{
+    cursor: pointer;
+}
+
 .loader-quart{
 
     height: 30px;
