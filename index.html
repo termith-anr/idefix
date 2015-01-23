@@ -5,8 +5,8 @@
     <body id="bodyBrowse">
 
         <!--Exports PopUP  -->
-        <div id="exportMenu" style="display:none;width: 100%; height: 100% ; background: rgba(204, 106, 99, 0.75); z-index: 9999; position: fixed;">
-            <span id="exportQuit" style="cursor: pointer;font-size: 30px; color: #fff; font-weight:bold; position: absolute; right:50px ; top: 50px" class="glyphicon glyphicon-remove"></span>
+        <div id="exportMenu">
+            <span id="exportQuit" style="" class="glyphicon glyphicon-remove"></span>
             {% if config.exports.csv == true %}
             <div id="exportCSV" class="btn btn-default exportButtons" data-href="/exportCSV">Fichier CSV <span class="glyphicon glyphicon-file"></span>
                 <br/>
@@ -93,5 +93,6 @@
 <script src="/assets/js/jquery.dataTables.js"></script>
 <script src="/assets/js/dataTables.bootstrap.js"></script>
 <script src="/assets/js/browse.js"></script>
+
 {% endblock %}
 

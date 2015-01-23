@@ -4,11 +4,15 @@
 $(document).ready(function() {
 
 
-
     // ProgressBar & Timer ( getting json info )
     var validateMethodBar = $('#validateMethodBar'),
         validateDocument = $('#validateDocument'),
-        pageId = $('#validateMethodBar').attr('data-id');
+        pageId = $('#validateMethodBar').attr('data-id'),
+        config = {};
+
+        $.getJSON( "/config.json" , function(object){
+            config = object;
+        });
 
 
         $.getJSON("/display/" + pageId + ".json", function (data) {
@@ -585,7 +589,10 @@ $(document).ready(function() {
                         if (!li.hasClass("keywordsMethodsDisplayDone")) {
                             li.addClass("keywordsMethodsDisplayDone");
                             li.removeClass("keywordsMethodsisplay");
-                            li.children('.formNotedKeywordsPreference').css('display', '');
+                            if(config.showCorresp) { // To continue
+                                li.children('.formNotedKeywordsPreference').css('display', '');
+                            }
+
                         }
                         li.css('box-shadow', '0px 1px 4px 0px green');
                         setTimeout(function () {
