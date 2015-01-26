@@ -26,7 +26,23 @@ $(document).ready(function() {
                     for(var i=0 ; i<(config.showPrefered.length) ; i++ ) {
                         if ($(this).val().toString() === config.showPrefered[i].toString()) {
                             var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
-                            $('.formNotedKeywordsPreference' ,divKeywords).css('display', '').addClass('preferenceAvailable');
+                            $('.formNotedKeywordsPref' ,divKeywords).css('display', '').addClass('preferenceAvailable');
+                            $('.divComments' , divKeywords).addClass('commentsRight');
+                            break;
+                        }
+                    }
+                });
+            }
+
+
+            notedDiv = $('#keywordsInist .keywordsMethodsDisplayDone');
+
+            if(config.showCorresp && Array.isArray(config.showCorresp)) {
+                $('input:checked' , notedDiv).each(function(index){
+                    for(var i=0 ; i<(config.showPrefered.length) ; i++ ) {
+                        if ($(this).val().toString() === config.showCorresp[i].toString()) {
+                            var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
+                            $('.formNotedKeywordsPref' ,divKeywords).css('display', '').addClass('preferenceAvailable');
                             $('.divComments' , divKeywords).addClass('commentsRight');
                             break;
                         }
@@ -615,12 +631,12 @@ $(document).ready(function() {
                         if(config.showPrefered && Array.isArray(config.showPrefered)) {
                             for( var i=0 ; i < (config.showPrefered).length ; i++) {
                                 if( (postData[1].value).toString() === (config.showPrefered[i]).toString()  ) {
-                                    li.children('.formNotedKeywordsPreference').css('display', '').addClass('preferenceAvailable');
+                                    li.children('.formNotedKeywordsPref').css('display', '').addClass('preferenceAvailable');
                                     li.children('.divComments').addClass('commentsRight');
                                     break;
                                 }
                                 else{
-                                    li.children('.formNotedKeywordsPreference').css('display', 'none').removeClass('preferenceAvailable');
+                                    li.children('.formNotedKeywordsPref').css('display', 'none').removeClass('preferenceAvailable');
                                     li.children('.divComments').removeClass('commentsRight')
                                 }
                             }

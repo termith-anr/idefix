@@ -230,7 +230,7 @@
 
                                             </form>
 
-                                            <form class="formNotedKeyword formNotedKeywordsPreference row {% if item.validationDocument == 'yes' %}labelHide{% endif %}" id="correspMethod-{{ loopIndexMethodInist }}-{{ inistLoopKeyword }}" action="/save/{{ item.wid }}">
+                                            <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsPref row {% if item.validationDocument == 'yes' %}labelHide{% endif %}" id="correspMethod-{{ loopIndexMethodInist }}-{{ inistLoopKeyword }}" action="/save/{{ item.wid }}">
 
                                                 <input type="hidden" name="key" value="keywords.silence.{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}.correspondance"/> <!-- Key Name -->
 
@@ -316,7 +316,7 @@
 
                                                 </form>
 
-                                                <form class="formNotedKeyword formNotedKeywordsPreference row {% if item.validationMethods == 'yes' %}labelHide{% endif %}" id="prefMethod-{{ currentNbMethod }}-{{ loop.index }}" action="/save/{{ item.wid }}">
+                                                <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsCorresp row {% if item.validationMethods == 'yes' %}labelHide{% endif %}" id="prefMethod-{{ currentNbMethod }}-{{ loop.index }}" action="/save/{{ item.wid }}">
 
                                                     <input type="hidden" name="key" value="keywords.eval.{{ currentNbMethod-1 }}.term.{{ wordNumber }}.exclude"/> <!-- Key Name -->
 
