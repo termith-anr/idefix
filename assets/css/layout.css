@@ -1505,7 +1505,7 @@ input[value='2']:checked + label {
     margin-left: 5%;
 }
 
-.keywordsMethodsDisplayDone .formNotedKeywordsPreference{
+.keywordsMethodsDisplayDone .preferenceAvailable{
 
     display: inline-block;
 
@@ -1528,6 +1528,10 @@ input[value='2']:checked + label {
     font-size: 14px;
     font-family: verdana;
     color: #444;
+}
+
+.commentsRight{
+    float : right !important;
 }
 
 
@@ -1743,10 +1747,10 @@ input[value='2']:checked + label {
     border-radius: 25px;
     bottom: 3%;
     cursor: pointer;
-    float: right;
+    float: none;
     height: 25px;
     line-height: 12px;
-    margin-right: 5%;
+    margin: 0 auto;
     right: 3%;
     text-align: center;
     width: 25px;
@@ -1759,7 +1763,7 @@ input[value='2']:checked + label {
 
 .keywordsMethodsDisplayDone .divComments{
 
-    display: inline-block;
+    display: block;
     transition: all 600ms ease 0s;
 
 }

@@ -4,6 +4,7 @@
 $(document).ready(function() {
 
 
+
     // ProgressBar & Timer ( getting json info )
     var validateMethodBar = $('#validateMethodBar'),
         validateDocument = $('#validateDocument'),
@@ -12,7 +13,28 @@ $(document).ready(function() {
 
         $.getJSON( "/config.json" , function(object){
             config = object;
+            hideElements();
         });
+
+        var hideElements = function(){
+
+            //Hide preference & corresp if options enabled
+            var notedDiv = $('.methodsKeywords .keywordsMethodsDisplayDone');
+
+            if(config.showPrefered && Array.isArray(config.showPrefered)) {
+                $('input:checked' , notedDiv).each(function(index){
+                    for(var i=0 ; i<(config.showPrefered.length) ; i++ ) {
+                        if ($(this).val().toString() === config.showPrefered[i].toString()) {
+                            var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
+                            $('.formNotedKeywordsPreference' ,divKeywords).css('display', '').addClass('preferenceAvailable');
+                            $('.divComments' , divKeywords).addClass('commentsRight');
+                            break;
+                        }
+                    }
+                });
+            }
+
+        };
 
 
         $.getJSON("/display/" + pageId + ".json", function (data) {
@@ -589,10 +611,19 @@ $(document).ready(function() {
                         if (!li.hasClass("keywordsMethodsDisplayDone")) {
                             li.addClass("keywordsMethodsDisplayDone");
                             li.removeClass("keywordsMethodsisplay");
-                            if(config.showCorresp) { // To continue
-                                li.children('.formNotedKeywordsPreference').css('display', '');
+                        }
+                        if(config.showPrefered && Array.isArray(config.showPrefered)) {
+                            for( var i=0 ; i < (config.showPrefered).length ; i++) {
+                                if( (postData[1].value).toString() === (config.showPrefered[i]).toString()  ) {
+                                    li.children('.formNotedKeywordsPreference').css('display', '').addClass('preferenceAvailable');
+                                    li.children('.divComments').addClass('commentsRight');
+                                    break;
+                                }
+                                else{
+                                    li.children('.formNotedKeywordsPreference').css('display', 'none').removeClass('preferenceAvailable');
+                                    li.children('.divComments').removeClass('commentsRight')
+                                }
                             }
-
                         }
                         li.css('box-shadow', '0px 1px 4px 0px green');
                         setTimeout(function () {
@@ -793,5 +824,6 @@ $(document).ready(function() {
     });
 
     /* --- END OF SUBMIT AJAX ---*/
+
 
 });
