@@ -631,32 +631,70 @@ $(document).ready(function() {
                             li.addClass("keywordsMethodsDisplayDone");
                             li.removeClass("keywordsMethodsisplay");
                         }
-                        if(checkType.indexOf('silence') >= 0) {
-                            if (config.showCorresp && Array.isArray(config.showCorresp)) {
-                                for (var i = 0; i < (config.showCorresp).length; i++) {
-                                    if ((postData[1].value).toString() === (config.showCorresp[i]).toString()) {
+                        if((checkType.indexOf('silence') >= 0) && (checkType.indexOf('correspondance') <= 0)) { // If it's a silence  notation ( not corresp )
+                            console.log('ceci est un silence !');
+                            if (config.showCorresp && Array.isArray(config.showCorresp)) { // If options is enable + isArray
+                                for (var i = 0; i < (config.showCorresp).length; i++) { //For all options values
+                                    if ((postData[1].value).toString() === (config.showCorresp[i]).toString()) { //If sent value is in options
                                         li.children('.formNotedKeywordsCorresp').css('display', '').addClass('preferenceAvailable');
                                         li.children('.divComments').addClass('commentsRight');
-                                        break;
+                                        break; //Stop checking options values
                                     }
-                                    else {
+                                    else { //If sent value not in options
                                         li.children('.formNotedKeywordsCorresp').css('display', 'none').removeClass('preferenceAvailable');
-                                        li.children('.divComments').removeClass('commentsRight')
+                                        li.children('.divComments').removeClass('commentsRight');
+                                        if( $('.formNotedKeywordList option:selected' , li).val() != '<corresp>' ){ //If a pref was selected
+
+                                            postData[1].value = '<corresp>';
+
+                                            /*Point to exclude*/
+                                            var arr = (postData[0].value).split('.');
+                                            arr[(arr.length -1)] = 'correspondance';
+                                            postData[0].value = arr.join('.');
+
+                                            $.ajax({
+                                                url: formURL,
+                                                type: "POST",
+                                                data: postData,
+                                                success: function (e) {
+                                                    $('.formNotedKeywordList option:selected' , li).removeAttr('selected');
+                                                }
+                                            });
+                                        }
                                     }
                                 }
                             }
                         }
-                        else if(checkType.indexOf('eval') >= 0) {
-                            if (config.showPrefered && Array.isArray(config.showPrefered)) {
-                                for (var i = 0; i < (config.showPrefered).length; i++) {
-                                    if ((postData[1].value).toString() === (config.showPrefered[i]).toString()) {
+                        else if((checkType.indexOf('eval') > 0) && (checkType.indexOf('exclude') <= 0)) {// If it's an eval score notation ( not pref )
+                            console.log('ceci est une eval !');
+                            if (config.showPrefered && Array.isArray(config.showPrefered)) {// If options is enable + isArray
+                                for (var i = 0; i < (config.showPrefered).length; i++) {//For all options values
+                                    if ((postData[1].value).toString() === (config.showPrefered[i]).toString()) {//If sent value is in options
                                         li.children('.formNotedKeywordsPref').css('display', '').addClass('preferenceAvailable');
                                         li.children('.divComments').addClass('commentsRight');
-                                        break;
+                                        break; //Stop checking options values
                                     }
-                                    else {
+                                    else {//If sent value not in options
                                         li.children('.formNotedKeywordsPref').css('display', 'none').removeClass('preferenceAvailable');
-                                        li.children('.divComments').removeClass('commentsRight')
+                                        li.children('.divComments').removeClass('commentsRight');
+                                        if( $('.formNotedKeywordList option:selected' , li).val() != '<exclude>' ){ //If a pref was selected
+
+                                            postData[1].value = '<exclude>';
+
+                                            /*Point to exclude*/
+                                            var arr = (postData[0].value).split('.');
+                                            arr[(arr.length -1)] = 'exclude';
+                                            postData[0].value = arr.join('.');
+
+                                            $.ajax({
+                                                url: formURL,
+                                                type: "POST",
+                                                data: postData,
+                                                success: function (e) {
+                                                    $('.formNotedKeywordList option:selected' , li).removeAttr('selected');
+                                                }
+                                            });
+                                        }
                                     }
                                 }
                             }
