@@ -39,10 +39,10 @@ $(document).ready(function() {
 
             if(config.showCorresp && Array.isArray(config.showCorresp)) {
                 $('input:checked' , notedDiv).each(function(index){
-                    for(var i=0 ; i<(config.showPrefered.length) ; i++ ) {
+                    for(var i=0 ; i<(config.showCorresp.length) ; i++ ) {
                         if ($(this).val().toString() === config.showCorresp[i].toString()) {
                             var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
-                            $('.formNotedKeywordsPref' ,divKeywords).css('display', '').addClass('preferenceAvailable');
+                            $('.formNotedKeywordsCorresp' ,divKeywords).css('display', '').addClass('preferenceAvailable');
                             $('.divComments' , divKeywords).addClass('commentsRight');
                             break;
                         }
@@ -623,21 +623,41 @@ $(document).ready(function() {
                 success: function (e) {
                     setTimeout(function () {
 
+                        console.log('data: '  , postData);
+                        var checkType = (postData[0].value).toString();
+
                         $('#' + id + ' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
                         if (!li.hasClass("keywordsMethodsDisplayDone")) {
                             li.addClass("keywordsMethodsDisplayDone");
                             li.removeClass("keywordsMethodsisplay");
                         }
-                        if(config.showPrefered && Array.isArray(config.showPrefered)) {
-                            for( var i=0 ; i < (config.showPrefered).length ; i++) {
-                                if( (postData[1].value).toString() === (config.showPrefered[i]).toString()  ) {
-                                    li.children('.formNotedKeywordsPref').css('display', '').addClass('preferenceAvailable');
-                                    li.children('.divComments').addClass('commentsRight');
-                                    break;
+                        if(checkType.indexOf('silence') >= 0) {
+                            if (config.showCorresp && Array.isArray(config.showCorresp)) {
+                                for (var i = 0; i < (config.showCorresp).length; i++) {
+                                    if ((postData[1].value).toString() === (config.showCorresp[i]).toString()) {
+                                        li.children('.formNotedKeywordsCorresp').css('display', '').addClass('preferenceAvailable');
+                                        li.children('.divComments').addClass('commentsRight');
+                                        break;
+                                    }
+                                    else {
+                                        li.children('.formNotedKeywordsCorresp').css('display', 'none').removeClass('preferenceAvailable');
+                                        li.children('.divComments').removeClass('commentsRight')
+                                    }
                                 }
-                                else{
-                                    li.children('.formNotedKeywordsPref').css('display', 'none').removeClass('preferenceAvailable');
-                                    li.children('.divComments').removeClass('commentsRight')
+                            }
+                        }
+                        else if(checkType.indexOf('eval') >= 0) {
+                            if (config.showPrefered && Array.isArray(config.showPrefered)) {
+                                for (var i = 0; i < (config.showPrefered).length; i++) {
+                                    if ((postData[1].value).toString() === (config.showPrefered[i]).toString()) {
+                                        li.children('.formNotedKeywordsPref').css('display', '').addClass('preferenceAvailable');
+                                        li.children('.divComments').addClass('commentsRight');
+                                        break;
+                                    }
+                                    else {
+                                        li.children('.formNotedKeywordsPref').css('display', 'none').removeClass('preferenceAvailable');
+                                        li.children('.divComments').removeClass('commentsRight')
+                                    }
                                 }
                             }
                         }
