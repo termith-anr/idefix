@@ -11,10 +11,6 @@ $(document).ready(function() {
         pageId = $('#validateMethodBar').attr('data-id'),
         config = {};
 
-        $.getJSON( "/config.json" , function(object){
-            config = object;
-            hideElements();
-        });
 
         var hideElements = function(){
 
@@ -153,6 +149,12 @@ $(document).ready(function() {
 
             });
 
+            if(data.item.fields.validationDocument == "no"){
+                $.getJSON( "/config.json" , function(object){
+                    config = object;
+                    hideElements();
+                });
+            }
 
             if(data.item.fields.validationMethods == "no") {
 
@@ -623,7 +625,6 @@ $(document).ready(function() {
                 success: function (e) {
                     setTimeout(function () {
 
-                        console.log('data: '  , postData);
                         var checkType = (postData[0].value).toString();
 
                         $('#' + id + ' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
@@ -632,7 +633,6 @@ $(document).ready(function() {
                             li.removeClass("keywordsMethodsisplay");
                         }
                         if((checkType.indexOf('silence') >= 0) && (checkType.indexOf('correspondance') <= 0)) { // If it's a silence  notation ( not corresp )
-                            console.log('ceci est un silence !');
                             if (config.showCorresp && Array.isArray(config.showCorresp)) { // If options is enable + isArray
                                 for (var i = 0; i < (config.showCorresp).length; i++) { //For all options values
                                     if ((postData[1].value).toString() === (config.showCorresp[i]).toString()) { //If sent value is in options
@@ -666,8 +666,7 @@ $(document).ready(function() {
                             }
                         }
                         else if((checkType.indexOf('eval') > 0) && (checkType.indexOf('exclude') <= 0)) {// If it's an eval score notation ( not pref )
-                            console.log('ceci est une eval !');
-                            if (config.showPrefered && Array.isArray(config.showPrefered)) {// If options is enable + isArray
+                           if (config.showPrefered && Array.isArray(config.showPrefered)) {// If options is enable + isArray
                                 for (var i = 0; i < (config.showPrefered).length; i++) {//For all options values
                                     if ((postData[1].value).toString() === (config.showPrefered[i]).toString()) {//If sent value is in options
                                         li.children('.formNotedKeywordsPref').css('display', '').addClass('preferenceAvailable');
