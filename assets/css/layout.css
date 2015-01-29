@@ -1796,6 +1796,20 @@ input[value='2']:checked + label {
     right: 4%;
     height: 17px !important;
     display: none;
+    color: #fff;
+}
+
+.cantSaveSpanComment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    background: none repeat scroll 0% 0% #777;
+    transition: all 650ms ease 0s;
+    cursor: not-allowed;
+    width: 50%;
+    height: 17px;
+    float: right;
 }
 
 .saveSpanComment{
@@ -1809,6 +1823,15 @@ input[value='2']:checked + label {
     width: 50%;
     height: 17px;
     float: right;
+}
+
+.saveSpanComment span , .cantSaveSpanComment span {
+    top: 0 !important;
+    position: static !important;
+}
+
+.saveSpanComment:hover{
+    background: #27ae60;
 }
 
 .quitSpanComment{
@@ -1826,11 +1849,16 @@ input[value='2']:checked + label {
     float: left;
     width: 50%;
     height: 17px;
+    border-right: 1px solid #666;
+}
+
+.quitSpanComment span{
+    top: 0 !important;
+    position: static !important;
 }
 
 .quitSpanComment:hover{
-    background: #bdc3c7;
-    color : #c0392b;
+    background: #c0392b;
 }
 
 

@@ -296,7 +296,8 @@ $(document).ready(function() {
             quitSpan = $('.quitSpanComment', this),
             saveSpan = $('.saveSpanComment', this),
             etcSpan = $('.etcSpanComment', this),
-            divFormComments = $('.divFormComments', this);
+            divFormComments = $('.divFormComments', this),
+            inputComment = $('.inputComment', this);
         e.stopPropagation();
         etcSpan.hide();
         divComment.addClass('divCommentsOpened');
@@ -308,10 +309,11 @@ $(document).ready(function() {
     });
 
     $('.inputComment').keydown(function (event) {
-        var keycode = (event.keyCode ? event.keyCode : event.which);
-        var postData = $(this).parent().serializeArray();
-        var id = $(this).parent().attr('data-id');
-        var input = $(this);
+        var keycode = (event.keyCode ? event.keyCode : event.which),
+            postData = $(this).parent().serializeArray(),
+            input = $(this),
+            id = $(this).parent().attr('data-id'),
+            divComment = input.parents('.divComments');
         if (keycode == '13') {
             var url = '/save/' + id;
             event.preventDefault();
@@ -347,11 +349,39 @@ $(document).ready(function() {
     $('.quitSpanComment').on('click', function (e) {
         e.stopPropagation();
         $(this).hide();
-        var parr = $(this).parent();
+        var parr = $(this).parents('.divComments');
         parr.removeClass('divCommentsOpened');
         $('.divFormComments', parr).hide();
         $('.etcSpanComment', parr).fadeIn();
+    });
 
+    $('.saveSpanComment').on('click', function (e) {
+        var url = '/save/' + pageId,
+            span = $(this),
+            divComment = $(this).parents('.divComments'),
+            form = $('form' ,divComment);
+        if( $('.inputComment' , form).val() ) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serializeArray(),
+                success: function (e) {
+                    console.log(e);
+                    var divComments = span.parents(".divComments");
+                    $(".divFormComments", divComments).css("background", "#27ae60");
+                    setTimeout(function () {
+                        $(".divFormComments", divComments).css('background', "");
+                        $(".quitSpanComment", divComments).css("display", "");
+                        divComments.removeClass('divCommentsOpened');
+                        $(".divFormComments", divComments).hide();
+                        $(".etcSpanComment", divComments).fadeIn();
+                    }, 750);
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
     });
 
     /* --- END SHOW/ADD COMMENT---- */
