@@ -103,7 +103,6 @@ $(document).ready(function() {
                     var timerInfo = $('#timer').runner('info'),
                         timeToSave = timerInfo.time;
 
-
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -252,19 +251,58 @@ $(document).ready(function() {
         });
 
 
+    /* --- DELETE A COMMENT --- */
+    $('.trashComment').on('click' , function(){
+        var span = $(this);
+        var toDelete = $(this).parent('form').children('input[name="key"]').val().toString(),
+            arr      = [
+                {
+                    name : "key",
+                    value: toDelete
+                },
+                {
+                    name : "val",
+                    value: ""
+                }
+            ],
+            url = '/delete/' + pageId;
+        console.log('parent : ', arr);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: arr,
+            success : function(e){
+                console.log(e);
+
+                var divComments = span.parents(".divComments");
+                $(".divFormComments", divComments).css("background" , "#27ae60");
+                setTimeout(function () {
+                    $(".divFormComments" , divComments).css('background', "");
+                    $('.inputComment' ,divComments).val('');
+                }, 750);
+
+            }
+        });
+    });
+
+
 
 
     /* --- SHOW/ADD COMMENT--- */
 
     $('.divComments').on('click', function (e) {
         var divComment = $(this),
+            leaveQuiSpan = $('.leaveOrSaveComment' , this),
             quitSpan = $('.quitSpanComment', this),
+            saveSpan = $('.saveSpanComment', this),
             etcSpan = $('.etcSpanComment', this),
             divFormComments = $('.divFormComments', this);
         e.stopPropagation();
         etcSpan.hide();
         divComment.addClass('divCommentsOpened');
-        quitSpan.show();
+        leaveQuiSpan.show();
+        quitSpan.css("display" , "flex");
+        saveSpan.css("display" , "flex");
         divFormComments.show();
         $('.inputComment', this).focus();
     });
@@ -282,11 +320,14 @@ $(document).ready(function() {
                 url: url,
                 data: postData,
                 success: function (e) {
-                    input.css({
-                        'box-shadow': '0px 2px 4px 0px green'
-                    });
-                    setTimeout(function () {
-                        input.css('box-shadow', '');
+                    var divComments = input.parents(".divComments");
+                    $(".divFormComments", divComments).css("background" , "#27ae60");
+                        setTimeout(function () {
+                        $(".divFormComments" , divComments).css('background', "");
+                        $(".quitSpanComment" , divComments).css("display" , "");
+                        divComments.removeClass('divCommentsOpened');
+                        $(".divFormComments" , divComments).hide();
+                        $(".etcSpanComment" , divComments).fadeIn();
                     }, 750);
                 }
             });
@@ -296,7 +337,7 @@ $(document).ready(function() {
                 quitSpan = $('.quitSpanComment', divComment),
                 etcSpan = $('.etcSpanComment', divComment),
                 divFormComments = $('.divFormComments', divComment);
-            quitSpan.hide();
+            quitSpan.css("display" , "");
             divComment.removeClass('divCommentsOpened');
             divFormComments.hide();
             etcSpan.fadeIn();

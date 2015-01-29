@@ -135,7 +135,7 @@ $(document).ready(function() {
     $('.exportButtons').on('click' , goToLocation);
 
     $('#exportButton').on('click' , function(){
-        $('#exportMenu').show();
+        $('#exportMenu').css("display" , "flex");
         $('body').css('overflow' , 'hidden');
     });
 

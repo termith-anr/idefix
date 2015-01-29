@@ -342,13 +342,19 @@
                                                 <div class="divComments {% if item.validationMethods == 'yes' %}labelHide{% endif %}">
                                                     <span class="etcSpanComment">...</span>
 
-                                                    <span class="quitSpanComment">X</span>
+
 
                                                     <div class="divFormComments">
 
-                                                        <form  data-id="{{ item.wid }}" action="/save/{{ item.wid }}" style="height:100%;padding:0; margin: 0">
-                                                            <input type="hidden" name="key" value="keywords.eval.{{ currentNbMethod-1 }}.term.{{ wordNumber }}.comment"/> <!-- Key Name -->
-                                                            <input name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ item.keywords.eval[currentNbMethod-1].term[wordNumber].comment }}"/>
+                                                        <div class="leaveOrSaveComment">
+                                                            <span class="quitSpanComment" title="Quitter sans sauvegarder"> <span class="glyphicon glyphicon-remove"></span> </span>
+                                                            <span class="saveSpanComment" title="Sauvegarder le commentaire"> <span class="glyphicon glyphicon-ok"></span> </span>
+                                                        </div>
+
+                                                        <form  data-id="{{ item.wid }}" action="/save/{{ item.wid }}" style="height:100%;padding:0; margin: 0" >
+                                                                <input type="hidden" name="key" value="keywords.eval.{{ currentNbMethod-1 }}.term.{{ wordNumber }}.comment"/> <!-- Key Name -->
+                                                                <input title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ item.keywords.eval[currentNbMethod-1].term[wordNumber].comment }}"/>
+                                                                <span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span>
                                                         </form>
                                                     </div>
 

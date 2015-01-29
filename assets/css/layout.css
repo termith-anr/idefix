@@ -1782,6 +1782,7 @@ input[value='2']:checked + label {
     position: absolute;
     top: 0;
     width: auto;
+    cursor: text;
 }
 
 .etcSpanComment{
@@ -1789,12 +1790,47 @@ input[value='2']:checked + label {
     font-size: 20px;
 }
 
-.quitSpanComment{
-    display: none;
-    font-size: 18px;
-    position: absolute;
+.leaveOrSaveComment{
+    font-size: 12px;
     top: 3%;
     right: 4%;
+    height: 17px !important;
+    display: none;
+}
+
+.saveSpanComment{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    background: none repeat scroll 0% 0% #444;
+    transition: all 650ms ease 0s;
+    cursor: pointer;
+    width: 50%;
+    height: 17px;
+    float: right;
+}
+
+.quitSpanComment{
+    transition: all 650ms ease 0s;
+    -webkit-transition: all 650ms ease;
+    -moz-transition: all 650ms ease;
+    -ms-transition: all 650ms ease;
+    -o-transition: all 650ms ease;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    background: none repeat scroll 0% 0% #444;
+    cursor: pointer;
+    float: left;
+    width: 50%;
+    height: 17px;
+}
+
+.quitSpanComment:hover{
+    background: #bdc3c7;
+    color : #c0392b;
 }
 
 
@@ -1812,13 +1848,33 @@ input[value='2']:checked + label {
 
 .inputComment{
     position: absolute;
-    left: 6.5%;
-    top: 29%;
+    left: 3%;
+    top: 34%;
     background: #fff;
     height: 45px;
-    width: 87%;
-    border-radius: 10px;
+    width: 83%;
+    border-radius: 8px 0 0 8px;
     border: 0;
+}
+
+.trashComment{
+    height: 45px;
+    top: 34%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    background: none repeat scroll 0% 0% grey;
+    font-size: 14px;
+    width: 14%;
+    right: 1%;
+    border-radius: 0 8px  8px  0;
+    cursor: pointer;
+}
+
+.trashComment:hover{
+    background: #C0392B;
 }
 
 #spanLogos{
