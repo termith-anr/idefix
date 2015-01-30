@@ -2059,3 +2059,10 @@ input[value='2']:checked + label {
     right:50px ;
     top: 50px
 }
+
+
+/* TypeaHead */
+
+.twitter-typeahead{
+    position: absolute !important;
+}

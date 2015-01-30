@@ -87,7 +87,6 @@
 
                     <!-- THE NAV BAR -->
                     <div class="divTopDisplay">
-
                         <div id="divNavMiddle" class="col-lg-12 col-md-12 col-sm-12">
                             <p>
                                 <a href="/index.html">Liste</a> <!-- Return to browse Docs-->
@@ -181,6 +180,8 @@
 
                 <p id="abstractFullLenght">
                     {{ item.fields.abstract|d('Pas de resume') }}
+                    <input id="aTest" type="text" data-provide="typeahead" >
+
                 </p>
 
 
@@ -258,7 +259,7 @@
 
                                                     <form  data-id="{{ item.wid }}" action="/save/{{ item.wid }}" style="height:100%;padding:0; margin: 0">
                                                         <input type="hidden" name="key" value="keywords.silence.{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}.commentaire"/> <!-- Key Name -->
-                                                        <input name="val" class="inputComment"  type="text" placeholder="Commentaire :" value="{{ item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].commentaire }}"/>
+                                                        <input name="val" class="inputComment"  type="text" placeholder="Commentaire :" data-provide="typeahead" value="{{ item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].commentaire }}"/>
                                                     </form>
                                                 </div>
 
@@ -353,7 +354,7 @@
 
                                                         <form  data-id="{{ item.wid }}" action="/save/{{ item.wid }}" style="height:100%;padding:0; margin: 0" >
                                                                 <input type="hidden" name="key" value="keywords.eval.{{ currentNbMethod-1 }}.term.{{ wordNumber }}.comment"/> <!-- Key Name -->
-                                                                <input title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ item.keywords.eval[currentNbMethod-1].term[wordNumber].comment }}"/>
+                                                                <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ item.keywords.eval[currentNbMethod-1].term[wordNumber].comment }}"/>
                                                                 <span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span>
                                                         </form>
                                                     </div>
@@ -396,6 +397,8 @@
 <script src="/assets/js/jquery.runner.js" type="text/javascript"></script>
 
 <script src="/assets/js/jquery.fs.scroller.min.js"></script>
+
+<script src="/assets/js/bootstrap3-typeahead.min.js"></script>
 
 <script src="/assets/js/display.js"></script>
 
