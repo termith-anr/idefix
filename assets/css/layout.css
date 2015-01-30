@@ -1121,7 +1121,7 @@ span .methodsameDisplayD{
     transition: background 500ms;
     height: 105px;
     max-height: 105px;
-    overflow-y: hidden;
+    overflow-x: hidden;
     opacity: 0.7;
     cursor: auto !important;
 }
@@ -1876,11 +1876,11 @@ input[value='2']:checked + label {
 
 .inputComment{
     position: absolute;
-    left: 3%;
-    top: 34%;
+    left: 3% !important;
+    top: 34% !important;
     background: #fff;
-    height: 45px;
-    width: 83%;
+    height: 45px !important;
+    width: 83% !important;
     border-radius: 8px 0 0 8px;
     border: 0;
 }
@@ -2063,6 +2063,61 @@ input[value='2']:checked + label {
 
 /* TypeaHead */
 
-.twitter-typeahead{
-    position: absolute !important;
+
+span.twitter-typeahead .tt-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 14px;
+    text-align: left;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+}
+span.twitter-typeahead .tt-suggestion > p {
+    display: block;
+    padding: 3px 20px;
+    margin-bottom: 0px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333333;
+    white-space: nowrap;
+}
+span.twitter-typeahead .tt-suggestion > p:hover,
+span.twitter-typeahead .tt-suggestion > p:focus {
+    color: #ffffff;
+    text-decoration: none;
+    outline: 0;
+    background-color: #428bca;
+}
+span.twitter-typeahead .tt-suggestion.tt-cursor {
+    color: #ffffff;
+    background-color: #428bca;
+}
+span.twitter-typeahead {
+    width: 100%;
+}
+.input-group span.twitter-typeahead {
+    display: block !important;
+}
+.input-group span.twitter-typeahead .tt-dropdown-menu {
+    top: 32px !important;
+}
+.input-group.input-group-lg span.twitter-typeahead .tt-dropdown-menu {
+    top: 44px !important;
+}
+.input-group.input-group-sm span.twitter-typeahead .tt-dropdown-menu {
+    top: 28px !important;
 }
