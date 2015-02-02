@@ -342,8 +342,10 @@ $(document).ready(function() {
             saveSpan = $('.saveSpanComment', this),
             etcSpan = $('.etcSpanComment', this),
             divFormComments = $('.divFormComments', this),
-            inputComment = $('.inputComment', this);
+            inputComment = $('.inputComment', this),
+            otherBtn = $(this).closest('.btn');
         e.stopPropagation();
+        otherBtn.siblings().css('opacity', '0       ');
         etcSpan.hide();
         divComment.addClass('divCommentsOpened');
         leaveQuiSpan.show();

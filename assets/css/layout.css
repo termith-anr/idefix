@@ -1121,7 +1121,8 @@ span .methodsameDisplayD{
     transition: background 500ms;
     height: 105px;
     max-height: 105px;
-    overflow-x: hidden;
+    max-width: 100%;
+    overflow: visible;
     opacity: 0.7;
     cursor: auto !important;
 }
@@ -1783,6 +1784,9 @@ input[value='2']:checked + label {
     top: 0;
     width: auto;
     cursor: text;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: visible;
 }
 
 .etcSpanComment{
@@ -1790,13 +1794,23 @@ input[value='2']:checked + label {
     font-size: 20px;
 }
 
-.leaveOrSaveComment{
+/*.leaveOrSaveComment{
     font-size: 12px;
     top: 3%;
     right: 4%;
     height: 17px !important;
     display: none;
     color: #fff;
+}*/
+
+.leaveOrSaveComment {
+    position: absolute;
+    font-size: 12px;
+    height: 17px !important;
+    display: none;
+    color: #FFF;
+    width: 100%;
+    left: 0;
 }
 
 .cantSaveSpanComment{
@@ -1870,11 +1884,15 @@ input[value='2']:checked + label {
     color:#333;
     background: #cc6a63;
     max-width: 100%;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    max-height: 100%;
+    overflow: visible;
 }
 
-.inputComment{
+.divFormComments form {
+    height: calc(100% - 17px) !important;
+}
+
+/*.inputComment{
     position: absolute;
     left: 3% !important;
     top: 34% !important;
@@ -1883,6 +1901,17 @@ input[value='2']:checked + label {
     width: 83% !important;
     border-radius: 8px 0 0 8px;
     border: 0;
+}*/
+
+.inputComment{
+    background: none repeat scroll 0% 0% #FFF;
+    height: 45px !important;
+    width: 83% !important;
+    border-radius: 8px 0px 0px 8px;
+    border: 0px none;
+    float: left;
+    margin-top: 18px;
+    margin-left: 3px;
 }
 
 .trashComment{
@@ -2120,4 +2149,12 @@ span.twitter-typeahead {
 }
 .input-group.input-group-sm span.twitter-typeahead .tt-dropdown-menu {
     top: 28px !important;
+}
+
+.twitter-typeahead {
+    display: inline-block;
+    direction: ltr;
+    position: absolute;
+    left: 0;
+    top: 18px;
 }

@@ -180,8 +180,6 @@
 
                 <p id="abstractFullLenght">
                     {{ item.fields.abstract|d('Pas de resume') }}
-                    <input id="aTest" type="text" data-provide="typeahead" >
-
                 </p>
 
 
@@ -352,7 +350,7 @@
                                                             <span class="saveSpanComment" title="Sauvegarder le commentaire"> <span class="glyphicon glyphicon-ok"></span> </span>
                                                         </div>
 
-                                                        <form  data-id="{{ item.wid }}" action="/save/{{ item.wid }}" style="height:100%;padding:0; margin: 0" >
+                                                        <form  data-id="{{ item.wid }}" action="/save/{{ item.wid }}" style="padding:0; margin: 0" >
                                                                 <input type="hidden" name="key" value="keywords.eval.{{ currentNbMethod-1 }}.term.{{ wordNumber }}.comment"/> <!-- Key Name -->
                                                                 <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ item.keywords.eval[currentNbMethod-1].term[wordNumber].comment }}"/>
                                                                 <span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span>
