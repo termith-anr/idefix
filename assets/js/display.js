@@ -345,7 +345,11 @@ $(document).ready(function() {
             inputComment = $('.inputComment', this),
             otherBtn = $(this).closest('.btn');
         e.stopPropagation();
-        otherBtn.siblings().css('opacity', '0       ');
+        otherBtn.siblings().css('transition', 'none');
+        otherBtn.siblings().css('opacity', '0');
+        otherBtn.siblings().css('visibility', 'hidden');
+        otherBtn.css('box-shadow', '8px 11px 78px 31px black');
+        otherBtn.css('overflow', 'visible');
         etcSpan.hide();
         divComment.addClass('divCommentsOpened');
         leaveQuiSpan.show();
@@ -357,10 +361,10 @@ $(document).ready(function() {
 
     $('.inputComment').keydown(function (event) {
         var keycode = (event.keyCode ? event.keyCode : event.which),
-            postData = $(this).parent().serializeArray(),
+            postData = $(this).parents('form').serializeArray(),
             input = $(this),
-            id = $(this).parent().attr('data-id'),
-            divComment = input.parents('.divComments');
+            id = $(this).parent().attr('data-id');
+            console.log('data: ' , postData);
         if (keycode == '13') {
             var url = '/save/' + id;
             event.preventDefault();
@@ -377,6 +381,15 @@ $(document).ready(function() {
                         divComments.removeClass('divCommentsOpened');
                         $(".divFormComments" , divComments).hide();
                         $(".etcSpanComment" , divComments).fadeIn();
+
+                        var otherBtn = divComments.closest('.btn');
+
+
+                        otherBtn.siblings().css('transition', '');
+                        otherBtn.siblings().css('opacity', '');
+                        otherBtn.siblings().css('visibility', '');
+                        otherBtn.css('box-shadow', '');
+                        otherBtn.css('overflow', '');
                     }, 750);
                 }
             });
@@ -390,6 +403,14 @@ $(document).ready(function() {
             divComment.removeClass('divCommentsOpened');
             divFormComments.hide();
             etcSpan.fadeIn();
+            var otherBtn = $(this).closest('.btn');
+
+
+            otherBtn.siblings().css('transition', '');
+            otherBtn.siblings().css('opacity', '');
+            otherBtn.siblings().css('visibility', '');
+            otherBtn.css('box-shadow', '');
+            otherBtn.css('overflow', '');
         }
     });
 
@@ -398,8 +419,15 @@ $(document).ready(function() {
         $(this).hide();
         var parr = $(this).parents('.divComments');
         parr.removeClass('divCommentsOpened');
+        var otherBtn = $(this).closest('.btn');
         $('.divFormComments', parr).hide();
         $('.etcSpanComment', parr).fadeIn();
+
+        otherBtn.siblings().css('transition', '');
+        otherBtn.siblings().css('opacity', '');
+        otherBtn.siblings().css('visibility', '');
+        otherBtn.css('box-shadow', '');
+        otherBtn.css('overflow', '');
     });
 
     $('.saveSpanComment').on('click', function (e) {

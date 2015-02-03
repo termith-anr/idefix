@@ -1122,7 +1122,7 @@ span .methodsameDisplayD{
     height: 105px;
     max-height: 105px;
     max-width: 100%;
-    overflow: visible;
+    overflow: hidden;
     opacity: 0.7;
     cursor: auto !important;
 }
@@ -2129,11 +2129,11 @@ span.twitter-typeahead .tt-suggestion > p:focus {
     color: #ffffff;
     text-decoration: none;
     outline: 0;
-    background-color: #428bca;
+    background-color: #DB9691;
 }
 span.twitter-typeahead .tt-suggestion.tt-cursor {
     color: #ffffff;
-    background-color: #428bca;
+    background-color: #DB9691;
 }
 span.twitter-typeahead {
     width: 100%;
@@ -2157,4 +2157,8 @@ span.twitter-typeahead {
     position: absolute;
     left: 0;
     top: 18px;
+}
+
+.tt-hint{
+    color: #777;
 }
