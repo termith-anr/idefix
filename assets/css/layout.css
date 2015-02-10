@@ -1100,7 +1100,7 @@ span .methodsameDisplayD{
     font-style: italic;
     margin: 10px;
     text-shadow: none;
-    transition: all 2000ms;
+    /*transition: all 2000ms;*/
     height: 105px;
     max-height: 105px;
     overflow-y: hidden;
@@ -1848,6 +1848,14 @@ input[value='2']:checked + label {
     background: #27ae60;
 }
 
+.no-transition{
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    -ms-transition: none;
+    transition: none;
+}
+
 .quitSpanComment{
     transition: all 650ms ease 0s;
     -webkit-transition: all 650ms ease;
@@ -1912,6 +1920,11 @@ input[value='2']:checked + label {
     float: left;
     margin-top: 18px;
     margin-left: 3px;
+}
+
+.inputComment:focus{
+    border: 0;
+    background: transparent;
 }
 
 .trashComment{

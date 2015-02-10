@@ -313,7 +313,6 @@ $(document).ready(function() {
                 }
             ],
             url = '/delete/' + pageId;
-        console.log('parent : ', arr);
         $.ajax({
             type: "POST",
             url: url,
@@ -345,7 +344,7 @@ $(document).ready(function() {
             inputComment = $('.inputComment', this),
             otherBtn = $(this).closest('.btn');
         e.stopPropagation();
-        otherBtn.siblings().css('transition', 'none');
+        otherBtn.siblings().addClass('no-transition');
         otherBtn.siblings().css('opacity', '0');
         otherBtn.siblings().css('visibility', 'hidden');
         otherBtn.css('box-shadow', '8px 11px 78px 31px black');
@@ -366,13 +365,14 @@ $(document).ready(function() {
             id = $(this).parent().attr('data-id');
             console.log('data: ' , postData);
         if (keycode == '13') {
-            var url = '/save/' + id;
+            var url = '/save/' + pageId;
             event.preventDefault();
             $.ajax({
                 type: "POST",
                 url: url,
                 data: postData,
                 success: function (e) {
+
                     var divComments = input.parents(".divComments");
                     $(".divFormComments", divComments).css("background" , "#27ae60");
                         setTimeout(function () {
@@ -385,9 +385,9 @@ $(document).ready(function() {
                         var otherBtn = divComments.closest('.btn');
 
 
-                        otherBtn.siblings().css('transition', '');
                         otherBtn.siblings().css('opacity', '');
                         otherBtn.siblings().css('visibility', '');
+                        otherBtn.siblings().removeClass('no-transition');
                         otherBtn.css('box-shadow', '');
                         otherBtn.css('overflow', '');
                     }, 750);
@@ -423,11 +423,12 @@ $(document).ready(function() {
         $('.divFormComments', parr).hide();
         $('.etcSpanComment', parr).fadeIn();
 
-        otherBtn.siblings().css('transition', '');
         otherBtn.siblings().css('opacity', '');
         otherBtn.siblings().css('visibility', '');
+        otherBtn.siblings().removeClass('no-transition');
         otherBtn.css('box-shadow', '');
         otherBtn.css('overflow', '');
+
     });
 
     $('.saveSpanComment').on('click', function (e) {
@@ -435,13 +436,11 @@ $(document).ready(function() {
             span = $(this),
             divComment = $(this).parents('.divComments'),
             form = $('form' ,divComment);
-        if( $('.inputComment' , form).val() ) {
             $.ajax({
                 type: "POST",
                 url: url,
                 data: form.serializeArray(),
                 success: function (e) {
-                    console.log(e);
                     var divComments = span.parents(".divComments");
                     $(".divFormComments", divComments).css("background", "#27ae60");
                     setTimeout(function () {
@@ -450,13 +449,20 @@ $(document).ready(function() {
                         divComments.removeClass('divCommentsOpened');
                         $(".divFormComments", divComments).hide();
                         $(".etcSpanComment", divComments).fadeIn();
+                        var otherBtn = divComments.closest('.btn');
+
+
+                        otherBtn.siblings().css('opacity', '');
+                        otherBtn.siblings().css('visibility', '');
+                        otherBtn.siblings().removeClass('no-transition');
+                        otherBtn.css('box-shadow', '');
+                        otherBtn.css('overflow', '');
                     }, 750);
                 },
                 error: function (e) {
                     console.log(e);
                 }
             });
-        }
     });
 
     /* --- END SHOW/ADD COMMENT---- */
