@@ -133,6 +133,6 @@ IDEFIX is a notation interface of indexed Termith's keywords
     ```
 
 #### Lauch Idefix 
-    ```bash
+    ```
      ~/Download/IdefixFolder/.idefix ~/Document/XML-TEI-Folder
     ```
