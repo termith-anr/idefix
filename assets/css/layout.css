@@ -2109,7 +2109,7 @@ input[value='2']:checked + label {
 span.twitter-typeahead .tt-dropdown-menu {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 0 ;
     z-index: 1000;
     display: none;
     float: left;
@@ -2167,9 +2167,9 @@ span.twitter-typeahead {
 .twitter-typeahead {
     display: inline-block;
     direction: ltr;
-    position: absolute;
-    left: 0;
-    top: 18px;
+    position: absolute !important;
+    left: 0 !important;
+    top: 18px !important;
 }
 
 .tt-hint{

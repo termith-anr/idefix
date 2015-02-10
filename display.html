@@ -251,13 +251,17 @@
                                             <div class="divComments {% if item.validationDocument == 'yes' %}labelHide{% endif %}">
                                                 <span class="etcSpanComment">...</span>
 
-                                                <span class="quitSpanComment">X</span>
-
                                                 <div class="divFormComments">
 
-                                                    <form  data-id="{{ item.wid }}" action="/save/{{ item.wid }}" style="height:100%;padding:0; margin: 0">
+                                                    <div class="leaveOrSaveComment">
+                                                        <span class="quitSpanComment" title="Quitter sans sauvegarder"> <span class="glyphicon glyphicon-remove"></span> </span>
+                                                        <span class="saveSpanComment" title="Sauvegarder le commentaire"> <span class="glyphicon glyphicon-ok"></span> </span>
+                                                    </div>
+
+                                                    <form  data-id="{{ item.wid }}" action="/save/{{ item.wid }}" style="padding:0; margin: 0">
                                                         <input type="hidden" name="key" value="keywords.silence.{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}.commentaire"/> <!-- Key Name -->
-                                                        <input name="val" class="inputComment"  type="text" placeholder="Commentaire :" data-provide="typeahead" value="{{ item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].commentaire }}"/>
+                                                        <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].commentaire }}"/>
+                                                        <span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span>
                                                     </form>
                                                 </div>
 
@@ -344,7 +348,6 @@
 
 
                                                     <div class="divFormComments">
-
                                                         <div class="leaveOrSaveComment">
                                                             <span class="quitSpanComment" title="Quitter sans sauvegarder"> <span class="glyphicon glyphicon-remove"></span> </span>
                                                             <span class="saveSpanComment" title="Sauvegarder le commentaire"> <span class="glyphicon glyphicon-ok"></span> </span>
