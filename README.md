@@ -150,7 +150,7 @@ You can ask idefix to use any port number
 "port": 3000
 ```
     
-##### connexionURI (REQUIRED/string)
+##### connexionURI (REQUIRED/String)
     
 This is the default connexion URI to the mongodb database, do not modify it
     
@@ -196,9 +196,12 @@ You can enable/disable the possibility to get access to the full article
 #### exports(OPTIONAL/Object)
 
 You can enable/disable any export type (Bool form)
--csv , export all results (marks,time,..) as a csv files
--xml, export the source xml-files enriched with marks as a single tei-corpus file
--zipXML, export the source xml-files enriched with marks as many as xml-source files into a Zipped xml-folder
+
+* csv , export all results (marks,time,..) as a csv files
+
+* xml, export the source xml-files enriched with marks as a single tei-corpus file
+
+* zipXML, export the source xml-files enriched with marks as many as xml-source files into a Zipped xml-folder
 
 ```json
 "exports" : {
@@ -213,7 +216,7 @@ You can enable/disable any export type (Bool form)
 You might want to specify which marks could give the ability to enter to the prefered list 
 
 ```json
-showPrefered" : [0,2]
+"showPrefered" : [0,2]
 ```
 
 #### showCorresp(OPTIONAL/Array)
@@ -221,14 +224,67 @@ showPrefered" : [0,2]
 You might want to specify which marks could give the ability to enter to the correspondance list
 
 ```json
-showCorresp" : [1]
+"showCorresp" : [1]
 ```
 
 #### comments(OPTIONAL/Array)
 
 The list of pre-defined words that you want to use for auto-completion comments
 
-#### loader(REQUIRED/Object)
+
+#### loader(REQUIRED/Array of Objects)
+
+* castor-load-xml
+ Required to import xml-files into mongoDB as json/bson
+ ```json
+ {
+   "script" : "castor-load-xml",
+   "pattern" : "**/*.xml"
+ }
+ ```
+
+* castor-load-raw
+ Required to import xml-files into mongoDB as raw
+ ```json
+ {
+   "script" : "castor-load-raw",
+   "pattern" : "**/*.xml"
+ }
+ ```
+
+* Keywords 
+ Required to specify silenceKeywords & methodsKeywords paths
+ ```json
+ {
+   "script" : "keywords.js",
+   "pattern" : "**/*.xml",
+     "options": {
+     "keywordsSilencePath" : "TEI.teiHeader.profileDesc.textClass.keywords",
+     "keywordsEvalPath"    : "TEI.teiHeader.profileDesc.textClass.keywords"
+   }
+ }
+ ```
+
+* autoScore
+
+ Required to specify if you want to enable autoscore
+ Autoscore is an automated notation of keywords at start
+ 
+ * autoScore : Enable/Disable silence & methods autoscore
+ * autoEval: Enable/Disable methods autoscore
+ * autoSilence: Enable/Disable silence autoscore
+
+ ```json
+ {
+   "script" : "autoScore.js",
+   "pattern" : "**/*.xml",
+     "options": {
+     "autoScore" : true,
+     "autoEval"  : true,
+     "autoSilence": true
+   }
+ }
+ ```
 
 
 
