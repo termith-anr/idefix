@@ -11,14 +11,14 @@ IDEFIX is a notation interface of indexed Termith's keywords
 
 - *[Node.Js](http://nodejs.org/)*
 
-- *[MongoDB](http://www.mongodb.org/)*
-
   ex: (Ubuntu)
 
   ```
   curl -sL https://deb.nodesource.com/setup | sudo bash
   sudo apt-get install -y nodejs
   ```
+
+- *[MongoDB](http://www.mongodb.org/)*
 
 - Google Chrome (>31) OR Firefox (>26)
 
@@ -141,15 +141,18 @@ IDEFIX is a notation interface of indexed Termith's keywords
 
 ## Config Options
 
-##### port
+##### port (REQUIRED/)
+```js
+   Number
+```
 
-You can ask idefix to use this port number
+You can ask idefix to use any port number
 
 ```json
 "port": 3000
 ```
     
-##### connexionURI
+##### connexionURI (REQUIRED/string)
     
 This is the default connexion URI to the mongodb database, do not modify it
     
@@ -157,7 +160,7 @@ This is the default connexion URI to the mongodb database, do not modify it
 "connexionURI" : "mongodb://localhost:27017/test/"
 ```
 
-#### filters
+#### filters (REQUIRED/Object)
 
 THIS IS REQUIRED to get IDEFIX working , it's about nunjucks filters
 
@@ -167,4 +170,18 @@ THIS IS REQUIRED to get IDEFIX working , it's about nunjucks filters
      "add2Array" : "add2Array"
 }
 ```
+
+#### domain (REQUIRED/String)
+
+This option will be the domain name which appears at the top of every notation page
+
+```json
+"domain" : "linguistique"
+```
+
+#### inistKeywords (OPTIONAL/Boolean)
+
+
+
+#### fullArticle (REQUIRED)
 
