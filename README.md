@@ -258,10 +258,10 @@ The list of pre-defined words that you want to use for auto-completion comments
  {
    "script" : "keywords.js",
    "pattern" : "**/*.xml",
-     "options": {
-     "keywordsSilencePath" : "TEI.teiHeader.profileDesc.textClass.keywords",
-     "keywordsEvalPath"    : "TEI.teiHeader.profileDesc.textClass.keywords"
-   }
+    "options": {
+         "keywordsSilencePath" : "TEI.teiHeader.profileDesc.textClass.keywords",
+         "keywordsEvalPath"    : "TEI.teiHeader.profileDesc.textClass.keywords"
+    }
  }
  ```
 
@@ -276,15 +276,30 @@ The list of pre-defined words that you want to use for auto-completion comments
 
  ```json
  {
-   "script" : "autoScore.js",
-   "pattern" : "**/*.xml",
-     "options": {
-     "autoScore" : true,
-     "autoEval"  : true,
-     "autoSilence": true
-   }
+    "script" : "autoScore.js",
+    "pattern" : "**/*.xml",
+    "options": {
+         "autoScore" : true,
+         "autoEval"  : true,
+         "autoSilence": true
+    }
  }
  ```
+ 
+#### documentFields
+
+See *[castor-core documentFields]()* for more informations
+
+* title 
+    options: 
+        * path (can contain à string or an array of dot notation path)
+        * 
+* abstract
+    options: 
+            * path (can contain à string or an array of dot notation path)
+            * 
+*
+
 
 
 
