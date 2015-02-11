@@ -141,10 +141,8 @@ IDEFIX is a notation interface of indexed Termith's keywords
 
 ## Config Options
 
-##### port (REQUIRED/)
-```js
-   Number
-```
+##### port (REQUIRED/Number)
+
 
 You can ask idefix to use any port number
 
@@ -181,7 +179,57 @@ This option will be the domain name which appears at the top of every notation p
 
 #### inistKeywords (OPTIONAL/Boolean)
 
+You can enable/disable the possibility to view and mark
+
+```json
+"inistKeywords" : true
+```
+
+#### fullArticle (OPTIONAL/Boolean)
+
+You can enable/disable the possibility to get access to the full article
+
+```json
+"fullArticle" : false
+```
+
+#### exports(OPTIONAL/Object)
+
+You can enable/disable any export type (Bool form)
+-csv , export all results (marks,time,..) as a csv files
+-xml, export the source xml-files enriched with marks as a single tei-corpus file
+-zipXML, export the source xml-files enriched with marks as many as xml-source files into a Zipped xml-folder
+
+```json
+"exports" : {
+    "csv" : true,
+    "xml" : true,
+    "zipXML" : true
+  }
+```
+
+#### showPrefered(OPTIONAL/Array)
+
+You might want to specify which marks could give the ability to enter to the prefered list 
+
+```json
+showPrefered" : [0,2]
+```
+
+#### showCorresp(OPTIONAL/Array)
+
+You might want to specify which marks could give the ability to enter to the correspondance list
+
+```json
+showCorresp" : [1]
+```
+
+#### comments(OPTIONAL/Array)
+
+The list of pre-defined words that you want to use for auto-completion comments
+
+#### loader(REQUIRED/Object)
 
 
-#### fullArticle (REQUIRED)
+
 
