@@ -231,6 +231,10 @@ You might want to specify which marks could give the ability to enter to the cor
 
 The list of pre-defined words that you want to use for auto-completion comments
 
+```json
+"comments" : ["Commentaire 1","Commentaire 2","Commentaire 3", 10]
+```
+
 
 #### loader(REQUIRED/Array of Objects)
 
@@ -253,7 +257,7 @@ The list of pre-defined words that you want to use for auto-completion comments
  ```
 
 * Keywords 
- Required to specify silenceKeywords & methodsKeywords paths
+ Required to specify silence keywords & methods leywords paths (for flexibility)
  ```json
  {
    "script" : "keywords.js",
@@ -268,6 +272,7 @@ The list of pre-defined words that you want to use for auto-completion comments
 * autoScore
 
  Required to specify if you want to enable autoscore
+ 
  Autoscore is an automated notation of keywords at start
  
  * autoScore : Enable/Disable silence & methods autoscore
@@ -288,17 +293,15 @@ The list of pre-defined words that you want to use for auto-completion comments
  
 #### documentFields
 
-See *[castor-core documentFields]()* for more informations
+Check *[castor-core documentFields](https://github.com/castorjs/castor-core#documentfields-1)* for more informations about them
 
 * title 
-    options: 
+    * options: 
         * path (can contain à string or an array of dot notation path)
-        * 
 * abstract
-    options: 
+    * options: 
             * path (can contain à string or an array of dot notation path)
-            * 
-*
+
 
 
 
