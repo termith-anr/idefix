@@ -25,7 +25,9 @@ IDEFIX is a notation interface of indexed Termith's keywords
 - A folder with your xml-tei files in
 
 
-## Install IDEFIX
+# Install IDEFIX
+
+## Classic install
 
 ### Download
 
@@ -139,9 +141,108 @@ IDEFIX is a notation interface of indexed Termith's keywords
 ~/Download/IdefixFolder/.idefix ~/Document/XML-TEI-Folder
 ```
 
-## Config Options
+## Install with APP Manager 
 
-##### port (REQUIRED/Number)
+More info about (*[castor-admin](https://github.com/madec-project/castor-admin)*)
+
+* First follow the *[castor-admin install](https://github.com/madec-project/castor-admin#installation)*
+* Start castor-admin (with at least one app installed in ~/apps )
+```bash
+castor-admin ~/apps
+```
+* Via browser , go to *[localhost:35267](http://localhost:35267)*
+* Add an instance app by clicking on "+ Add an instance"
+* Fill the required infos
+* Edit the config file by clicking on the params icon of the instance
+* Create your config with options (or import it under) (DO NOT add options with the "--- Not Managed ---" , this could break administration) *[see options](https://github.com/termith-anr/idefix#config-options)*
+```json
+ {
+   "title" : "An Instance"
+   "filters" : {
+     "split" : "split",
+     "add2Array" : "add2Array"
+   },
+   "domain" : "A domain exemple",
+   "inistKeywords" : true,
+   "fullArticle" : true,
+   "exports" : {
+     "csv" : true,
+     "xml" : true,
+     "zipXML" : true
+   },
+  "showPrefered" : [1],
+  "showCorresp" : [0],
+  "comments" : ["Commentaire 1" , "argentine" , "japon" , "matthias" , "préférence" , 42],
+   "loaders" : [
+     {
+       "script" : "castor-load-xml",
+       "pattern" : "**/*.xml"
+     },
+     {
+       "script" : "castor-load-raw",
+       "pattern" : "**/*.xml"
+     },
+     {
+       "script" : "keywords.js",
+       "pattern" : "**/*.xml",
+         "options": {
+         "keywordsSilencePath" : "TEI.teiHeader.profileDesc.textClass.keywords",
+         "keywordsEvalPath"    : "TEI.teiHeader.profileDesc.textClass.keywords"
+       }
+     },
+     {
+       "script" : "autoScore.js",
+       "pattern" : "**/*.xml",
+         "options": {
+         "autoScore" : true,
+         "autoEval"  : true,
+         "autoSilence": true
+       }
+     }
+   ],
+   "documentFields" : {
+     "title" : {
+       "path" : ["content.json.TEI.teiHeader.fileDesc.titleStmt.title.0.#text" , "content.json.TEI.teiHeader.fileDesc.titleStmt.title.#text"],
+       "coalesce": true,
+       "textizer" : "trim()",
+       "noindex" : true
+ 
+     }, 
+     "abstract" : {
+       "path" : ["content.json.TEI.teiHeader.profileDesc.abstract.0.p.#text","content.json.TEI.teiHeader.profileDesc.abstract.p.#text"],
+       "coalesce": true,
+       "noindex" : true
+     },
+       "validationMethods" : {
+       "path" : "validationMethods",
+       "default" : "no",
+       "textizer" : "trim()"
+     },
+       "validationDocument" : {
+       "path" : "validationDocument",
+       "default" : "no",
+       "textizer" : "trim()"
+     }
+     
+   }
+ 
+ }
+```
+
+## List of config options
+
+* "Only Managed" means the option is used only with *[app manager](https://github.com/termith-anr/idefix#install-with-app-Manager)*
+* "Not Managed"  means the option DO NOT have to be in *[app manager](https://github.com/termith-anr/idefix#install-with-app-Manager)* config (could break it)
+
+##### title (REQUIRED/string) --- Only Managed ---
+
+It's the title of the instance , a simple string
+
+```json
+"title": "A title"
+```
+
+##### port (REQUIRED/Number) --- Not Managed ---
 
 
 You can ask idefix to use any port number
@@ -150,7 +251,7 @@ You can ask idefix to use any port number
 "port": 3000
 ```
     
-##### connexionURI (REQUIRED/String)
+##### connexionURI (REQUIRED/String) --- Not Managed ---
     
 This is the default connexion URI to the mongodb database, do not modify it
     
@@ -291,7 +392,7 @@ The list of pre-defined words that you want to use for auto-completion comments
  }
  ```
  
-#### documentFields
+#### documentFields(REQUIRED/Object)
 
 Check *[castor-core documentFields](https://github.com/castorjs/castor-core#documentfields-1)* for more informations about them
 
@@ -301,9 +402,3 @@ Check *[castor-core documentFields](https://github.com/castorjs/castor-core#docu
 * abstract
     * options: 
             * path (can contain à string or an array of dot notation path)
-
-
-
-
-
-
