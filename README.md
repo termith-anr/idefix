@@ -7,14 +7,18 @@ IDEFIX is a notation interface of indexed Termith's keywords
 
 ![PM2](http://feb.imghost.us/LCOC.png)
 
-
+ 
+  
+   
 # Summary
-#### *[Requirements](https://github.com/termith-anr/idefix#requirements)*
-#### *[Standalone Install](https://github.com/termith-anr/idefix#classic-install)* (Use it if you want to try/dev Idefix on a simple personal computer)
-#### *[Install with APP Manager](https://github.com/termith-anr/idefix#install-with-app-manager)* (Use it on a server , or if you want to start many apps locally)
-#### *[List of config options](https://github.com/termith-anr/idefix#list-of-config-options)*
-#### *[User Manual of IDEFIX](https://docs.google.com/document/d/1Ea4bC-TBWlCTEf1r6YY3-1GP-blxpjxJm9jUGtATUV8/edit?usp=sharing)*
-
+#### *[The Requirements](https://github.com/termith-anr/idefix#requirements)*
+#### *[Standalone install](https://github.com/termith-anr/idefix#classic-install)* (Use it if you want to try/dev Idefix on a simple personal computer)
+#### *[Install with APP manager](https://github.com/termith-anr/idefix#install-with-app-manager)* (Use it on a server , or if you want to start many apps locally)
+#### *[List of options](https://github.com/termith-anr/idefix#list-of-config-options)*
+#### *[User guide](https://docs.google.com/document/d/1Ea4bC-TBWlCTEf1r6YY3-1GP-blxpjxJm9jUGtATUV8/edit?usp=sharing)*
+ 
+  
+   
 
 
 ### Requirements 
