@@ -157,7 +157,7 @@ castor-admin ~/apps
 * Create your config with options (or import it under) (DO NOT add options with the "--- Not Managed ---" , this could break administration) *[see options](https://github.com/termith-anr/idefix#config-options)*
 ```json
  {
-   "title" : "An Instance"
+   "title" : "An Instance",
    "filters" : {
      "split" : "split",
      "add2Array" : "add2Array"
@@ -231,8 +231,8 @@ castor-admin ~/apps
 
 ## List of config options
 
-* "Only Managed" means the option is used only with *[app manager](https://github.com/termith-anr/idefix#install-with-app-Manager)*
-* "Not Managed"  means the option DO NOT have to be in *[app manager](https://github.com/termith-anr/idefix#install-with-app-Manager)* config (could break it)
+* "Only Managed" means the option is used only with *[app manager](https://github.com/termith-anr/idefix#install-with-app-manager)*
+* "Not Managed"  means the option DO NOT have to be in *[app manager](https://github.com/termith-anr/idefix#install-with-app-manager)* config (could break it)
 
 ##### title (REQUIRED/string) --- Only Managed ---
 
