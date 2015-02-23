@@ -170,7 +170,7 @@ castor-admin ~/apps
 * Add an instance app by clicking on "+ Add an instance"
 * Fill the required infos
 * Edit the config file by clicking on the params icon of the instance
-* Create your config with options (or import it under) (DO NOT add options with the "--- Not Managed ---" , this could break administration) *[see options](https://github.com/termith-anr/idefix#config-options)*
+* Create your config with options (or import it under) (DO NOT add options with the "--- Not Managed ---" , this could break administration) *[see options](https://github.com/termith-anr/idefix#list-of-config-options)*
 ```json
  {
    "title" : "An Instance",

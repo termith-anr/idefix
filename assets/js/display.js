@@ -343,6 +343,7 @@ $(document).ready(function() {
             divFormComments = $('.divFormComments', this),
             inputComment = $('.inputComment', this),
             otherBtn = $(this).closest('.btn');
+
         e.stopPropagation();
         otherBtn.siblings().addClass('no-transition');
         otherBtn.siblings().css('opacity', '0');
@@ -350,6 +351,7 @@ $(document).ready(function() {
         otherBtn.css('box-shadow', '8px 11px 78px 31px black');
         otherBtn.css('overflow', 'visible');
         etcSpan.hide();
+        //divComment.css('transition','none');  Si trop lent desactiver l'effet;
         divComment.addClass('divCommentsOpened');
         leaveQuiSpan.show();
         quitSpan.css("display" , "flex");
