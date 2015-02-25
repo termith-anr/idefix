@@ -160,7 +160,13 @@ IDEFIX is a notation interface of indexed Termith's keywords
 More info about (*[castor-admin](https://github.com/madec-project/castor-admin)*)
 
 * First follow the *[castor-admin install](https://github.com/madec-project/castor-admin#installation)*
+* Go to *[IDEFIX Versions](https://github.com/termith-anr/idefix/releases)*  and copy the url "Source code(tar.gz)" you want. (Or via git for the currently dev version) 
 * *[Download Idefix](https://github.com/termith-anr/idefix#download)* in ~/apps 
+    ```
+    cd ~/apps
+    curl -L  https://urlExemple.tar.gz | tar zx
+    ///REPLACE urlExemple.targz with the correct url////
+    ```
 * *[Install Idefix](https://github.com/termith-anr/idefix#install)*
 * Start castor-admin (with at least one app installed in ~/apps )
 ```bash
