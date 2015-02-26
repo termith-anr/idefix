@@ -1,5 +1,5 @@
 module.exports = {
-    "browserifyModules" : [ 'jquery', 'sugar', 'superagent' , "jquery-ui" , "bootstrap"],
+    "browserifyModules" : [ 'jquery', 'sugar', 'superagent' , "jquery-ui"],
     "routes": {
         "/exportCSV": "exportCSV.js",
         "/exportXML": "exportXML.js",
