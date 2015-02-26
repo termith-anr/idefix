@@ -37,7 +37,7 @@
 
 <!--  Count number of Methods present and their names -->
 
-{%  for keywordsEval in item.keywords.eval %}
+{%  for keywordsEval in data.keywords.eval %}
 
     {% set listOfMethodsName = listOfMethodsName|add2Array(keywordsEval.scheme) %}
 
@@ -53,9 +53,9 @@
 
 {% endfor %}
 
-{% set inistScheme = item.keywords.silence[0].scheme %}
+{% set inistScheme = data.keywords.silence[0].scheme %}
 
-{% for currentKeyword in item.keywords.silence[0].term %}
+{% for currentKeyword in data.keywords.silence[0].term %}
 
     {% set inistListofKw = inistListofKw|add2Array(currentKeyword['#text']) %}
 
@@ -97,7 +97,7 @@
                     <div id="timer">
 
                     </div>
-                    {% if item.validationDocument != 'yes' %}
+                    {% if data.validationDocument != 'yes' %}
                         <span class="glyphicon glyphicon-play isRunning" id="startOrStop"></span>
                     {% endif %}
 
@@ -113,10 +113,10 @@
                         <span id="list" class="glyphicon glyphicon-list active gridOrListButton"></span>
                     </div>
 
-                    <div data-id="{{ item.wid }}" id="validateMethodBar" class="progress {% if item.validate  == 'yes' %}isValidated{% endif %}">
+                    <div data-id="{{ data.wid }}" id="validateMethodBar" class="progress {% if data.validate  == 'yes' %}isValidated{% endif %}">
                     </div>
 
-                    <div id="validateDocument" data-id="{{ item.wid }}" class="progress {% if item.validateDocument  == 'yes' %}isValidated{% endif %}" {% if item.validationMethods == "yes" %}style="display:block"{% else %}style="display:none"{% endif %}></div>
+                    <div id="validateDocument" data-id="{{ data.wid }}" class="progress {% if data.validateDocument  == 'yes' %}isValidated{% endif %}" {% if data.validationMethods == "yes" %}style="display:block"{% else %}style="display:none"{% endif %}></div>
 
 
                     <!-- METHOD BLOC -->
@@ -149,7 +149,7 @@
                     <article id="articleSectionResumeDisplay" style="">
 
                         <p>
-                            {{ item.fields.abstract|d('Pas de resume') }}
+                            {{ data.fields.abstract|d('Pas de resume') }}
                         </p>
 
                     </article>
@@ -167,7 +167,7 @@
                     <div id="h1Block">
                         <h1 id="h1DisplayDocs">
 
-                            {{ item.fields.title|d('Pas de titre') }}
+                            {{ data.fields.title|d('Pas de titre') }}
 
                         </h1>
                     </div>
@@ -179,7 +179,7 @@
                 </div>
 
                 <p id="abstractFullLenght">
-                    {{ item.fields.abstract|d('Pas de resume') }}
+                    {{ data.fields.abstract|d('Pas de resume') }}
                 </p>
 
 
@@ -200,36 +200,36 @@
 
                                             {% set loopIndexMethodInist = loop.index0 %}
 
-                                        <div class="btn btn-default inistForMethod-{{ loopIndexMethodInist }} {% if ((item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score) or (item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"><span class="idOfWord">{{ inistLoopKeyword+1 }} - </span> {{ currentInistKw|d('Pas de mots clés') }}
+                                        <div class="btn btn-default inistForMethod-{{ loopIndexMethodInist }} {% if ((data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score) or (data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"><span class="idOfWord">{{ inistLoopKeyword+1 }} - </span> {{ currentInistKw|d('Pas de mots clés') }}
 
-                                            <form class="formNotedKeyword row" id="silenceScore-{{ loopIndexMethodInist }}-{{ inistLoopKeyword }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
+                                            <form class="formNotedKeyword row" id="silenceScore-{{ loopIndexMethodInist }}-{{ inistLoopKeyword }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
 
                                                 <input class="inistKey" type="hidden" name="key" value="keywords.silence.{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}.score"/><!-- Key Name -->
 
                                                 <!-- Value Name -->
-                                                {% if item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score == '2' %}
-                                                <input id="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if item.validationDocument == 'yes' %}labelHide{% endif %}">0</label>
-                                                <input id="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if item.validationDocument == 'yes' %}labelHide{% endif %}">1</label>
-                                                <input id="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="2" checked><label for="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if item.validationDocument == 'yes' %}labelBlock{% endif %}">2</label>
-                                                {% elif item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score == '1' %}
-                                                <input id="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if item.validationDocument == 'yes' %}labelHide{% endif %}">0</label>
-                                                <input id="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="1" checked><label for="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if item.validationDocument == 'yes' %}labelBlock{% endif %}">1</label>
-                                                <input id="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if item.validationDocument == 'yes' %}labelHide{% endif %}">2</label>
-                                                {% elif item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score == '0' %}
-                                                <input id="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="0" checked><label for="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if item.validationDocument == 'yes' %}labelBlock{% endif %}">0</label>
-                                                <input id="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if item.validationDocument == 'yes' %}labelHide{% endif %}">1</label>
-                                                <input id="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if item.validationDocument == 'yes' %}labelHide{% endif %}">2</label>
+                                                {% if data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score == '2' %}
+                                                <input id="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">0</label>
+                                                <input id="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">1</label>
+                                                <input id="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="2" checked><label for="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelBlock{% endif %}">2</label>
+                                                {% elif data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score == '1' %}
+                                                <input id="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">0</label>
+                                                <input id="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="1" checked><label for="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelBlock{% endif %}">1</label>
+                                                <input id="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">2</label>
+                                                {% elif data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score == '0' %}
+                                                <input id="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="0" checked><label for="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelBlock{% endif %}">0</label>
+                                                <input id="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">1</label>
+                                                <input id="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">2</label>
                                                 {% else %}
-                                                <input id="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if item.validationDocument == 'yes' %}labelHide{% endif %}">0</label>
-                                                <input id="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if item.validationDocument == 'yes' %}labelHide{% endif %}">1</label>
-                                                <input id="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if item.validationDocument == 'yes' %}labelHide{% endif %}">2</label>
+                                                <input id="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">0</label>
+                                                <input id="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">1</label>
+                                                <input id="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">2</label>
                                                 {% endif %}
 
                                                 <ins class="loading"></ins>
 
                                             </form>
 
-                                            <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsCorresp row {% if item.validationDocument == 'yes' %}labelHide{% endif %}" id="correspMethod-{{ loopIndexMethodInist }}-{{ inistLoopKeyword }}" action="/save/{{ item.wid }}">
+                                            <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsCorresp row {% if data.validationDocument == 'yes' %}labelHide{% endif %}" id="correspMethod-{{ loopIndexMethodInist }}-{{ inistLoopKeyword }}" action="/save/{{ data.wid }}">
 
                                                 <input type="hidden" name="key" value="keywords.silence.{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}.correspondance"/> <!-- Key Name -->
 
@@ -239,7 +239,7 @@
                                                     </option>
                                                     {% for methodsWord in allKeywordsMethods[loopIndexMethodInist] %}
 
-                                                    <option value="{{ methodsWord }}" {% if item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].correspondance == methodsWord %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
+                                                    <option value="{{ methodsWord }}" {% if data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].correspondance == methodsWord %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
                                                     {{ methodsWord }}
                                                     </option>
 
@@ -248,7 +248,7 @@
 
                                             </form>
 
-                                            <div class="divComments {% if item.validationDocument == 'yes' %}labelHide{% endif %}">
+                                            <div class="divComments {% if data.validationDocument == 'yes' %}labelHide{% endif %}">
                                                 <span class="etcSpanComment">...</span>
 
                                                 <div class="divFormComments">
@@ -258,9 +258,9 @@
                                                         <span class="saveSpanComment" title="Sauvegarder le commentaire"> <span class="glyphicon glyphicon-ok"></span> </span>
                                                     </div>
 
-                                                    <form  data-id="{{ item.wid }}" action="/save/{{ item.wid }}" style="padding:0; margin: 0">
+                                                    <form  data-id="{{ data.wid }}" action="/save/{{ data.wid }}" style="padding:0; margin: 0">
                                                         <input type="hidden" name="key" value="keywords.silence.{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}.commentaire"/> <!-- Key Name -->
-                                                        <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ item.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].commentaire }}"/>
+                                                        <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].commentaire }}"/>
                                                         <span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span>
                                                     </form>
                                                 </div>
@@ -290,36 +290,36 @@
 
                                             {% set wordNumber = loop.index0 %}
 
-                                            <div class="btn btn-default {% if ((item.keywords.eval[currentNbMethod-1].term[wordNumber].score) or (item.keywords.eval[currentNbMethod-1].term[wordNumber].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> <span class="idOfWord">{{ loop.index }} - </span>{{ methodsWord|d('Pas de mots clés') }}
+                                            <div class="btn btn-default {% if ((data.keywords.eval[currentNbMethod-1].term[wordNumber].score) or (data.keywords.eval[currentNbMethod-1].term[wordNumber].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"> <span class="idOfWord">{{ loop.index }} - </span>{{ methodsWord|d('Pas de mots clés') }}
 
-                                                <form class="formNotedKeyword row" id="method-{{ currentNbMethod }}-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ item.wid }}" method="post">
+                                                <form class="formNotedKeyword row" id="method-{{ currentNbMethod }}-{{ loop.index }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
 
                                                     <input type="hidden" name="key" value="keywords.eval.{{ currentNbMethod-1 }}.term.{{ wordNumber }}.score"/><!-- Key Name -->
 
                                                     <!-- Value Name -->
-                                                    {% if item.keywords.eval[currentNbMethod-1].term[wordNumber].score == '2' %}
-                                                    <input id="input0-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
-                                                    <input id="input1-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="1" ><label for="input1-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
-                                                    <input id="input2-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">2</label>
-                                                    {% elif item.keywords.eval[currentNbMethod-1].term[wordNumber].score == '1' %}
-                                                    <input id="input0-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
-                                                    <input id="input1-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">1</label>
-                                                    <input id="input2-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
-                                                    {% elif item.keywords.eval[currentNbMethod-1].term[wordNumber].score == '0' %}
-                                                    <input id="input0-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelBlock{% endif %}">0</label>
-                                                    <input id="input1-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
-                                                    <input id="input2-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
+                                                    {% if data.keywords.eval[currentNbMethod-1].term[wordNumber].score == '2' %}
+                                                    <input id="input0-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if data.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
+                                                    <input id="input1-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="1" ><label for="input1-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if data.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
+                                                    <input id="input2-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="2" checked><label for="input2-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if data.validationMethods == 'yes' %}labelBlock{% endif %}">2</label>
+                                                    {% elif data.keywords.eval[currentNbMethod-1].term[wordNumber].score == '1' %}
+                                                    <input id="input0-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if data.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
+                                                    <input id="input1-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="1" checked><label for="input1-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if data.validationMethods == 'yes' %}labelBlock{% endif %}">1</label>
+                                                    <input id="input2-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if data.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
+                                                    {% elif data.keywords.eval[currentNbMethod-1].term[wordNumber].score == '0' %}
+                                                    <input id="input0-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="0" checked><label for="input0-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if data.validationMethods == 'yes' %}labelBlock{% endif %}">0</label>
+                                                    <input id="input1-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if data.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
+                                                    <input id="input2-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if data.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
                                                     {% else %}
-                                                    <input id="input0-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
-                                                    <input id="input1-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
-                                                    <input id="input2-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if item.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
+                                                    <input id="input0-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="0"><label for="input0-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if data.validationMethods == 'yes' %}labelHide{% endif %}">0</label>
+                                                    <input id="input1-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="1"><label for="input1-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if data.validationMethods == 'yes' %}labelHide{% endif %}">1</label>
+                                                    <input id="input2-{{ currentNbMethod-1 }}.{{ loop.index }}" name="val" type="radio" value="2"><label for="input2-{{ currentNbMethod-1 }}.{{ loop.index }}"  class="{% if data.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
                                                     {% endif %}
 
                                                     <ins class="loading"></ins>
 
                                                 </form>
 
-                                                <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsPref row {% if item.validationMethods == 'yes' %}labelHide{% endif %}" id="prefMethod-{{ currentNbMethod }}-{{ loop.index }}" action="/save/{{ item.wid }}">
+                                                <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsPref row {% if data.validationMethods == 'yes' %}labelHide{% endif %}" id="prefMethod-{{ currentNbMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}">
 
                                                     <input type="hidden" name="key" value="keywords.eval.{{ currentNbMethod-1 }}.term.{{ wordNumber }}.exclude"/> <!-- Key Name -->
 
@@ -330,9 +330,9 @@
                                                         </option>
 
                                                         {%  for sameListKeywords in methods %}
-                                                            <!-- {{ sameListKeywords }} / {{ item.keywords.eval[currentNbMethod-1].term[wordNumber].exclude }} -->
+                                                            <!-- {{ sameListKeywords }} / {{ data.keywords.eval[currentNbMethod-1].term[wordNumber].exclude }} -->
 
-                                                            <option value="{{ sameListKeywords }}" {% if item.keywords.eval[currentNbMethod-1].term[wordNumber].exclude == sameListKeywords %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
+                                                            <option value="{{ sameListKeywords }}" {% if data.keywords.eval[currentNbMethod-1].term[wordNumber].exclude == sameListKeywords %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
                                                             {{ sameListKeywords }}
                                                             </option>
 
@@ -342,7 +342,7 @@
 
                                                 </form>
 
-                                                <div class="divComments {% if item.validationMethods == 'yes' %}labelHide{% endif %}">
+                                                <div class="divComments {% if data.validationMethods == 'yes' %}labelHide{% endif %}">
                                                     <span class="etcSpanComment">...</span>
 
 
@@ -353,9 +353,9 @@
                                                             <span class="saveSpanComment" title="Sauvegarder le commentaire"> <span class="glyphicon glyphicon-ok"></span> </span>
                                                         </div>
 
-                                                        <form  data-id="{{ item.wid }}" action="/save/{{ item.wid }}" style="padding:0; margin: 0" >
+                                                        <form  data-id="{{ data.wid }}" action="/save/{{ data.wid }}" style="padding:0; margin: 0" >
                                                                 <input type="hidden" name="key" value="keywords.eval.{{ currentNbMethod-1 }}.term.{{ wordNumber }}.comment"/> <!-- Key Name -->
-                                                                <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ item.keywords.eval[currentNbMethod-1].term[wordNumber].comment }}"/>
+                                                                <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords.eval[currentNbMethod-1].term[wordNumber].comment }}"/>
                                                                 <span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span>
                                                         </form>
                                                     </div>
@@ -382,7 +382,7 @@
     </div>
 
     {% if isInistKeywords == true %}
-        <div id="inistKeywordsButton" {% if item.validationMethods == "yes" %}style="display : block"{% else %}style="display: none"{% endif %}">
+        <div id="inistKeywordsButton" {% if data.validationMethods == "yes" %}style="display : block"{% else %}style="display: none"{% endif %}">
             <span>Afficher INIST</span>  <!-- Button to call Inist Keywords -->
         </div>
     {% endif %}

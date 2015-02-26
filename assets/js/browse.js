@@ -22,7 +22,7 @@ $(document).ready(function() {
                 "infoFiltered": "( filtrés sur _MAX_ )",
                 "paginate": {
                     "previous": "Précédent",
-                    "next" : "Suivant",
+                    "next" : "Suivant"
                 }
             },
             columns: [

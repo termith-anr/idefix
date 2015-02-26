@@ -17,10 +17,10 @@ $(document).ready(function() {
             //Hide preference & corresp if options enabled
             var notedDiv = $('.methodsKeywords .keywordsMethodsDisplayDone');
 
-            if(config.showPrefered && Array.isArray(config.showPrefered)) {
+            if(config.showPrefered) {
                 $('input:checked' , notedDiv).each(function(index){
-                    for(var i=0 ; i<(config.showPrefered.length) ; i++ ) {
-                        if ($(this).val().toString() === config.showPrefered[i].toString()) {
+                    for(var key in config.showPrefered ) {
+                        if ($(this).val().toString() === config.showPrefered[key].toString()) {
                             var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
                             $('.formNotedKeywordsPref' ,divKeywords).css('display', '').addClass('preferenceAvailable');
                             $('.divComments' , divKeywords).addClass('commentsRight');
@@ -33,10 +33,10 @@ $(document).ready(function() {
 
             notedDiv = $('#keywordsInist .keywordsMethodsDisplayDone');
 
-            if(config.showCorresp && Array.isArray(config.showCorresp)) {
+            if(config.showCorresp) {
                 $('input:checked' , notedDiv).each(function(index){
-                    for(var i=0 ; i<(config.showCorresp.length) ; i++ ) {
-                        if ($(this).val().toString() === config.showCorresp[i].toString()) {
+                    for(var key in config.showCorresp ) {
+                        if ($(this).val().toString() === config.showCorresp[key].toString()) {
                             var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
                             $('.formNotedKeywordsCorresp' ,divKeywords).css('display', '').addClass('preferenceAvailable');
                             $('.divComments' , divKeywords).addClass('commentsRight');
@@ -97,9 +97,9 @@ $(document).ready(function() {
     $.getJSON("/display/" + pageId + ".json", function (data) {
 
 
-            var timeJob = data.item.timeJob ? parseFloat(data.item.timeJob) : 0,
+            var timeJob = data.data.timeJob ? parseFloat(data.data.timeJob) : 0,
                 url = '/save/' + pageId,
-                stop = (data.item.validationDocument == "yes") ? timeJob : null;
+                stop = (data.data.validationDocument == "yes") ? timeJob : null;
 
             // INIT TIMMER
             $('#timer').runner({
@@ -193,21 +193,20 @@ $(document).ready(function() {
 
             });
 
-            if(data.item.fields.validationDocument == "no"){
+            if(data.data.fields.validationDocument == "no"){
                 $.getJSON( "/config.json" , function(object){
                     config = object;
                     hideElements();
                     typeAHead(config.comments);
-                    console.log('Ici');
                 });
             }
 
-            if(data.item.fields.validationMethods == "no") {
+            if(data.data.fields.validationMethods == "no") {
 
                 var startPageRatio = 0;
 
-                if (data.item.progressNotedKeywords) {
-                    startPageRatio = parseFloat(data.item.progressNotedKeywords);
+                if (data.data.progressNotedKeywords) {
+                    startPageRatio = parseFloat(data.data.progressNotedKeywords);
                 }
 
                 validateMethodBar.progressbar({ max: 1, value: startPageRatio });
@@ -232,7 +231,7 @@ $(document).ready(function() {
                 if (startPageRatio === 1) {
                     $(".ui-progressbar-value", validateMethodBar).addClass("progress-bar-info");
 
-                    if (data.item.fields.validationMethods == "no") {
+                    if (data.data.fields.validationMethods == "no") {
                         $(".ui-progressbar-value", validateMethodBar).parent().addClass('isNotValidated');
                         $(".ui-progressbar-value", validateMethodBar).html('100% : VALIDEZ!');
                     }
@@ -244,7 +243,7 @@ $(document).ready(function() {
 
             }
 
-            else if (data.item.fields.validationMethods == "yes") {
+            else if (data.data.fields.validationMethods == "yes") {
 
                 validateMethodBar.progressbar({ max: 1, value: 1 });
 
@@ -253,8 +252,8 @@ $(document).ready(function() {
 
                 var startPageRatio = 0;
 
-                if (data.item.progressSilenceKeywords) {
-                    startPageRatio = parseFloat(data.item.progressSilenceKeywords);
+                if (data.data.progressSilenceKeywords) {
+                    startPageRatio = parseFloat(data.data.progressSilenceKeywords);
                 }
 
                 validateDocument.progressbar({ max: 1, value: startPageRatio });
@@ -279,11 +278,11 @@ $(document).ready(function() {
                 if (startPageRatio === 1) {
                     $(".ui-progressbar-value", validateDocument).addClass("progress-bar-info");
 
-                    if (data.item.fields.validationDocument == "no") {
+                    if (data.data.fields.validationDocument == "no") {
                         $(".ui-progressbar-value", validateDocument).parent().addClass('isNotValidated');
                         $(".ui-progressbar-value", validateDocument).html('100% : VALIDEZ!');
                     }
-                    else if (data.item.fields.validationDocument == "yes") {
+                    else if (data.data.fields.validationDocument == "yes") {
                         $(".ui-progressbar-value", validateDocument).parent().addClass('isValidated');
                         $(".ui-progressbar-value", validateDocument).html('100%');
                     }
@@ -683,13 +682,13 @@ $(document).ready(function() {
                         if(barreField == "validationMethods"){
                             var progressDoc = 0;
                             $.getJSON("/display/" + pageId + ".json", function (data) {
-                                progressDoc = data.item.progressSilenceKeywords ? data.item.progressSilenceKeywords : 0;
+                                progressDoc = data.data.progressSilenceKeywords ? data.data.progressSilenceKeywords : 0;
                                 validateDocument.show();
 
                                 var startPageRatio = 0;
 
-                                if (data.item.progressSilenceKeywords) {
-                                    startPageRatio = parseFloat(data.item.progressSilenceKeywords);
+                                if (data.data.progressSilenceKeywords) {
+                                    startPageRatio = parseFloat(data.data.progressSilenceKeywords);
                                 }
 
                                 validateDocument.progressbar({ max: 1, value: startPageRatio });
@@ -714,11 +713,11 @@ $(document).ready(function() {
                                 if (startPageRatio === 1) {
                                     $(".ui-progressbar-value", validateDocument).addClass("progress-bar-info").removeClass('isDisable');
 
-                                    if (data.item.fields.validationDocument == "no") {
+                                    if (data.data.fields.validationDocument == "no") {
                                         $(".ui-progressbar-value", validateDocument).parent().addClass('isNotValidated').removeClass('isDisable');
                                         $(".ui-progressbar-value", validateDocument).html('100% : VALIDEZ!');
                                     }
-                                    else if (data.item.fields.validationDocument == "yes") {
+                                    else if (data.data.fields.validationDocument == "yes") {
                                         $(".ui-progressbar-value", validateDocument).parent().addClass('isValidated');
                                         $(".ui-progressbar-value", validateDocument).html('100%');
                                     }
@@ -787,9 +786,9 @@ $(document).ready(function() {
                             li.removeClass("keywordsMethodsisplay");
                         }
                         if((checkType.indexOf('silence') >= 0) && (checkType.indexOf('correspondance') <= 0)) { // If it's a silence  notation ( not corresp )
-                            if (config.showCorresp && Array.isArray(config.showCorresp)) { // If options is enable + isArray
-                                for (var i = 0; i < (config.showCorresp).length; i++) { //For all options values
-                                    if ((postData[1].value).toString() === (config.showCorresp[i]).toString()) { //If sent value is in options
+                            if (config.showCorresp) { // If options is enable + isArray
+                                for (var key in config.showCorresp) { //For all options values
+                                    if ((postData[1].value).toString() === (config.showCorresp[key]).toString()) { //If sent value is in options
                                         li.children('.formNotedKeywordsCorresp').css('display', '').addClass('preferenceAvailable');
                                         li.children('.divComments').addClass('commentsRight');
                                         break; //Stop checking options values
@@ -820,9 +819,9 @@ $(document).ready(function() {
                             }
                         }
                         else if((checkType.indexOf('eval') > 0) && (checkType.indexOf('exclude') <= 0)) {// If it's an eval score notation ( not pref )
-                           if (config.showPrefered && Array.isArray(config.showPrefered)) {// If options is enable + isArray
-                                for (var i = 0; i < (config.showPrefered).length; i++) {//For all options values
-                                    if ((postData[1].value).toString() === (config.showPrefered[i]).toString()) {//If sent value is in options
+                            if (config.showPrefered) {// If options is enable + isArray
+                                for (key in config.showPrefered) {//For all options values
+                                    if ((postData[1].value).toString() === (config.showPrefered[key]).toString()) {//If sent value is in options
                                         li.children('.formNotedKeywordsPref').css('display', '').addClass('preferenceAvailable');
                                         li.children('.divComments').addClass('commentsRight');
                                         break; //Stop checking options values
@@ -864,13 +863,13 @@ $(document).ready(function() {
 
                         $.getJSON( "/display/" + pageId + ".json", function( data ) {
 
-                            var evalKeywords = data.item.keywords.eval,
-                                silenceKeywords = data.item.keywords.silence,
+                            var evalKeywords = data.data.keywords.eval,
+                                silenceKeywords = data.data.keywords.silence,
                                 nbEvalWords = Object.keys(evalKeywords).length, // Number of Eval methods
-                                nbSilenceWords = (data.item.keywords.silence[0]['size']) * nbEvalWords, // Number of Silence Keywords * nbEvalWords
+                                nbSilenceWords = (data.data.keywords.silence[0]['size']) * nbEvalWords, // Number of Silence Keywords * nbEvalWords
                                 nbOfTotalSourceKeywords = 0;
 
-                            if(data.item.fields.validationMethods == "no") {
+                            if(data.data.fields.validationMethods == "no") {
 
 
                                 for (var i = 0; i < nbEvalWords; i++) {
@@ -879,7 +878,7 @@ $(document).ready(function() {
                                 }
 
 
-                            var notedKeywordsList = data.item.keywords.eval,
+                            var notedKeywordsList = data.data.keywords.eval,
                                 nbOfTotalNotedKeywords = 0;
 
                                     for (var key in notedKeywordsList) {
@@ -940,7 +939,7 @@ $(document).ready(function() {
 
                                     if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-info')) {
                                         $("#validateMethodBar .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info isDisable isNotValidated");
-                                        if (data.item.fields.validationDocument == "no") {
+                                        if (data.data.fields.validationDocument == "no") {
                                             var validateMethodButton = $("#validateMethodBar");
                                             validateMethodButton.addClass('isNotValidated');
                                             $("#validateMethodBar .ui-progressbar-value").html("100% : Validez !");
@@ -952,7 +951,7 @@ $(document).ready(function() {
                             }
 
 
-                            else if(data.item.fields.validationMethods == "yes") {
+                            else if(data.data.fields.validationMethods == "yes") {
 
 
 
@@ -1023,7 +1022,7 @@ $(document).ready(function() {
                                         $('#validateDocument').toggleClass("isDisable isNotValidated");
 
                                         $("#validateDocument .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info isDisable");
-                                        if (data.item.fields.validationDocument == "no") {
+                                        if (data.data.fields.validationDocument == "no") {
                                             var validateButton = $("#validateDocument");
                                             validateButton.addClass('isNotValidated').removeClass('isDisable');
                                             $("#validateDocument .ui-progressbar-value").html("100%: Validez!");
