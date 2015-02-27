@@ -13,7 +13,6 @@ module.exports = function(options) {
     options = options || {};
     return function (input, submit) {
 
-
             if ((input.keywords['eval']) && (input.keywords['silence']) && options.autoScore == true) {
 
                 var nbNotedEval     = 0,

@@ -21,7 +21,7 @@ module.exports = function(options) {
             /*
              * getContent() get content of path in input
              * input (obj)
-             * path (string )
+             * path (string)
              */
             var getContent = function (path, method, nbOfEval , callCount, callinsert) {
 
