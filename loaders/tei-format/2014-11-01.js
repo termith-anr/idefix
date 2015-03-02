@@ -3,7 +3,10 @@
  * VERSION: PHASE 1 (2014-11-01)
  */
 
-// Required modules
+        /************************
+         ****    MODULES     ****
+         ************************/
+
 var objectPath = require('object-path'),
     kuler      = require('kuler');
 
@@ -12,6 +15,11 @@ module.exports = function(options, config) {
     options = options || {};
     config  = config.get();
     return function (input, submit) {
+
+
+        /***********************
+        ****    FUNCTIONS   ****
+        ************************/
 
         /**
          *  Infos show any kind of informations in console about the configuration
@@ -39,16 +47,6 @@ module.exports = function(options, config) {
             }
         };
 
-        var getContent = function(key,path){
-            var content ;
-            if(key === "pathPertinence"){
-                content = objectPath.get(path);
-            }
-            if(key === "pathSilence"){
-                content = objectPath.get(path);
-            }
-        };
-
         /**
          * Check if option is send
          * @param option is the option to check
@@ -62,12 +60,59 @@ module.exports = function(options, config) {
             return true;
         };
 
+        var getContent = function(key,path){
+            var content;
+            path = "content.json." +path;
+            if(key === "pertinence"){
+                content = objectPath.get(input , path);
+            }
+            if(key === "silence"){
+                content = objectPath.get(input ,path);
+            }
+            return content;
+        };
+
+        var filterContent = function(content , type){
+            if(type === "pertinence") {
+                return content.filter(function(content){
+                    return ((content.scheme !== "inist-francis" ) && (content.scheme !== "inist-pascal" ) && (content.scheme !== "cc" ) && (content.scheme !== "author" ) && (content['xml#lang'] == "fr" ) );
+                });
+            }
+            if(type === "silence"){
+                return content.filter(function(content) {
+                    return (((content.scheme == "inist-francis" ) || (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
+                });
+            }
+        };
+
+        var formContent = function(content,type,arr){
+            if(type === "pertinence") {
+                console.log('content ' , content.term);
+                /*for(var i= 0 ; i < content.term.length ; i++){
+                    console.log(content.term[i]);
+                }*/
+            }
+            if(type === "silence") {
+
+            }
+        };
+
+        var insertContent = function(content , path){
+            objectPath.ensureExists(input, path, content);
+        };
+
+
+        /************************
+         ****   EXECUTION    ****
+         ************************/
+
         if(check("pathPertinence") && check("pathSilence")){
+            var pertinence = getContent("pertinence", config.pathPertinence);
+            pertinence = filterContent(pertinence,"pertinence");
 
+            var arr = [];
+            arr = formContent(pertinence, "pertinence" ,arr);
         }
-
-
-
 
 
         submit(null, input);
