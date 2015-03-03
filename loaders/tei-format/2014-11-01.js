@@ -61,6 +61,12 @@ module.exports = function(options, config) {
             return true;
         };
 
+        /**
+         * getContent of input
+         * @param key {STRING} what to get
+         * @param path {STRING} path where to get
+         * @returns {*}
+         */
         var getContent = function(key,path){
             var content;
             path = "content.json." +path;
@@ -73,6 +79,12 @@ module.exports = function(options, config) {
             return content;
         };
 
+        /***
+         * filterContent of array to keep usefull
+         * @param content {ARRAY}
+         * @param type {STRING} what ? pertinence /silence
+         * @returns {*}
+         */
         var filterContent = function(content , type){
             if(type === "pertinence") {
                 return content.filter(function(content){
@@ -86,6 +98,11 @@ module.exports = function(options, config) {
             }
         };
 
+        /**
+         * getMethodsNames of pertinences document
+         * @param content {ARRAY} the array containing brut pertinence
+         * @returns {Array}
+         */
         var getMethodsNames = function(content){
             var arr = [];
             for(var i=0 ; i < content.length ; i++){
@@ -94,6 +111,13 @@ module.exports = function(options, config) {
             return arr;
         };
 
+        /**
+         * formContent , build an array of object words , the formm for keywords database
+         * @param content {ARRAY} an array of pertinence or silence keywords
+         * @param type {STRING} specify silence/pertinence type
+         * @param methodsName {ARRAY} an array of methods pertinence names
+         * @returns {Array}
+         */
         var formContent = function(content,type,methodsName){
             var arr = [];
             if(type === "pertinence") {
@@ -126,6 +150,11 @@ module.exports = function(options, config) {
             }
         };
 
+        /**
+         * insertContent in the flux to mongo then
+         * @param content {*} what to insert
+         * @param path {STRING} where to insert
+         */
         var insertContent = function(content , path){
             objectPath.ensureExists(input, path, content);
         };
