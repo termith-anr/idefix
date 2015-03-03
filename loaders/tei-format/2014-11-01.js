@@ -8,7 +8,8 @@
          ************************/
 
 var objectPath = require('object-path'),
-    kuler      = require('kuler');
+    kuler      = require('kuler'),
+    sha1       = require('sha1');
 
 'use strict';
 module.exports = function(options, config) {
@@ -85,15 +86,44 @@ module.exports = function(options, config) {
             }
         };
 
-        var formContent = function(content,type,arr){
+        var getMethodsName = function(content){
+            var arr = [];
+            for(var i=0 ; i < content.length ; i++){
+                arr.push(content[i].scheme);
+            }
+            return arr;
+        };
+
+        var formContent = function(content,type,methodsName){
+            var arr = [];
             if(type === "pertinence") {
-                console.log('content ' , content.term);
-                /*for(var i= 0 ; i < content.term.length ; i++){
-                    console.log(content.term[i]);
-                }*/
+                //console.log('content ' , content);
+                for(var i= 0 ; i < content.length ; i++){
+                    var methodName = content[i].scheme.toString();
+                    //console.log(methodName);
+                    for(var key in content[i].term){
+                        var word        = content[i].term[key]['#text'].toString(),
+                            id          = sha1(type+methodName+word),
+                            objectWord  = {id : id , type : type , method : methodName , word : word};
+                        //console.log(objectWord);
+                        arr.push(objectWord);
+                    }
+                }
+                return arr;
             }
             if(type === "silence") {
-
+                console.log('content ' , content[0].term);
+                for(var i = 0 ; i < content[0].term.length ; i++){
+                    for(var j= 0 ; j < methodsName.length ; i++) {
+                        console.log(content[0].term[i]);
+                        console.log('\n ---------------');
+                        /*var word = content[0].term[i]['#text'].toString(),
+                            id = sha1(type + methodsName[j] + word),
+                            objectWord = {id: id, type: type, method: methodName, word: word};
+                        arr.push(objectWord);*/
+                    }
+                }
+                return arr;
             }
         };
 
@@ -107,11 +137,16 @@ module.exports = function(options, config) {
          ************************/
 
         if(check("pathPertinence") && check("pathSilence")){
-            var pertinence = getContent("pertinence", config.pathPertinence);
-            pertinence = filterContent(pertinence,"pertinence");
+            var pertinence = getContent("pertinence", config.pathPertinence),
+                pertinence = filterContent(pertinence,"pertinence"),
+                silence    = getContent("silence", config.pathSilence),
+                silence    = filterContent(silence,"silence");
 
-            var arr = [];
-            arr = formContent(pertinence, "pertinence" ,arr);
+
+            var arrPertinence              = formContent(pertinence, "pertinence"),
+                pertinenceMethods          = getMethodsName(pertinence),
+                arrSilence                 = formContent(silence, "silence" , pertinenceMethods);
+            console.log(arrSilence);
         }
 
 
