@@ -50,13 +50,22 @@ module.exports = function(options, config) {
 
         /**
          * Check if option is send
-         * @param option is the option to check
+         * @param  option {STRING} is the option to check
+         * @param type {STRING}(config/options) what to check?
          * @returns {boolean}
          */
-        var check = function(option){
-            if(!config[option]){
-                infos("L'option n'a pas été précisée","error",option);
-                process.exit(1);
+        var check = function(option,type){
+            if(type === "config"){
+                if(!config[option]){
+                    infos("L'option générale n'a pas été précisée","error",option);
+                    process.exit(1);
+                }
+            }
+            if(type === "options"){
+                if(!options[option]){
+                    infos("L'option du loader n'a pas été précisée","error",option);
+                    process.exit(1);
+                }
             }
             return true;
         };
@@ -164,7 +173,7 @@ module.exports = function(options, config) {
          ****   EXECUTION    ****
          ************************/
 
-        if(check("pathPertinence") && check("pathSilence")){
+        if(check("pathPertinence","config") && check("pathSilence","config")){
             var pertinence = getContent("pertinence", config.pathPertinence),
                 pertinence = filterContent(pertinence,"pertinence"),
                 silence    = getContent("silence", config.pathSilence),
