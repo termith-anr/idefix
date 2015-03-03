@@ -86,7 +86,7 @@ module.exports = function(options, config) {
             }
         };
 
-        var getMethodsName = function(content){
+        var getMethodsNames = function(content){
             var arr = [];
             for(var i=0 ; i < content.length ; i++){
                 arr.push(content[i].scheme);
@@ -112,15 +112,14 @@ module.exports = function(options, config) {
                 return arr;
             }
             if(type === "silence") {
-                console.log('content ' , content[0].term);
-                for(var i = 0 ; i < content[0].term.length ; i++){
-                    for(var j= 0 ; j < methodsName.length ; i++) {
-                        console.log(content[0].term[i]);
-                        console.log('\n ---------------');
-                        /*var word = content[0].term[i]['#text'].toString(),
+                for(var i = 0 ; i < content[0].term.length ; i++){ // Pour chaque mot
+                    //console.log(' MOT N° : '  , i);
+                    for(var j= 0 ; j < methodsName.length ; j++) { // Pour chaque méthode
+                        //console.log(' METHODE N° ' ,  j );
+                        var word = content[0].term[i]['#text'].toString(),
                             id = sha1(type + methodsName[j] + word),
-                            objectWord = {id: id, type: type, method: methodName, word: word};
-                        arr.push(objectWord);*/
+                            objectWord = {id: id, type: type, method: methodsName[j], word: word};
+                        arr.push(objectWord);
                     }
                 }
                 return arr;
@@ -144,9 +143,13 @@ module.exports = function(options, config) {
 
 
             var arrPertinence              = formContent(pertinence, "pertinence"),
-                pertinenceMethods          = getMethodsName(pertinence),
-                arrSilence                 = formContent(silence, "silence" , pertinenceMethods);
-            console.log(arrSilence);
+                pertinenceMethods          = getMethodsNames(pertinence),
+                arrSilence                 = formContent(silence, "silence" , pertinenceMethods),
+                listOfKeywords             = arrPertinence.concat(arrSilence);
+            //console.log(listOfKeywords);
+            //console.log("--------------------------------\n");
+
+            insertContent(listOfKeywords,"keywords");
         }
 
 
