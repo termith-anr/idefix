@@ -11,7 +11,8 @@
          ************************/
 
 
-var objectPath = require('object-path');
+var objectPath = require('object-path'),
+    kuler      = require('kuler');
 
 
 'use strict';
@@ -53,15 +54,35 @@ module.exports = function(options) {
 
         /**
          * Check if option is send
-         * @param option is the option to check
+         * @param  option {STRING} is the option to check
+         * @param type {STRING}(config/options) what to check?
          * @returns {boolean}
          */
         var check = function(option,type){
-            if(!config[option]){
-                infos("L'option n'a pas été précisée","error",option);
-                process.exit(1);
+            if(type === "config"){
+                if(typeof(config[option]) == "undefined"){
+                    infos("L'option générale n'a pas été précisée","error",option);
+                    process.exit(1);
+                }
+            }
+            if(type === "options"){
+                if(typeof(options[option]) == "undefined"){
+                    infos("L'option du loader n'a pas été précisée","error",option);
+                    process.exit(1);
+                }
             }
             return true;
+        };
+
+        var filter = function(content,by,what){
+            if(by === "method"){
+
+            }
+            if(by === "type"){
+                return content.filter(function(content){
+                    return (content["type"] === what);
+                });
+            }
         };
 
 
@@ -69,8 +90,11 @@ module.exports = function(options) {
          ****   EXECUTION    ****
          ************************/
 
-        if(check("pathPertinence") && check("pathSilence")){
-
+        if(check("autoScore","options") && check("autoEval","options") && check("autoSilence","options")){
+            if(options.autoScore === true){ // loader enable
+                var silences = filter(input.keywords , "type" , "silence");
+                console.log("filter : " , silences);
+            }
         }
         submit(null, input);
     }

@@ -56,13 +56,13 @@ module.exports = function(options, config) {
          */
         var check = function(option,type){
             if(type === "config"){
-                if(!config[option]){
+                if(typeof(config[option]) == "undefined"){
                     infos("L'option générale n'a pas été précisée","error",option);
                     process.exit(1);
                 }
             }
             if(type === "options"){
-                if(!options[option]){
+                if(typeof(options[option]) == "undefined"){
                     infos("L'option du loader n'a pas été précisée","error",option);
                     process.exit(1);
                 }
