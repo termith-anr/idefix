@@ -188,6 +188,7 @@ module.exports = function(options, config) {
             //console.log("--------------------------------\n");
 
             insertContent(listOfKeywords,"keywords");
+            insertContent(pertinenceMethods,"pertinenceMethods");
         }
 
 

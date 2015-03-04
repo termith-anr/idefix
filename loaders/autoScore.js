@@ -76,7 +76,15 @@ module.exports = function(options) {
 
         var filter = function(content,by,what){
             if(by === "method"){
-
+                //console.log('combien de méthodes ????? ' , input.pertinenceMethods.length);
+                var arr = [];
+                for(var i = 0 ; i < input.pertinenceMethods.length ; i++){
+                    arr.push(content.filter(function(content){
+                        return (content["method"] === input.pertinenceMethods[i]);
+                    }));
+                }
+                return arr;
+                //console.log('tableau trié : ' , arr);
             }
             if(by === "type"){
                 return content.filter(function(content){
@@ -85,15 +93,17 @@ module.exports = function(options) {
             }
         };
 
-
         /************************
          ****   EXECUTION    ****
          ************************/
 
         if(check("autoScore","options") && check("autoEval","options") && check("autoSilence","options")){
             if(options.autoScore === true){ // loader enable
-                var silences = filter(input.keywords , "type" , "silence");
-                console.log("filter : " , silences);
+                var silences    = filter(input.keywords , "type" , "silence"),
+                    pertinences = filter(input.keywords , "type" , "pertinence");
+
+                silences = filter(silences, "method");
+                pertinences = filter(pertinences, "method");
             }
         }
         submit(null, input);
