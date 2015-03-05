@@ -93,6 +93,31 @@ module.exports = function(options) {
             }
         };
 
+        var compare = function(element1, element2, by){
+            for(var i = 0 ; i < element1.length ; i++){
+                for(var j = 0 ; j < element2.length ; j++){
+                    if(element1[i][by].toUpperCase() === element2[j][by].toUpperCase()){
+                        console.log('Element identiques : ' , element1[i]["word"] , "  id : " , element1[i]["id"] , " / " ,  element2[j]["word"] , "  id  : " ,  element2[j]["id"]);
+                    }
+                }
+            }
+        };
+
+        var score = function(){
+
+        };
+
+        /**
+         * insertContent in the flux to mongo then
+         * @param content {*} what to insert
+         * @param path {STRING} where to insert
+         */
+        var insertContent = function(content , path){
+            objectPath.ensureExists(input, path, content);
+        };
+
+
+
         /************************
          ****   EXECUTION    ****
          ************************/
@@ -102,8 +127,25 @@ module.exports = function(options) {
                 var silences    = filter(input.keywords , "type" , "silence"),
                     pertinences = filter(input.keywords , "type" , "pertinence");
 
-                silences = filter(silences, "method");
-                pertinences = filter(pertinences, "method");
+                silences = filter(silences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
+                pertinences = filter(pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
+
+                //console.log(" input.pertinenceMethods.length : ", input.pertinenceMethods.length , " silences.length : " , silences.length);
+                for(var i = 0 ; i < input.pertinenceMethods.length ; i++){ // Pour chaque nom de methods
+                    for( j = 0 ; j < silences.length ; j++) { // Pour chaque methodes dans les silences
+                        for (k = 0; k < pertinences.length; k++){
+                            if (silences[j][0].method === pertinences[k][0].method) {
+                                //console.log(" Nom de méthode n°" , k , " et methode de silence n° " , j);
+                                //console.log(pertinences[k] , " / " , silences[j]);
+
+                                //comparer les mots
+                                compare(silences[j],pertinences[k], "word");
+                            }
+                        }
+                    }
+                }
+
+                console.log('FIN DE AUTOSCORE DUN FICHIER');
             }
         }
         submit(null, input);
