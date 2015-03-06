@@ -16,22 +16,19 @@
 
 
 
-{% set numberOfMethods = 0 %}
+{% set numberOfMethods = data.pertinenceMethods.length %}
 
-{% set allKeywordsMethods = [] %}
+{% set pertinenceKw = [] %}
 
-{% set currentNbMethod = 0 %}
+{% set silenceKw = [] %}
 
-{% set listOfMethodsName = [] %}
+{% set currentMethod = 0 %}
 
-{% set inistListofKw = []%}
+    {% set inistScheme = '' %}
 
-{% set inistScheme = '' %}
+{% set showArticle = config.showArticle %}
 
-{% set isFullArticle = config.fullArticle %}
-
-{% set isInistKeywords = config.inistKeywords %}
-
+{% set showSilence = config.showSilence %}
 
 
 
@@ -53,20 +50,17 @@
 
 {% endfor %}
 
-{% set inistScheme = data.keywords.silence[0].scheme %}
+{% set inistScheme = data.keywords[0].scheme %}
 
-{% for currentKeyword in data.keywords.silence[0].term %}
+{% for currentKeyword in data.keywords[0].term %}
 
     {% set inistListofKw = inistListofKw|add2Array(currentKeyword['#text']) %}
 
 {% endfor %}
 
 
-{% set numberOfMethods = listOfMethodsName|length %}
-
-
     <!-- Block of modal for full article -->
-    {% if isFullArticle == true %}
+    {% if showArticle == true %}
     <div id="buttonFullArticle" class="">
         <span class="glyphicon glyphicon-align-center" id="spanFullArticle"></span>
         <span id="closeFullArticle" class="glyphicon glyphicon-remove"></span>
@@ -97,7 +91,7 @@
                     <div id="timer">
 
                     </div>
-                    {% if data.validationDocument != 'yes' %}
+                    {% if data.fields.validationDocument != 'yes' %}
                         <span class="glyphicon glyphicon-play isRunning" id="startOrStop"></span>
                     {% endif %}
 
@@ -186,69 +180,78 @@
                 <div id="keywordsDisplayDiv" class="col-lg-12 col-md-12 col-sm-12">
 
 
-                            {% if ( isInistKeywords == true) and (inistListofKw != '') and (inistListofKw != []) and (inistListofKw != undifined) %}
+                            {% if ( showSilence == true ) %}
 
                                 <div id="keywordsInist">
 
                                     <h2> INIST </h2>
 
-                                    {%  for currentInistKw in inistListofKw %}
+                                    {%  for currentMethod in data.pertinenceMethods %}
 
-                                        {% set inistLoopKeyword  = loop.index0 %}
+                                        {% set indexMethod  = loop.index0 %}
 
-                                        {% for theInist in range(0,numberOfMethods) %}
+                                        {% for currentObject in data.keywords %}
 
-                                            {% set loopIndexMethodInist = loop.index0 %}
+                                            {% set indexObject = loop.index0 %}
 
-                                        <div class="btn btn-default inistForMethod-{{ loopIndexMethodInist }} {% if ((data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score) or (data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}"><span class="idOfWord">{{ inistLoopKeyword+1 }} - </span> {{ currentInistKw|d('Pas de mots clés') }}
+                                            {% if currentObject.type == "silence"  and  currentObject.method == currentMethod %}
 
-                                            <form class="formNotedKeyword row" id="silenceScore-{{ loopIndexMethodInist }}-{{ inistLoopKeyword }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
+                                        <div class="btn btn-default inistForMethod-{{ indexMethod }} {% if ((data.keywords[indexMethod].score) or (data.keywords[indexMethod].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}">
+                                            <span class="idOfWord">{{ indexObject+1 }} - </span> {{ currentObject.word|d('Pas de mots clés') }}
 
-                                                <input class="inistKey" type="hidden" name="key" value="keywords.silence.{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}.score"/><!-- Key Name -->
+                                            <form class="formNotedKeyword row" id="silenceScore-{{ indexMethod }}-{{ indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
+
+                                                <input class="inistKey" type="hidden" name="key" value="keywords.{{ indexObject }}.score"/><!-- Key Name -->
 
                                                 <!-- Value Name -->
-                                                {% if data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score == '2' %}
-                                                <input id="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">0</label>
-                                                <input id="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">1</label>
-                                                <input id="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="2" checked><label for="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelBlock{% endif %}">2</label>
-                                                {% elif data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score == '1' %}
-                                                <input id="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">0</label>
-                                                <input id="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="1" checked><label for="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelBlock{% endif %}">1</label>
-                                                <input id="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">2</label>
-                                                {% elif data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].score == '0' %}
-                                                <input id="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="0" checked><label for="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelBlock{% endif %}">0</label>
-                                                <input id="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">1</label>
-                                                <input id="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">2</label>
+                                                {% if data.keywords[indexObject].score == '2' %}
+                                                <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelHide{% endif %}">0</label>
+                                                <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelHide{% endif %}">1</label>
+                                                <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelBlock{% endif %}">2</label>
+                                                {% elif data.keywords[indexObject].score == '1' %}
+                                                <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelHide{% endif %}">0</label>
+                                                <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelBlock{% endif %}">1</label>
+                                                <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelHide{% endif %}">2</label>
+                                                {% elif data.keywords[indexObject].score == '0' %}
+                                                <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0" checked><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelBlock{% endif %}">0</label>
+                                                <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelHide{% endif %}">1</label>
+                                                <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelHide{% endif %}">2</label>
                                                 {% else %}
-                                                <input id="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="0"><label for="input0-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">0</label>
-                                                <input id="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="1"><label for="input1-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">1</label>
-                                                <input id="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" name="val" type="radio" value="2"><label for="input2-silence-{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}" class="{% if data.validationDocument == 'yes' %}labelHide{% endif %}">2</label>
+                                                <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelHide{% endif %}">0</label>
+                                                <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelHide{% endif %}">1</label>
+                                                <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelHide{% endif %}">2</label>
                                                 {% endif %}
 
                                                 <ins class="loading"></ins>
 
                                             </form>
 
-                                            <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsCorresp row {% if data.validationDocument == 'yes' %}labelHide{% endif %}" id="correspMethod-{{ loopIndexMethodInist }}-{{ inistLoopKeyword }}" action="/save/{{ data.wid }}">
+                                            <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsCorresp row {% if data.fields.validationDocument == 'yes' %}labelHide{% endif %}" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}">
 
-                                                <input type="hidden" name="key" value="keywords.silence.{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}.correspondance"/> <!-- Key Name -->
+                                                <input type="hidden" name="key" value="keywords.{{ indexObject }}.correspondance"/> <!-- Key Name -->
 
-                                                <select id="method-{{ loopIndexMethodInist }}-corresp-list-{{ inistLoopKeyword }}" class="formNotedKeywordList" name="val">
+                                                <select id="method-{{ indexMethod }}-corresp-list-{{ indexObject }}" class="formNotedKeywordList" name="val">
                                                     <option value="<corresp>">
                                                         Corresp:
                                                     </option>
-                                                    {% for methodsWord in allKeywordsMethods[loopIndexMethodInist] %}
+                                                    {% for currentObjectForCorresp in data.keywords %}
 
-                                                    <option value="{{ methodsWord }}" {% if data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].correspondance == methodsWord %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
-                                                    {{ methodsWord }}
-                                                    </option>
+                                                        {% set indexObjectForCorresp = loop.index0 %}
+
+                                                        {% if currentObjectForCorresp.type == "silence" and currentObjectForCorresp.method == currentMethod %}
+
+                                                        <option value="{{ currentObjectForCorresp.word }}" {% if data.keywords[indexObjectForCorresp].correspondance == currentObjectForCorresp.correspondance %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
+                                                        {{ currentObjectForCorresp.word }}
+                                                        </option>
+
+                                                        {% endif %}
 
                                                     {% endfor %}
                                                 </select>
 
                                             </form>
 
-                                            <div class="divComments {% if data.validationDocument == 'yes' %}labelHide{% endif %}">
+                                            <div class="divComments {% if data.fields.validationDocument == 'yes' %}labelHide{% endif %}">
                                                 <span class="etcSpanComment">...</span>
 
                                                 <div class="divFormComments">
@@ -259,8 +262,8 @@
                                                     </div>
 
                                                     <form  data-id="{{ data.wid }}" action="/save/{{ data.wid }}" style="padding:0; margin: 0">
-                                                        <input type="hidden" name="key" value="keywords.silence.{{ loopIndexMethodInist }}.term.{{ inistLoopKeyword }}.commentaire"/> <!-- Key Name -->
-                                                        <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords.silence[loopIndexMethodInist].term[inistLoopKeyword].commentaire }}"/>
+                                                        <input type="hidden" name="key" value="keywords.{{ indexObject }}.comment"/> <!-- Key Name -->
+                                                        <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords[indexObject].commentaire }}"/>
                                                         <span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span>
                                                     </form>
                                                 </div>
@@ -268,6 +271,8 @@
                                             </div>
 
                                         </div>
+
+                                        {% endif %}
 
                                         {% endfor %}
 
@@ -381,7 +386,7 @@
 
     </div>
 
-    {% if isInistKeywords == true %}
+    {% if showSilence == true %}
         <div id="inistKeywordsButton" {% if data.validationMethods == "yes" %}style="display : block"{% else %}style="display: none"{% endif %}">
             <span>Afficher INIST</span>  <!-- Button to call Inist Keywords -->
         </div>

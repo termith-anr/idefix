@@ -397,7 +397,6 @@ The list of pre-defined words that you want to use for auto-completion comments
  Required to specify if you want to enable autoscore
  
  Autoscore is an automated notation of keywords at start
- 
  * autoScore : Enable/Disable silence & methods autoscore
  * autoPertinence: Enable/Disable methods autoscore
  * autoSilence: Enable/Disable silence autoscore
