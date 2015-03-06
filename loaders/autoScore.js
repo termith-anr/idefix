@@ -74,9 +74,28 @@ module.exports = function(options) {
             return true;
         };
 
+        /**
+         *  GetIndex of an object in an array , filter by ID
+         * @param arr {ARRAY}
+         * @param value {STRING}
+         * @returns {*}
+         */
+        var getIndex = function(arr,value){
+            return arr.map(function(x) {
+                return x.id;
+            })
+            .indexOf(value);
+        };
+
+        /**
+         *
+         * @param content  {ARRAY}
+         * @param by {STRING} methode / type
+         * @param what {STRING} the value to filter if type is is in by , ex type === method / silence
+         * @returns {*}
+         */
         var filter = function(content,by,what){
             if(by === "method"){
-                //console.log('combien de méthodes ????? ' , input.pertinenceMethods.length);
                 var arr = [];
                 for(var i = 0 ; i < input.pertinenceMethods.length ; i++){
                     arr.push(content.filter(function(content){
@@ -84,7 +103,6 @@ module.exports = function(options) {
                     }));
                 }
                 return arr;
-                //console.log('tableau trié : ' , arr);
             }
             if(by === "type"){
                 return content.filter(function(content){
@@ -93,22 +111,31 @@ module.exports = function(options) {
             }
         };
 
-        var compare = function(element1, element2, by){
-            for(var i = 0 ; i < element1.length ; i++){
-                for(var j = 0 ; j < element2.length ; j++){
-                    if(element1[i][by].toUpperCase() === element2[j][by].toUpperCase()){
-                        console.log('Element identiques : ' , element1[i]["word"] , "  id : " , element1[i]["id"] , " / " ,  element2[j]["word"] , "  id  : " ,  element2[j]["id"]);
+        /**
+         * compareAndScore , is the compartive & Scoring function
+         * @param silence {ARRAY} of objects
+         * @param pertinence {ARRAY} of objects
+         * @param by {STRING} which info to compare ? ex :word
+         */
+        var compareAndScore = function(silence, pertinence, by){
+            for(var i = 0 ; i < silence.length ; i++){
+                for(var j = 0 ; j < pertinence.length ; j++){
+                    if(silence[i][by].toUpperCase() === pertinence[j][by].toUpperCase()){
+                        if(options["autoSilence"] === true){
+                            var path = "keywords." + getIndex(input.keywords, silence[i]["id"]) + ".score";
+                            insertContent(0 , path);
+                        }
+                        if(options["autoPertinence"] === true){
+                            var path = "keywords." + getIndex(input.keywords, pertinence[j]["id"]) + ".score";
+                            insertContent(2 , path);
+                        }
                     }
                 }
             }
         };
 
-        var score = function(){
-
-        };
-
         /**
-         * insertContent in the flux to mongo then
+         * insertContent in the flux to mongo at the end
          * @param content {*} what to insert
          * @param path {STRING} where to insert
          */
@@ -122,8 +149,8 @@ module.exports = function(options) {
          ****   EXECUTION    ****
          ************************/
 
-        if(check("autoScore","options") && check("autoEval","options") && check("autoSilence","options")){
-            if(options.autoScore === true){ // loader enable
+        if(check("autoScore","options") && check("autoPertinence","options") && check("autoSilence","options")){
+            if(options.autoScore === true){ // loader enable ?
                 var silences    = filter(input.keywords , "type" , "silence"),
                     pertinences = filter(input.keywords , "type" , "pertinence");
 
@@ -131,21 +158,15 @@ module.exports = function(options) {
                 pertinences = filter(pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
 
                 //console.log(" input.pertinenceMethods.length : ", input.pertinenceMethods.length , " silences.length : " , silences.length);
-                for(var i = 0 ; i < input.pertinenceMethods.length ; i++){ // Pour chaque nom de methods
-                    for( j = 0 ; j < silences.length ; j++) { // Pour chaque methodes dans les silences
-                        for (k = 0; k < pertinences.length; k++){
-                            if (silences[j][0].method === pertinences[k][0].method) {
-                                //console.log(" Nom de méthode n°" , k , " et methode de silence n° " , j);
-                                //console.log(pertinences[k] , " / " , silences[j]);
-
-                                //comparer les mots
-                                compare(silences[j],pertinences[k], "word");
+                for(var i = 0 ; i < input.pertinenceMethods.length ; i++){ // Pour chaque nom de methodes
+                    for( j = 0 ; j < silences.length ; j++) { // Pour chaque methode dans les silences
+                        for (k = 0; k < pertinences.length; k++){ // Pour chaque méthodes dans les pertinences
+                            if (silences[j][0].method === pertinences[k][0].method) { // Si les nom des méthodes des premiers objets ( déjà triés ) sont identiques
+                                compareAndScore(silences[j],pertinences[k], "word");
                             }
                         }
                     }
                 }
-
-                console.log('FIN DE AUTOSCORE DUN FICHIER');
             }
         }
         submit(null, input);

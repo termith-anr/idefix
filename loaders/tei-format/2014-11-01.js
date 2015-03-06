@@ -174,10 +174,12 @@ module.exports = function(options, config) {
          ************************/
 
         if(check("pathPertinence","config") && check("pathSilence","config")){
+
             var pertinence = getContent("pertinence", config.pathPertinence),
-                pertinence = filterContent(pertinence,"pertinence"),
-                silence    = getContent("silence", config.pathSilence),
-                silence    = filterContent(silence,"silence");
+                silence    = getContent("silence", config.pathSilence);
+
+            silence    = filterContent(silence,"silence");
+            pertinence = filterContent(pertinence,"pertinence");
 
 
             var arrPertinence              = formContent(pertinence, "pertinence"),

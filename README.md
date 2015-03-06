@@ -217,7 +217,7 @@ castor-admin ~/apps
        "pattern" : "**/*.xml",
          "options": {
          "autoScore" : true,
-         "autoEval"  : true,
+         "autoPertinence"  : true,
          "autoSilence": true
        }
      }
@@ -399,8 +399,9 @@ The list of pre-defined words that you want to use for auto-completion comments
  Autoscore is an automated notation of keywords at start
  
  * autoScore : Enable/Disable silence & methods autoscore
- * autoEval: Enable/Disable methods autoscore
+ * autoPertinence: Enable/Disable methods autoscore
  * autoSilence: Enable/Disable silence autoscore
+ * /!\ DEPRECATED Since v 6.1 , Use autoPertinence now/!\ autoEval: Enable/Disable methods autoscore
 
  ```json
  {
