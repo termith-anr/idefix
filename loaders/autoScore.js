@@ -109,6 +109,12 @@ module.exports = function(options) {
                     return (content["type"] === what);
                 });
             }
+            if(by === "score"){
+                return content.filter(function(content){
+                    return (content["score"] || content["score"] === 0);
+                });
+            }
+
         };
 
         /**
@@ -118,20 +124,25 @@ module.exports = function(options) {
          * @param by {STRING} which info to compare ? ex :word
          */
         var compareAndScore = function(silence, pertinence, by){
-            for(var i = 0 ; i < silence.length ; i++){
-                for(var j = 0 ; j < pertinence.length ; j++){
+            var notedSilence = 0,
+                notedPertinence = 0;
+            for(var i = 0 ; i < silence.length ; i++){ // Pour chaque Object silence contenant un mot
+                for(var j = 0 ; j < pertinence.length ; j++){ // Pour chaque Pertinence contenant un mot
                     if(silence[i][by].toUpperCase() === pertinence[j][by].toUpperCase()){
                         if(options["autoSilence"] === true){
                             var path = "keywords." + getIndex(input.keywords, silence[i]["id"]) + ".score";
                             insertContent(0 , path);
+                            notedSilence ++;
                         }
                         if(options["autoPertinence"] === true){
                             var path = "keywords." + getIndex(input.keywords, pertinence[j]["id"]) + ".score";
                             insertContent(2 , path);
+                            notedPertinence ++;
                         }
                     }
                 }
             }
+            return [notedSilence,notedPertinence];
         };
 
         /**
@@ -152,7 +163,11 @@ module.exports = function(options) {
         if(check("autoScore","options") && check("autoPertinence","options") && check("autoSilence","options")){
             if(options.autoScore === true){ // loader enable ?
                 var silences    = filter(input.keywords , "type" , "silence"),
-                    pertinences = filter(input.keywords , "type" , "pertinence");
+                    pertinences = filter(input.keywords , "type" , "pertinence"),
+                    totalSilence = 0,
+                    totalPertinence = 0,
+                    notedSilence = 0,
+                    notedPertinence = 0 ;
 
                 silences = filter(silences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
                 pertinences = filter(pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
@@ -162,11 +177,21 @@ module.exports = function(options) {
                     for( j = 0 ; j < silences.length ; j++) { // Pour chaque methode dans les silences
                         for (k = 0; k < pertinences.length; k++){ // Pour chaque méthodes dans les pertinences
                             if (silences[j][0].method === pertinences[k][0].method) { // Si les nom des méthodes des premiers objets ( déjà triés ) sont identiques
-                                compareAndScore(silences[j],pertinences[k], "word");
+                                //totalSilence += silences[j].length;
+                                //totalPertinence += pertinences[k].length;
+                                var aScore = compareAndScore(silences[j],pertinences[k], "word"); // On compare chaque méthodes
+                                //notedSilence += aScore[0];
+                                //notedPertinence += aScore[1];
                             }
                         }
                     }
                 }
+                var noted = filter(input.keywords ,"score"),
+                    notedSilence = filter(noted ,"type" , "silence").length,
+                    notedPertinence = filter(noted ,"type" , "pertinence").length;
+                //insertContent(notedPertinence/(totalPertinence) ,"progressNotedKeywords");
+                //insertContent(notedSilence/(totalSilence) ,"progressSilenceKeywords");
+                console.log('Nombre de mot silences notés : ' , notedSilence , ' Nombre de mot silences totaux : ' , totalSilence/input.pertinenceMethods.length , ' Nombre de mot pertinence notés : ' , notedPertinence , ' Nombre de mot pertinence totaux : ' , totalPertinence/input.pertinenceMethods.length );
             }
         }
         submit(null, input);

@@ -786,6 +786,7 @@ $(document).ready(function() {
                             li.removeClass("keywordsMethodsisplay");
                         }
                         if((checkType.indexOf('silence') >= 0) && (checkType.indexOf('correspondance') <= 0)) { // If it's a silence  notation ( not corresp )
+                            console.log("SILENCE !!!");
                             if (config.showCorresp) { // If options is enable + isArray
                                 for (var key in config.showCorresp) { //For all options values
                                     if ((postData[1].value).toString() === (config.showCorresp[key]).toString()) { //If sent value is in options
@@ -819,6 +820,7 @@ $(document).ready(function() {
                             }
                         }
                         else if((checkType.indexOf('eval') > 0) && (checkType.indexOf('exclude') <= 0)) {// If it's an eval score notation ( not pref )
+                            console.log("PERTII !!!");
                             if (config.showPrefered) {// If options is enable + isArray
                                 for (key in config.showPrefered) {//For all options values
                                     if ((postData[1].value).toString() === (config.showPrefered[key]).toString()) {//If sent value is in options
