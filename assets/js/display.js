@@ -93,6 +93,42 @@ $(document).ready(function() {
             );
         };
 
+    /**
+     *
+     * @param content  {ARRAY}
+     * @param by {STRING} methode / type
+     * @param what {STRING} the value to filter if type is is in by , ex type === method / silence
+     * @returns {*}
+     */
+    var filter = function(content,by,what){
+        if(by === "method"){
+            var arr = [];
+            for(var i = 0 ; i < input.pertinenceMethods.length ; i++){
+                arr.push(content.filter(function(content){
+                    return (content["method"] === input.pertinenceMethods[i]);
+                }));
+            }
+            return arr;
+        }
+        if(by === "type"){
+            return content.filter(function(content){
+                return (content["type"] === what);
+            });
+        }
+        if(by === "score"){
+            return content.filter(function(content){
+                return (content["score"] || content["score"] === 0);
+            });
+        }
+        if(by === "unserialized") {
+            return content.filter(function (content) {
+                return content.name != what;
+            });
+        }
+
+    };
+
+
 
     $.getJSON("/display/" + pageId + ".json", function (data) {
 
@@ -762,14 +798,14 @@ $(document).ready(function() {
     // Keywords
     $(".formNotedKeyword input, .formNotedKeyword select").change(function (e) {
         var id = $(this).parent().attr('id');
-        var postData = $(this).parent().serializeArray();
-        var formURL = $(this).parent().attr("action");
-        var li = $(this).parent().parent();
-
+        var serialized = $(this).parent().serializeArray(),
+            postData = filter(serialized, "unserialized" ,"type"),
+            formURL = $(this).parent().attr("action"),
+            li = $(this).parent().parent();
 
         $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
 
-
+console.log('ss' , serialized);
         $.ajax(
             {
                 url: formURL,
@@ -778,7 +814,7 @@ $(document).ready(function() {
                 success: function (e) {
                     setTimeout(function () {
 
-                        var checkType = (postData[0].value).toString();
+                        var checkType = (serialized[2].value).toString();
 
                         $('#' + id + ' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
                         if (!li.hasClass("keywordsMethodsDisplayDone")) {
@@ -819,7 +855,7 @@ $(document).ready(function() {
                                 }
                             }
                         }
-                        else if((checkType.indexOf('eval') > 0) && (checkType.indexOf('exclude') <= 0)) {// If it's an eval score notation ( not pref )
+                        else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('exclude') <= 0)) {// If it's an eval score notation ( not pref )
                             console.log("PERTII !!!");
                             if (config.showPrefered) {// If options is enable + isArray
                                 for (key in config.showPrefered) {//For all options values
@@ -865,34 +901,19 @@ $(document).ready(function() {
 
                         $.getJSON( "/display/" + pageId + ".json", function( data ) {
 
-                            var evalKeywords = data.data.keywords.eval,
-                                silenceKeywords = data.data.keywords.silence,
-                                nbEvalWords = Object.keys(evalKeywords).length, // Number of Eval methods
-                                nbSilenceWords = (data.data.keywords.silence[0]['size']) * nbEvalWords, // Number of Silence Keywords * nbEvalWords
+
+                            var allPertinence = filter(data.data.keywords, "type" , "pertinence"),
+                                allSilence = filter(data.data.keywords, "type" , "silence"),
+                                notedPertinence = filter(allPertinence, "score"),
+                                notedSilence = filter(allSilence, "score"),
                                 nbOfTotalSourceKeywords = 0;
 
-                            if(data.data.fields.validationMethods == "no") {
+                            console.log('allPertinence ', allPertinence , " allSilence " , allSilence , " notedPertinence ", notedPertinence , " notedSilence " ,notedSilence );
 
 
-                                for (var i = 0; i < nbEvalWords; i++) {
-                                        var nbKW = evalKeywords[i]['size'] ; // Get nb Of Keywords / Method
-                                        nbOfTotalSourceKeywords += nbKW;
-                                }
+                            if(data.data.fields.validationMethods == "no") { // Si Les méthodes ne sont pas déjà validées
 
-
-                            var notedKeywordsList = data.data.keywords.eval,
-                                nbOfTotalNotedKeywords = 0;
-
-                                    for (var key in notedKeywordsList) {
-                                            for( i = 0 ; i < (notedKeywordsList[key].term.length) ; i++){
-                                                if(notedKeywordsList[key].term[i].score){
-                                                    nbOfTotalNotedKeywords++;
-                                                }
-                                            }
-                                    }
-
-
-                            var ratio = nbOfTotalNotedKeywords/nbOfTotalSourceKeywords;
+                                var ratio = notedPertinence.length/allPertinence.length;
 
 
                                 $.ajax(
@@ -953,26 +974,13 @@ $(document).ready(function() {
                             }
 
 
-                            else if(data.data.fields.validationMethods == "yes") {
+                            else if(data.data.fields.validationMethods == "yes") { // SI méthodes sont déjà evaluées
 
 
 
 
-                                var nbNotedSilence = 0;
 
-
-                                for (var key in silenceKeywords) {
-                                    for(var word in silenceKeywords[key].term){
-                                            if((silenceKeywords[key].term[word].score) || (silenceKeywords[key].term[word].score == '0' )) {
-                                                ++nbNotedSilence;
-                                            }
-                                        }
-                                }
-
-                                //console.log(' nbNotedSilence/nbSilenceWords ' , nbNotedSilence , ' / ' ,nbSilenceWords);
-
-
-                                var ratio = nbNotedSilence/nbSilenceWords;
+                                var ratio = notedSilence.length/allSilence.length;
 
                                 $.ajax(
                                     {
@@ -981,7 +989,10 @@ $(document).ready(function() {
                                         data: [
                                             { name: "key", value: "progressSilenceKeywords"} ,
                                             { name: "val", value: ratio}
-                                        ]
+                                        ],
+                                        success: function(e){
+                                            console.log("e : " , e);
+                                        }
                                     }
                                 );
 

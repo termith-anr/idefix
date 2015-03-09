@@ -196,7 +196,7 @@
 
                                             {% if currentObject.type == "silence"  and  currentObject.method == currentMethod %}
 
-                                        <div class="btn btn-default inistForMethod-{{ indexMethod }} {% if ((data.keywords[indexMethod].score) or (data.keywords[indexMethod].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}">
+                                        <div class="btn btn-default inistForMethod-{{ indexMethod }} {% if ((data.keywords[indexObject].score) or (data.keywords[indexObject].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}">
                                             <span class="idOfWord">{{ indexObject+1 }} - </span> {{ currentObject.word|d('Pas de mots clés') }}
 
                                             <form class="formNotedKeyword row" id="silenceScore-{{ indexMethod }}-{{ indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
@@ -221,6 +221,8 @@
                                                 <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelHide{% endif %}">1</label>
                                                 <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validationDocument == 'yes' %}labelHide{% endif %}">2</label>
                                                 {% endif %}
+
+                                                <input type="hidden" name="type" value="silence"/><!-- Type pertinence -->
 
                                                 <ins class="loading"></ins>
 
@@ -248,6 +250,9 @@
 
                                                     {% endfor %}
                                                 </select>
+
+                                                <input type="hidden" name="type" value="silence"/><!-- Type pertinence -->
+
 
                                             </form>
 
@@ -325,6 +330,9 @@
                                                     <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}"  class="{% if data.fields.validationMethods == 'yes' %}labelHide{% endif %}">2</label>
                                                     {% endif %}
 
+                                                    <input type="hidden" name="type" value="pertinence"/><!-- Type pertinence -->
+
+
                                                     <ins class="loading"></ins>
 
                                                 </form>
@@ -354,6 +362,8 @@
                                                         {% endfor %}
 
                                                     </select>
+
+                                                    <input type="hidden" name="type" value="pertinence"/><!-- Type pertinence -->
 
                                                 </form>
 

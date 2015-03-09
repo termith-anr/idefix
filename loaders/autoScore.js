@@ -163,11 +163,7 @@ module.exports = function(options) {
         if(check("autoScore","options") && check("autoPertinence","options") && check("autoSilence","options")){
             if(options.autoScore === true){ // loader enable ?
                 var silences    = filter(input.keywords , "type" , "silence"),
-                    pertinences = filter(input.keywords , "type" , "pertinence"),
-                    totalSilence = 0,
-                    totalPertinence = 0,
-                    notedSilence = 0,
-                    notedPertinence = 0 ;
+                    pertinences = filter(input.keywords , "type" , "pertinence");
 
                 silences = filter(silences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
                 pertinences = filter(pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
@@ -188,10 +184,12 @@ module.exports = function(options) {
                 }
                 var noted = filter(input.keywords ,"score"),
                     notedSilence = filter(noted ,"type" , "silence").length,
-                    notedPertinence = filter(noted ,"type" , "pertinence").length;
-                //insertContent(notedPertinence/(totalPertinence) ,"progressNotedKeywords");
-                //insertContent(notedSilence/(totalSilence) ,"progressSilenceKeywords");
-                console.log('Nombre de mot silences notés : ' , notedSilence , ' Nombre de mot silences totaux : ' , totalSilence/input.pertinenceMethods.length , ' Nombre de mot pertinence notés : ' , notedPertinence , ' Nombre de mot pertinence totaux : ' , totalPertinence/input.pertinenceMethods.length );
+                    allSilence = filter(input.keywords ,"type" , "silence").length,
+                    notedPertinence = filter(noted ,"type" , "pertinence").length,
+                    allPertinence = filter(input.keywords ,"type" , "pertinence").length;
+                insertContent(notedPertinence/allPertinence ,"progressNotedKeywords");
+                insertContent(notedSilence/allPertinence ,"progressSilenceKeywords");
+                console.log('Nombre de mot silences notés : ' , notedSilence , ' Nombre de mot silences totaux : ' , allSilence , ' Nombre de mot pertinence notés : ' , notedPertinence , ' Nombre de mot pertinence totaux : ' , allPertinence);
             }
         }
         submit(null, input);
