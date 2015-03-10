@@ -192,6 +192,13 @@ module.exports = function(options) {
                 console.log('Nombre de mot silences notés : ' , notedSilence , ' Nombre de mot silences totaux : ' , allSilence , ' Nombre de mot pertinence notés : ' , notedPertinence , ' Nombre de mot pertinence totaux : ' , allPertinence);
             }
         }
+
+
+
+        /************************
+         ****   NEXT LOADER  ****
+         ************************/
+
         submit(null, input);
     }
 };

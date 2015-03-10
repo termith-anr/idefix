@@ -339,7 +339,7 @@
 
                                                 <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsPref row {% if data.fields.validationMethods == 'yes' %}labelHide{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}">
 
-                                                    <input type="hidden" name="key" value="keywords.eval.{{ indexMethod }}.term.{{ wordNumber }}.exclude"/> <!-- Key Name -->
+                                                    <input type="hidden" name="key" value="keywords.{{ indexObject }}.exclude"/> <!-- Key Name -->
 
                                                     <select id="method-{{ indexMethod }}-exclude-list-{{ indexObject }}" class="formNotedKeywordList" name="val">
 

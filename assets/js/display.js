@@ -76,7 +76,7 @@ $(document).ready(function() {
 
     // Init typeAHead twitter
     var typeAHead = function(data){
-            console.log("source : " , data);
+            //console.log("source : " , data);
             var inputs = $('.inputComment'),
                 configData = data;
             inputs.typeahead(
@@ -805,7 +805,6 @@ $(document).ready(function() {
 
         $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
 
-console.log('ss' , serialized);
         $.ajax(
             {
                 url: formURL,
@@ -821,7 +820,7 @@ console.log('ss' , serialized);
                             li.addClass("keywordsMethodsDisplayDone");
                             li.removeClass("keywordsMethodsisplay");
                         }
-                        if((checkType.indexOf('silence') >= 0) && (checkType.indexOf('correspondance') <= 0)) { // If it's a silence  notation ( not corresp )
+                        if((checkType.indexOf('silence') >= 0) && (checkType.indexOf('correspondance') < 0)) { // If it's a silence  notation ( not corresp )
                             console.log("SILENCE !!!");
                             if (config.showCorresp) { // If options is enable + isArray
                                 for (var key in config.showCorresp) { //For all options values
@@ -855,16 +854,20 @@ console.log('ss' , serialized);
                                 }
                             }
                         }
-                        else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('exclude') <= 0)) {// If it's an eval score notation ( not pref )
+                        else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('exclude') < 0)) {// If it's an eval score notation ( not pref )
                             console.log("PERTII !!!");
                             if (config.showPrefered) {// If options is enable + isArray
+
+                                console.log("data : " , serialized);
                                 for (key in config.showPrefered) {//For all options values
                                     if ((postData[1].value).toString() === (config.showPrefered[key]).toString()) {//If sent value is in options
                                         li.children('.formNotedKeywordsPref').css('display', '').addClass('preferenceAvailable');
                                         li.children('.divComments').addClass('commentsRight');
+                                        console.log("TROUVE :");
                                         break; //Stop checking options values
                                     }
                                     else {//If sent value not in options
+                                        console.log("QUOI? : ");
                                         li.children('.formNotedKeywordsPref').css('display', 'none').removeClass('preferenceAvailable');
                                         li.children('.divComments').removeClass('commentsRight');
                                         if( $('.formNotedKeywordList option:selected' , li).val() != '<exclude>' ){ //If a pref was selected
@@ -908,7 +911,7 @@ console.log('ss' , serialized);
                                 notedSilence = filter(allSilence, "score"),
                                 nbOfTotalSourceKeywords = 0;
 
-                            console.log('allPertinence ', allPertinence , " allSilence " , allSilence , " notedPertinence ", notedPertinence , " notedSilence " ,notedSilence );
+                            //console.log('allPertinence ', allPertinence , " allSilence " , allSilence , " notedPertinence ", notedPertinence , " notedSilence " ,notedSilence );
 
 
                             if(data.data.fields.validationMethods == "no") { // Si Les méthodes ne sont pas déjà validées
@@ -989,10 +992,7 @@ console.log('ss' , serialized);
                                         data: [
                                             { name: "key", value: "progressSilenceKeywords"} ,
                                             { name: "val", value: ratio}
-                                        ],
-                                        success: function(e){
-                                            console.log("e : " , e);
-                                        }
+                                        ]
                                     }
                                 );
 
