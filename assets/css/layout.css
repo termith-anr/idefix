@@ -76,6 +76,7 @@ body > header{
     padding-top: 50px ;
     float: none !important;
     text-align: center;
+    box-shadow: 0px -49px 90px #CC6A63 !important;
 }
 
 #showOnClickDiv{
@@ -117,9 +118,9 @@ body > header{
     border-left: 1px solid #555;
 }
 
-#bodyBrowse{
+/*#bodyBrowse{
     background: #E5E5E5 ;
-}
+}*/
 
 #divOverTableBrowse{
     margin: 0 auto;
@@ -1971,6 +1972,25 @@ input[value='2']:checked + label {
     width: auto;
     height: 35px;
     opacity: 0.4;
+}
+
+.partnerLogosFooter{
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+    -webkit-transition: all 450ms ease;
+    -moz-transition: all 450ms ease;
+    -ms-transition: all 450ms ease;
+    -o-transition: all 450ms ease;
+    transition: all 450ms ease;
+    width: auto;
+    height: 45px;
+    opacity: 0.9;
+}
+
+.partnerLogosFooter:hover{
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0\'/></filter></svg>#grayscale");
+    -webkit-filter: grayscale(0%);
 }
 
 .linkLogosPatner{
