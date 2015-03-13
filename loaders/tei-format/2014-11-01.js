@@ -71,40 +71,36 @@ module.exports = function(options, config) {
         };
 
         /**
-         * getContent of input
-         * @param key {STRING} what to get
-         * @param path {STRING} path where to get
+         *
+         * @param data  {OBJECT}
+         * @param content  {ARRAY}
+         * @param fiter {STRING} methode / type / score
+         * @param filterValue {STRING} the value to filter if fiter type, ex type === method / silence
          * @returns {*}
          */
-        var getContent = function(key,path){
-            var content;
-            path = "content.json." +path;
-            if(key === "pertinence"){
-                content = objectPath.get(input , path);
+        var filterContent = function(data,content,filter,filterValue){
+            if(filter === "method"){ // Organise By method , not a filter , since method is unknown
+                var arr = [];
+                for(var i = 0 ; i < data.pertinencMethods.length ; i++){
+                    arr.push(content.filter(function(content){
+                        return (content["method"] === input.pertinenceMethods[i]);
+                    }));
+                }
+                return arr;
             }
-            if(key === "silence"){
-                content = objectPath.get(input ,path);
-            }
-            return content;
-        };
-
-        /***
-         * filterContent of array to keep usefull
-         * @param content {ARRAY}
-         * @param type {STRING} what ? pertinence /silence
-         * @returns {*}
-         */
-        var filterContent = function(content , type){
-            if(type === "pertinence") {
+            if(filter === "type"){
+                console.log('Type = ' , filterValue , " Content : " , content);
                 return content.filter(function(content){
-                    return ((content.scheme !== "inist-francis" ) && (content.scheme !== "inist-pascal" ) && (content.scheme !== "cc" ) && (content.scheme !== "author" ) && (content['xml#lang'] == "fr" ) );
+                    console.log(' AAA - ' , content);
+                    return (content["type"] === filterValue);
                 });
             }
-            if(type === "silence"){
-                return content.filter(function(content) {
-                    return (((content.scheme == "inist-francis" ) || (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
+            if(filter === "score"){
+                return content.filter(function(content){
+                    return (content["score"] || content["score"] === 0);
                 });
             }
+
         };
 
         /**
@@ -145,6 +141,7 @@ module.exports = function(options, config) {
                 return arr;
             }
             if(type === "silence") {
+                //console.log("content : ", content);
                 for(var i = 0 ; i < content[0].term.length ; i++){ // Pour chaque mot
                     //console.log(' MOT N° : '  , i);
                     for(var j= 0 ; j < methodsName.length ; j++) { // Pour chaque méthode
@@ -175,11 +172,15 @@ module.exports = function(options, config) {
 
         if(check("pathPertinence","config") && check("pathSilence","config")){
 
-            var pertinence = getContent("pertinence", config.pathPertinence),
-                silence    = getContent("silence", config.pathSilence);
+            // File is infos + content returned by castor-load-xml
+            var file = input;
 
-            silence    = filterContent(silence,"silence");
-            pertinence = filterContent(pertinence,"pertinence");
+            var pertinence = objectPath.get(file, "content.json.TEI.teiHeader.profileDesc.textClass.keywords"),
+                silence    = objectPath.get(file, "content.json.TEI.teiHeader.profileDesc.textClass.keywords");
+
+            silence    = filterContent(file, silence, "type" ,"silence");
+            console.log("FILTERED : " , silence);
+            pertinence = filterContent(file, pertinence, "type" , "pertinence");
 
 
             var arrPertinence              = formContent(pertinence, "pertinence"),

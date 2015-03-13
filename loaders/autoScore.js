@@ -75,41 +75,43 @@ module.exports = function(options) {
         };
 
         /**
-         *  GetIndex of an object in an array , filter by ID
-         * @param arr {ARRAY}
-         * @param value {STRING}
-         * @returns {*}
+         *  GetIndex of an objects in an array , filter by ID , name ...
+         * @param arr {ARRAY} An array of objects
+         * @param filter {STRING} Specify the filter ( id , name ..)
+         * @param value {STRING} The value of the filter you want to get
+         * @returns {NUMBER} index of the first object found in the array
          */
-        var getIndex = function(arr,value){
+        var getIndex = function(arr,filter,value){
             return arr.map(function(x) {
-                return x.id;
+                return x[filter];
             })
             .indexOf(value);
         };
 
         /**
          *
+         * @param data  {OBJECT}
          * @param content  {ARRAY}
-         * @param by {STRING} methode / type
-         * @param what {STRING} the value to filter if type is is in by , ex type === method / silence
+         * @param fiter {STRING} methode / type / score
+         * @param filterValue {STRING} the value to filter if fiter type, ex type === method / silence
          * @returns {*}
          */
-        var filter = function(content,by,what){
-            if(by === "method"){
+        var filterContent = function(data,content,fiter,filterValue){
+            if(fiter === "method"){ // Organise By method , not a filter , since method is unknown
                 var arr = [];
-                for(var i = 0 ; i < input.pertinenceMethods.length ; i++){
+                for(var i = 0 ; i < data.pertinencMethods.length ; i++){
                     arr.push(content.filter(function(content){
                         return (content["method"] === input.pertinenceMethods[i]);
                     }));
                 }
                 return arr;
             }
-            if(by === "type"){
+            if(fiter === "type"){
                 return content.filter(function(content){
-                    return (content["type"] === what);
+                    return (content["type"] === filterValue);
                 });
             }
-            if(by === "score"){
+            if(fiter === "score"){
                 return content.filter(function(content){
                     return (content["score"] || content["score"] === 0);
                 });
@@ -130,12 +132,12 @@ module.exports = function(options) {
                 for(var j = 0 ; j < pertinence.length ; j++){ // Pour chaque Pertinence contenant un mot
                     if(silence[i][by].toUpperCase() === pertinence[j][by].toUpperCase()){
                         if(options["autoSilence"] === true){
-                            var path = "keywords." + getIndex(input.keywords, silence[i]["id"]) + ".score";
+                            var path = "keywords." + getIndex(input.keywords, "id" , silence[i]["id"]) + ".score";
                             insertContent(0 , path);
                             notedSilence ++;
                         }
                         if(options["autoPertinence"] === true){
-                            var path = "keywords." + getIndex(input.keywords, pertinence[j]["id"]) + ".score";
+                            var path = "keywords." + getIndex(input.keywords,  "id" , pertinence[j]["id"]) + ".score";
                             insertContent(2 , path);
                             notedPertinence ++;
                         }
@@ -162,11 +164,11 @@ module.exports = function(options) {
 
         if(check("autoScore","options") && check("autoPertinence","options") && check("autoSilence","options")){
             if(options.autoScore === true){ // loader enable ?
-                var silences    = filter(input.keywords , "type" , "silence"),
-                    pertinences = filter(input.keywords , "type" , "pertinence");
+                var silences    = filterContent(file, input.keywords , "type" , "silence"),
+                    pertinences = filterContent(file, input.keywords , "type" , "pertinence");
 
-                silences = filter(silences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
-                pertinences = filter(pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
+                silences = filterContent(file, silences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
+                pertinences = filterContent(file , pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
 
                 //console.log(" input.pertinenceMethods.length : ", input.pertinenceMethods.length , " silences.length : " , silences.length);
                 for(var i = 0 ; i < input.pertinenceMethods.length ; i++){ // Pour chaque nom de methodes

@@ -182,3 +182,7 @@ TEI item:before{
     float: left;
     margin-right: 10px
 }
+
+ns\:stdf{
+    color: red;
+}
