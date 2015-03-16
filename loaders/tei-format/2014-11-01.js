@@ -9,14 +9,14 @@
 
 var objectPath = require('object-path'),
     kuler      = require('kuler'),
-    sha1       = require('sha1');
+    sha1       = require('sha1'),
+    jsonselect = require('JSONSelect');
 
 'use strict';
 module.exports = function(options, config) {
     options = options || {};
     config  = config.get();
     return function (input, submit) {
-
 
         /***********************
         ****    FUNCTIONS   ****
@@ -74,7 +74,7 @@ module.exports = function(options, config) {
          *
          * @param data  {OBJECT}
          * @param content  {ARRAY}
-         * @param fiter {STRING} methode / type / score
+         * @param filter {STRING} methode / type / score
          * @param filterValue {STRING} the value to filter if fiter type, ex type === method / silence
          * @returns {*}
          */
@@ -89,9 +89,9 @@ module.exports = function(options, config) {
                 return arr;
             }
             if(filter === "type"){
-                console.log('Type = ' , filterValue , " Content : " , content);
+               // console.log('Type = ' , filterValue , " Content : " , content);
                 return content.filter(function(content){
-                    console.log(' AAA - ' , content);
+                    //console.log(' AAA - ' , content);
                     return (content["type"] === filterValue);
                 });
             }
@@ -179,7 +179,7 @@ module.exports = function(options, config) {
                 silence    = objectPath.get(file, "content.json.TEI.teiHeader.profileDesc.textClass.keywords");
 
             silence    = filterContent(file, silence, "type" ,"silence");
-            console.log("FILTERED : " , silence);
+           // console.log("FILTERED : " , silence);
             pertinence = filterContent(file, pertinence, "type" , "pertinence");
 
 
