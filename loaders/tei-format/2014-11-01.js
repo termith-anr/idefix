@@ -16,11 +16,15 @@ module.exports = function(options, config) {
     config = config.get();
     return function (input, submit) {
 
-        var pertinenceObject = [],
-            silenceObject = [];
+        /*
+        * pertinencesNames  is an array of methods names , insert in input
+        * keywords  is an array of  words , insert in input
+        * */
+        var pertinencesNames = [],
+            keywords = [],
+            arr = [];
 
-        jsonselect.forEach(".keywords:only-child" , input.content.json , function(element){
-            var arr = [];
+        jsonselect.match(".keywords" , input.content.json , function(element){
 
             var pertinences = element.filter(function(content){
                 return ((content.scheme !== "inist-francis" ) && (content.scheme !== "inist-pascal" ) && (content.scheme !== "cc" ) && (content.scheme !== "author" ) && (content['xml#lang'] == "fr" ) );
@@ -29,7 +33,10 @@ module.exports = function(options, config) {
                 return (((content.scheme == "inist-francis" ) || (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
             });
 
-            var pertinencesNames = jsonselect.match(".scheme" , pertinences);
+            /*
+            * PERTINENCES ACTIONS
+            * */
+            pertinencesNames = jsonselect.match(".scheme" , pertinences);
 
             //console.log("pertinencesNames : " , pertinencesNames);
 
@@ -49,10 +56,41 @@ module.exports = function(options, config) {
                     arr.push(obj);
 
                 });
+                //console.log(arr);
+            });
 
+            /*
+             * SILENCES ACTIONS
+             * */
+
+            jsonselect.forEach(":has(:root > .term)" , silences ,function(terms){
+
+                for(var i = 0  ; i < pertinencesNames.length ; i++) {
+
+                    var methodName = pertinencesNames[i];
+
+                    jsonselect.forEach(".#text", terms, function (word) {
+                        var id = sha1("silence" + methodName + word);
+                        console.log(" id " , id , " word ", word);
+                        var obj = {
+                            "id": id,
+                            "type": "silence",
+                            "method": methodName,
+                            "word": word
+                        };
+
+                        arr.push(obj);
+
+                    });
+
+                }
                 console.log(arr);
             });
+
         });
+
+        objectPath.ensureExists(input, "keywords" , arr);
+        objectPath.ensureExists(input, "pertinenceMethods" , pertinencesNames);
 
         /***********************
          **** FUNCTIONS ****
@@ -196,7 +234,7 @@ module.exports = function(options, config) {
         /************************
          **** EXECUTION ****
          ************************/
-        if(check("pathPertinence","config") && check("pathSilence","config")){
+        /*if(check("pathPertinence","config") && check("pathSilence","config")){
             var pertinence = getContent("pertinence", config.pathPertinence),
                 silence = getContent("silence", config.pathSilence);
             silence = filterContent(silence,"silence");
@@ -209,7 +247,7 @@ module.exports = function(options, config) {
 //console.log("--------------------------------\n");
             insertContent(listOfKeywords,"keywords");
             insertContent(pertinenceMethods,"pertinenceMethods");
-        }
+        }*/
         /************************
          **** NEXT LOADER ****
          ************************/
