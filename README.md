@@ -116,7 +116,7 @@ IDEFIX is a notation interface of indexed Termith's keywords
        "pattern" : "**/*.xml",
          "options": {
          "autoScore" : true,
-         "autoEval"  : true,
+         "autoPertinence"  : true,
          "autoSilence": true
        }
      }
@@ -408,7 +408,7 @@ The list of pre-defined words that you want to use for auto-completion comments
     "pattern" : "**/*.xml",
     "options": {
          "autoScore" : true,
-         "autoEval"  : true,
+         "autoPertinence"  : true,
          "autoSilence": true
     }
  }

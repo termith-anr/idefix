@@ -18,45 +18,12 @@
 
 {% set numberOfMethods = data.pertinenceMethods.length %}
 
-{% set pertinenceKw = [] %}
-
-{% set silenceKw = [] %}
-
 {% set currentMethod = 0 %}
-
-    {% set inistScheme = '' %}
 
 {% set showArticle = config.showArticle %}
 
 {% set showSilence = config.showSilence %}
 
-
-
-<!--  Count number of Methods present and their names -->
-
-{%  for keywordsEval in data.keywords.eval %}
-
-    {% set listOfMethodsName = listOfMethodsName|add2Array(keywordsEval.scheme) %}
-
-    {% set tempListKw  = [] %}
-
-    {% for currentKeyword in keywordsEval.term %}
-
-        {% set tempListKw = tempListKw|add2Array(currentKeyword['#text']) %}
-
-    {% endfor %}
-
-    {% set allKeywordsMethods =  allKeywordsMethods|add2Array(tempListKw) %}
-
-{% endfor %}
-
-{% set inistScheme = data.keywords[0].scheme %}
-
-{% for currentKeyword in data.keywords[0].term %}
-
-    {% set inistListofKw = inistListofKw|add2Array(currentKeyword['#text']) %}
-
-{% endfor %}
 
 
     <!-- Block of modal for full article -->
@@ -236,13 +203,13 @@
                                                     <option value="<corresp>">
                                                         Corresp:
                                                     </option>
-                                                    {% for currentObjectForCorresp in data.keywords %}
+                                                    {% for currentObjectForCorresp in data.keywords %}          // Pour chaque objet dans data.keywords
 
-                                                        {% set indexObjectForCorresp = loop.index0 %}
+                                                        {% set indexObjectForCorresp = loop.index0 %}           // INDEX DE LOBJET
 
-                                                        {% if currentObjectForCorresp.type == "silence" and currentObjectForCorresp.method == currentMethod %}
+                                                        {% if currentObjectForCorresp.type == "silence" and currentObjectForCorresp.method == currentMethod %} // SI le type de l'objet  est un silence et sa méthode vaut la méthode en cours
 
-                                                        <option value="{{ currentObjectForCorresp.word }}" {% if data.keywords[indexObjectForCorresp].correspondance == currentObjectForCorresp.correspondance %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
+                                                        <option value="{{ currentObjectForCorresp.word }}" {% if data.keywords[indexObject].correspondance == data.keywords[indexObjectForCorresp].word %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
                                                         {{ currentObjectForCorresp.word }}
                                                         </option>
 

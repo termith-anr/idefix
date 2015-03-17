@@ -2,28 +2,22 @@
  * Created by matthias on 01/11/201.
  * VERSION: PHASE 1 (2014-11-01)
  */
-
-        /************************
-         ****    MODULES     ****
-         ************************/
-
+/************************
+ **** MODULES ****
+ ************************/
 var objectPath = require('object-path'),
-    kuler      = require('kuler'),
-    sha1       = require('sha1'),
-    jsonselect = require('JSONSelect');
-
+    kuler = require('kuler'),
+    sha1 = require('sha1');
 'use strict';
 module.exports = function(options, config) {
     options = options || {};
-    config  = config.get();
+    config = config.get();
     return function (input, submit) {
-
         /***********************
-        ****    FUNCTIONS   ****
-        ************************/
-
+         **** FUNCTIONS ****
+         ************************/
         /**
-         *  Infos show any kind of informations in console about the configuration
+         * Infos show any kind of informations in console about the configuration
          * @param err STRING the message to show
          * @param type STRING (error , warning , info , valid)
          * @param option STRING the option concerned
@@ -33,24 +27,20 @@ module.exports = function(options, config) {
                 case "error":
                     console.error(kuler("ERROR - Config fails on option : " + option + " - Error is : \n" + err, "#e67e22"));
                     break;
-
                 case "warning":
                     console.warn(kuler("WARNING - Config problem on option : " + option + " , warning is : \n" + err, "#f39c12"));
                     break;
-
                 case "info":
                     console.info(kuler("WARNING - Config problem on option : " + option + " , info is : \n" + err, "#3498db"));
                     break;
-
                 case "valid":
-                    console.log(kuler("SUCCESS - " + option + " , on  : \n" + err, "#2ecc71"));
+                    console.log(kuler("SUCCESS - " + option + " , on : \n" + err, "#2ecc71"));
                     break;
             }
         };
-
         /**
          * Check if option is send
-         * @param  option {STRING} is the option to check
+         * @param option {STRING} is the option to check
          * @param type {STRING}(config/options) what to check?
          * @returns {boolean}
          */
@@ -69,40 +59,41 @@ module.exports = function(options, config) {
             }
             return true;
         };
-
         /**
-         *
-         * @param data  {OBJECT}
-         * @param content  {ARRAY}
-         * @param filter {STRING} methode / type / score
-         * @param filterValue {STRING} the value to filter if fiter type, ex type === method / silence
+         * getContent of input
+         * @param key {STRING} what to get
+         * @param path {STRING} path where to get
          * @returns {*}
          */
-        var filterContent = function(data,content,filter,filterValue){
-            if(filter === "method"){ // Organise By method , not a filter , since method is unknown
-                var arr = [];
-                for(var i = 0 ; i < data.pertinencMethods.length ; i++){
-                    arr.push(content.filter(function(content){
-                        return (content["method"] === input.pertinenceMethods[i]);
-                    }));
-                }
-                return arr;
+        var getContent = function(key,path){
+            var content;
+            path = "content.json." +path;
+            if(key === "pertinence"){
+                content = objectPath.get(input , path);
             }
-            if(filter === "type"){
-               // console.log('Type = ' , filterValue , " Content : " , content);
-                return content.filter(function(content){
-                    //console.log(' AAA - ' , content);
-                    return (content["type"] === filterValue);
-                });
+            if(key === "silence"){
+                content = objectPath.get(input ,path);
             }
-            if(filter === "score"){
-                return content.filter(function(content){
-                    return (content["score"] || content["score"] === 0);
-                });
-            }
-
+            return content;
         };
-
+        /***
+         * filterContent of array to keep usefull
+         * @param content {ARRAY}
+         * @param type {STRING} what ? pertinence /silence
+         * @returns {*}
+         */
+        var filterContent = function(content , type){
+            if(type === "pertinence") {
+                return content.filter(function(content){
+                    return ((content.scheme !== "inist-francis" ) && (content.scheme !== "inist-pascal" ) && (content.scheme !== "cc" ) && (content.scheme !== "author" ) && (content['xml#lang'] == "fr" ) );
+                });
+            }
+            if(type === "silence"){
+                return content.filter(function(content) {
+                    return (((content.scheme == "inist-francis" ) || (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
+                });
+            }
+        };
         /**
          * getMethodsNames of pertinences document
          * @param content {ARRAY} the array containing brut pertinence
@@ -115,7 +106,6 @@ module.exports = function(options, config) {
             }
             return arr;
         };
-
         /**
          * formContent , build an array of object words , the formm for keywords database
          * @param content {ARRAY} an array of pertinence or silence keywords
@@ -126,26 +116,25 @@ module.exports = function(options, config) {
         var formContent = function(content,type,methodsName){
             var arr = [];
             if(type === "pertinence") {
-                //console.log('content ' , content);
+//console.log('content ' , content);
                 for(var i= 0 ; i < content.length ; i++){
                     var methodName = content[i].scheme.toString();
-                    //console.log(methodName);
+//console.log(methodName);
                     for(var key in content[i].term){
-                        var word        = content[i].term[key]['#text'].toString(),
-                            id          = sha1(type+methodName+word),
-                            objectWord  = {id : id , type : type , method : methodName , word : word};
-                        //console.log(objectWord);
+                        var word = content[i].term[key]['#text'].toString(),
+                            id = sha1(type+methodName+word),
+                            objectWord = {id : id , type : type , method : methodName , word : word};
+//console.log(objectWord);
                         arr.push(objectWord);
                     }
                 }
                 return arr;
             }
             if(type === "silence") {
-                //console.log("content : ", content);
                 for(var i = 0 ; i < content[0].term.length ; i++){ // Pour chaque mot
-                    //console.log(' MOT N° : '  , i);
+//console.log(' MOT N° : ' , i);
                     for(var j= 0 ; j < methodsName.length ; j++) { // Pour chaque méthode
-                        //console.log(' METHODE N° ' ,  j );
+//console.log(' METHODE N° ' , j );
                         var word = content[0].term[i]['#text'].toString(),
                             id = sha1(type + methodsName[j] + word),
                             objectWord = {id: id, type: type, method: methodsName[j], word: word};
@@ -155,7 +144,6 @@ module.exports = function(options, config) {
                 return arr;
             }
         };
-
         /**
          * insertContent in the flux to mongo then
          * @param content {*} what to insert
@@ -164,41 +152,26 @@ module.exports = function(options, config) {
         var insertContent = function(content , path){
             objectPath.ensureExists(input, path, content);
         };
-
-
         /************************
-         ****   EXECUTION    ****
+         **** EXECUTION ****
          ************************/
-
         if(check("pathPertinence","config") && check("pathSilence","config")){
-
-            // File is infos + content returned by castor-load-xml
-            var file = input;
-
-            var pertinence = objectPath.get(file, "content.json.TEI.teiHeader.profileDesc.textClass.keywords"),
-                silence    = objectPath.get(file, "content.json.TEI.teiHeader.profileDesc.textClass.keywords");
-
-            silence    = filterContent(file, silence, "type" ,"silence");
-           // console.log("FILTERED : " , silence);
-            pertinence = filterContent(file, pertinence, "type" , "pertinence");
-
-
-            var arrPertinence              = formContent(pertinence, "pertinence"),
-                pertinenceMethods          = getMethodsNames(pertinence),
-                arrSilence                 = formContent(silence, "silence" , pertinenceMethods),
-                listOfKeywords             = arrPertinence.concat(arrSilence);
-            //console.log(listOfKeywords);
-            //console.log("--------------------------------\n");
-
+            var pertinence = getContent("pertinence", config.pathPertinence),
+                silence = getContent("silence", config.pathSilence);
+            silence = filterContent(silence,"silence");
+            pertinence = filterContent(pertinence,"pertinence");
+            var arrPertinence = formContent(pertinence, "pertinence"),
+                pertinenceMethods = getMethodsNames(pertinence),
+                arrSilence = formContent(silence, "silence" , pertinenceMethods),
+                listOfKeywords = arrPertinence.concat(arrSilence);
+//console.log(listOfKeywords);
+//console.log("--------------------------------\n");
             insertContent(listOfKeywords,"keywords");
             insertContent(pertinenceMethods,"pertinenceMethods");
         }
-
-
         /************************
-         ****   NEXT LOADER  ****
+         **** NEXT LOADER ****
          ************************/
-
         submit(null, input);
     }
 };
