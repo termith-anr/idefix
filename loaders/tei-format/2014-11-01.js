@@ -7,12 +7,53 @@
  ************************/
 var objectPath = require('object-path'),
     kuler = require('kuler'),
-    sha1 = require('sha1');
+    sha1 = require('sha1'),
+    jsonselect = require('JSONSelect');
+
 'use strict';
 module.exports = function(options, config) {
     options = options || {};
     config = config.get();
     return function (input, submit) {
+
+        var pertinenceObject = [],
+            silenceObject = [];
+
+        jsonselect.forEach(".keywords:only-child" , input.content.json , function(element){
+            var arr = [];
+
+            var pertinences = element.filter(function(content){
+                return ((content.scheme !== "inist-francis" ) && (content.scheme !== "inist-pascal" ) && (content.scheme !== "cc" ) && (content.scheme !== "author" ) && (content['xml#lang'] == "fr" ) );
+            });
+            var silences = element.filter(function(content){
+                return (((content.scheme == "inist-francis" ) || (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
+            });
+
+            var pertinencesNames = jsonselect.match(".scheme" , pertinences);
+
+            //console.log("pertinencesNames : " , pertinencesNames);
+
+            jsonselect.forEach(":has(:root > .term)" , pertinences ,function(terms){
+                var methodName  =  terms.scheme;
+
+                jsonselect.forEach(".#text" , terms , function(word){
+                    var id = sha1("pertinence"+methodName+word);
+                    //console.log(" id " , id , " word ", word);
+                    var obj = {
+                      "id" : id,
+                      "type" : "pertinence",
+                      "method" : methodName,
+                      "word" : word
+                    };
+
+                    arr.push(obj);
+
+                });
+
+                console.log(arr);
+            });
+        });
+
         /***********************
          **** FUNCTIONS ****
          ************************/
