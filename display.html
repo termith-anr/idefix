@@ -203,11 +203,11 @@
                                                     <option value="<corresp>">
                                                         Corresp:
                                                     </option>
-                                                    {% for currentObjectForCorresp in data.keywords %}          // Pour chaque objet dans data.keywords
+                                                    {% for currentObjectForCorresp in data.keywords %}
 
-                                                        {% set indexObjectForCorresp = loop.index0 %}           // INDEX DE LOBJET
+                                                        {% set indexObjectForCorresp = loop.index0 %}
 
-                                                        {% if currentObjectForCorresp.type == "silence" and currentObjectForCorresp.method == currentMethod %} // SI le type de l'objet  est un silence et sa méthode vaut la méthode en cours
+                                                        {% if currentObjectForCorresp.type == "silence" and currentObjectForCorresp.method == currentMethod %}
 
                                                         <option value="{{ currentObjectForCorresp.word }}" {% if data.keywords[indexObject].correspondance == data.keywords[indexObjectForCorresp].word %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
                                                         {{ currentObjectForCorresp.word }}
@@ -235,7 +235,7 @@
 
                                                     <form  data-id="{{ data.wid }}" action="/save/{{ data.wid }}" style="padding:0; margin: 0">
                                                         <input type="hidden" name="key" value="keywords.{{ indexObject }}.comment"/> <!-- Key Name -->
-                                                        <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords[indexObject].commentaire }}"/>
+                                                        <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords[indexObject].comment }}"/>
                                                         <span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span>
                                                     </form>
                                                 </div>
@@ -306,21 +306,21 @@
 
                                                 <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsPref row {% if data.fields.validationMethods == 'yes' %}labelHide{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}">
 
-                                                    <input type="hidden" name="key" value="keywords.{{ indexObject }}.exclude"/> <!-- Key Name -->
+                                                    <input type="hidden" name="key" value="keywords.{{ indexObject }}.preference"/> <!-- Key Name -->
 
-                                                    <select id="method-{{ indexMethod }}-exclude-list-{{ indexObject }}" class="formNotedKeywordList" name="val">
+                                                    <select id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList" name="val">
 
-                                                        <option value="<exclude>">
+                                                        <option value="<preference>">
                                                             Pref:
                                                         </option>
 
-                                                        {% for currentObjectPref in data.keywords %}
+                                                        {% for currentObjectPref in data.keywords %} pour chaque objet dans dat.kw
 
-                                                            {% set indexObjectPref = loop.index0 %}
+                                                            {% set indexObjectPref = loop.index0 %} index de lobjet
 
-                                                            {% if currentObjectPref.type == "pertinence"  and  currentObjectPref.method == currentMethod %}
+                                                            {% if currentObjectPref.type == "pertinence"  and  currentObjectPref.method == currentMethod %} si c'ets une pertinence + methode en cours
 
-                                                            <option value="{{ currentObjectPref.word }}" {% if data.keywords[indexObjectPref].pref == currentObjectPref.word %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
+                                                            <option value="{{ currentObjectPref.word }}" {% if data.keywords[indexObjectPref].word == currentObject.preference %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
                                                             {{ currentObjectPref.word }}
                                                             </option>
 

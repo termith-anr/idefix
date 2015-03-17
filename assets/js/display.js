@@ -335,6 +335,7 @@ $(document).ready(function() {
 
     /* --- DELETE A COMMENT --- */
     $('.trashComment').on('click' , function(){
+        console.log('Je vais te supprimer ! ');
         var span = $(this);
         var toDelete = $(this).parent('form').children('input[name="key"]').val().toString(),
             arr      = [
@@ -347,11 +348,14 @@ $(document).ready(function() {
                     value: ""
                 }
             ],
-            url = '/delete/' + pageId;
+            url = '/drop/' + pageId;
         $.ajax({
             type: "POST",
             url: url,
             data: arr,
+            error: function(e){
+                console.log(" La suppresion à échouée , error : ", e);
+            },
             success : function(e){
                 console.log(e);
 
@@ -813,7 +817,7 @@ $(document).ready(function() {
                 success: function (e) {
                     setTimeout(function () {
 
-                        var checkType = (serialized[2].value).toString();
+                        var checkType = (serialized[0].value + "-" + serialized[2].value).toString();
 
                         $('#' + id + ' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
                         if (!li.hasClass("keywordsMethodsDisplayDone")) {
@@ -854,8 +858,8 @@ $(document).ready(function() {
                                 }
                             }
                         }
-                        else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('exclude') < 0)) {// If it's an eval score notation ( not pref )
-                            console.log("PERTII !!!");
+                        else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('preference') < 0)) {// If it's an eval score notation ( not pref )
+                            console.log("PERTIINENCE !!! , " , checkType);
                             if (config.showPrefered) {// If options is enable + isArray
 
                                 console.log("data : " , serialized);
@@ -870,13 +874,13 @@ $(document).ready(function() {
                                         console.log("QUOI? : ");
                                         li.children('.formNotedKeywordsPref').css('display', 'none').removeClass('preferenceAvailable');
                                         li.children('.divComments').removeClass('commentsRight');
-                                        if( $('.formNotedKeywordList option:selected' , li).val() != '<exclude>' ){ //If a pref was selected
+                                        if( $('.formNotedKeywordList option:selected' , li).val() != '<preference>' ){ //If a pref was selected
 
-                                            postData[1].value = '<exclude>';
+                                            postData[1].value = '<preference>';
 
                                             /*Point to exclude*/
                                             var arr = (postData[0].value).split('.');
-                                            arr[(arr.length -1)] = 'exclude';
+                                            arr[(arr.length -1)] = 'preference';
                                             postData[0].value = arr.join('.');
 
                                             $.ajax({

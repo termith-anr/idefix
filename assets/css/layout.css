@@ -1921,6 +1921,7 @@ input[value='2']:checked + label {
     float: left;
     margin-top: 18px;
     margin-left: 3px;
+    line-height: 45px;
 }
 
 .inputComment:focus{
