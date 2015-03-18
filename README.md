@@ -103,14 +103,10 @@ IDEFIX is a notation interface of indexed Termith's keywords
        "script" : "castor-load-raw",
        "pattern" : "**/*.xml"
      },
-     {
-       "script" : "keywords.js",
-       "pattern" : "**/*.xml",
-         "options": {
-         "keywordsSilencePath" : "TEI.teiHeader.profileDesc.textClass.keywords",
-         "keywordsEvalPath"    : "TEI.teiHeader.profileDesc.textClass.keywords"
-       }
-     },
+    {
+      "script" : "tei-format/2014-11-01.js",
+      "pattern" : "*"
+    },
      {
        "script" : "autoScore.js",
        "pattern" : "**/*.xml",
@@ -379,16 +375,12 @@ The list of pre-defined words that you want to use for auto-completion comments
  }
  ```
 
-* Keywords 
- Required to specify silence keywords & methods leywords paths (for flexibility)
+* TEI format , *[see the folder list] (https://github.com/termith-anr/scripts-formats/tree/master/Scripts)*
+ Required : specify the date format of TEI files
  ```json
  {
-   "script" : "keywords.js",
-   "pattern" : "**/*.xml",
-    "options": {
-         "keywordsSilencePath" : "TEI.teiHeader.profileDesc.textClass.keywords",
-         "keywordsEvalPath"    : "TEI.teiHeader.profileDesc.textClass.keywords"
-    }
+   "script" : "tei-format/2014-11-01.js",
+   "pattern" : "**/*.xml"
  }
  ```
 
