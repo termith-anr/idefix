@@ -160,39 +160,43 @@ module.exports = function(options) {
          ****   EXECUTION    ****
          ************************/
 
-        if(check(("autoPertinence","options") || check("autoSilence","options")) && (input.keywords)){
-                var silences    = filter(input.keywords , "type" , "silence"),
-                    pertinences = filter(input.keywords , "type" , "pertinence");
+        if(check(("autoPertinence","options") || check("autoSilence","options")) && (input.keywords)) {
+            var silences = filter(input.keywords, "type", "silence"),
+                pertinences = filter(input.keywords, "type", "pertinence");
 
-                silences = filter(silences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
-                pertinences = filter(pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
+            silences = filter(silences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
+            pertinences = filter(pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
 
+            if (silences.length > 0 && pertinences.length > 0) {
                 //console.log(" input.pertinenceMethods.length : ", input.pertinenceMethods.length , " silences.length : " , silences.length);
-                for(var i = 0 ; i < input.pertinenceMethods.length ; i++){ // Pour chaque nom de methodes
-                    for( j = 0 ; j < silences.length ; j++) { // Pour chaque methode dans les silences
-                        for (k = 0; k < pertinences.length; k++){ // Pour chaque méthodes dans les pertinences
+                for (var i = 0; i < input.pertinenceMethods.length; i++) { // Pour chaque nom de methodes
+                    for (j = 0; j < silences.length; j++) { // Pour chaque methode dans les silences
+                        for (k = 0; k < pertinences.length; k++) { // Pour chaque méthodes dans les pertinences
+                            console.log('silences de j : ' , silences);
                             if (silences[j][0].method === pertinences[k][0].method) { // Si les nom des méthodes des premiers objets ( déjà triés ) sont identiques
                                 //totalSilence += silences[j].length;
                                 //totalPertinence += pertinences[k].length;
-                                var aScore = compareAndScore(silences[j],pertinences[k], "word"); // On compare chaque méthodes
+                                var aScore = compareAndScore(silences[j], pertinences[k], "word"); // On compare chaque méthodes
                                 //notedSilence += aScore[0];
                                 //notedPertinence += aScore[1];
                             }
                         }
                     }
                 }
-                var noted = filter(input.keywords ,"score"),
-                    notedSilence = filter(noted ,"type" , "silence").length,
-                    allSilence = filter(input.keywords ,"type" , "silence").length,
-                    notedPertinence = filter(noted ,"type" , "pertinence").length,
-                    allPertinence = filter(input.keywords ,"type" , "pertinence").length;
-                if(options["autoPertinence"] === true) {
+                var noted = filter(input.keywords, "score"),
+                    notedSilence = filter(noted, "type", "silence").length,
+                    allSilence = filter(input.keywords, "type", "silence").length,
+                    notedPertinence = filter(noted, "type", "pertinence").length,
+                    allPertinence = filter(input.keywords, "type", "pertinence").length;
+                if (options["autoPertinence"] === true) {
                     insertContent(notedPertinence / allPertinence, "progressNotedKeywords");
                 }
-                if(options["autoSilence"] === true) {
+                if (options["autoSilence"] === true) {
                     insertContent(notedSilence / allPertinence, "progressSilenceKeywords");
                 }
-                console.log('Nombre de mot silences notés : ' , notedSilence , ' Nombre de mot silences totaux : ' , allSilence , ' Nombre de mot pertinence notés : ' , notedPertinence , ' Nombre de mot pertinence totaux : ' , allPertinence);
+                console.log('Nombre de mot silences notés : ', notedSilence, ' Nombre de mot silences totaux : ', allSilence, ' Nombre de mot pertinence notés : ', notedPertinence, ' Nombre de mot pertinence totaux : ', allPertinence);
+
+            }
         }
 
 
