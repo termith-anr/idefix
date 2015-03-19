@@ -160,7 +160,7 @@ module.exports = function(options) {
          ****   EXECUTION    ****
          ************************/
 
-        if(check("autoPertinence","options") || check("autoSilence","options")){
+        if(check(("autoPertinence","options") || check("autoSilence","options")) && (input.keywords)){
                 var silences    = filter(input.keywords , "type" , "silence"),
                     pertinences = filter(input.keywords , "type" , "pertinence");
 

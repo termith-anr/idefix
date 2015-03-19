@@ -31,7 +31,8 @@ module.exports = function(options, config) {
          * pertinencesNames  is an array of methods names , insert in input
          * keywords is an array of  words , insert in input
          * */
-        var pertinencesNames, keywords = [];
+        var pertinencesNames = [],
+            keywords = [];
 
         jsonselect.forEach(".keywords:only-child" , input.content.json , function(element){
 
