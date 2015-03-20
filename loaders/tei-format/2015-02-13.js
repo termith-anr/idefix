@@ -27,6 +27,10 @@ module.exports = function(options) {
         var pertinencesNames = [],
             keywords = [];
 
+
+        /*
+        * CREATING PERTINENCES
+        */
         jsonselect.forEach( ".TEI > .ns#stdf" , input.content.json ,  function(element){ //For every ns#stdf
             var usefullStdf = element.filter(function(content){ // Keep only stdf with a method ID
                 return (content['xml#id'] && content['xml#id'].indexOf('mi') >= 0);
@@ -56,7 +60,7 @@ module.exports = function(options) {
                     for(var j = 0 ; j < xmlIdWord.length ; j++){
 
                         // Create uniq id
-                        var id = sha1("pertinence"+mix+methodName+word);
+                        var id = sha1("pertinence"+mix+methodName+word[j]);
 
                         //Create object word
                         var obj = {
@@ -73,15 +77,61 @@ module.exports = function(options) {
                     }
                 }
 
-                console.log("id : " , xmlIdWord , "\n" , " word : " , word);
+                //console.log("id : " , xmlIdWord , "\n" , " word : " , word);
             }
 
         });
 
+        /*
+         * CREATING SILENCES
+         */
+        jsonselect.forEach(".TEI > .teiHeader .keywords" , input.content.json , function(element){
+
+            // return only silences
+            var silences = element.filter(function(content){
+                return (((content.scheme == "inist-francis" ) || (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
+            });
+
+            jsonselect.forEach(":has(:root > .term)" , silences ,function(terms){
+
+                //For every pertinences methods name :
+                // multiply X silences word BY  Y number of pertinence methods
+                for(var i = 0  ; i < pertinencesNames.length ; i++) {
+
+                    // Current pertinence method
+                    var methodName = pertinencesNames[i];
+
+                    var  xmlIdWord = jsonselect.match(".xml#id", terms);
+                    var  word = jsonselect.match(".#text", terms);
+
+                    if(xmlIdWord.length === word.length){
+                        for(var j = 0 ; j < xmlIdWord.length ; j++){
+                            // Create uniq id
+                            var id = sha1("silence"+methodName+word[j]);
+
+                            //Create object word
+                            var obj = {
+                                "id" : id,
+                                "type" : "silence",
+                                "method" : methodName,
+                                "xml#id" : xmlIdWord[j],
+                                "word" : word[j]
+                            };
+
+                            // Add object to keywords master array
+                            keywords.push(obj);
+                        }
+                    }
+
+                }
+            });
+
+        });
+
+
         // ADD Keywords master array & pertinences methods names to input
         objectPath.ensureExists(input, "keywords" , keywords);
         objectPath.ensureExists(input, "pertinenceMethods" , pertinencesNames);
-
 
 
         /************************
