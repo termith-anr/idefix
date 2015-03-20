@@ -126,8 +126,7 @@ module.exports = function(options) {
         var compareAndScore = function(silence, pertinence, by){
             var notedSilence = 0,
                 notedPertinence = 0;
-            /*console.log(" SILENCES ENVOYE : \n" , silence , " \n PERTINENCES ENVOYE : \n" , pertinence);
-            console.log(" ---------------------------------------------------------- ");*/
+
             for(var i = 0 ; i < silence.length ; i++){ // Pour chaque Object silence contenant un mot
                 for(var j = 0 ; j < pertinence.length ; j++){ // Pour chaque Pertinence contenant un mot
                     if(silence[i][by].toUpperCase() === pertinence[j][by].toUpperCase()){
@@ -135,13 +134,11 @@ module.exports = function(options) {
                             var path = "keywords." + getIndex(input.keywords, silence[i]["id"]) + ".score";
                             insertContent(0 , path);
                             notedSilence ++;
-                            //console.log(" 1 -MOT SILENCE : " , silence[i][by] ,  " id : " ,  silence[i]["id"] , " N° : " , path);
                         }
                         if(options["autoPertinence"] === true){
                             var path = "keywords." + getIndex(input.keywords, pertinence[j]["id"]) + ".score";
                             insertContent(2 , path);
                             notedPertinence ++;
-                            //console.log(" 2 -MOT PERTINENCE : ", pertinence[j][by] , " id : " ,  pertinence[j]["id"]  , " N° : " , path);
 
                         }
                     }
@@ -174,18 +171,13 @@ module.exports = function(options) {
             silences = filter(silences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
             pertinences = filter(pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
 
-                //console.log(" input.pertinenceMethods.length : ", input.pertinenceMethods.length , " silences.length : " , silences.length);
-                //console.log('silences :: ', silences , " pertinences : " , pertinences);
                 for (var i = 0; i < input.pertinenceMethods.length; i++) { // Pour chaque nom de methodes
                     for (j = 0; j < silences.length; j++) { // Pour chaque methode dans les silences
                         for (k = 0; k < pertinences.length; k++) { // Pour chaque méthodes dans les pertinences
-                            //console.log('silences de j : ' , silences);
                             if ((silences[j][0].method === pertinences[k][0].method) && (silences[j][0].method === input.pertinenceMethods[i])) { // Si les nom des méthodes des premiers objets ( déjà triés ) sont identiques
-                                //totalSilence += silences[j].length;
-                                //totalPertinence += pertinences[k].length;
+
                                 var aScore = compareAndScore(silences[j], pertinences[k], "word"); // On compare chaque méthodes
-                                //notedSilence += aScore[0];
-                                //notedPertinence += aScore[1];
+
                             }
                         }
                     }
@@ -201,7 +193,7 @@ module.exports = function(options) {
                 if (options["autoSilence"] === true) {
                     insertContent(notedSilence / allPertinence, "progressSilenceKeywords");
                 }
-                console.log('Nombre de mot silences notés : ', notedSilence, ' Nombre de mot silences totaux : ', allSilence, ' Nombre de mot pertinence notés : ', notedPertinence, ' Nombre de mot pertinence totaux : ', allPertinence);
+                //console.log('Nombre de mot silences notés : ', notedSilence, ' Nombre de mot silences totaux : ', allSilence, ' Nombre de mot pertinence notés : ', notedPertinence, ' Nombre de mot pertinence totaux : ', allPertinence);
 
             }
         }

@@ -74,10 +74,10 @@
                         <span id="list" class="glyphicon glyphicon-list active gridOrListButton"></span>
                     </div>
 
-                    <div data-id="{{ data.wid }}" id="validateMethodBar" class="progress {% if data.validate  == 'yes' %}isValidated{% endif %}">
+                    <div data-id="{{ data.wid }}" id="validateMethodBar" title="Progression de la notation pertinence" class="progress {% if data.validate  == 'yes' %}isValidated{% endif %}">
                     </div>
 
-                    <div id="validateDocument" data-id="{{ data.wid }}" class="progress {% if data.validateDocument  == 'yes' %}isValidated{% endif %}" {% if data.fields.validationMethods == "yes" %}style="display:block"{% else %}style="display:none"{% endif %}></div>
+                    <div id="validateDocument" data-id="{{ data.wid }}" title="Progression de la notation silence" class="progress {% if data.validateDocument  == 'yes' %}isValidated{% endif %}" {% if data.fields.validationMethods == "yes" %}style="display:block"{% else %}style="display:none"{% endif %}></div>
 
 
                     <!-- METHOD BLOC -->
