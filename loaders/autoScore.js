@@ -96,13 +96,13 @@ module.exports = function(options) {
          */
         var filter = function(content,by,what){
             if(by === "method"){
-                var arr = [];
-                for(var i = 0 ; i < input.pertinenceMethods.length ; i++){
-                    arr.push(content.filter(function(content){
-                        return (content["method"] === input.pertinenceMethods[i]);
-                    }));
-                }
-                return arr;
+                    var arr = [];
+                    for (var i = 0; i < input.pertinenceMethods.length; i++) {
+                        arr.push(content.filter(function (content) {
+                            return (content["method"] === input.pertinenceMethods[i]);
+                        }));
+                    }
+                    return arr;
             }
             if(by === "type"){
                 return content.filter(function(content){
@@ -160,19 +160,21 @@ module.exports = function(options) {
          ****   EXECUTION    ****
          ************************/
 
-        if(check(("autoPertinence","options") || check("autoSilence","options")) && (input.keywords)) {
+        if(check(("autoPertinence" , "options") || check("autoSilence","options")) && (input.keywords)) {
             var silences = filter(input.keywords, "type", "silence"),
                 pertinences = filter(input.keywords, "type", "pertinence");
+
+            if (silences.length > 0 && pertinences.length > 0) {
 
             silences = filter(silences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
             pertinences = filter(pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
 
-            if (silences.length > 0 && pertinences.length > 0) {
                 //console.log(" input.pertinenceMethods.length : ", input.pertinenceMethods.length , " silences.length : " , silences.length);
+                console.log('silences :: ', silences , " pertinences : " , pertinences);
                 for (var i = 0; i < input.pertinenceMethods.length; i++) { // Pour chaque nom de methodes
                     for (j = 0; j < silences.length; j++) { // Pour chaque methode dans les silences
                         for (k = 0; k < pertinences.length; k++) { // Pour chaque méthodes dans les pertinences
-                            console.log('silences de j : ' , silences);
+                            //console.log('silences de j : ' , silences);
                             if (silences[j][0].method === pertinences[k][0].method) { // Si les nom des méthodes des premiers objets ( déjà triés ) sont identiques
                                 //totalSilence += silences[j].length;
                                 //totalPertinence += pertinences[k].length;
