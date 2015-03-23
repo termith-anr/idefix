@@ -8,13 +8,16 @@ $(document).ready(function() {
     // ProgressBar & Timer ( getting json info )
     var validateMethodBar = $('#validateMethodBar'),
         validateDocument = $('#validateDocument'),
-        pageId = $('#validateMethodBar').attr('data-id'),
+        pageId = validateMethodBar.attr('data-id'),
+        savePage = '/save/' + pageId,
+        dropPage = '/drop/' + pageId,
+        contentPage = '/display/' + pageId + ".json",
         config = {};
 
 
+    //Hide preference & corresp if options enabled
     var hideElements = function(){
 
-            //Hide preference & corresp if options enabled
             var notedDiv = $('.methodsKeywords .keywordsMethodsDisplayDone');
 
             if(config.showPrefered) {
@@ -49,7 +52,7 @@ $(document).ready(function() {
         };
 
 
-    // Pre-Written function by twitter api
+    // Match content with typehead
     var substringMatcher = function(strs) {
         return function findMatches(q, cb) {
             var matches, substrRegex;
@@ -130,11 +133,10 @@ $(document).ready(function() {
 
 
 
-    $.getJSON("/display/" + pageId + ".json", function (data) {
+    $.getJSON(contentPage, function (data) {
 
 
             var timeJob = data.data.timeJob ? parseFloat(data.data.timeJob) : 0,
-                url = '/save/' + pageId,
                 stop = (data.data.validationDocument == "yes") ? timeJob : null;
 
             // INIT TIMMER
@@ -146,7 +148,6 @@ $(document).ready(function() {
                 format: function(time){
                     var seconds = Math.floor((time / 1000) % 60);
                     var minutes = Math.floor((time / (60 * 1000)) % 60);
-
 
                     return minutes + "mn " + seconds + "s";
                 }
@@ -163,7 +164,7 @@ $(document).ready(function() {
 
                     $.ajax({
                         type: "POST",
-                        url: url,
+                        url: savePage,
                         data: [
                             { name: "key", value: "timeJob"} ,
                             { name: "val", value: timeToSave}
@@ -347,11 +348,10 @@ $(document).ready(function() {
                     name : "val",
                     value: ""
                 }
-            ],
-            url = '/drop/' + pageId;
+            ];
         $.ajax({
             type: "POST",
-            url: url,
+            url: dropPage,
             data: arr,
             error: function(e){
                 console.log(" La suppresion à échouée , error : ", e);
@@ -406,11 +406,10 @@ $(document).ready(function() {
             id = $(this).parent().attr('data-id');
             console.log('data: ' , postData);
         if (keycode == '13') {
-            var url = '/save/' + pageId;
             event.preventDefault();
             $.ajax({
                 type: "POST",
-                url: url,
+                url: savePage,
                 data: postData,
                 success: function (e) {
 
@@ -473,13 +472,12 @@ $(document).ready(function() {
     });
 
     $('.saveSpanComment').on('click', function (e) {
-        var url = '/save/' + pageId,
-            span = $(this),
+        var span = $(this),
             divComment = $(this).parents('.divComments'),
             form = $('form' ,divComment);
             $.ajax({
                 type: "POST",
-                url: url,
+                url: savePage,
                 data: form.serializeArray(),
                 success: function (e) {
                     var divComments = span.parents(".divComments");
@@ -697,12 +695,9 @@ $(document).ready(function() {
         if (!barre.hasClass('isValidated')) {
             if(confirm('Souhaitez-vous valider définitivement les Mot-Clés ' +  type  + '?')) {
 
-                var id = barre.attr('data-id');
-                var url = '/save/' + id;
-
                 $.ajax({
                     type: "POST",
-                    url: url,
+                    url: savePage,
                     data: [
                         { name: "key", value: barreField} ,
                         { name: "val", value: "yes"}
@@ -721,7 +716,7 @@ $(document).ready(function() {
 
                         if(barreField == "validationMethods"){
                             var progressDoc = 0;
-                            $.getJSON("/display/" + pageId + ".json", function (data) {
+                            $.getJSON(contentPage, function (data) {
                                 progressDoc = data.data.progressSilenceKeywords ? data.data.progressSilenceKeywords : 0;
                                 validateDocument.show();
 
@@ -906,7 +901,7 @@ $(document).ready(function() {
 
                         var pageId = $('#validateMethodBar').attr('data-id');
 
-                        $.getJSON( "/display/" + pageId + ".json", function( data ) {
+                        $.getJSON(contentPage, function( data ) {
 
 
                             var allPertinence = filter(data.data.keywords, "type" , "pertinence"),
