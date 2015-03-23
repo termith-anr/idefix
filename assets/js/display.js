@@ -6,9 +6,9 @@ $(document).ready(function() {
 
 
     // ProgressBar & Timer ( getting json info )
-    var validateMethodBar = $('#validateMethodBar'),
-        validateDocument = $('#validateDocument'),
-        pageId = validateMethodBar.attr('data-id'),
+    var pertinenceBar = $('#pertinenceBar'),
+        silenceBar = $('#silenceBar'),
+        pageId = pertinenceBar.attr('data-id'),
         savePage = '/save/' + pageId,
         dropPage = '/drop/' + pageId,
         contentPage = '/display/' + pageId + ".json",
@@ -137,7 +137,7 @@ $(document).ready(function() {
 
 
             var timeJob = data.data.timeJob ? parseFloat(data.data.timeJob) : 0,
-                stop = (data.data.validationDocument == "yes") ? timeJob : null;
+                stop = (data.data.validateSilence == "yes") ? timeJob : null;
 
             // INIT TIMMER
             $('#timer').runner({
@@ -187,7 +187,7 @@ $(document).ready(function() {
 
                     $.ajax({
                         type: "POST",
-                        url: url,
+                        url: savePage,
                         data: [
                             { name: "key", value: "timeJob"} ,
                             { name: "val", value: timeToSave}
@@ -215,7 +215,7 @@ $(document).ready(function() {
 
                 $.ajax({
                     type: "POST",
-                    url: url,
+                    url: savePage,
                     data: [
                         { name: "key", value: "timeJob"} ,
                         { name: "val", value: timeToSave}
@@ -230,7 +230,7 @@ $(document).ready(function() {
 
             });
 
-            if(data.data.fields.validationDocument == "no"){
+            if(data.data.fields.validateSilence == "no"){
                 $.getJSON( "/config.json" , function(object){
                     config = object;
                     hideElements();
@@ -238,7 +238,7 @@ $(document).ready(function() {
                 });
             }
 
-            if(data.data.fields.validationMethods == "no") {
+            if(data.data.fields.validatePertinence == "no") {
 
                 var startPageRatio = 0;
 
@@ -246,31 +246,31 @@ $(document).ready(function() {
                     startPageRatio = parseFloat(data.data.progressNotedKeywords);
                 }
 
-                validateMethodBar.progressbar({ max: 1, value: startPageRatio });
+                pertinenceBar.progressbar({ max: 1, value: startPageRatio });
 
-                $(".ui-progressbar-value", validateMethodBar).html((startPageRatio * 100).toFixed() + "%");
+                $(".ui-progressbar-value", pertinenceBar).html((startPageRatio * 100).toFixed() + "%");
 
 
                 if (startPageRatio <= 0.25) {
-                    $(".ui-progressbar-value", validateMethodBar).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
+                    $(".ui-progressbar-value", pertinenceBar).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
                 }
 
                 if (startPageRatio > 0.25 && startPageRatio <= 0.6) {
-                    $(".ui-progressbar-value", validateMethodBar).addClass("progress-bar-striped progress-bar-warning isDisable");
+                    $(".ui-progressbar-value", pertinenceBar).addClass("progress-bar-striped progress-bar-warning isDisable");
                 }
 
 
                 if (startPageRatio > 0.6 && startPageRatio < 1) {
-                    $(".ui-progressbar-value", validateMethodBar).addClass("progress-bar-striped progress-bar-success isDisable");
+                    $(".ui-progressbar-value", pertinenceBar).addClass("progress-bar-striped progress-bar-success isDisable");
                 }
 
 
                 if (startPageRatio === 1) {
-                    $(".ui-progressbar-value", validateMethodBar).addClass("progress-bar-info");
+                    $(".ui-progressbar-value", pertinenceBar).addClass("progress-bar-info");
 
-                    if (data.data.fields.validationMethods == "no") {
-                        $(".ui-progressbar-value", validateMethodBar).parent().addClass('isNotValidated');
-                        $(".ui-progressbar-value", validateMethodBar).html('100% : VALIDEZ!');
+                    if (data.data.fields.validatePertinence == "no") {
+                        $(".ui-progressbar-value", pertinenceBar).parent().addClass('isNotValidated');
+                        $(".ui-progressbar-value", pertinenceBar).html('100% : VALIDEZ!');
                     }
 
 
@@ -280,12 +280,12 @@ $(document).ready(function() {
 
             }
 
-            else if (data.data.fields.validationMethods == "yes") {
+            else if (data.data.fields.validatePertinence == "yes") {
 
-                validateMethodBar.progressbar({ max: 1, value: 1 });
+                pertinenceBar.progressbar({ max: 1, value: 1 });
 
-                $(".ui-progressbar-value", validateMethodBar).parent().addClass('isValidated');
-                $(".ui-progressbar-value", validateMethodBar).html(" 100%");
+                $(".ui-progressbar-value", pertinenceBar).parent().addClass('isValidated');
+                $(".ui-progressbar-value", pertinenceBar).html(" 100%");
 
                 var startPageRatio = 0;
 
@@ -293,35 +293,35 @@ $(document).ready(function() {
                     startPageRatio = parseFloat(data.data.progressSilenceKeywords);
                 }
 
-                validateDocument.progressbar({ max: 1, value: startPageRatio });
+                silenceBar.progressbar({ max: 1, value: startPageRatio });
 
-                $(".ui-progressbar-value", validateDocument).html((startPageRatio * 100).toFixed() + "%");
+                $(".ui-progressbar-value", silenceBar).html((startPageRatio * 100).toFixed() + "%");
 
 
                 if (startPageRatio <= 0.25) {
-                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
+                    $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
                 }
 
                 if (startPageRatio > 0.25 && startPageRatio <= 0.6) {
-                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-warning isDisable");
+                    $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-warning isDisable");
                 }
 
 
                 if (startPageRatio > 0.6 && startPageRatio < 1) {
-                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-success isDisable");
+                    $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-success isDisable");
                 }
 
 
                 if (startPageRatio === 1) {
-                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-info");
+                    $(".ui-progressbar-value", silenceBar).addClass("progress-bar-info");
 
-                    if (data.data.fields.validationDocument == "no") {
-                        $(".ui-progressbar-value", validateDocument).parent().addClass('isNotValidated');
-                        $(".ui-progressbar-value", validateDocument).html('100% : VALIDEZ!');
+                    if (data.data.fields.validateSilence == "no") {
+                        $(".ui-progressbar-value", silenceBar).parent().addClass('isNotValidated');
+                        $(".ui-progressbar-value", silenceBar).html('100% : VALIDEZ!');
                     }
-                    else if (data.data.fields.validationDocument == "yes") {
-                        $(".ui-progressbar-value", validateDocument).parent().addClass('isValidated');
-                        $(".ui-progressbar-value", validateDocument).html('100%');
+                    else if (data.data.fields.validateSilence == "yes") {
+                        $(".ui-progressbar-value", silenceBar).parent().addClass('isValidated');
+                        $(".ui-progressbar-value", silenceBar).html('100%');
                     }
 
 
@@ -540,7 +540,7 @@ $(document).ready(function() {
         e.stopPropagation();
         if (isFullArticleShow == 'no') {
 
-            var id = $('#validateMethodBar').attr('data-id');
+            var id = $('#pertinenceBar').attr('data-id');
             $('#contentDisplay').hide();
             $(this).css({
                 height: '100%',
@@ -670,19 +670,19 @@ $(document).ready(function() {
 
     // Validation
 
-    $('#validateMethodBar , #validateDocument').on('click', function (e) {
+    $('#pertinenceBar , #silenceBar').on('click', function (e) {
 
-        if($(this).attr('id') == "validateMethodBar" ){
+        if($(this).attr('id') == "pertinenceBar" ){
 
-            var barre  = $("#validateMethodBar"),
-                barreField = "validationMethods",
+            var barre  = $("#pertinenceBar"),
+                barreField = "validatePertinence",
                 type = "Méthodes";
 
         }
-        else if($(this).attr('id') == "validateDocument" ){
+        else if($(this).attr('id') == "silenceBar" ){
 
-            var barre  = $("#validateDocument"),
-                barreField = "validationDocument",
+            var barre  = $("#silenceBar"),
+                barreField = "validateSilence",
                 type = "Inist";
 
         }
@@ -707,54 +707,54 @@ $(document).ready(function() {
                         barre.removeClass('isNotValidated').addClass('isValidated');
                         $.ajax({
                             type: "POST",
-                            url: url,
+                            url: savePage,
                             data: [
                                 { name: "key", value: "fields." + barreField} ,
                                 { name: "val", value: "yes"}
                             ]
                         });
 
-                        if(barreField == "validationMethods"){
-                            var progressDoc = 0;
+                        if(barreField == "validatePertinence"){
+                            var progressSilence = 0;
                             $.getJSON(contentPage, function (data) {
-                                progressDoc = data.data.progressSilenceKeywords ? data.data.progressSilenceKeywords : 0;
-                                validateDocument.show();
+                                progressSilence = data.data.progressSilenceKeywords ? data.data.progressSilenceKeywords : 0;
+                                silenceBar.show();
 
-                                var startPageRatio = 0;
+                                var silenceRatio = 0;
 
-                                if (data.data.progressSilenceKeywords) {
-                                    startPageRatio = parseFloat(data.data.progressSilenceKeywords);
+                                if (progressSilence) {
+                                    startPageRatio = parseFloat(progressSilence);
                                 }
 
-                                validateDocument.progressbar({ max: 1, value: startPageRatio });
+                                silenceBar.progressbar({ max: 1, value: silenceRatio });
 
-                                $(".ui-progressbar-value", validateDocument).html((startPageRatio * 100).toFixed() + "%");
+                                $(".ui-progressbar-value", silenceBar).html((silenceRatio * 100).toFixed() + "%");
 
 
-                                if (startPageRatio <= 0.25) {
-                                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
+                                if (silenceRatio <= 0.25) {
+                                    $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
                                 }
 
-                                if (startPageRatio > 0.25 && startPageRatio <= 0.6) {
-                                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-warning isDisable");
-                                }
-
-
-                                if (startPageRatio > 0.6 && startPageRatio < 1) {
-                                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-striped progress-bar-success isDisable");
+                                if (silenceRatio > 0.25 && silenceRatio <= 0.6) {
+                                    $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-warning isDisable");
                                 }
 
 
-                                if (startPageRatio === 1) {
-                                    $(".ui-progressbar-value", validateDocument).addClass("progress-bar-info").removeClass('isDisable');
+                                if (silenceRatio > 0.6 && silenceRatio < 1) {
+                                    $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-success isDisable");
+                                }
 
-                                    if (data.data.fields.validationDocument == "no") {
-                                        $(".ui-progressbar-value", validateDocument).parent().addClass('isNotValidated').removeClass('isDisable');
-                                        $(".ui-progressbar-value", validateDocument).html('100% : VALIDEZ!');
+
+                                if (silenceRatio === 1) {
+                                    $(".ui-progressbar-value", silenceBar).addClass("progress-bar-info").removeClass('isDisable');
+
+                                    if (data.data.fields.validateSilence == "no") {
+                                        $(".ui-progressbar-value", silenceBar).parent().addClass('isNotValidated').removeClass('isDisable');
+                                        $(".ui-progressbar-value", silenceBar).html('100% : VALIDEZ!');
                                     }
-                                    else if (data.data.fields.validationDocument == "yes") {
-                                        $(".ui-progressbar-value", validateDocument).parent().addClass('isValidated');
-                                        $(".ui-progressbar-value", validateDocument).html('100%');
+                                    else if (data.data.fields.validateSilence == "yes") {
+                                        $(".ui-progressbar-value", silenceBar).parent().addClass('isValidated');
+                                        $(".ui-progressbar-value", silenceBar).html('100%');
                                     }
 
 
@@ -770,7 +770,7 @@ $(document).ready(function() {
 
 
                         }
-                        else if (barreField = "validationDocument"){
+                        else if (barreField = "validateSilence"){
                             $('#timer').runner('stop');
                             $('#startOrStop').hide();
                             var inpuChecked = $('#keywordsInist .formNotedKeyword input:checked ');
@@ -794,7 +794,7 @@ $(document).ready(function() {
 
     });
 
-    // Keywords
+    // KEYWORDS
     $(".formNotedKeyword input, .formNotedKeyword select").change(function (e) {
         var id = $(this).parent().attr('id');
         var serialized = $(this).parent().serializeArray(),
@@ -899,7 +899,7 @@ $(document).ready(function() {
 
                         // Check How many Keyworkds Are noted & update progressbar
 
-                        var pageId = $('#validateMethodBar').attr('data-id');
+                        var pageId = $('#pertinenceBar').attr('data-id');
 
                         $.getJSON(contentPage, function( data ) {
 
@@ -913,7 +913,7 @@ $(document).ready(function() {
                             //console.log('allPertinence ', allPertinence , " allSilence " , allSilence , " notedPertinence ", notedPertinence , " notedSilence " ,notedSilence );
 
 
-                            if(data.data.fields.validationMethods == "no") { // Si Les méthodes ne sont pas déjà validées
+                            if(data.data.fields.validatePertinence == "no") { // Si Les méthodes ne sont pas déjà validées
 
                                 var ratio = notedPertinence.length/allPertinence.length;
 
@@ -930,29 +930,29 @@ $(document).ready(function() {
                                 );
 
 
-                                $("#validateMethodBar").progressbar({
+                                $("#pertinenceBar").progressbar({
                                     value: ratio
                                 });
 
 
                                 if(ratio < 1) {
 
-                                    $("#validateMethodBar .ui-progressbar-value").html((ratio * 100).toFixed() + "%");
+                                    $("#pertinenceBar .ui-progressbar-value").html((ratio * 100).toFixed() + "%");
 
 
-                                    if (!($("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-danger'))) {
+                                    if (!($("#pertinenceBar .ui-progressbar-value").hasClass('progress-bar-danger'))) {
                                         if (ratio <= 0.25) {
-                                            $("#validateMethodBar .ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
+                                            $("#pertinenceBar .ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
                                         }
                                     }
 
-                                    if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-warning')) {
+                                    if (!$("#pertinenceBar .ui-progressbar-value").hasClass('progress-bar-warning')) {
                                         if (ratio > 0.25 && ratio <= 0.6) {
                                             $(".ui-progressbar-value").toggleClass("progress-bar-danger progress-bar-warning");
                                         }
                                     }
 
-                                    if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-success')) {
+                                    if (!$("#pertinenceBar .ui-progressbar-value").hasClass('progress-bar-success')) {
                                         if (ratio > 0.6 && ratio < 1) {
                                             $(".ui-progressbar-value").toggleClass("progress-bar-warning progress-bar-success");
                                         }
@@ -962,12 +962,12 @@ $(document).ready(function() {
                                 if (ratio == 1) {
 
 
-                                    if (!$("#validateMethodBar .ui-progressbar-value").hasClass('progress-bar-info')) {
-                                        $("#validateMethodBar .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info isDisable isNotValidated");
-                                        if (data.data.fields.validationDocument == "no") {
-                                            var validateMethodButton = $("#validateMethodBar");
+                                    if (!$("#pertinenceBar .ui-progressbar-value").hasClass('progress-bar-info')) {
+                                        $("#pertinenceBar .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info isDisable isNotValidated");
+                                        if (data.data.fields.validateSilence == "no") {
+                                            var validateMethodButton = $("#pertinenceBar");
                                             validateMethodButton.addClass('isNotValidated');
-                                            $("#validateMethodBar .ui-progressbar-value").html("100% : Validez !");
+                                            $("#pertinenceBar .ui-progressbar-value").html("100% : Validez !");
                                         }
 
                                     }
@@ -976,7 +976,7 @@ $(document).ready(function() {
                             }
 
 
-                            else if(data.data.fields.validationMethods == "yes") { // SI méthodes sont déjà evaluées
+                            else if(data.data.fields.validatePertinence == "yes") { // SI méthodes sont déjà evaluées
 
 
 
@@ -996,29 +996,29 @@ $(document).ready(function() {
                                 );
 
 
-                                $("#validateDocument").progressbar({
+                                $("#silenceBar").progressbar({
                                     value: ratio
                                 });
 
                                 if(ratio < 1) {
 
 
-                                    $("#validateDocument .ui-progressbar-value").html((ratio * 100).toFixed() + "%");
+                                    $("#silenceBar .ui-progressbar-value").html((ratio * 100).toFixed() + "%");
 
 
-                                    if (!($("#validateDocument .ui-progressbar-value").hasClass('progress-bar-danger'))) {
+                                    if (!($("#silenceBar .ui-progressbar-value").hasClass('progress-bar-danger'))) {
                                         if (ratio <= 0.25) {
-                                            $("#validateDocument .ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
+                                            $("#silenceBar .ui-progressbar-value").addClass("progress-bar-danger progress-bar-striped");
                                         }
                                     }
 
-                                    if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-warning')) {
+                                    if (!$("#silenceBar .ui-progressbar-value").hasClass('progress-bar-warning')) {
                                         if (ratio > 0.25 && ratio <= 0.6) {
                                             $(".ui-progressbar-value").toggleClass("progress-bar-danger progress-bar-warning");
                                         }
                                     }
 
-                                    if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-success')) {
+                                    if (!$("#silenceBar .ui-progressbar-value").hasClass('progress-bar-success')) {
                                         if (ratio > 0.6 && ratio < 1) {
                                             $(".ui-progressbar-value").toggleClass("progress-bar-warning progress-bar-success");
                                         }
@@ -1028,16 +1028,16 @@ $(document).ready(function() {
                                 else if (ratio == 1) {
 
 
-                                    if (!$("#validateDocument .ui-progressbar-value").hasClass('progress-bar-info')) {
+                                    if (!$("#silenceBar .ui-progressbar-value").hasClass('progress-bar-info')) {
 
 
-                                        $('#validateDocument').toggleClass("isDisable isNotValidated");
+                                        $('#silenceBar').toggleClass("isDisable isNotValidated");
 
-                                        $("#validateDocument .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info isDisable");
-                                        if (data.data.fields.validationDocument == "no") {
-                                            var validateButton = $("#validateDocument");
+                                        $("#silenceBar .ui-progressbar-value").toggleClass("progress-bar-striped progress-bar-success progress-bar-info isDisable");
+                                        if (data.data.fields.validateSilence == "no") {
+                                            var validateButton = $("#silenceBar");
                                             validateButton.addClass('isNotValidated').removeClass('isDisable');
-                                            $("#validateDocument .ui-progressbar-value").html("100%: Validez!");
+                                            $("#silenceBar .ui-progressbar-value").html("100%: Validez!");
                                         }
 
 

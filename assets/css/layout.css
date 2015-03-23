@@ -2073,7 +2073,7 @@ input[value='2']:checked + label {
     color: #fff;
 }
 
-#validateMethodBar{
+#pertinenceBar{
     background: rgba(104,104,104,0.5);
     border: 0;
     height: 18px;
@@ -2084,7 +2084,7 @@ input[value='2']:checked + label {
     margin-right: 15%;
 }
 
-#validateDocument{
+#silenceBar{
     background: rgba(104,104,104,0.5);
     border: 0;
     height: 18px;

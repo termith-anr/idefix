@@ -27,7 +27,7 @@ $(document).ready(function() {
             },
             columns: [
                 { data: 'wid' , visible : false , searchable: false},
-                { data: 'fields.validationDocument', visible : false , searchable: false},
+                { data: 'fields.validateSilence', visible : false , searchable: false},
                 { data: 'basename' , className: "browseYear browseTd", searchable: true},
                 { data: 'fields.title' , className: "browseTitle browseTd", searchable: true}
             ],
@@ -38,13 +38,13 @@ $(document).ready(function() {
                 var rowValue = oTable.fnGetData( index );
 
                 // IF Silence is 100% validated
-                if(rowValue['validationDocument'] == "yes"){
+                if(rowValue['validateSilence'] == "yes"){
 
                     $(row).attr('class', 'trValidate');
 
                 }
                 // IF Methods are 100% validated but Silence no
-                else if((rowValue['validationMethods'] == "yes") && (rowValue['fields']['validationDocument'] == "no")) {
+                else if((rowValue['validatePertinence'] == "yes") && (rowValue['fields']['validateSilence'] == "no")) {
 
                     var ratioSilence = rowValue['progressSilenceKeywords'] ? parseFloat(rowValue['progressSilenceKeywords'])*100 + "%" : 0;
 
@@ -61,7 +61,7 @@ $(document).ready(function() {
 
                 }
                 // IF Methods are not validated
-                else if(rowValue['fields']['validationMethods'] == "no") {
+                else if(rowValue['fields']['validatePertinence'] == "no") {
 
                     var ratioMethods = rowValue['progressNotedKeywords'] ? rowValue['progressNotedKeywords'] : 0;
 
