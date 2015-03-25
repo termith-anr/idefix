@@ -12,8 +12,16 @@ $(document).ready(function() {
         savePage = '/save/' + pageId,
         dropPage = '/drop/' + pageId,
         contentPage = '/display/' + pageId + ".json",
-        config = {};
+        configPage = "/config.json",
+        config = {},
+        timer = $('#timer'),
+        bodyBrowse = $('#bodyBrowse'),
+        startOrStop= $('#startOrStop');
 
+
+    $.getJSON( configPage , function(object){
+        config = object;
+    });
 
     //Hide preference & corresp if options enabled
     var hideElements = function(){
@@ -52,7 +60,7 @@ $(document).ready(function() {
         };
 
 
-    // Match content with typehead
+    // Match content for typehead
     var substringMatcher = function(strs) {
         return function findMatches(q, cb) {
             var matches, substrRegex;
@@ -80,8 +88,7 @@ $(document).ready(function() {
     // Init typeAHead twitter
     var typeAHead = function(data){
             //console.log("source : " , data);
-            var inputs = $('.inputComment'),
-                configData = data;
+            var inputs = $('.inputComment');
             inputs.typeahead(
                 {
                     hint: true,
@@ -91,7 +98,7 @@ $(document).ready(function() {
                 {
                 name: 'data',
                 displayKey: 'value',
-                source: substringMatcher(configData)
+                source: substringMatcher(data)
                 }
             );
         };
@@ -131,16 +138,53 @@ $(document).ready(function() {
 
     };
 
+    var saveTime = function(element,type){
+
+        //If it's running (play)
+        if($(element).hasClass('isRunning')){
+
+            //Change button clases
+            timer.runner('stop');
+            $(element).toggleClass('isRunning stopped glyphicon-play glyphicon-pause');
+            if(type === "button"){
+                $(element).toggleClass('stopedByButton');
+            }
+
+            //Get time info
+            var timerInfo = timer.runner('info'),
+                timeToSave = timerInfo.time;
+
+            //Save Time info to mongo
+            $.ajax({
+                type: "POST",
+                url: savePage,
+                data: [
+                    { name: "key", value: "timeJob"} ,
+                    { name: "val", value: timeToSave}
+                ]
+            });
+        }
+
+        //If it was stopped (stop)
+        else if ($(element).hasClass('stopped')){
+            timer.runner('start');
+            $(element).toggleClass('isRunning stopped glyphicon-play glyphicon-pause');
+            if(type === "button"){
+                $(element).toggleClass('stopedByButton');
+            }
+        }
+    };
 
 
+    //Get mongo data
     $.getJSON(contentPage, function (data) {
 
-
+            // If silence are validated , stop timer at saved score
             var timeJob = data.data.timeJob ? parseFloat(data.data.timeJob) : 0,
                 stop = (data.data.validateSilence == "yes") ? timeJob : null;
 
             // INIT TIMMER
-            $('#timer').runner({
+            timer.runner({
                 autostart: true,
                 startAt: timeJob,
                 stopAt : stop,
@@ -151,17 +195,25 @@ $(document).ready(function() {
 
                     return minutes + "mn " + seconds + "s";
                 }
-
             });
 
-            $('#startOrStop').click(function() {
+
+
+            // Click on timer button
+            startOrStop.click(function() {
+
+                //If it's running (play)
                 if($(this).hasClass('isRunning')){
-                    $('#timer').runner('stop');
+
+                    //Change button clases
+                    timer.runner('stop');
                     $(this).toggleClass('isRunning stopped glyphicon-play glyphicon-pause stopedByButton');
-                    var timerInfo = $('#timer').runner('info'),
+
+                    //Get time info
+                    var timerInfo = timer.runner('info'),
                         timeToSave = timerInfo.time;
 
-
+                    //Save Time info to mongo
                     $.ajax({
                         type: "POST",
                         url: savePage,
@@ -172,19 +224,32 @@ $(document).ready(function() {
                     });
                 }
 
+                //If it was stopped (stop)
                 else if ($(this).hasClass('stopped')){
-                    $('#timer').runner('start');
+                    timer.runner('start');
                     $(this).toggleClass('isRunning stopped glyphicon-play glyphicon-pause stopedByButton');
                 }
             });
 
-            $('#bodyBrowse').mouseleave(function() {
-                if($('#startOrStop').hasClass('isRunning')){
-                    $('#timer').runner('stop');
-                    $('#startOrStop').toggleClass('isRunning stopped glyphicon-play glyphicon-pause');
-                    var timerInfo = $('#timer').runner('info'),
+
+
+
+
+            // When mouse leave the work-window
+            bodyBrowse.mouseleave(function() {
+
+                //If it's running (play)
+                if(startOrStop.hasClass('isRunning')){
+
+                    //Change button clases
+                    timer.runner('stop');
+                    startOrStop.toggleClass('isRunning stopped glyphicon-play glyphicon-pause');
+
+                    //Get time info
+                    var timerInfo = timer.runner('info'),
                         timeToSave = timerInfo.time;
 
+                    //Save Time info to mongo
                     $.ajax({
                         type: "POST",
                         url: savePage,
@@ -197,22 +262,35 @@ $(document).ready(function() {
                 }
             });
 
-            $('#bodyBrowse').mouseenter(function() {
-                if(!$('#startOrStop').hasClass('stopedByButton')) {
-                    if ($('#startOrStop').hasClass('stopped')) {
-                        $('#timer').runner('start');
-                        $('#startOrStop').toggleClass('isRunning stopped glyphicon-play glyphicon-pause');
+
+
+            // When mouse re-enter the work-window
+            bodyBrowse.mouseenter(function() {
+
+                // If it was stopped by button
+                if(!startOrStop.hasClass('stopedByButton')) {
+
+                    //If it was stopped
+                    if (startOrStop.hasClass('stopped')) {
+
+                        //Restart timer
+                        timer.runner('start');
+                        startOrStop.toggleClass('isRunning stopped glyphicon-play glyphicon-pause');
                     }
                 }
             });
 
+
+
+            // When click on "LISTE" , returning to documents
             $('#divNavMiddle a').on('click' , function(){
 
+                //Get timer info
                 var href = this.href,
-                    timerInfo = $('#timer').runner('info'),
+                    timerInfo = timer.runner('info'),
                     timeToSave = timerInfo.time;
 
-
+                //Save Timer info
                 $.ajax({
                     type: "POST",
                     url: savePage,
@@ -225,17 +303,16 @@ $(document).ready(function() {
                     }
                 });
 
+                //Stop default action url
                 return false;
-
 
             });
 
+            // If silence are not validated
             if(data.data.fields.validateSilence == "no"){
-                $.getJSON( "/config.json" , function(object){
-                    config = object;
-                    hideElements();
-                    typeAHead(config.comments);
-                });
+                //Get config infos & call functions
+                hideElements();
+                typeAHead(config.comments);
             }
 
             if(data.data.fields.validatePertinence == "no") {
