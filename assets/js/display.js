@@ -1055,10 +1055,6 @@ $(document).ready(function() {
 
                             else if(data.data.fields.validatePertinence == "yes") { // SI méthodes sont déjà evaluées
 
-
-
-
-
                                 var ratio = notedSilence.length/allSilence.length;
 
                                 $.ajax(

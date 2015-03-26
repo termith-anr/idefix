@@ -1,7 +1,7 @@
 /**
- * Export will need refact code NEARLY ! 15/10
+ * Created by matthias on 26/03/15.
+ * It's V2 ( with new mongo keywords format ) CSV export , for all phases of termITH.
  */
-
 
 var CSV = require('csv-string'),
     pmongo = require('promised-mongo'),
@@ -10,16 +10,19 @@ var CSV = require('csv-string'),
 
 module.exports = function(config) {
 
+    // Get collection
     var coll = pmongo(config.get('connexionURI')).collection(config.get('collectionName'));
 
+    // CSV array
     var csvDocs = [];
-
 
     return function (req, res) {
 
-        var access = config.get('exports'); // Check if acess if enable
+        // Get config export info
+        var access = config.get('exports');
 
-        if (access.csv == true) {
+        // Check if acess if enable
+        if (access.csv === true) {
 
             // Get current dateTime
             var datetime = new Date();
@@ -37,7 +40,6 @@ module.exports = function(config) {
                 .toArray()
                 .then(function (docs) {
 
-                    console
                     if (!docs || (!docs.length)) {
                         res.status(500).end();
                         throw new Error('no or bad doc');
@@ -54,75 +56,52 @@ module.exports = function(config) {
 
                         var docTitle = (entity.fields.title != undefined) ? entity.fields.title : 'Pas de titre de document',
                             fileTitle = entity.basename,
-                            timeMs = entity.timeJob,
+                            timeMs = entity.timeJob ? entity.timeJob : 0,
                             time = entity.timeJob ? (Math.floor(((entity.timeJob) / (60 * 1000)) % 60) + "Mn " + Math.floor(((entity.timeJob) / 1000) % 60) + "s" ) : "-",
                             nbOfNotedWords = 0;
 
 
-                        //Bellow :  get the median/Middle time spend on each word
-                        Object.keys(entity.keywords.eval, function (methodNb, valueMethod) {
-                            Object.keys(valueMethod.term, function (key, value) {
-                                if (value.score) {
-                                    nbOfNotedWords++;
-                                }
-                            });
+                        console.log("docTitle" , docTitle , "fileTitle" , fileTitle , "timeMs" , timeMs , "time" , time);
+
+
+                        entity.keywords.forEach(function (valueObject,indexObject) {
+                            if (valueObject.score) {
+                                nbOfNotedWords++;
+                            }
                         });
+
+                        console.log('nbodnoted : ' , nbOfNotedWords);
 
                         var middleTime = (timeMs / nbOfNotedWords) ? (Math.floor(( parseFloat(timeMs / nbOfNotedWords) / (60 * 1000)) % 60) + "Mn " + Math.floor(( parseFloat(timeMs / nbOfNotedWords) / 1000) % 60) + "s" ) : 0;
 
 
                         //Below Start generating & wrtting csv Lines
-                        Object.keys(entity.keywords, function (methodName, valueMethod) { // Foreach of all methods
+                        entity.keywords.forEach(function (valueObject,indexObject) {
 
-                            if (methodName == 'eval') {
+                            // If the word has a score
+                            if (valueObject.score) {
 
-                                var action = 'Pertinence';
+                                var method = valueObject.method ? valueObject.method : '',
+                                    type = valueObject['type'] ? valueObject['type'] : '',
+                                    word = valueObject.word ? valueObject.word : '',
+                                    score = valueObject.score ? valueObject.score : '',
+                                    comment = valueObject.commentaire ? valueObject.commentaire : '',
+                                    correspondance,
+                                    preference;
 
+                                if(type === "pertinence"){
+                                    correspondance = "-";
+                                    preference = valueObject.preference ? valueObject.preference : '';
+                                }
+                                else if(type === "silence"){
+                                    correspondance = valueObject.correspondance ? valueObject.correspondance : null;
+                                    preference = "-";
+                                }
 
-                                Object.keys(valueMethod, function (nbEval, contentEval) { // Foreach Array
-
-                                    var scheme = contentEval.scheme;
-
-                                    Object.keys(contentEval.term, function (nbWord, wordValues) { // Foreach words
-                                        var currentWord = wordValues['#text'],
-                                            currentScore = wordValues.score ? wordValues.score : null,
-                                            currentPref = wordValues.exclude ? wordValues.exclude : ' ',
-                                            comment = wordValues.commentaire ? wordValues.commentaire : '';
-
-                                        if (currentScore) {
-                                            res.write(CSV.stringify([ fileTitle , docTitle , scheme , action , currentWord , currentScore , currentPref , '-' , comment , time , middleTime ], ';'))
-                                        }
-
-                                    });
-
-                                });
-
-                            }
-
-                            else { // For Silence Keywords
-
-                                var action = 'Silence';
+                                console.log(fileTitle , docTitle , method , type , word , score , preference , correspondance , comment , time , middleTime);
 
 
-                                Object.keys(valueMethod, function (nbSilence, valSilence) { // For method by By Inist ex: inist-francis { lina-1{...} lina-2{...}}
-
-
-                                    var scheme = entity.keywords.eval[nbSilence].scheme;
-
-
-                                    Object.keys(valSilence.term, function (wordNb, wordValues) { // Foreach words
-
-                                        var currentWord = wordValues['#text'];
-                                        var currentScore = wordValues.score;
-                                        var currentCorresp = wordValues.correspondance ? wordValues.correspondance : '';
-                                        var comment = wordValues.commentaire;
-
-                                        if (currentScore) {
-                                            res.write(CSV.stringify([ fileTitle , docTitle , scheme , action , currentWord , currentScore , '-', currentCorresp , comment , time , middleTime], ';'))
-                                        }
-                                    });
-
-                                });
+                                res.write(CSV.stringify([ fileTitle , docTitle , method , type , word , score , preference , correspondance , comment , time , middleTime ], ';'))
 
                             }
 
