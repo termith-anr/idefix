@@ -16,8 +16,9 @@ var objectPath = require('object-path'),
 
 
 'use strict';
-module.exports = function(options) {
+module.exports = function(options,config) {
     options = options || {};
+    config = config.get();
     return function (input, submit) {
 
 
