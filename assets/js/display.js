@@ -59,7 +59,6 @@ $(document).ready(function() {
 
         };
 
-
     // Match content for typehead
     var substringMatcher = function(strs) {
         return function findMatches(q, cb) {
@@ -792,21 +791,26 @@ $(document).ready(function() {
                         });
 
                         if(barreField == "validatePertinence"){
+                            console.log('pertinence validée');
                             var progressSilence = 0;
                             $.getJSON(contentPage, function (data) {
                                 progressSilence = data.data.progressSilenceKeywords ? data.data.progressSilenceKeywords : 0;
-                                silenceBar.show();
 
                                 var silenceRatio = 0;
 
                                 if (progressSilence) {
-                                    startPageRatio = parseFloat(progressSilence);
+                                    console.log('progressSilence : ', progressSilence );
+                                    silenceRatio = parseFloat(progressSilence);
+                                    console.log('silenceRatio : ', silenceRatio );
                                 }
 
                                 silenceBar.progressbar({ max: 1, value: silenceRatio });
 
-                                $(".ui-progressbar-value", silenceBar).html((silenceRatio * 100).toFixed() + "%");
+                                console.log(silenceBar);
 
+                                silenceBar.removeClass('hidden');
+
+                                $(".ui-progressbar-value", silenceBar).html((silenceRatio * 100).toFixed() + "%");
 
                                 if (silenceRatio <= 0.25) {
                                     $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
@@ -847,7 +851,7 @@ $(document).ready(function() {
 
 
                         }
-                        else if (barreField = "validateSilence"){
+                        else if (barreField == "validateSilence"){
                             $('#timer').runner('stop');
                             $('#startOrStop').hide();
                             var inpuChecked = $('#keywordsInist .formNotedKeyword input:checked ');
@@ -931,19 +935,15 @@ $(document).ready(function() {
                             }
                         }
                         else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('preference') < 0)) {// If it's an eval score notation ( not pref )
-                            console.log("PERTIINENCE !!! , " , checkType);
                             if (config.showPrefered) {// If options is enable + isArray
 
-                                console.log("data : " , serialized);
                                 for (key in config.showPrefered) {//For all options values
                                     if ((postData[1].value).toString() === (config.showPrefered[key]).toString()) {//If sent value is in options
                                         li.children('.formNotedKeywordsPref').css('display', '').addClass('preferenceAvailable');
                                         li.children('.divComments').addClass('commentsRight');
-                                        console.log("TROUVE :");
                                         break; //Stop checking options values
                                     }
                                     else {//If sent value not in options
-                                        console.log("QUOI? : ");
                                         li.children('.formNotedKeywordsPref').css('display', 'none').removeClass('preferenceAvailable');
                                         li.children('.divComments').removeClass('commentsRight');
                                         if( $('.formNotedKeywordList option:selected' , li).val() != '<preference>' ){ //If a pref was selected
