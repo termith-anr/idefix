@@ -24,6 +24,12 @@ module.exports = function(options,config) {
              ************************/
 
 
+            // Create Idefix fields
+            var title = jsonselect.match(".titleStmt .title .#text" , input.content.json) ? jsonselect.match(".titleStmt .title .#text" ,  input.content.json)[0].toString() : null,
+                abstract = jsonselect.match(".profileDesc .abstract .#text" , input.content.json) ? jsonselect.match(".profileDesc .abstract .#text" ,  input.content.json)[0].toString() : null,
+                validatePertinence = "no",
+                validateSilence = "no";
+
             /*
              * pertinencesNames  is an array of methods names , insert in input
              * keywords is an array of  words , insert in input
@@ -136,6 +142,10 @@ module.exports = function(options,config) {
             // ADD Keywords master array & pertinences methods names to input
             objectPath.ensureExists(input, "keywords", keywords);
             objectPath.ensureExists(input, "pertinenceMethods", pertinencesNames);
+            objectPath.ensureExists(input, "fields.title", title);
+            objectPath.ensureExists(input, "fields.abstract", abstract);
+            objectPath.ensureExists(input, "fields.validatePertinence", validatePertinence);
+            objectPath.ensureExists(input, "fields.validateSilence", validateSilence);
 
         }
         /************************

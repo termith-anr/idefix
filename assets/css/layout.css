@@ -200,6 +200,9 @@ body > header{
 
 }
 
+#backAbsctract{
+    cursor: pointer;
+}
 
 .resumeKeywordsFull{
     margin: 0 auto;

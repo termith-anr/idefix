@@ -28,7 +28,7 @@ module.exports = function(options, config) {
              ****   EXECUTION    ****
              ************************/
 
-            //
+            // Create Idefix fields
             var title = jsonselect.match(".titleStmt .title .#text" , input.content.json) ? jsonselect.match(".titleStmt .title .#text" ,  input.content.json)[0].toString() : null,
                 abstract = jsonselect.match(".profileDesc .abstract .#text" , input.content.json) ? jsonselect.match(".profileDesc .abstract .#text" ,  input.content.json)[0].toString() : null,
                 validatePertinence = "no",
