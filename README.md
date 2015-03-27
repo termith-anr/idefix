@@ -5,7 +5,7 @@ IDEFIX is a notation interface of indexed Termith's keywords
 
 *[learn more about termith](http://www.atilf.fr/ressources/termith/)*
 
-![PM2](https://github.com/termith-anr/idefix/assets/pictures/interface.png)
+![PM2](https://raw.githubusercontent.com/termith-anr/idefix/master/assets/pictures/interface.png)
 
  
   
