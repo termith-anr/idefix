@@ -45,7 +45,7 @@ IDEFIX is a notation interface of indexed Termith's keywords
 
 ### Download
 
-#### Via Git:
+#### With Git:
 
 - Clone our repo 
   ```
@@ -57,11 +57,10 @@ IDEFIX is a notation interface of indexed Termith's keywords
 - *[Download our lastest ZIP](https://github.com/termith-anr/idefix/archive/master.zip)*
 - Unzip the folder 
 
-
 ### Install
 
-* Open a terminal (Console) onto the idefix downloaded folder 
-* Launch the command (this will download the required modules)
+* Open a terminal (console) in the idefix previously downloaded folder 
+* Launch the command (will download required modules) :
 
     ```
      npm install 
@@ -69,93 +68,54 @@ IDEFIX is a notation interface of indexed Termith's keywords
 
 ## Start IDEFIX
 
-#### Create an idefix settings files (folder-xml-tei.json)
+#### Create an idefix config file (folder.json)
 
-* Must have the STRICTLY same name as your folder-xml-tei with ".json" extension
-* JSON config file must have to be next to the folder-xml-tei
-* Import this default config in
+* Must have the STRICTLY same name as your document folder with ".json" extension
+* JSON config file must have to be next to document folder
+* Write this default config in :
 
 ```json
  {
-   "port": 3000,
-   "connexionURI" : "mongodb://localhost:27017/test/",
-   "filters" : {
-     "split" : "split",
-     "add2Array" : "add2Array"
-   },
-   "domain" : "A domain exemple",
-   "inistKeywords" : true,
-   "fullArticle" : true,
+   "domain" : "Linguistique",
+   "teiFormat" : "2014-11-01",
+   "showSilence" : true,
+   "showArticle" : true,
+   "showPreference" : [1],
+   "showCorrespondance" : [1,2],
+   "autoPertinence" : true,
+   "autoSilence" : true,
    "exports" : {
      "csv" : true,
      "xml" : true,
      "zipXML" : true
    },
-  "showPrefered" : [1],
-  "showCorresp" : [0],
-  "comments" : ["Commentaire 1" , "argentine" , "japon" , "matthias" , "préférence" , 42],
-   "loaders" : [
-     {
-       "script" : "castor-load-xml",
-       "pattern" : "**/*.xml"
-     },
-     {
-       "script" : "castor-load-raw",
-       "pattern" : "**/*.xml"
-     },
-    {
-      "script" : "tei-format/2014-11-01.js",
-      "pattern" : "*"
-    },
-     {
-       "script" : "autoScore.js",
-       "pattern" : "**/*.xml",
-         "options": {
-         "autoScore" : true,
-         "autoPertinence"  : true,
-         "autoSilence": true
-       }
-     }
-   ],
+   "comments" : ["Commentaire 1" , "Commentaire 2"  , "Commentaire 3"  , "Commentaire 4"  , "Un loooong commentaire" , 2015],
    "documentFields" : {
-     "title" : {
-       "path" : ["content.json.TEI.teiHeader.fileDesc.titleStmt.title.0.#text" , "content.json.TEI.teiHeader.fileDesc.titleStmt.title.#text"],
-       "coalesce": true,
-       "textizer" : "trim()",
-       "noindex" : true
- 
-     }, 
-     "abstract" : {
-       "path" : ["content.json.TEI.teiHeader.profileDesc.abstract.0.p.#text","content.json.TEI.teiHeader.profileDesc.abstract.p.#text"],
-       "coalesce": true,
-       "noindex" : true
-     },
-       "validationMethods" : {
-       "path" : "validationMethods",
-       "default" : "no",
-       "textizer" : "trim()"
-     },
-       "validationDocument" : {
-       "path" : "validationDocument",
-       "default" : "no",
-       "textizer" : "trim()"
+     "$text": {
+       "get" : ["fields.title","basename"],
+       "join": " | "
      }
-     
    }
  
  }
 ```
 
 #### Lauch Idefix 
+
+- With terminal , go to your idefix folder
+- Start with this command :
+
 ```
-~/Download/IdefixFolder/.idefix ~/Document/XML-TEI-Folder
+    .idefix ~/Document/Folder
 ```
+
+- ~/Document/Folder is the path of TEI documents
 
 ## Install with APP Manager 
 
-More info about (*[castor-admin](https://github.com/madec-project/castor-admin)*)
+More info about (*[castor-admin](https://github.com/madec-project/ezmaster)*)
 
-* First follow the *[castor-admin install](https://github.com/madec-project/castor-admin#installation)*
+* First follow the *[castor-admin install](https://github.com/madec-project/ezmaster#installation)*
 * Go to *[IDEFIX Versions](https://github.com/termith-anr/idefix/releases)*  and copy the url "Source code(tar.gz)" you want. (Or via git for the currently dev version) 
 * *[Download Idefix](https://github.com/termith-anr/idefix#download)* in ~/apps 
     ```
@@ -166,91 +126,19 @@ More info about (*[castor-admin](https://github.com/madec-project/castor-admin)*
 * *[Install Idefix](https://github.com/termith-anr/idefix#install)*
 * Start castor-admin (with at least one app installed in ~/apps )
 ```bash
-castor-admin ~/apps
+    castor-admin ~/apps
 ```
 * Via browser , go to *[localhost:35267](http://localhost:35267)*
 * Add an instance app by clicking on "+ Add an instance"
 * Fill the required infos
 * Edit the config file by clicking on the params icon of the instance
-* Create your config with options (or import it under) (DO NOT add options with the "--- Not Managed ---" , this could break administration) *[see options](https://github.com/termith-anr/idefix#list-of-config-options)*
-```json
- {
-   "title" : "An Instance",
-   "filters" : {
-     "split" : "split",
-     "add2Array" : "add2Array"
-   },
-   "domain" : "A domain exemple",
-   "inistKeywords" : true,
-   "fullArticle" : true,
-   "exports" : {
-     "csv" : true,
-     "xml" : true,
-     "zipXML" : true
-   },
-  "showPrefered" : [1],
-  "showCorresp" : [0],
-  "comments" : ["Commentaire 1" , "argentine" , "japon" , "matthias" , "préférence" , 42],
-   "loaders" : [
-     {
-       "script" : "castor-load-xml",
-       "pattern" : "**/*.xml"
-     },
-     {
-       "script" : "castor-load-raw",
-       "pattern" : "**/*.xml"
-     },
-     {
-       "script" : "keywords.js",
-       "pattern" : "**/*.xml",
-         "options": {
-         "keywordsSilencePath" : "TEI.teiHeader.profileDesc.textClass.keywords",
-         "keywordsEvalPath"    : "TEI.teiHeader.profileDesc.textClass.keywords"
-       }
-     },
-     {
-       "script" : "autoScore.js",
-       "pattern" : "**/*.xml",
-         "options": {
-         "autoScore" : true,
-         "autoPertinence"  : true,
-         "autoSilence": true
-       }
-     }
-   ],
-   "documentFields" : {
-     "title" : {
-       "path" : ["content.json.TEI.teiHeader.fileDesc.titleStmt.title.0.#text" , "content.json.TEI.teiHeader.fileDesc.titleStmt.title.#text"],
-       "coalesce": true,
-       "textizer" : "trim()",
-       "noindex" : true
- 
-     }, 
-     "abstract" : {
-       "path" : ["content.json.TEI.teiHeader.profileDesc.abstract.0.p.#text","content.json.TEI.teiHeader.profileDesc.abstract.p.#text"],
-       "coalesce": true,
-       "noindex" : true
-     },
-       "validationMethods" : {
-       "path" : "validationMethods",
-       "default" : "no",
-       "textizer" : "trim()"
-     },
-       "validationDocument" : {
-       "path" : "validationDocument",
-       "default" : "no",
-       "textizer" : "trim()"
-     }
-     
-   }
- 
- }
-```
+* Writte your config (or import *[example](http:// #start-idefix)*) (DO NOT add options with the "--- Not Managed ---" , this could break administration) *[see options](https://github.com/termith-anr/idefix#list-of-config-options)*
+
 
 ## List of config options
 
 * "Only Managed" means the option is used only with *[app manager](https://github.com/termith-anr/idefix#install-with-app-manager)*
-* "Not Managed"  means the option DO NOT have to be in *[app manager](https://github.com/termith-anr/idefix#install-with-app-manager)* config (could break it)
+* "Only Single Instance"  means the option DO NOT have to be in *[app manager](https://github.com/termith-anr/idefix#install-with-app-manager)* config (could break it)
 
 ##### title (REQUIRED/string) --- Only Managed ---
 
@@ -260,32 +148,20 @@ It's the title of the instance , a simple string
 "title": "A title"
 ```
 
-##### port (REQUIRED/Number) --- Not Managed ---
-
+##### port (REQUIRED/Number) --- Only Single Instance ---
 
 You can ask idefix to use any port number
 
 ```json
-"port": 3000
+"port": 3001
 ```
     
-##### connexionURI (REQUIRED/String) --- Not Managed ---
+##### connexionURI (REQUIRED/String) --- Only Single Instance ---
     
 This is the default connexion URI to the mongodb database, do not modify it
     
 ```json
 "connexionURI" : "mongodb://localhost:27017/test/"
-```
-
-#### filters (REQUIRED/Object)
-
-THIS IS REQUIRED to get IDEFIX working , it's about nunjucks filters
-
-```json
-"filters" : {
-     "split" : "split",
-     "add2Array" : "add2Array"
-}
 ```
 
 #### domain (REQUIRED/String)
@@ -296,20 +172,30 @@ This option will be the domain name which appears at the top of every notation p
 "domain" : "linguistique"
 ```
 
-#### inistKeywords (OPTIONAL/Boolean)
+
+#### teiFormat (REQUIRED/String)
+
+This option call the good keywords importer
+That current list :
+
+- "2015-02-13" (Phase II)
+- "2014-11-01" (Phase I)
+
+
+#### showSilence (OPTIONAL/Boolean)
 
 You can enable/disable the possibility to view and mark
 
 ```json
-"inistKeywords" : true
+"showSilence" : true
 ```
 
-#### fullArticle (OPTIONAL/Boolean)
+#### showArticle (OPTIONAL/Boolean)
 
 You can enable/disable the possibility to get access to the full article
 
 ```json
-"fullArticle" : false
+"showArticle" : false
 ```
 
 #### exports(OPTIONAL/Object)
@@ -330,20 +216,20 @@ You can enable/disable any export type (Bool form)
   }
 ```
 
-#### showPrefered(OPTIONAL/Array)
+#### showPreference(OPTIONAL/Array)
 
 You might want to specify which marks could give the ability to enter to the prefered list 
 
 ```json
-"showPrefered" : [0,2]
+"showPreference" : [0,2]
 ```
 
-#### showCorresp(OPTIONAL/Array)
+#### showCorrespondance(OPTIONAL/Array)
 
 You might want to specify which marks could give the ability to enter to the correspondance list
 
 ```json
-"showCorresp" : [1]
+"showCorrespondance" : [1]
 ```
 
 #### comments(OPTIONAL/Array)
@@ -355,64 +241,25 @@ The list of pre-defined words that you want to use for auto-completion comments
 ```
 
 
-#### loader(REQUIRED/Array of Objects)
+#### autoPertinence(OPTIONNAL/Boolean)
 
-* castor-load-xml
- Required to import xml-files into mongoDB as json/bson
- ```json
- {
-   "script" : "castor-load-xml",
-   "pattern" : "**/*.xml"
- }
- ```
+You can enable / disable auto-generation of pertinence score
+If not provided , true is default
+```json
+"autoPertinence" : true
+```
 
-* castor-load-raw
- Required to import xml-files into mongoDB as raw
- ```json
- {
-   "script" : "castor-load-raw",
-   "pattern" : "**/*.xml"
- }
- ```
+#### autoSilence(OPTIONNAL/Boolean)
 
-* TEI format , *[see the folder list] (https://github.com/termith-anr/scripts-formats/tree/master/Scripts)*
- Required : specify the date format of TEI files
- ```json
- {
-   "script" : "tei-format/2014-11-01.js",
-   "pattern" : "**/*.xml"
- }
- ```
-
-* autoScore
-
- Required to specify if you want to enable autoscore
+You can enable / disable auto-generation of silence score
+If not provided , true is default
+```json
+"autoPertinence" : true
+```
  
- Autoscore is an automated notation of keywords at start
- * autoScore : Enable/Disable silence & methods autoscore
- * autoPertinence: Enable/Disable methods autoscore
- * autoSilence: Enable/Disable silence autoscore
- * /!\ DEPRECATED Since v 6.1 , Use autoPertinence now/!\ autoEval: Enable/Disable methods autoscore
-
- ```json
- {
-    "script" : "autoScore.js",
-    "pattern" : "**/*.xml",
-    "options": {
-         "autoScore" : true,
-         "autoPertinence"  : true,
-         "autoSilence": true
-    }
- }
- ```
  
 #### documentFields(REQUIRED/Object)
 
-Check *[castor-core documentFields](https://github.com/castorjs/castor-core#documentfields-1)* for more informations about them
+Check *[castor-core documentFields](https://github.com/castorjs/castor-core#documentfields-1)* for more informations
 
-* title 
-    * options: 
-        * path (can contain à string or an array of dot notation path)
-* abstract
-    * options: 
-            * path (can contain à string or an array of dot notation path)
+- "$text" generate a field in mongo call "text" , used to filter documents in list of IDEFIX
