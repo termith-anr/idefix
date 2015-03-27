@@ -26,55 +26,6 @@ module.exports = function(options,config) {
          ****    FUNCTIONS   ****
          ************************/
 
-
-        /**
-         *  Infos show any kind of informations in console about the configuration
-         * @param err STRING the message to show
-         * @param type STRING (error , warning , info , valid)
-         * @param option STRING the option concerned
-         */
-        var infos = function(err,type,option) {
-            switch(type) {
-                case "error":
-                    console.error(kuler("ERROR - Config fails on option : " + option + " - Error is : \n" + err, "#e67e22"));
-                    break;
-
-                case "warning":
-                    console.warn(kuler("WARNING - Config problem on option : " + option + " , warning is : \n" + err, "#f39c12"));
-                    break;
-
-                case "info":
-                    console.info(kuler("WARNING - Config problem on option : " + option + " , info is : \n" + err, "#3498db"));
-                    break;
-
-                case "valid":
-                    console.log(kuler("SUCCESS - " + option + " , on  : \n" + err, "#2ecc71"));
-                    break;
-            }
-        };
-
-        /**
-         * Check if option is send
-         * @param  option {STRING} is the option to check
-         * @param type {STRING}(config/options) what to check?
-         * @returns {boolean}
-         */
-        var check = function(option,type){
-            if(type === "config"){
-                if(typeof(config[option]) == "undefined"){
-                    infos("L'option générale n'a pas été précisée","error",option);
-                    process.exit(1);
-                }
-            }
-            if(type === "options"){
-                if(typeof(options[option]) == "undefined"){
-                    infos("L'option du loader n'a pas été précisée","error",option);
-                    process.exit(1);
-                }
-            }
-            return true;
-        };
-
         /**
          *  GetIndex of an object in an array , filter by ID
          * @param arr {ARRAY}
@@ -131,16 +82,16 @@ module.exports = function(options,config) {
             for(var i = 0 ; i < silence.length ; i++){ // Pour chaque Object silence contenant un mot
                 for(var j = 0 ; j < pertinence.length ; j++){ // Pour chaque Pertinence contenant un mot
                     if(silence[i][by].toUpperCase() === pertinence[j][by].toUpperCase()){
-                        if(options["autoSilence"] === true){
-                            var path = "keywords." + getIndex(input.keywords, silence[i]["id"]) + ".score";
-                            insertContent(0 , path);
-                            notedSilence ++;
-                        }
-                        if(options["autoPertinence"] === true){
+                        if(autoPertinence === true){
                             var path = "keywords." + getIndex(input.keywords, pertinence[j]["id"]) + ".score";
                             insertContent(2 , path);
                             notedPertinence ++;
 
+                        }
+                        if(autoSilence === true){
+                            var path = "keywords." + getIndex(input.keywords, silence[i]["id"]) + ".score";
+                            insertContent(0 , path);
+                            notedSilence ++;
                         }
                     }
                 }
@@ -163,14 +114,17 @@ module.exports = function(options,config) {
          ****   EXECUTION    ****
          ************************/
 
-        if(check(("autoPertinence" , "options") || check("autoSilence","options")) && (input.keywords)) {
+        if(input.keywords){
             var silences = filter(input.keywords, "type", "silence"),
                 pertinences = filter(input.keywords, "type", "pertinence");
 
+            var autoPertinence = config["autoPertinence"] ? config["autoPertinence"] : true,
+                autoSilence = config["autoSilence"] ? config["autoSilence"] : true;
+
             if (silences.length > 0 && pertinences.length > 0) {
 
-            silences = filter(silences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
-            pertinences = filter(pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
+                silences = filter(silences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
+                pertinences = filter(pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
 
                 for (var i = 0; i < input.pertinenceMethods.length; i++) { // Pour chaque nom de methodes
                     for (j = 0; j < silences.length; j++) { // Pour chaque methode dans les silences
@@ -188,17 +142,16 @@ module.exports = function(options,config) {
                     allSilence = filter(input.keywords, "type", "silence").length,
                     notedPertinence = filter(noted, "type", "pertinence").length,
                     allPertinence = filter(input.keywords, "type", "pertinence").length;
-                if (options["autoPertinence"] === true) {
+                if (autoPertinence === true) {
                     insertContent(notedPertinence / allPertinence, "progressNotedKeywords");
                 }
-                if (options["autoSilence"] === true) {
-                    insertContent(notedSilence / allPertinence, "progressSilenceKeywords");
+                if (autoSilence === true) {
+                    insertContent(notedSilence / allSilence, "progressSilenceKeywords");
                 }
                 //console.log('Nombre de mot silences notés : ', notedSilence, ' Nombre de mot silences totaux : ', allSilence, ' Nombre de mot pertinence notés : ', notedPertinence, ' Nombre de mot pertinence totaux : ', allPertinence);
 
             }
         }
-
 
 
         /************************

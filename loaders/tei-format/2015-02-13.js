@@ -10,112 +10,70 @@ var objectPath = require('object-path'),
 
 
 'use strict';
-module.exports = function(options) {
+module.exports = function(options,config) {
     options = options || {};
+    config = config.get() || {};
     return function (input, submit) {
 
 
-        /************************
-         ****   EXECUTION    ****
-         ************************/
+        // Execute this loader only for this format given in json config file
+        if(config.teiFormat === "2015-02-13") {
+
+            /************************
+             ****   EXECUTION    ****
+             ************************/
 
 
-        /*
-         * pertinencesNames  is an array of methods names , insert in input
-         * keywords is an array of  words , insert in input
-         * */
-        var pertinencesNames = [],
-            keywords = [];
+            /*
+             * pertinencesNames  is an array of methods names , insert in input
+             * keywords is an array of  words , insert in input
+             * */
+            var pertinencesNames = [],
+                keywords = [];
 
 
-        /*
-        * CREATING PERTINENCES
-        */
-        jsonselect.forEach( ".TEI > .ns#stdf" , input.content.json ,  function(element){ //For every ns#stdf
-            var usefullStdf = element.filter(function(content){ // Keep only stdf with a method ID
-                return (content['xml#id'] && content['xml#id'].indexOf('mi') >= 0);
-            });
+            /*
+             * CREATING PERTINENCES
+             */
+            jsonselect.forEach(".TEI > .ns#stdf", input.content.json, function (element) { //For every ns#stdf
+                var usefullStdf = element.filter(function (content) { // Keep only stdf with a method ID
+                    return (content['xml#id'] && content['xml#id'].indexOf('mi') >= 0);
+                });
 
-            // For every array methods
-            for(var i = 0 ; i < usefullStdf.length ; i++){
+                // For every array methods
+                for (var i = 0; i < usefullStdf.length; i++) {
 
-                //id Pertinence method
-                var mix = usefullStdf[i]['xml#id'];
+                    //id Pertinence method
+                    var mix = usefullStdf[i]['xml#id'];
 
-                //name Pertinence method
-                var methodName = jsonselect.match(":root > .ns#soHeader .appInfo  .ident" , usefullStdf[i])[0];
+                    //name Pertinence method
+                    var methodName = jsonselect.match(":root > .ns#soHeader .appInfo  .ident", usefullStdf[i])[0];
 
-                // add methodName to ana array
-                pertinencesNames.push(methodName);
+                    // add methodName to ana array
+                    pertinencesNames.push(methodName);
 
-                console.log(" mix : ", mix , " nom : " , methodName);
+                    console.log(" mix : ", mix, " nom : ", methodName);
 
-                //An array of id + word in the same order
-                var xmlIdWord = jsonselect.match(":root > .ns#annotations .xml#id" , usefullStdf[i]),
-                    word  = jsonselect.match(":root > .ns#annotations .#text" , usefullStdf[i]);
+                    //An array of id + word in the same order
+                    var xmlIdWord = jsonselect.match(":root > .ns#annotations .xml#id", usefullStdf[i]),
+                        word = jsonselect.match(":root > .ns#annotations .#text", usefullStdf[i]);
 
-                //If no  id or words missed
-                if(xmlIdWord.length === word.length){
-                    // For every id
-                    for(var j = 0 ; j < xmlIdWord.length ; j++){
+                    //If no  id or words missed
+                    if (xmlIdWord.length === word.length) {
+                        // For every id
+                        for (var j = 0; j < xmlIdWord.length; j++) {
 
-                        // Create uniq id
-                        var id = sha1("pertinence"+mix+methodName+word[j]);
-
-                        //Create object word
-                        var obj = {
-                            "id" : id,
-                            "type" : "pertinence",
-                            "methodId" : mix,
-                            "method" : methodName,
-                            "xml#id" : xmlIdWord[j],
-                            "word" : word[j]
-                        };
-
-                        // Add object to keywords master array
-                        keywords.push(obj);
-                    }
-                }
-
-                //console.log("id : " , xmlIdWord , "\n" , " word : " , word);
-            }
-
-        });
-
-        /*
-         * CREATING SILENCES
-         */
-        jsonselect.forEach(".TEI > .teiHeader .keywords" , input.content.json , function(element){
-
-            // return only silences
-            var silences = element.filter(function(content){
-                return (((content.scheme == "inist-francis" ) || (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
-            });
-
-            jsonselect.forEach(":has(:root > .term)" , silences ,function(terms){
-
-                //For every pertinences methods name :
-                // multiply X silences word BY  Y number of pertinence methods
-                for(var i = 0  ; i < pertinencesNames.length ; i++) {
-
-                    // Current pertinence method
-                    var methodName = pertinencesNames[i];
-
-                    var  xmlIdWord = jsonselect.match(".xml#id", terms);
-                    var  word = jsonselect.match(".#text", terms);
-
-                    if(xmlIdWord.length === word.length){
-                        for(var j = 0 ; j < xmlIdWord.length ; j++){
                             // Create uniq id
-                            var id = sha1("silence"+methodName+word[j]);
+                            var id = sha1("pertinence" + mix + methodName + word[j]);
 
                             //Create object word
                             var obj = {
-                                "id" : id,
-                                "type" : "silence",
-                                "method" : methodName,
-                                "xml#id" : xmlIdWord[j],
-                                "word" : word[j]
+                                "id": id,
+                                "type": "pertinence",
+                                "methodId": mix,
+                                "method": methodName,
+                                "xml#id": xmlIdWord[j],
+                                "word": word[j]
                             };
 
                             // Add object to keywords master array
@@ -123,17 +81,63 @@ module.exports = function(options) {
                         }
                     }
 
+                    //console.log("id : " , xmlIdWord , "\n" , " word : " , word);
                 }
+
             });
 
-        });
+            /*
+             * CREATING SILENCES
+             */
+            jsonselect.forEach(".TEI > .teiHeader .keywords", input.content.json, function (element) {
+
+                // return only silences
+                var silences = element.filter(function (content) {
+                    return (((content.scheme == "inist-francis" ) || (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
+                });
+
+                jsonselect.forEach(":has(:root > .term)", silences, function (terms) {
+
+                    //For every pertinences methods name :
+                    // multiply X silences word BY  Y number of pertinence methods
+                    for (var i = 0; i < pertinencesNames.length; i++) {
+
+                        // Current pertinence method
+                        var methodName = pertinencesNames[i];
+
+                        var xmlIdWord = jsonselect.match(".xml#id", terms);
+                        var word = jsonselect.match(".#text", terms);
+
+                        if (xmlIdWord.length === word.length) {
+                            for (var j = 0; j < xmlIdWord.length; j++) {
+                                // Create uniq id
+                                var id = sha1("silence" + methodName + word[j]);
+
+                                //Create object word
+                                var obj = {
+                                    "id": id,
+                                    "type": "silence",
+                                    "method": methodName,
+                                    "xml#id": xmlIdWord[j],
+                                    "word": word[j]
+                                };
+
+                                // Add object to keywords master array
+                                keywords.push(obj);
+                            }
+                        }
+
+                    }
+                });
+
+            });
 
 
-        // ADD Keywords master array & pertinences methods names to input
-        objectPath.ensureExists(input, "keywords" , keywords);
-        objectPath.ensureExists(input, "pertinenceMethods" , pertinencesNames);
+            // ADD Keywords master array & pertinences methods names to input
+            objectPath.ensureExists(input, "keywords", keywords);
+            objectPath.ensureExists(input, "pertinenceMethods", pertinencesNames);
 
-
+        }
         /************************
          **** NEXT LOADER ****
          ************************/

@@ -21,83 +21,52 @@ module.exports = function(options, config) {
     config = config.get();
     return function (input, submit) {
 
+        // Execute this loader only for this format given in json config file
+        if(config.teiFormat === "2014-11-01") {
 
-        /************************
-         ****   EXECUTION    ****
-         ************************/
+            /************************
+             ****   EXECUTION    ****
+             ************************/
 
-
-        /*
-         * pertinencesNames  is an array of methods names , insert in input
-         * keywords is an array of  words , insert in input
-         * */
-        var pertinencesNames = [],
-            keywords = [];
-
-        jsonselect.forEach(".keywords:only-child" , input.content.json , function(element){
-
-            // return only pertinences
-            var pertinences = element.filter(function(content){
-                return ((content.scheme !== "inist-francis" ) && (content.scheme !== "inist-pascal" ) && (content.scheme !== "cc" ) && (content.scheme !== "author" ) && (content['xml#lang'] == "fr" ) );
-            });
-            // return only silences
-            var silences = element.filter(function(content){
-                return (((content.scheme == "inist-francis" ) || (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
-            });
-
-            pertinencesNames = jsonselect.match(".scheme" , pertinences);
 
             /*
-             * Create pertinences objects
+             * pertinencesNames  is an array of methods names , insert in input
+             * keywords is an array of  words , insert in input
              * */
-            jsonselect.forEach(":has(:root > .term)" , pertinences ,function(terms){
+            var pertinencesNames = [],
+                keywords = [];
 
-                //current pertinence method
-                var methodName  =  terms.scheme;
+            jsonselect.forEach(".keywords:only-child", input.content.json, function (element) {
 
-                // For every #text keywords
-                jsonselect.forEach(".#text" , terms , function(word){
-
-                    // Create uniq id
-                    var id = sha1("pertinence"+methodName+word);
-
-                    //Create object word
-                    var obj = {
-                        "id" : id,
-                        "type" : "pertinence",
-                        "method" : methodName,
-                        "word" : word
-                    };
-
-                    // Add object to keywords master array
-                    keywords.push(obj);
-
+                // return only pertinences
+                var pertinences = element.filter(function (content) {
+                    return ((content.scheme !== "inist-francis" ) && (content.scheme !== "inist-pascal" ) && (content.scheme !== "cc" ) && (content.scheme !== "author" ) && (content['xml#lang'] == "fr" ) );
+                });
+                // return only silences
+                var silences = element.filter(function (content) {
+                    return (((content.scheme == "inist-francis" ) || (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
                 });
 
-            });
+                pertinencesNames = jsonselect.match(".scheme", pertinences);
 
-            /*
-             * Create Silence Objects
-             * */
+                /*
+                 * Create pertinences objects
+                 * */
+                jsonselect.forEach(":has(:root > .term)", pertinences, function (terms) {
 
-            jsonselect.forEach(":has(:root > .term)" , silences ,function(terms){
-
-                //For every pertinences methods name :
-                // multiply X silences word BY  Y number of pertinence methods
-                for(var i = 0  ; i < pertinencesNames.length ; i++) {
-
-                    // Current pertinence method
-                    var methodName = pertinencesNames[i];
+                    //current pertinence method
+                    var methodName = terms.scheme;
 
                     // For every #text keywords
                     jsonselect.forEach(".#text", terms, function (word) {
 
-                        //Create uniq ID
-                        var id = sha1("silence" + methodName + word);
+                        // Create uniq id
+                        var id = sha1("pertinence" + methodName + word);
 
+                        //Create object word
                         var obj = {
                             "id": id,
-                            "type": "silence",
+                            "type": "pertinence",
                             "method": methodName,
                             "word": word
                         };
@@ -107,16 +76,50 @@ module.exports = function(options, config) {
 
                     });
 
-                }
+                });
+
+                /*
+                 * Create Silence Objects
+                 * */
+
+                jsonselect.forEach(":has(:root > .term)", silences, function (terms) {
+
+                    //For every pertinences methods name :
+                    // multiply X silences word BY  Y number of pertinence methods
+                    for (var i = 0; i < pertinencesNames.length; i++) {
+
+                        // Current pertinence method
+                        var methodName = pertinencesNames[i];
+
+                        // For every #text keywords
+                        jsonselect.forEach(".#text", terms, function (word) {
+
+                            //Create uniq ID
+                            var id = sha1("silence" + methodName + word);
+
+                            var obj = {
+                                "id": id,
+                                "type": "silence",
+                                "method": methodName,
+                                "word": word
+                            };
+
+                            // Add object to keywords master array
+                            keywords.push(obj);
+
+                        });
+
+                    }
+                });
+
             });
 
-        });
-
-        // ADD Keywords master array & pertinences methods names to input
-        objectPath.ensureExists(input, "keywords" , keywords);
-        objectPath.ensureExists(input, "pertinenceMethods" , pertinencesNames);
+            // ADD Keywords master array & pertinences methods names to input
+            objectPath.ensureExists(input, "keywords", keywords);
+            objectPath.ensureExists(input, "pertinenceMethods", pertinencesNames);
 
 
+        }
         /************************
          **** NEXT LOADER ****
          ************************/

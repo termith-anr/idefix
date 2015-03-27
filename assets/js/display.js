@@ -28,10 +28,10 @@ $(document).ready(function() {
 
             var notedDiv = $('.methodsKeywords .keywordsMethodsDisplayDone');
 
-            if(config.showPrefered) {
+            if(config.showPreference) {
                 $('input:checked' , notedDiv).each(function(index){
-                    for(var key in config.showPrefered ) {
-                        if ($(this).val().toString() === config.showPrefered[key].toString()) {
+                    for(var key in config.showPreference ) {
+                        if ($(this).val().toString() === config.showPreference[key].toString()) {
                             var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
                             $('.formNotedKeywordsPref' ,divKeywords).css('display', '').addClass('preferenceAvailable');
                             $('.divComments' , divKeywords).addClass('commentsRight');
@@ -44,10 +44,10 @@ $(document).ready(function() {
 
             notedDiv = $('#keywordsInist .keywordsMethodsDisplayDone');
 
-            if(config.showCorresp) {
+            if(config.showCorrespondance) {
                 $('input:checked' , notedDiv).each(function(index){
-                    for(var key in config.showCorresp ) {
-                        if ($(this).val().toString() === config.showCorresp[key].toString()) {
+                    for(var key in config.showCorrespondance ) {
+                        if ($(this).val().toString() === config.showCorrespondance[key].toString()) {
                             var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
                             $('.formNotedKeywordsCorresp' ,divKeywords).css('display', '').addClass('preferenceAvailable');
                             $('.divComments' , divKeywords).addClass('commentsRight');
@@ -902,9 +902,9 @@ $(document).ready(function() {
                         }
                         if((checkType.indexOf('silence') >= 0) && (checkType.indexOf('correspondance') < 0)) { // If it's a silence  notation ( not corresp )
                             console.log("SILENCE !!!");
-                            if (config.showCorresp) { // If options is enable + isArray
-                                for (var key in config.showCorresp) { //For all options values
-                                    if ((postData[1].value).toString() === (config.showCorresp[key]).toString()) { //If sent value is in options
+                            if (config.showCorrespondance) { // If options is enable + isArray
+                                for (var key in config.showCorrespondance) { //For all options values
+                                    if ((postData[1].value).toString() === (config.showCorrespondance[key]).toString()) { //If sent value is in options
                                         li.children('.formNotedKeywordsCorresp').css('display', '').addClass('preferenceAvailable');
                                         li.children('.divComments').addClass('commentsRight');
                                         break; //Stop checking options values
@@ -935,10 +935,10 @@ $(document).ready(function() {
                             }
                         }
                         else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('preference') < 0)) {// If it's an eval score notation ( not pref )
-                            if (config.showPrefered) {// If options is enable + isArray
+                            if (config.showPreference) {// If options is enable + isArray
 
-                                for (key in config.showPrefered) {//For all options values
-                                    if ((postData[1].value).toString() === (config.showPrefered[key]).toString()) {//If sent value is in options
+                                for (key in config.showPreference) {//For all options values
+                                    if ((postData[1].value).toString() === (config.showPreference[key]).toString()) {//If sent value is in options
                                         li.children('.formNotedKeywordsPref').css('display', '').addClass('preferenceAvailable');
                                         li.children('.divComments').addClass('commentsRight');
                                         break; //Stop checking options values
