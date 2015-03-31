@@ -2,16 +2,16 @@
 <html>
 	<head>
 
-		<title> {{ page.title }} | {{ site.title }} </title>
-		<meta name="description" content="{{ page.description|d(site.description) }}">
+        {% block head %}
+        {% endblock %}
+
+        <meta name="description" content="{{ page.description|d(site.description) }}">
 		<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-theme.css">
 		<link rel="stylesheet" type="text/css" href="/assets/css/layout.css">
 		<link rel="stylesheet" type="text/css" href="/assets/css/jquery.fs.scroller.css">
 		<link rel="stylesheet" type="text/css" href="/assets/css/dataTables.bootstrap.css">
 
-		{% block head %}
-		{% endblock %}
 
 		<script src="/bundle.js"></script>
 	</head>

@@ -1,0 +1,23 @@
+{
+    "domain" : "Linguistique",
+    "teiFormat" : "2015-02-13",
+    "showSilence" : true,
+    "showArticle" : true,
+    "showPreference" : [1],
+    "showCorrespondance" : [1,2],
+    "autoPertinence" : true,
+    "autoSilence" : true,
+    "exports" : {
+        "csv" : true,
+        "xml" : true,
+        "zipXML" : true
+    },
+    "comments" : ["Commentaire 1" , "Commentaire 2"  , "Commentaire 3"  , "Commentaire 4"  , "Un loooong commentaire" , 2015],
+    "documentFields" : {
+        "$text": {
+            "get" : ["fields.title","basename"],
+            "join": " | "
+        }
+    }
+
+}
