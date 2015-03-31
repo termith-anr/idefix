@@ -7,8 +7,6 @@ IDEFIX is a notation interface of indexed Termith's keywords
 
 ![PM2](https://raw.githubusercontent.com/termith-anr/idefix/master/assets/pictures/interface.png)
 
- 
-  
    
 # Summary
 #### *[The Requirements](https://github.com/termith-anr/idefix#requirements)*
@@ -19,8 +17,6 @@ IDEFIX is a notation interface of indexed Termith's keywords
  
   
    
-
-
 ### Requirements 
 
 - *[Node.Js](http://nodejs.org/)*
