@@ -4,26 +4,35 @@
 module.exports = {
     'LISTE DE DOCUMENTS': function (test) {
         test
+            // Start Navigator + Check if page index + check number of doc === 1
             .open('http://localhost:3000')
-            .assert.title().is('Liste des documents provenant des fichiers TEI - IDEFIX', 'Liste des documents Accessibles')
+            .assert.title().is('Liste des documents provenant des fichiers TEI - IDEFIX', 'LISTE DOCS BIEN ACCESSIBLE !')
+            .assert.numberOfElements('.trBody .browseTitle', 1, '1 DOCUMENT SEMBLE BIEN PRESENT !')
+            .assert.text('#browseTable_info').is('Il y a 1 résultat(s)' , 'DATATABLE INDIQUE LUI AUSSI 1 FICHIER')
 
-            .assert.numberOfElements('.trBody .browseTitle', 1, '1 document au chargement')
-            .assert.val('#browseTable_filter .form-control', '', 'Value is OK')
-
+            // Set dataTable search to abduction wich sould return the only doc
             .setValue('#browseTable_filter .form-control', 'Abduction')
-            .wait(2000)
-            .assert.numberOfElements('.trBody .browseTitle', 1, '1 Doc aprés Filtrage')
+            .wait(700)
+            .assert.numberOfElements('.trBody .browseTitle', 1, '1 DOCUMENT APRES FILTRE POSITIF !')
 
-            .wait(2000)
-            .setValue('#browseTable_filter .form-control', '99')
-            .wait(2000)
-            .assert.val('#browseTable_filter .form-control', '99', 'Value is OK')
-            .assert.numberOfElements('.trBody .browseTitle', 0, 'Aucun Doc aprés Filtrage')
-            .$("#browseTable_filter .form-control")
-                .execute(function(e){
-                e.value = "";
-            })
-            .wait(2000)
+
+            //RESET PAGE
+            .reload()
+
+            // Set dataTable search to abduction wich sould return the only doc
+            .setValue('#browseTable_filter .form-control', 'Une phrase inexistante')
+            .wait(700)
+            .assert.doesntExist('.trBody .browseTitle', '0 DOCUMENT APRES FILTRE NEGATIF!')
+
+            //RESET PAGE
+            .reload()
+
+            //Select filter "non traité"
+            .click('#browseChangeList')
+            .click('#browseChangeList option[value="nonTraites"]')
+            .wait(700)
+            .assert.doesntExist('.trBody .browseTitle','0 DOCUMENT APRES FILTRE NON TRAITE!')
+
             .done();
     }
 

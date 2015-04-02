@@ -2,6 +2,8 @@
 
 $(document).ready(function() {
 
+    // Disable localstorage for phantomJS dalekjs Tests
+    var state = (window.navigator.userAgent.toLowerCase().indexOf("phantomjs") > -1 ) ? false : true;
     // Config DataTable
     var oTable = $('#browseTable').dataTable({
             "search" : {
@@ -31,7 +33,7 @@ $(document).ready(function() {
                 { data: 'basename' , className: "browseYear browseTd", searchable: true},
                 { data: 'fields.title' , className: "browseTitle browseTd", searchable: true}
             ],
-            stateSave: true,
+            stateSave: state,
 
             "fnCreatedRow": function( row, td, index ) {
 

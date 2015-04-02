@@ -14,6 +14,7 @@ IDEFIX is a notation interface of indexed Termith's keywords
 #### *[Install with APP manager](https://github.com/termith-anr/idefix#install-with-app-manager)* (Use it on a server , or if you want to start many apps locally)
 #### *[List of options](https://github.com/termith-anr/idefix#list-of-config-options)*
 #### *[User guide](https://docs.google.com/document/d/1Ea4bC-TBWlCTEf1r6YY3-1GP-blxpjxJm9jUGtATUV8/edit?usp=sharing)*
+#### *[Tests](https://github.com/termith-anr/idefix#tests)*
  
   
    
@@ -259,3 +260,19 @@ If not provided , true is default
 Check *[castor-core documentFields](https://github.com/castorjs/castor-core#documentfields-1)* for more informations
 
 - "$text" generate a field in mongo call "text" , used to filter documents in list of IDEFIX
+
+## Test
+
+Idefix tests are usefull to check if the current version of idefix is working great.
+
+- Choose the format version you want to test (see *[full format list](https://github.com/termith-anr/idefix#teiformat-requiredstring)*)
+- Replace in this command line the format date to check
+- Start the app : 
+```
+    ./idefix  tests/instances/2015-02-13
+```
+-Check the results , all text have to be green , no red.
+-If you think you foun  bug(s) , please create a new *[github issue](https://github.com/termith-anr/idefix/issues/new)*
+
+
+
