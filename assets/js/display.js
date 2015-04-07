@@ -628,7 +628,8 @@ $(document).ready(function() {
             $('#spanFullArticle').hide();
 
             if (fullLoaded == 'no') {
-                $('#fullArticleSection').load('/dump/' + id + '.xml').delay(560).fadeIn(400).delay(400).addClass('fullArticleSectionShow');
+                $('.contentTei').load('/dump/' + id + '.xml').delay(560);
+                $('#fullArticleSection').delay(560).fadeIn(400).delay(400).addClass('fullArticleSectionShow');
             }
             else {
                 $('#fullArticleSection').delay(550).fadeIn();

@@ -1670,7 +1670,6 @@ input[value='2']:checked + label {
 
 #buttonFullArticle{
     display: table;
-    text-align: center;
     width: 3.5%;
     height: 6%;
     background: #8A8084;
@@ -1697,6 +1696,7 @@ input[value='2']:checked + label {
 #spanFullArticle{
     display: table-cell;
     vertical-align: middle;
+    text-align: center;
 }
 
 #fullArticleSection{
@@ -1719,6 +1719,14 @@ input[value='2']:checked + label {
     right: 2%;
     color: #fff;
     font-size: 35px;
+    background: #555;
+    border-radius: 19px;
+    transition : box-shadow 500ms;
+}
+
+#closeFullArticle:hover{
+    transform : scale(1.05);
+    box-shadow: 1px 1px 13px white;
 }
 
 #grid{
@@ -2198,4 +2206,8 @@ span.twitter-typeahead {
 
 .tt-hint{
     color: #777;
+}
+
+.contentTei{
+    padding: 35px;
 }
