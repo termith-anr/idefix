@@ -33,6 +33,15 @@ module.exports = {
             .wait(700)
             .assert.doesntExist('.trBody .browseTitle','0 DOCUMENT APRES FILTRE NON TRAITE!')
 
+            //RESET PAGE
+            .reload()
+
+            //Click on document:
+            .click("tbody tr")
+            .assert.numberOfElements('.trBody .browseTitle', 1, '1 DOCUMENT SEMBLE BIEN PRESENT !')
+            .wait(700)
+            .assert.title().is('Liste des documents provenant des fichiers TEI - IDEFIX2', 'LISTE DOCS BIEN ACCESSIBLE !')
+
             .done();
     }
 
