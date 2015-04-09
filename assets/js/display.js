@@ -34,7 +34,9 @@ $(document).ready(function() {
             // On charge le contenu
             $('.contentTei').load('/dump/' + pageId + '.xml' , function(){
                 fullArticleLoaded = 'yes';
-                teiContent = $("#fullArticleContent tei text");
+                teiContent = $("#fullArticleContent tei text > p , #fullArticleContent tei text > div");
+                //Recherche dans tous le text
+                //teiContent = $("#fullArticleContent tei text");
                 teiContent.highlight(keywordText, { wordsOnly: true });
                 $('#buttonFullArticle').trigger( "click" );
                 $(".highlight:first").attr('id', 'firstHighlight');
@@ -47,7 +49,7 @@ $(document).ready(function() {
 
         }
         else {
-            teiContent = $("#fullArticleContent tei text");
+            teiContent = $("#fullArticleContent tei text > p , #fullArticleContent tei text > div");
             teiContent.unhighlight();
             teiContent.highlight(keywordText, { wordsOnly: true });
             $(".highlight:first").attr('id', 'firstHighlight');
