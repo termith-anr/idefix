@@ -3,7 +3,7 @@
 $(document).ready(function() {
 
     // Disable localstorage for phantomJS dalekjs Tests
-    var state = (window.navigator.userAgent.toLowerCase().indexOf("phantomjs") > -1 ) ? false : true;
+    var state = (window.navigator.userAgent.toLowerCase().indexOf("phantomjs") > -1 || window.navigator.userAgent.toLowerCase().indexOf("chrome") > -1) ? false : true;
     // Config DataTable
     var oTable = $('#browseTable').dataTable({
             "search" : {

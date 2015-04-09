@@ -23,6 +23,12 @@ $(document).ready(function() {
         config = object;
     });
 
+    $('.searchKeywords').on('click' , function(e){
+        var keywordText = $(this).prev().text();
+        console.log(keywordText);
+        $("#fullArticleContent").highlight(keywordText, { wordsOnly: true });
+    });
+
     //Hide preference & corresp if options enabled
     var hideElements = function(){
 

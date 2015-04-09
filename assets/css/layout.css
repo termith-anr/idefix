@@ -2211,3 +2211,20 @@ span.twitter-typeahead {
 .contentTei{
     padding: 35px;
 }
+
+/* Keywords Search */
+
+.searchKeywords{
+    width: 6px;
+    height: auto;
+    color: #8A8084;
+    opacity: 0.6;
+    transition :  all 500ms;
+    cursor: pointer;
+}
+
+.searchKeywords:hover{
+    transform: scale(1.15);
+    color : rgba(136, 203, 195, 1);
+    opacity:  1;
+}
