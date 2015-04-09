@@ -38,7 +38,11 @@ $(document).ready(function() {
                 teiContent.highlight(keywordText, { wordsOnly: true });
                 $('#buttonFullArticle').trigger( "click" );
                 $(".highlight:first").attr('id', 'firstHighlight');
-                $("#fullArticleSection").animate({ scrollTop: $('#firstHighlight').offset().top }, 1000);
+                setTimeout(function()
+                {
+                    $("#fullArticleSection").animate({scrollTop:$('#firstHighlight').position().top}, 'slow');
+                }, 700);
+
             });
 
         }
@@ -48,12 +52,11 @@ $(document).ready(function() {
             teiContent.highlight(keywordText, { wordsOnly: true });
             $(".highlight:first").attr('id', 'firstHighlight');
             $('#buttonFullArticle').trigger( "click");
-            try {
-                $("#fullArticleSection").animate({ scrollTop: $('#firstHighlight').offset().top }, 1000);
-            }
-            catch (e){
-                console.log(e);
-            }
+            setTimeout(function()
+            {
+                $("#fullArticleSection").animate({scrollTop:$('#firstHighlight').position().top}, 'slow');
+            }, 700);
+
         }
 
     });

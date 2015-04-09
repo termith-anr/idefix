@@ -2239,6 +2239,9 @@ span.twitter-typeahead {
 }
 
 .highlight{
-    background: yellow;
+    padding-left: 3px;
+    padding-right: 3px;
+    background: #CC6A63;
+    color: #fff;
     font-size: 18px;
 }
