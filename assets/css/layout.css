@@ -549,7 +549,7 @@ table tr[data-href] {
     overflow-x: hidden;
     overflow-y: hidden;
     padding:0;
-    border-right: 1px solid rgba(51, 51, 51, 0.3);
+    /*border-right: 1px solid rgba(51, 51, 51, 0.3);*/
     position: relative;
 }
 
@@ -719,6 +719,7 @@ table tr[data-href] {
     margin: 0;
     height: 35px;
     background: #CC6A63;
+
 }
 
 

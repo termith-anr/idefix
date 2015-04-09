@@ -16,7 +16,8 @@ $(document).ready(function() {
         config = {},
         timer = $('#timer'),
         bodyBrowse = $('#bodyBrowse'),
-        startOrStop= $('#startOrStop');
+        startOrStop= $('#startOrStop'),
+        fullArticleLoaded = 'no';
 
 
     $.getJSON( configPage , function(object){
@@ -25,10 +26,26 @@ $(document).ready(function() {
 
     $('.searchKeywords').on('click' , function(e){
         var keywordText = $(this).prev().text(),
+            teiContent;
+        if(fullArticleLoaded === "no"){
+            console.log("mot : " , keywordText);
+            console.log('avantLoad');
+            $('.contentTei').load('/dump/' + pageId + '.xml');
+            console.log('LoadOk');
             teiContent = $("#fullArticleContent tei text");
-        teiContent.unhighlight();
-        teiContent.highlight(keywordText, { wordsOnly: true });
-        $(".highlight:first").attr('id', 'firstHighlight');
+            console.log("teiConent : " , teiContent);
+            teiContent.unhighlight();
+            teiContent.highlight(keywordText, { wordsOnly: true });
+            $(".highlight:first").attr('id', 'firstHighlight');
+            $('#fullArticleSection').trigger( "click" );
+        }
+        else {
+            teiContent = $("#fullArticleContent tei text");
+            teiContent.unhighlight();
+            teiContent.highlight(keywordText, { wordsOnly: true });
+            $(".highlight:first").attr('id', 'firstHighlight');
+        }
+
     });
 
     //Hide preference & corresp if options enabled
@@ -617,8 +634,7 @@ $(document).ready(function() {
 
     /* --- DISPLAY FULL ARTICLE --- */
 
-    var isFullArticleShow = 'no',
-        fullLoaded = 'no';
+    var isFullArticleShow = 'no';
 
     $('#buttonFullArticle').on('click', function (e) {
         e.stopPropagation();
@@ -634,14 +650,12 @@ $(document).ready(function() {
             $('#closeFullArticle').show(400);
             $('#spanFullArticle').hide();
 
-            if (fullLoaded == 'no') {
-                console.log("1");
+            if (fullArticleLoaded === 'no') {
                 $('.contentTei').load('/dump/' + pageId + '.xml').delay(560);
                 $('#fullArticleSection').delay(560).fadeIn(400).delay(400).addClass('fullArticleSectionShow');
                 fullLoaded = 'yes';
             }
             else {
-                console.log('2');
                 $('#fullArticleSection').delay(550).fadeIn();
             }
 
