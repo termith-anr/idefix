@@ -804,6 +804,14 @@ table tr[data-href] {
     width: 100%;
 }
 
+/*surcharge fixed resume */
+.resumeGliph{
+    position: fixed;
+    left: 4.2%;
+    width: 15%;
+    top: 63.5%;
+}
+
 #linkFullArticle{
     height: 100%;
     display: table-cell;
@@ -852,7 +860,7 @@ table tr[data-href] {
 
 }
 
-#sectionArticle .scroller-handle{
+#sectionArticle .scroller-handle , #headerInfoDisplayDocs .scroller-handle , #keywordsDisplayDiv .scroller-handle{
     background: none repeat scroll 0 0 #CC6A63;
     opacity: 1;
     border:0;
@@ -907,7 +915,7 @@ span .methodsameDisplayD{
 
 #articleSectionResumeDisplay{
     color: #333;
-    margin: 0 auto;
+    margin: 27px auto;
     padding: 18px;
     word-wrap: break-word;
     font-size:16px;
@@ -2227,4 +2235,9 @@ span.twitter-typeahead {
     transform: scale(1.15);
     color : rgba(136, 203, 195, 1);
     opacity:  1;
+}
+
+.highlight{
+    background: yellow;
+    font-size: 18px;
 }

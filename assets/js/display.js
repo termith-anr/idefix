@@ -24,9 +24,11 @@ $(document).ready(function() {
     });
 
     $('.searchKeywords').on('click' , function(e){
-        var keywordText = $(this).prev().text();
-        console.log(keywordText);
-        $("#fullArticleContent").highlight(keywordText, { wordsOnly: true });
+        var keywordText = $(this).prev().text(),
+            teiContent = $("#fullArticleContent tei text");
+        teiContent.unhighlight();
+        teiContent.highlight(keywordText, { wordsOnly: true });
+        $(".highlight:first").attr('id', 'firstHighlight');
     });
 
     //Hide preference & corresp if options enabled
@@ -622,7 +624,6 @@ $(document).ready(function() {
         e.stopPropagation();
         if (isFullArticleShow == 'no') {
 
-            var id = $('#pertinenceBar').attr('data-id');
             $('#contentDisplay').hide();
             $(this).css({
                 height: '100%',
@@ -634,10 +635,13 @@ $(document).ready(function() {
             $('#spanFullArticle').hide();
 
             if (fullLoaded == 'no') {
-                $('.contentTei').load('/dump/' + id + '.xml').delay(560);
+                console.log("1");
+                $('.contentTei').load('/dump/' + pageId + '.xml').delay(560);
                 $('#fullArticleSection').delay(560).fadeIn(400).delay(400).addClass('fullArticleSectionShow');
+                fullLoaded = 'yes';
             }
             else {
+                console.log('2');
                 $('#fullArticleSection').delay(550).fadeIn();
             }
 
@@ -670,7 +674,7 @@ $(document).ready(function() {
 
     /* --- CHANGE SCROLL STYLE --- */
 
-    $("#sectionArticle , #keywordsDisplayDiv").scroller({
+    $("#sectionArticle , #keywordsDisplayDiv , #headerInfoDisplayDocs").scroller({
         customClass: "advanced"
     });
 
@@ -705,7 +709,7 @@ $(document).ready(function() {
     /* --- COME BACK TO ABSTRACT --- */
 
     $("#backAbsctract").on('click', function () {
-        if ($(this).css('opacity') !== '0.15') {
+        if ($("#sectionArticle").css('opacity') !== '0.15') {
             if ($('#abstractFullLenght').css('display') == 'none') {
                 $('#listOrGrid span').hide();
                 $('#abstractFullLenght').css('display', 'block').siblings().not(".divHoverH1Display").hide();
@@ -715,6 +719,7 @@ $(document).ready(function() {
                 $("#inistKeywordsButton > span").html('Afficher INIST');
                 $("#inistKeywordsButton").css('background', 'rgba(204, 106, 99, 0.6)');
                 $(".methodLinkround").css('borderColor', '');
+                $('#sectionArticle').css('opacity' , '0.15');
             }
         }
     });
