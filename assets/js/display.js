@@ -28,22 +28,32 @@ $(document).ready(function() {
         var keywordText = $(this).prev().text(),
             teiContent;
         if(fullArticleLoaded === "no"){
-            console.log("mot : " , keywordText);
-            console.log('avantLoad');
-            $('.contentTei').load('/dump/' + pageId + '.xml');
-            console.log('LoadOk');
-            teiContent = $("#fullArticleContent tei text");
-            console.log("teiConent : " , teiContent);
-            teiContent.unhighlight();
-            teiContent.highlight(keywordText, { wordsOnly: true });
-            $(".highlight:first").attr('id', 'firstHighlight');
-            $('#fullArticleSection').trigger( "click" );
+            // On indique avoir déjà chargé l'article
+
+
+            // On charge le contenu
+            $('.contentTei').load('/dump/' + pageId + '.xml' , function(){
+                fullArticleLoaded = 'yes';
+                teiContent = $("#fullArticleContent tei text");
+                teiContent.highlight(keywordText, { wordsOnly: true });
+                $('#buttonFullArticle').trigger( "click" );
+                $(".highlight:first").attr('id', 'firstHighlight');
+                $("#fullArticleSection").animate({ scrollTop: $('#firstHighlight').offset().top }, 1000);
+            });
+
         }
         else {
             teiContent = $("#fullArticleContent tei text");
             teiContent.unhighlight();
             teiContent.highlight(keywordText, { wordsOnly: true });
             $(".highlight:first").attr('id', 'firstHighlight');
+            $('#buttonFullArticle').trigger( "click");
+            try {
+                $("#fullArticleSection").animate({ scrollTop: $('#firstHighlight').offset().top }, 1000);
+            }
+            catch (e){
+                console.log(e);
+            }
         }
 
     });
@@ -437,7 +447,6 @@ $(document).ready(function() {
 
     /* --- DELETE A COMMENT --- */
     $('.trashComment').on('click' , function(){
-        console.log('Je vais te supprimer ! ');
         var span = $(this);
         var toDelete = $(this).parent('form').children('input[name="key"]').val().toString(),
             arr      = [
@@ -638,7 +647,9 @@ $(document).ready(function() {
 
     $('#buttonFullArticle').on('click', function (e) {
         e.stopPropagation();
-        if (isFullArticleShow == 'no') {
+        if (isFullArticleShow === 'no') {
+
+            console.log('isFullArticleShow : ' , "no");
 
             $('#contentDisplay').hide();
             $(this).css({
@@ -651,12 +662,14 @@ $(document).ready(function() {
             $('#spanFullArticle').hide();
 
             if (fullArticleLoaded === 'no') {
+                console.log('Article jamais chargé , je charge');
                 $('.contentTei').load('/dump/' + pageId + '.xml').delay(560);
                 $('#fullArticleSection').delay(560).fadeIn(400).delay(400).addClass('fullArticleSectionShow');
                 fullLoaded = 'yes';
             }
             else {
-                $('#fullArticleSection').delay(550).fadeIn();
+                console.log('Article déja chargé , je recharge');
+                $('#fullArticleSection').delay(550).fadeIn().addClass('fullArticleSectionShow');
             }
 
             isFullArticleShow = 'yes';
