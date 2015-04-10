@@ -57,11 +57,11 @@ module.exports = function(config) {
                         var docTitle = (entity.fields.title != undefined) ? entity.fields.title : 'Pas de titre de document',
                             fileTitle = entity.basename,
                             timeMs = entity.timeJob ? entity.timeJob : 0,
-                            time = entity.timeJob ? (Math.floor(((entity.timeJob) / (60 * 1000)) % 60) + "Mn " + Math.floor(((entity.timeJob) / 1000) % 60) + "s" ) : "-",
+                            time = entity.timeJob ? (Math.floor(((entity.timeJob) / (60 * 1000)) % 60) + "Mn " + Math.floor(((entity.timeJob) / 1000) % 60) + "s" ) : "0",
                             nbOfNotedWords = 0;
 
 
-                        console.log("docTitle" , docTitle , "fileTitle" , fileTitle , "timeMs" , timeMs , "time" , time);
+                        //console.log("docTitle" , docTitle , "fileTitle" , fileTitle , "timeMs" , timeMs , "time" , time);
 
 
                         entity.keywords.forEach(function (valueObject,indexObject) {
@@ -75,30 +75,34 @@ module.exports = function(config) {
                         var middleTime = (timeMs / nbOfNotedWords) ? (Math.floor(( parseFloat(timeMs / nbOfNotedWords) / (60 * 1000)) % 60) + "Mn " + Math.floor(( parseFloat(timeMs / nbOfNotedWords) / 1000) % 60) + "s" ) : 0;
 
 
-                        //Below Start generating & wrtting csv Lines
+                        //Below Start generating & writting csv Lines
+                        // For every keywords object in keywords
                         entity.keywords.forEach(function (valueObject,indexObject) {
 
                             // If the word has a score
-                            if (valueObject.score) {
+                            if (valueObject.score || valueObject.score === 0) {
 
                                 var method = valueObject.method ? valueObject.method : '',
                                     type = valueObject['type'] ? valueObject['type'] : '',
                                     word = valueObject.word ? valueObject.word : '',
-                                    score = valueObject.score ? valueObject.score : '',
+                                    score = (valueObject.score || valueObject.score ===0) ? valueObject.score : '',
                                     comment = valueObject.commentaire ? valueObject.commentaire : '',
                                     correspondance,
                                     preference;
+
+                                //console.log("LE TYPE EST : " , type);
 
                                 if(type === "pertinence"){
                                     correspondance = "-";
                                     preference = valueObject.preference ? valueObject.preference : '';
                                 }
                                 else if(type === "silence"){
-                                    correspondance = valueObject.correspondance ? valueObject.correspondance : null;
+                                    correspondance = valueObject.correspondance ? valueObject.correspondance : '';
                                     preference = "-";
+                                    console.log("pour un silence , la correspondance vaut : " , correspondance , " et la preference vaut : ", preference);
                                 }
 
-                                console.log(fileTitle , docTitle , method , type , word , score , preference , correspondance , comment , time , middleTime);
+                                //console.log(fileTitle , docTitle , method , type , word , score , preference , correspondance , comment , time , middleTime);
 
 
                                 res.write(CSV.stringify([ fileTitle , docTitle , method , type , word , score , preference , correspondance , comment , time , middleTime ], ';'))
