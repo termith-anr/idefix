@@ -48,7 +48,7 @@ module.exports = function(config) {
                                 docTest = new DOMParser().parseFromString(doc.toString(), 'text/xml'), // Creation du Doc
                                 serializer = new XMLSerializer(), // DOM -> STRING XML
                                 creation = new XMLWriter(true),
-                                text = docTest.getElementsByTagName('text'),
+                                stdf = docTest.getElementsByTagName('ns:stdf'),
                                 keywords = value.keywords,
                                 silence = keywords.filter(function(content){
                                     return (content["type"] === "silence");
@@ -56,6 +56,15 @@ module.exports = function(config) {
                                 pertinence = keywords.filter(function(content){
                                     return (content["type"] === "pertinence");
                                 });
+
+                            var arr = [];
+                            for (var i = 0; i < value.pertinenceMethods.length; i++) {
+                                arr.push(keywords.filter(function (content) {
+                                    return (content["method"] === value.pertinenceMethods[i]);
+                                }));
+                            }
+
+                            console.log("arr : " , arr);
 
 
                             creation
@@ -178,19 +187,26 @@ module.exports = function(config) {
 
                             //console.log('creation : ' , creation.toString());
 
-                            //if (notedKeywords) { // If at least one keywords on the doc is noted
+                            creation = new DOMParser().parseFromString(creation.toString(), 'text/xml');
 
-                                creation = new DOMParser().parseFromString(creation.toString(), 'text/xml');
+                            // Pour chaque stdf trouvé:
+                            for(i = 0 ; i < stdf.length ; i++){
+                               /* console.log('===========================================');
+                                console.log('STDF N° ' , + i);
+                                console.log(stdf[i].getAttribute('xml:id'));*/
 
-                            console.log(" creation : " , creation);
+                                //Si l'id de la method vaut ...
+                                if(stdf[i].getAttribute('xml:id') === "mi1"){
+                                    stdf = stdf[i];
+                                    break;
+                                }
+                            }
 
-                                docTest.documentElement.insertBefore(creation, text[0]);
 
-                                docTest = serializer.serializeToString(docTest.documentElement); // Back to string xml
+                            stdf.appendChild(creation);
 
-                                xw.writeRaw(docTest.toString()); // Add xml to teicorpus
+                            xw.writeRaw(docTest.toString()); // Add xml to teicorpus
 
-                            //}
 
                         });
 

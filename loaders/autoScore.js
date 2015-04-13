@@ -54,6 +54,7 @@ module.exports = function(options,config) {
                             return (content["method"] === input.pertinenceMethods[i]);
                         }));
                     }
+                    console.log("arr : " , arr);
                     return arr;
             }
             if(by === "type"){

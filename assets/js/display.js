@@ -919,6 +919,10 @@ $(document).ready(function() {
 
     });
 
+    $(".formNotedKeyword select option").on("click" , function(){
+        console.log("ceci :" , $(this).attr("data-id"));
+    });
+
     // KEYWORDS
     $(".formNotedKeyword input, .formNotedKeyword select").change(function (e) {
         var id = $(this).parent().attr('id');
@@ -926,6 +930,8 @@ $(document).ready(function() {
             postData = filter(serialized, "unserialized" ,"type"),
             formURL = $(this).parent().attr("action"),
             li = $(this).parent().parent();
+
+        console.log("this : " ,$(this) );
 
         $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
 
@@ -956,7 +962,9 @@ $(document).ready(function() {
                                     else { //If sent value not in options
                                         li.children('.formNotedKeywordsCorresp').css('display', 'none').removeClass('preferenceAvailable');
                                         li.children('.divComments').removeClass('commentsRight');
-                                        if( $('.formNotedKeywordList option:selected' , li).val() != '<corresp>' ){ //If a pref was selected
+                                        if( $('.formNotedKeywordList option:selected' , li).val() != '<corresp>' ){ //If a corresp was selected
+
+                                            console.log("Un corresp est choisit");
 
                                             postData[1].value = '<corresp>';
 
@@ -978,7 +986,11 @@ $(document).ready(function() {
                                 }
                             }
                         }
+                        else if((checkType.indexOf('silence') >= 0) && (checkType.indexOf('correspondance') >= 0)) { // If it's a silence  &&  corresp
+                            console.log('Corresp')
+                        }
                         else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('preference') < 0)) {// If it's an eval score notation ( not pref )
+                            console.log('Pertinence');
                             if (config.showPreference) {// If options is enable + isArray
 
                                 for (key in config.showPreference) {//For all options values
@@ -988,28 +1000,24 @@ $(document).ready(function() {
                                         break; //Stop checking options values
                                     }
                                     else {//If sent value not in options
-                                        li.children('.formNotedKeywordsPref').css('display', 'none').removeClass('preferenceAvailable');
-                                        li.children('.divComments').removeClass('commentsRight');
-                                        if( $('.formNotedKeywordList option:selected' , li).val() != '<preference>' ){ //If a pref was selected
 
-                                            postData[1].value = '<preference>';
-
-                                            /*Point to exclude*/
-                                            var arr = (postData[0].value).split('.');
-                                            arr[(arr.length -1)] = 'preference';
-                                            postData[0].value = arr.join('.');
-
-                                            $.ajax({
-                                                url: formURL,
-                                                type: "POST",
-                                                data: postData,
-                                                success: function (e) {
-                                                    $('.formNotedKeywordList option:selected' , li).removeAttr('selected');
-                                                }
-                                            });
-                                        }
                                     }
                                 }
+                            }
+                        }
+                        else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('pertinence') >= 0)) { // If it's a pertinence  &&  preference
+                            if( $('.formNotedKeywordList option:selected' , li).val() != '<preference>' ){ //If a pref was selected
+
+                                $('.formNotedKeywordList option:selected' , li).removeAttr('selected');
+
+                                $.ajax({
+                                    url: formURL,
+                                    type: "POST",
+                                    data: postData,
+                                    success: function (e) {
+
+                                    }
+                                });
                             }
                         }
                         li.css('box-shadow', '0px 1px 4px 0px green');

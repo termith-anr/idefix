@@ -210,9 +210,9 @@
 
                                                         {% set indexObjectForCorresp = loop.index0 %}
 
-                                                        {% if currentObjectForCorresp.type == "silence" and currentObjectForCorresp.method == currentMethod %}
+                                                        {% if currentObjectForCorresp.type == "pertinence" and currentObjectForCorresp.method == currentMethod %}
 
-                                                        <option value="{{ currentObjectForCorresp.word }}" {% if data.keywords[indexObject].correspondance == data.keywords[indexObjectForCorresp].word %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
+                                                        <option data-id="{{ currentObjectForCorresp['xml#id'] }}" value="{{ currentObjectForCorresp.word }}" {% if data.keywords[indexObject].correspondance == data.keywords[indexObjectForCorresp].word %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}>
                                                         {{ currentObjectForCorresp.word }}
                                                         </option>
 
@@ -323,7 +323,7 @@
 
                                                             {% if currentObjectPref.type == "pertinence"  and  currentObjectPref.method == currentMethod %} si c'ets une pertinence + methode en cours
 
-                                                            <option value="{{ currentObjectPref.word }}" {% if data.keywords[indexObjectPref].word == currentObject.preference %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
+                                                            <option data-id="{{ currentObjectPref['xml#id'] }}" value="{{ currentObjectPref.word }}" {% if data.keywords[indexObjectPref].word == currentObject.preference %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
                                                             {{ currentObjectPref.word }}
                                                             </option>
 
