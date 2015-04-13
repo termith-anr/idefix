@@ -921,17 +921,56 @@ $(document).ready(function() {
 
     $(".formNotedKeyword select option").on("click" , function(){
         console.log("ceci :" , $(this).attr("data-id"));
+        console.log("ceci 2 :" , $(this).val());
+        console.log($(this).parent().attr("id").split('-')[2]);
+        console.log($(this).parent().attr("id").split('-')[4]);
+
+        var type = "",
+            option = $(this),
+            xmlid = option.attr("data-id"),
+            nomLiaison = "",
+            selector = option.parent();
+
+        if(selector.attr("id").split('-')[2] === "corresp"){
+            type = "correspondance";
+            nomLiaison = "idCorrespondance"
+        }
+        else if (selector.attr("id").split('-')[2] === "preference"){
+            type = "pertinence";
+            nomLiaison = "idPreference";
+        }
+
+
+        $.ajax({
+            url: savePage,
+            type: "POST",
+            data: [ {
+                name : "key",
+                value : "keywords." + selector.attr("id").split('-')[1] + "." + nomLiaison
+
+            },
+            {
+                name : "val",
+                value : xmlid
+            }
+                ],
+            success: function (e) {
+                console.log('ID bien enregistré');
+            }
+        });
+
+
     });
 
     // KEYWORDS
-    $(".formNotedKeyword input, .formNotedKeyword select").change(function (e) {
+    $(".formNotedKeyword input , .formNotedKeyword select").change(function (e) {
         var id = $(this).parent().attr('id');
         var serialized = $(this).parent().serializeArray(),
             postData = filter(serialized, "unserialized" ,"type"),
             formURL = $(this).parent().attr("action"),
             li = $(this).parent().parent();
 
-        console.log("this : " ,$(this) );
+        console.log("ANCIEN : " ,postData );
 
         $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
 
@@ -1008,16 +1047,7 @@ $(document).ready(function() {
                         else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('pertinence') >= 0)) { // If it's a pertinence  &&  preference
                             if( $('.formNotedKeywordList option:selected' , li).val() != '<preference>' ){ //If a pref was selected
 
-                                $('.formNotedKeywordList option:selected' , li).removeAttr('selected');
 
-                                $.ajax({
-                                    url: formURL,
-                                    type: "POST",
-                                    data: postData,
-                                    success: function (e) {
-
-                                    }
-                                });
                             }
                         }
                         li.css('box-shadow', '0px 1px 4px 0px green');
