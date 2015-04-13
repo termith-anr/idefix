@@ -19,7 +19,8 @@ module.exports = function(config) {
     return function (req, res) {
 
         // Get config export info
-        var access = config.get('exports');
+        var access = config.get('exports'),
+            domain = config.get('domain');
 
         // Check if acess if enable
         if (access.csv === true) {
@@ -31,7 +32,7 @@ module.exports = function(config) {
             // Set csv header
             res.set({
                 'Content-Type': 'text/csv',
-                'Content-Disposition': 'attachment; filename="export-' + datetime + '.csv"'
+                'Content-Disposition': 'attachment; filename="export-' + domain + '-' + datetime + '.csv"'
             });
 
             // Get mongodb files wich contain scores
@@ -99,7 +100,7 @@ module.exports = function(config) {
                                 else if(type === "silence"){
                                     correspondance = valueObject.correspondance ? valueObject.correspondance : '';
                                     preference = "-";
-                                    console.log("pour un silence , la correspondance vaut : " , correspondance , " et la preference vaut : ", preference);
+                                    //console.log("pour un silence , la correspondance vaut : " , correspondance , " et la preference vaut : ", preference);
                                 }
 
                                 //console.log(fileTitle , docTitle , method , type , word , score , preference , correspondance , comment , time , middleTime);
