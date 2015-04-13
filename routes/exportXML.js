@@ -48,6 +48,7 @@ module.exports = function(config) {
                                 docTest = new DOMParser().parseFromString(doc.toString(), 'text/xml'), // Creation du Doc
                                 serializer = new XMLSerializer(), // DOM -> STRING XML
                                 creation = new XMLWriter(true),
+                                text = docTest.getElementsByTagName('text'),
                                 keywords = value.keywords,
                                 silence = keywords.filter(function(content){
                                     return (content["type"] === "silence");
@@ -89,11 +90,11 @@ module.exports = function(config) {
                             ;
 
 
-                            for (i = 0; i < pertinence.length; i++) { // Pour chaque mot silence   ...
+                            for (i = 0; i < pertinence.length; i++) { // Pour chaque mot pertinence   ...
 
-                                var pertinencePreference = pertinence[i].preference ? pertinence[i].preference : null;
 
                                 if ((pertinence[i]["score"]) || (pertinence[i]["score"] == '0')) { // ... Ayant été noté
+
                                     creation
                                         .startElement("span")
                                         .writeAttribute("from" , '#' + pertinence[i]["xml#id"])
@@ -101,21 +102,89 @@ module.exports = function(config) {
                                             .writeAttribute("type" ,  "pertinence")
                                             .text(pertinence[i]["score"])
                                             .endElement() // Fin Num
-                                        .endElement()
                                     ;
+
+                                    // Si il y a un preference
+                                    if(pertinence[i]["preference"]){
+                                        creation
+                                            .startElement("link")
+                                            .writeAttribute("type" ,  "preferredForm")
+                                            .text(pertinence[i]["preference"])
+                                        ;
+                                    }
+
+                                    // Si il y a un commentaire
+                                    if(pertinence[i]["comment"]){
+                                        creation
+                                            .writeElement("note" , pertinence[i]["comment"])
+                                        ;
+                                    }
+
+                                    // Fin Span
+                                    creation.endElement();
+
                                 }
 
                             }
 
                             creation
-                                .endElement() //Fin annotationGrp
+                                .endElement() // Fin annotationGrp pertinence
+                                .startElement("ns:annotationGrp")
+                                .writeAttribute("type","silence")
+                            ;
+
+                            for (i = 0; i < silence.length; i++) { // Pour chaque mot silence   ...
+
+
+                                if ((silence[i]["score"]) || (silence[i]["score"] == '0')) { // ... Ayant été noté
+
+                                    creation
+                                        .startElement("span")
+                                        .writeAttribute("from" , '#' + silence[i]["xml#id"])
+                                        .startElement("num")
+                                        .writeAttribute("type" ,  "silence")
+                                        .text(silence[i]["score"])
+                                        .endElement() // Fin Num
+                                    ;
+
+                                    // Si il y a un preference
+                                    if(silence[i]["correspondance"]){
+                                        creation
+                                            .startElement("link")
+                                            .writeAttribute("type" ,  "TermithForm")
+                                            .text(silence[i]["correspondance"])
+                                        ;
+                                    }
+
+                                    // Si il y a un commentaire
+                                    if(silence[i]["comment"]){
+                                        creation
+                                            .writeElement("note" , silence[i]["comment"])
+                                        ;
+                                    }
+
+                                    // Fin Span
+                                    creation.endElement();
+
+                                }
+
+                            }
+
+                            creation
+                                .endElement() //Fin annotationGrp silence
                                 .endElement() //Fin  annotations
                                 .endElement() // Fin  startElement
                             ;
 
-                            console.log('creation : ' , creation.toString());
+                            //console.log('creation : ' , creation.toString());
 
                             //if (notedKeywords) { // If at least one keywords on the doc is noted
+
+                                creation = new DOMParser().parseFromString(creation.toString(), 'text/xml');
+
+                            console.log(" creation : " , creation);
+
+                                docTest.documentElement.insertBefore(creation, text[0]);
 
                                 docTest = serializer.serializeToString(docTest.documentElement); // Back to string xml
 
