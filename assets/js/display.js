@@ -921,43 +921,182 @@ $(document).ready(function() {
 
     });
 
-    $(".formNotedKeyword select option").on("click" , function(){
-        console.log("ceci :" , $(this).attr("data-id"));
-        console.log("ceci 2 :" , $(this).val());
-        console.log($(this).parent().attr("id").split('-')[2]);
-        console.log($(this).parent().attr("id").split('-')[4]);
+    var previousSelectionId,
+        currentIdToDelete;
+
+    $(".formNotedKeyword select").on("click" , function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        previousSelectionId = $(this).find(":selected").attr("data-id");
+        currentIdToDelete = $(this).parent().parent().attr("data-id")
+
+        console.log(" previousSelectionId : " , previousSelectionId);
+    });
+
+    $(".formNotedKeyword select option").on("click" , function(e){
+        e.stopPropagation();
+        e.preventDefault();
 
         var type = "",
+            estlie = "",
             option = $(this),
+            motType = option.val(),
             xmlid = option.attr("data-id"),
             nomLiaison = "",
+            btn = option.parent().parent().parent(),
+            idBtn = btn.attr("data-id"),
             selector = option.parent();
 
         if(selector.attr("id").split('-')[2] === "corresp"){
             type = "correspondance";
-            nomLiaison = "idCorrespondance"
+            nomLiaison = "idCorrespondance";
+            estlie = "isCorrespondanceOf";
         }
         else if (selector.attr("id").split('-')[2] === "preference"){
-            type = "pertinence";
+            type = "preference";
             nomLiaison = "idPreference";
+            estlie = "isPreferenceOf";
         }
 
-
+        // Sauvegarde de l'ID
         $.ajax({
             url: savePage,
             type: "POST",
-            data: [ {
+            data: [
+                {
                 name : "key",
-                value : "keywords." + selector.attr("id").split('-')[1] + "." + nomLiaison
+                value : "keywords." + selector.attr("id").split('-')[4] + "." + nomLiaison
 
-            },
-            {
-                name : "val",
-                value : xmlid
-            }
-                ],
+                },
+                {
+                    name : "val",
+                    value : xmlid
+                }
+            ],
             success: function (e) {
                 console.log('ID bien enregistré');
+
+                // Sauvegarde du texte
+                $.ajax({
+                    url: savePage,
+                    type: "POST",
+                    data: [
+                        {
+                        name : "key",
+                        value : "keywords." + selector.attr("id").split('-')[4] + "." + type
+
+                        },
+                        {
+                            name : "val",
+                            value : motType
+                        }
+                    ],
+                    success: function (e) {
+                        console.log("Texte bien enregistré");
+
+                        $("option" , selector).removeAttr("selected").removeAttr("style");
+                        $(option).attr("style" , "background: #FF847C;color:#fff");
+                        $(option).prop("selected", true);
+
+                        //Affichage contour vert sauvegarde
+                        btn.css('box-shadow', '0px 1px 4px 0px green');
+                        setTimeout(function () {
+                            btn.css('box-shadow', '');
+                        }, 750);
+
+                        //Recherche du mot clé pour ajouter "estLeCorrespondantDe" (par ex)
+                        $.getJSON(contentPage, function (data) {
+                            data.data.keywords.filter(function(content,index){
+
+                                var arrToAdd = [],
+                                    arrToDelete = [];
+
+                                // Si c'est le mot clé dont on doit supprimer le "estLeCorrespondantDe"
+                                if(content["xml#id"] === previousSelectionId){
+                                    console.log(' ID a supprimer .... ' , currentIdToDelete);
+                                    console.log(' .... Dans l\'id : ' , previousSelectionId);
+
+
+                                    var indexArr = content[estlie].split(",,").indexOf(currentIdToDelete);
+                                    console.log("indexarr : " , indexArr);
+
+                                    //SI l'id a supprimer est dans le tableau
+                                    if (indexArr > -1) {
+                                        arrToDelete = content[estlie].split(",,").splice(indexArr, 1).join(',,');
+                                        console.log(' arrToDelete:  ' , arrToDelete);
+
+                                        $.ajax({
+                                            url: savePage,
+                                            type: "POST",
+                                            data: [
+                                                {
+                                                    name: "key",
+                                                    value: "keywords." + index + "." + estlie
+
+                                                },
+                                                {
+                                                    name: "val",
+                                                    value: arrToDelete
+                                                }
+                                            ],
+                                            success : function(){
+                                                console.log("est lié bien supprimé");
+                                            },
+                                            error  : function(e){
+                                                console.log("impossible de supprimer , error : " , e );
+                                            }
+                                        });
+
+                                    }
+                                }
+
+                                // Si c'est le mot clé dont on doit ajouté le "estLeCorrespondantDe"
+                                if(content["xml#id"] === xmlid){
+
+                                    //Si le tableau existe déjà
+                                    if(content[estlie]){
+                                        //Si L'id a ajouté n'est pas déjà dedans
+                                        var splitted = content[estlie].split(',,');
+                                        if($.inArray( idBtn, splitted ) == -1){
+                                            splitted.push(idBtn);
+                                        }
+                                        arrToAdd = splitted.join(',,');
+                                    }
+                                    else{
+                                        arrToAdd = idBtn;
+                                    }
+
+                                    //console.log(data.data.keywords[index]);
+
+                                    $.ajax({
+                                        url: savePage,
+                                        type: "POST",
+                                        data: [
+                                            {
+                                                name: "key",
+                                                value: "keywords." + index + "." + estlie
+
+                                            },
+                                            {
+                                                name: "val",
+                                                value: arrToAdd
+                                            }
+                                        ],
+                                        success : function(){
+                                            console.log("est lié bien enregistré");
+                                        },
+                                        error : function(e){
+                                            console.log('error lors de l\'ajout :' , e)
+                                        }
+                                    });
+                                }
+                            })
+
+
+                        });
+
+                    }
+                });
             }
         });
 
@@ -965,7 +1104,7 @@ $(document).ready(function() {
     });
 
     // KEYWORDS
-    $(".formNotedKeyword input , .formNotedKeyword select").change(function (e) {
+    $(".formNotedKeyword input").change(function (e) {
         var id = $(this).parent().attr('id');
         var serialized = $(this).parent().serializeArray(),
             postData = filter(serialized, "unserialized" ,"type"),
@@ -1027,9 +1166,6 @@ $(document).ready(function() {
                                 }
                             }
                         }
-                        else if((checkType.indexOf('silence') >= 0) && (checkType.indexOf('correspondance') >= 0)) { // If it's a silence  &&  corresp
-                            console.log('Corresp')
-                        }
                         else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('preference') < 0)) {// If it's an eval score notation ( not pref )
                             console.log('Pertinence');
                             if (config.showPreference) {// If options is enable + isArray
@@ -1046,12 +1182,8 @@ $(document).ready(function() {
                                 }
                             }
                         }
-                        else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('pertinence') >= 0)) { // If it's a pertinence  &&  preference
-                            if( $('.formNotedKeywordList option:selected' , li).val() != '<preference>' ){ //If a pref was selected
 
-
-                            }
-                        }
+                        //Affichage contour vert sauvegarde
                         li.css('box-shadow', '0px 1px 4px 0px green');
                         setTimeout(function () {
                             li.css('box-shadow', '');

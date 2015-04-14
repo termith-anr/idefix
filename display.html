@@ -274,7 +274,7 @@
 
                                             {% if currentObject.type == "pertinence"  and  currentObject.method == currentMethod %}
 
-                                            <div class="btn btn-default {% if ((data.keywords[indexObject].score) or (data.keywords[indexObject].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}">
+                                            <div data-id="{{data.keywords[indexObject]['xml#id']}}" class="btn btn-default {% if ((data.keywords[indexObject].score) or (data.keywords[indexObject].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay {% endif %}">
                                                 <span class="idOfWord">{{ indexObject+1 }} - </span> <span class="keywordsText">{{ data.keywords[indexObject].word|d('Pas de mots clés') }}</span> <span class="fa fa-search searchKeywords"></span>
 
                                                 <form class="formNotedKeyword row" id="method-{{ indexMethod }}-{{indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
