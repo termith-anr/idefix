@@ -47,30 +47,12 @@ module.exports = function(config) {
                             var doc = value.content.xml,
                                 docTest = new DOMParser().parseFromString(doc.toString(), 'text/xml'), // Creation du Doc
                                 serializer = new XMLSerializer(), // DOM -> STRING XML
-                                creation = new XMLWriter(true),
                                 stdf = docTest.getElementsByTagName('ns:stdf'),
                                 keywords = value.keywords,
                                 nbOfMethods = value.pertinenceMethods.length,
                                 filtered = {};
 
-                                /*silence = keywords.filter(function(content){
-                                    return (content["type"] === "silence");
-                                }),
-                                pertinence = keywords.filter(function(content){
-                                    return (content["type"] === "pertinence");
-                                });*/
-
-                            /*var arr = [];
-                            for (var i = 0; i < value.pertinenceMethods.length; i++) {
-                                arr.push(keywords.filter(function (content) {
-                                    return (content["method"] === value.pertinenceMethods[i]);
-                                }));
-                            }
-
-                            console.log("arr : " , arr);
-
-                            */
-
+                            //Pour chaque methodes
                             for (var i = 1; i <= nbOfMethods; i++) {
                                 (function(e) {
                                     var methodId = "mi" + i;
@@ -91,164 +73,170 @@ module.exports = function(config) {
 
                             console.log(" Objet filtré : " ,filtered);
 
-                            creation
-                                .startElement("ns:stdf")
-                                    .writeComment("stdf subordonné au stdf principal")
-                                    .startElement("ns:soHeader")
+                            // Pour chaque stdf trouvé:
+                            for( i = 0 ; i < stdf.length ; i++){
+
+                                console.log('STDF n° ' , i+1 , " trouvé");
+
+                                //Si l'id de la method du sdf vaut le i en cours ...
+                                if(stdf[i].getAttribute('xml:id') === ("mi" + (i+1))){
+
+                                    console.log("On commence a faire un fichier avec  attribut :  " , stdf[i].getAttribute('xml:id'));
+
+                                    var creation = new XMLWriter(true);
+
+                                    var mix = "mi" + (i+1);
+
+                                    console.log('Un exempale de mot : ' , filtered[mix]["pertinence"]);
+
+                                    creation
+                                        .startElement("ns:stdf")
+                                        .writeComment("stdf subordonné au stdf principal")
+                                        .startElement("ns:soHeader")
                                         .startElement("encodingDesc")
                                         .writeAttribute("xmlns","http://www.tei-c.org/ns/1.0")
-                                            .startElement("appInfo")
-                                                .writeComment("nom de l'outil d'évaluation")
-                                                .startElement("application")
-                                                .writeAttribute("ident","idefix")
-                                                .writeAttribute("version","1.0")
-                                                    .writeElement("label" , "idefix")
-                                                .endElement() //Fin aplication
-                                            .endElement() // Fin appinfo
+                                        .startElement("appInfo")
+                                        .writeComment("nom de l'outil d'évaluation")
+                                        .startElement("application")
+                                        .writeAttribute("ident","idefix")
+                                        .writeAttribute("version","1.0")
+                                        .writeElement("label" , "idefix")
+                                        .endElement() //Fin aplication
+                                        .endElement() // Fin appinfo
                                         .endElement() // Fin Encoding Desc
                                         .startElement("titleStmt")
                                         .writeAttribute("xmlns","http://www.tei-c.org/ns/1.0")
-                                            .writeElement("title","évaluation indexation")
-                                            .startElement("author")
-                                            .writeAttribute("role","IndexingEvaluator")
-                                            .text("INIST")
-                                            .endElement()// Fin author
+                                        .writeElement("title","évaluation indexation")
+                                        .startElement("author")
+                                        .writeAttribute("role","IndexingEvaluator")
+                                        .text("INIST")
+                                        .endElement()// Fin author
                                         .endElement() // Fin titleStmt
-                                    .endElement() //Fin nsSoheader
+                                        .endElement() //Fin nsSoheader
 
 
-                                    .startElement("ns:annotations")
+                                        .startElement("ns:annotations")
                                         .startElement("ns:annotationGrp")
                                         .writeAttribute("type","pertinence")
-                            ;
-
-
-                            for (i = 0; i < pertinence.length; i++) { // Pour chaque mot pertinence   ...
-
-
-                                if ((pertinence[i]["score"]) || (pertinence[i]["score"] == '0')) { // ... Ayant été noté
-
-                                    creation
-                                        .startElement("span")
-                                        .writeAttribute("from" , '#' + pertinence[i]["xml#id"])
-                                            .startElement("num")
-                                            .writeAttribute("type" ,  "pertinence")
-                                            .text(pertinence[i]["score"])
-                                            .endElement() // Fin Num
                                     ;
 
-                                    // Si il y a un preference
-                                    if(pertinence[i]["preference"]){
-                                        creation
-                                            .startElement("link")
-                                            .writeAttribute("type" ,  "preferredForm")
-                                            .writeAttribute("target" ,  "#" + pertinence[i]["preference"])
-                                            .endElement();
-                                        ;
-                                    }
+                                    for (var j = 0; j < filtered[mix]["pertinence"].length; j++) { // Pour chaque mot pertinence   ...
 
-                                    // Si il y a un IsCorrespondanceOf
-                                    if(pertinence[i]["isCorrespondanceOf"]){
+                                        console.log("Mot filtré n°" , j);
 
-                                        var arrIsCorrespondanceOf = pertinence[i]["isCorrespondanceOf"].split(",,");
-                                        arrIsCorrespondanceOf.forEach(function(content,index){
+
+                                        if ((filtered[mix]["pertinence"][j]["score"]) || (filtered[mix]["pertinence"][j]["score"] == '0')) { // ... Ayant été noté
+
                                             creation
-                                                .startElement("link")
-                                                .writeAttribute("type" ,  "INISTForm")
-                                                .writeAttribute("target" ,  "#" + content)
-                                                .endElement()
+                                                .startElement("span")
+                                                .writeAttribute("from" , '#' + filtered[mix]["pertinence"][j]["xml#id"])
+                                                .startElement("num")
+                                                .writeAttribute("type" ,  "pertinence")
+                                                .text(filtered[mix]["pertinence"][j]["score"])
+                                                .endElement() // Fin Num
                                             ;
-                                        });
+
+                                            // Si il y a un preference
+                                            if(filtered[mix]["pertinence"][j]["preference"]){
+                                                creation
+                                                    .startElement("link")
+                                                    .writeAttribute("type" ,  "preferredForm")
+                                                    .writeAttribute("target" ,  "#" + filtered[mix]["pertinence"][j]["preference"])
+                                                    .endElement();
+                                                ;
+                                            }
+
+                                            // Si il y a un IsCorrespondanceOf
+                                            if(filtered[mix]["pertinence"][j]["isCorrespondanceOf"]){
+
+                                                var arrIsCorrespondanceOf = filtered[mix]["pertinence"][j]["isCorrespondanceOf"].split(",,");
+                                                arrIsCorrespondanceOf.forEach(function(content,index){
+                                                    creation
+                                                        .startElement("link")
+                                                        .writeAttribute("type" ,  "INISTForm")
+                                                        .writeAttribute("target" ,  "#" + content)
+                                                        .endElement()
+                                                    ;
+                                                });
+
+                                            }
+
+                                            // Si il y a un commentaire
+                                            if(filtered[mix]["pertinence"][j]["comment"]){
+                                                creation
+                                                    .writeElement("note" , filtered[mix]["pertinence"][j]["comment"])
+                                                ;
+                                            }
+
+                                            // Fin Span
+                                            creation.endElement();
+
+                                        }
 
                                     }
-
-                                    // Si il y a un commentaire
-                                    if(pertinence[i]["comment"]){
-                                        creation
-                                            .writeElement("note" , pertinence[i]["comment"])
-                                        ;
-                                    }
-
-                                    // Fin Span
-                                    creation.endElement();
-
-                                }
-
-                            }
-
-                            creation
-                                .endElement() // Fin annotationGrp pertinence
-                                .startElement("ns:annotationGrp")
-                                .writeAttribute("type","silence")
-                            ;
-
-                            for (i = 0; i < silence.length; i++) { // Pour chaque mot silence   ...
-
-
-                                if ((silence[i]["score"]) || (silence[i]["score"] == '0')) { // ... Ayant été noté
 
                                     creation
-                                        .startElement("span")
-                                        .writeAttribute("from" , '#' + silence[i]["xml#id"])
-                                            .startElement("num")
-                                            .writeAttribute("type" ,  "silence")
-                                            .text(silence[i]["score"])
-                                            .endElement() // Fin Num
+                                        .endElement() // Fin annotationGrp pertinence
+                                        .startElement("ns:annotationGrp")
+                                        .writeAttribute("type","silence")
                                     ;
 
-                                    // Si il y a un preference
-                                    if(silence[i]["correspondance"]){
-                                        creation
-                                            .startElement("link")
-                                            .writeAttribute("type" ,  "TermithForm")
-                                            .writeAttribute("target" ,  "#" + silence[i]["idCorrespondance"])
-                                            .endElement()
-                                        ;
+                                    for (j = 0; j < filtered[mix]["silence"][j].length; i++) { // Pour chaque mot silence   ...
+
+
+                                        if ((filtered[mix]["silence"][j]["score"]) || (filtered[mix]["silence"][j]["score"] == '0')) { // ... Ayant été noté
+
+                                            creation
+                                                .startElement("span")
+                                                .writeAttribute("from" , '#' + filtered[mix]["silence"][j]["xml#id"])
+                                                .startElement("num")
+                                                .writeAttribute("type" ,  "silence")
+                                                .text(filtered[mix]["silence"][j]["score"])
+                                                .endElement() // Fin Num
+                                            ;
+
+                                            // Si il y a un preference
+                                            if(filtered[mix]["silence"][j]["correspondance"]){
+                                                creation
+                                                    .startElement("link")
+                                                    .writeAttribute("type" ,  "TermithForm")
+                                                    .writeAttribute("target" ,  "#" + filtered[mix]["silence"][j]["idCorrespondance"])
+                                                    .endElement()
+                                                ;
+                                            }
+
+
+                                            // Si il y a un commentaire
+                                            if(filtered[mix]["silence"][j]["comment"]){
+                                                creation
+                                                    .writeElement("note" , filtered[mix]["silence"][j] ["comment"])
+                                                ;
+                                            }
+
+                                            // Fin Span
+                                            creation.endElement();
+
+                                        }
+
                                     }
 
+                                    creation
+                                        .endElement() //Fin annotationGrp silence
+                                        .endElement() //Fin  annotations
+                                        .endElement() // Fin  startElement
+                                    ;
 
-                                    // Si il y a un commentaire
-                                    if(silence[i]["comment"]){
-                                        creation
-                                            .writeElement("note" , silence[i]["comment"])
-                                        ;
-                                    }
+                                    //console.log('creation : ' , creation.toString());
 
-                                    // Fin Span
-                                    creation.endElement();
+                                    creation = new DOMParser().parseFromString(creation.toString(), 'text/xml');
+
+
+                                    stdf[i].appendChild(creation);
 
                                 }
-
                             }
-
-                            creation
-                                .endElement() //Fin annotationGrp silence
-                                .endElement() //Fin  annotations
-                                .endElement() // Fin  startElement
-                            ;
-
-                            //console.log('creation : ' , creation.toString());
-
-                            creation = new DOMParser().parseFromString(creation.toString(), 'text/xml');
-
-                            // Pour chaque stdf trouvé:
-                            for(i = 0 ; i < stdf.length ; i++){
-                               /* console.log('===========================================');
-                                console.log('STDF N° ' , + i);
-                                console.log(stdf[i].getAttribute('xml:id'));*/
-
-                                //Si l'id de la method vaut ...
-                                if(stdf[i].getAttribute('xml:id') === "mi1"){
-                                    stdf = stdf[i];
-                                    break;
-                                }
-                            }
-
-
-                            stdf.appendChild(creation);
 
                             xw.writeRaw(docTest.toString()); // Add xml to teicorpus
-
 
                         });
 
