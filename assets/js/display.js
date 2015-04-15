@@ -930,7 +930,7 @@ $(document).ready(function() {
         previousSelectionId = $(this).find(":selected").attr("data-id");
         currentIdToDelete = $(this).parent().parent().attr("data-id")
 
-        console.log(" previousSelectionId : " , previousSelectionId);
+        //console.log(" previousSelectionId : " , previousSelectionId);
     });
 
     $(".formNotedKeyword select option").on("click" , function(e){
@@ -974,7 +974,7 @@ $(document).ready(function() {
                 }
             ],
             success: function (e) {
-                console.log('ID bien enregistré');
+                //console.log('ID bien enregistré');
 
                 // Sauvegarde du texte
                 $.ajax({
@@ -992,7 +992,7 @@ $(document).ready(function() {
                         }
                     ],
                     success: function (e) {
-                        console.log("Texte bien enregistré");
+                        //console.log("Texte bien enregistré");
 
                         $("option" , selector).removeAttr("selected").removeAttr("style");
                         $(option).attr("style" , "background: #FF847C;color:#fff");
@@ -1013,39 +1013,91 @@ $(document).ready(function() {
 
                                 // Si c'est le mot clé dont on doit supprimer le "estLeCorrespondantDe"
                                 if(content["xml#id"] === previousSelectionId){
-                                    console.log(' ID a supprimer .... ' , currentIdToDelete);
-                                    console.log(' .... Dans l\'id : ' , previousSelectionId);
+
+                                    var oldArr = content[estlie];
+
+                                    console.log('Le tableau de liens du mot clés avant le split : ' , oldArr);
+                                    console.log('===================================================');
+
+                                    var oldArrSplit = oldArr.split(',,');
+
+                                    console.log('Le tableau de liens du mot clés aprés le split : ' , oldArrSplit);
+                                    console.log('===================================================');
 
 
-                                    var indexArr = content[estlie].split(",,").indexOf(currentIdToDelete);
-                                    console.log("indexarr : " , indexArr);
+
+
+                                    console.log('LID que lon souhaite supprimé est : ' , previousSelectionId , ' OU  ' , currentIdToDelete );
+                                    console.log('===================================================');
+
+                                    // var indexArr = $.inArray(currentIdToDelete, oldArrSplit);
+                                    var indexArr = oldArrSplit.indexOf(currentIdToDelete);
+
+                                    console.log('lindex a supprimer dans le tableau est le n° ' , indexArr , ' ce qui correspon à :  ', oldArrSplit[indexArr]);
+                                    console.log('===================================================');
+
+
 
                                     //SI l'id a supprimer est dans le tableau
                                     if (indexArr > -1) {
-                                        arrToDelete = content[estlie].split(",,").splice(indexArr, 1).join(',,');
-                                        console.log(' arrToDelete:  ' , arrToDelete);
+                                        var oldArrSplit2 = oldArrSplit.slice(0);
+                                        oldArrSplit2.splice(indexArr , 1);
 
-                                        $.ajax({
-                                            url: savePage,
-                                            type: "POST",
-                                            data: [
-                                                {
-                                                    name: "key",
-                                                    value: "keywords." + index + "." + estlie
+                                        console.log('Aprés le splice le tableau vaut  :  ' , oldArrSplit2);
+                                        console.log('===================================================');
 
+                                        arrToDelete = oldArrSplit2.join(",,");
+
+                                        console.log('Aprés le join le tableau vaut  :  ' , arrToDelete);
+                                        console.log('===================================================');
+
+                                        if(arrToDelete === ""){
+                                            $.ajax({
+                                                url: dropPage,
+                                                type: "POST",
+                                                data: [
+                                                    {
+                                                        name: "key",
+                                                        value: "keywords." + index + "." + estlie
+
+                                                    },
+                                                    {
+                                                        name: "val",
+                                                        value: ""
+                                                    }
+                                                ],
+                                                success : function(){
+                                                    console.log("est lié bien supprimé");
                                                 },
-                                                {
-                                                    name: "val",
-                                                    value: arrToDelete
+                                                error  : function(e){
+                                                    console.log("impossible de supprimer , error : " , e );
                                                 }
-                                            ],
-                                            success : function(){
-                                                console.log("est lié bien supprimé");
-                                            },
-                                            error  : function(e){
-                                                console.log("impossible de supprimer , error : " , e );
-                                            }
-                                        });
+                                            });
+                                        }
+                                        else{
+                                            $.ajax({
+                                                url: savePage,
+                                                type: "POST",
+                                                data: [
+                                                    {
+                                                        name: "key",
+                                                        value: "keywords." + index + "." + estlie
+
+                                                    },
+                                                    {
+                                                        name: "val",
+                                                        value: arrToDelete
+                                                    }
+                                                ],
+                                                success : function(){
+                                                    console.log("est lié bien supprimé");
+                                                },
+                                                error  : function(e){
+                                                    console.log("impossible de supprimer , error : " , e );
+                                                }
+                                            });
+                                        }
+
 
                                     }
                                 }
@@ -1075,7 +1127,6 @@ $(document).ready(function() {
                                             {
                                                 name: "key",
                                                 value: "keywords." + index + "." + estlie
-
                                             },
                                             {
                                                 name: "val",

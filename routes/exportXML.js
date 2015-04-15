@@ -118,8 +118,24 @@ module.exports = function(config) {
                                         creation
                                             .startElement("link")
                                             .writeAttribute("type" ,  "preferredForm")
-                                            .text(pertinence[i]["preference"])
+                                            .writeAttribute("target" ,  "#" + pertinence[i]["preference"])
+                                            .endElement();
                                         ;
+                                    }
+
+                                    // Si il y a un IsCorrespondanceOf
+                                    if(pertinence[i]["isCorrespondanceOf"]){
+
+                                        var arrIsCorrespondanceOf = pertinence[i]["isCorrespondanceOf"].split(",,");
+                                        arrIsCorrespondanceOf.forEach(function(content,index){
+                                            creation
+                                                .startElement("link")
+                                                .writeAttribute("type" ,  "INISTForm")
+                                                .writeAttribute("target" ,  "#" + content)
+                                                .endElement()
+                                            ;
+                                        });
+
                                     }
 
                                     // Si il y a un commentaire
@@ -150,10 +166,10 @@ module.exports = function(config) {
                                     creation
                                         .startElement("span")
                                         .writeAttribute("from" , '#' + silence[i]["xml#id"])
-                                        .startElement("num")
-                                        .writeAttribute("type" ,  "silence")
-                                        .text(silence[i]["score"])
-                                        .endElement() // Fin Num
+                                            .startElement("num")
+                                            .writeAttribute("type" ,  "silence")
+                                            .text(silence[i]["score"])
+                                            .endElement() // Fin Num
                                     ;
 
                                     // Si il y a un preference
@@ -161,9 +177,11 @@ module.exports = function(config) {
                                         creation
                                             .startElement("link")
                                             .writeAttribute("type" ,  "TermithForm")
-                                            .text(silence[i]["correspondance"])
+                                            .writeAttribute("target" ,  "#" + silence[i]["idCorrespondance"])
+                                            .endElement()
                                         ;
                                     }
+
 
                                     // Si il y a un commentaire
                                     if(silence[i]["comment"]){
