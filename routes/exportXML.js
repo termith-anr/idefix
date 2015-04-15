@@ -50,14 +50,17 @@ module.exports = function(config) {
                                 creation = new XMLWriter(true),
                                 stdf = docTest.getElementsByTagName('ns:stdf'),
                                 keywords = value.keywords,
-                                silence = keywords.filter(function(content){
+                                nbOfMethods = value.pertinenceMethods.length,
+                                filtered = {};
+
+                                /*silence = keywords.filter(function(content){
                                     return (content["type"] === "silence");
                                 }),
                                 pertinence = keywords.filter(function(content){
                                     return (content["type"] === "pertinence");
-                                });
+                                });*/
 
-                            var arr = [];
+                            /*var arr = [];
                             for (var i = 0; i < value.pertinenceMethods.length; i++) {
                                 arr.push(keywords.filter(function (content) {
                                     return (content["method"] === value.pertinenceMethods[i]);
@@ -66,6 +69,27 @@ module.exports = function(config) {
 
                             console.log("arr : " , arr);
 
+                            */
+
+                            for (var i = 1; i <= nbOfMethods; i++) {
+                                (function(e) {
+                                    var methodId = "mi" + i;
+                                    filtered[methodId] = {
+                                        silence: [],
+                                        pertinence: []
+                                    };
+                                    keywords.filter(function (content) {
+                                        if ((content["methodId"] === methodId) && (content["type"] === "silence")) {
+                                            filtered[methodId].silence.push(content);
+                                        }
+                                        else if ((content["methodId"] === methodId) && (content["type"] === "pertinence")) {
+                                            filtered[methodId].pertinence.push(content);
+                                        }
+                                    })
+                                })(i);
+                            }
+
+                            console.log(" Objet filtré : " ,filtered);
 
                             creation
                                 .startElement("ns:stdf")

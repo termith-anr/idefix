@@ -108,6 +108,8 @@ module.exports = function(options,config) {
                     // multiply X silences word BY  Y number of pertinence methods
                     for (var i = 0; i < pertinencesNames.length; i++) {
 
+                        var mix = "mi" + (i+1);
+
                         // Current pertinence method
                         var methodName = pertinencesNames[i];
 
@@ -124,6 +126,7 @@ module.exports = function(options,config) {
                                     "id": id,
                                     "type": "silence",
                                     "method": methodName,
+                                    "methodId": mix,
                                     "xml#id": xmlIdWord[j],
                                     "word": word[j]
                                 };
