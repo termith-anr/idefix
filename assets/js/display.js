@@ -25,14 +25,16 @@ $(document).ready(function() {
     });
 
     $('.searchKeywords').on('click' , function(e){
-        var keywordText = " " + $(this).prev().text() + " ",
+        var keywordText = $(this).prev().text(),
             teiContent;
         if(fullArticleLoaded === "no"){
 
+
             // On charge le contenu
             $('.contentTei').load('/dump/' + pageId + '.xml' , function(){
+
                 fullArticleLoaded = 'yes';
-                teiContent = $("#fullArticleContent text > p , #fullArticleContent  text > div");
+                teiContent = $("#fullArticleContent text").children().not("front,back");
                 //Recherche dans tous le text
 
                 teiContent.highlight(keywordText, { wordsOnly: true });
@@ -48,9 +50,7 @@ $(document).ready(function() {
         }
         else {
 
-            console.log("Mot : " , keywordText);
-
-            teiContent = $("#fullArticleContent  text > p , #fullArticleContent  text > div");
+            teiContent = $("#fullArticleContent text").children().not("front,back");
             teiContent.unhighlight();
             teiContent.highlight(keywordText, { wordsOnly: true });
             $(".highlight:first").attr('id', 'firstHighlight');
@@ -656,8 +656,6 @@ $(document).ready(function() {
         e.stopPropagation();
         if (isFullArticleShow === 'no') {
 
-            console.log('isFullArticleShow : ' , "no");
-
             $('#contentDisplay').hide();
             $(this).css({
                 height: '100%',
@@ -669,13 +667,11 @@ $(document).ready(function() {
             $('#spanFullArticle').hide();
 
             if (fullArticleLoaded === 'no') {
-                console.log('Article jamais chargé , je charge');
                 $('.contentTei').load('/dump/' + pageId + '.xml').delay(560);
                 $('#fullArticleSection').delay(560).fadeIn(400).delay(400).addClass('fullArticleSectionShow');
                 fullLoaded = 'yes';
             }
             else {
-                console.log('Article déja chargé , je recharge');
                 $('#fullArticleSection').delay(550).fadeIn().addClass('fullArticleSectionShow');
             }
 

@@ -90,16 +90,20 @@ jQuery.fn.highlight = function (words, options) {
         return word != '';
     });
     words = jQuery.map(words, function(word, i) {
-        return word.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+        return word.replace(/[-[\]{}()*+?.,-_'\\^$|#\s]/g, "\\$&");
     });
     if (words.length == 0) { return this; };
 
     var flag = settings.caseSensitive ? "" : "i";
     var pattern = "(" + words.join("|") + ")";
     if (settings.wordsOnly) {
-        pattern = "\\b" + pattern + "\\b";
+        pattern = "\\W" + pattern + "\\W";
     }
     var re = new RegExp(pattern, flag);
+
+    if(re){
+        console.log("Bordel : " , re);
+    }
 
     return this.each(function () {
         jQuery.highlight(this, re, settings.element, settings.className);
