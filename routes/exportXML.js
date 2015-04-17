@@ -71,23 +71,26 @@ module.exports = function(config) {
                                 })(i);
                             }
 
-                            console.log(" Objet filtré : " ,filtered);
+                            //console.log(" Objet filtré : " ,filtered);
 
                             // Pour chaque stdf trouvé:
                             for( i = 0 ; i < stdf.length ; i++){
 
                                 console.log('STDF n° ' , i+1 , " trouvé");
+                                console.log('Lattribut xml trouvé vaut : ' ,stdf[i].getAttribute('xml:id'));
+
+
 
                                 //Si l'id de la method du sdf vaut le i en cours ...
-                                if(stdf[i].getAttribute('xml:id') === ("mi" + (i+1))){
+                                if(stdf[i].getAttribute('xml:id').indexOf("mi") > -1){
 
                                     console.log("On commence a faire un fichier avec  attribut :  " , stdf[i].getAttribute('xml:id'));
 
                                     var creation = new XMLWriter(true);
 
-                                    var mix = "mi" + (i+1);
+                                    var mix = stdf[i].getAttribute('xml:id').toString();
 
-                                    console.log('Un exempale de mot : ' , filtered[mix]["pertinence"]);
+                                    console.log('Nous sommes donc à la methode : ' , mix);
 
                                     creation
                                         .startElement("ns:stdf")
@@ -122,7 +125,7 @@ module.exports = function(config) {
 
                                     for (var j = 0; j < filtered[mix]["pertinence"].length; j++) { // Pour chaque mot pertinence   ...
 
-                                        console.log("Mot filtré n°" , j);
+                                        //console.log("Mot filtré n°" , j);
 
 
                                         if ((filtered[mix]["pertinence"][j]["score"]) || (filtered[mix]["pertinence"][j]["score"] == '0')) { // ... Ayant été noté
@@ -141,7 +144,7 @@ module.exports = function(config) {
                                                 creation
                                                     .startElement("link")
                                                     .writeAttribute("type" ,  "preferredForm")
-                                                    .writeAttribute("target" ,  "#" + filtered[mix]["pertinence"][j]["preference"])
+                                                    .writeAttribute("target" ,  "#" + filtered[mix]["pertinence"][j]["idPreference"])
                                                     .endElement();
                                                 ;
                                             }
@@ -181,7 +184,9 @@ module.exports = function(config) {
                                         .writeAttribute("type","silence")
                                     ;
 
-                                    for (j = 0; j < filtered[mix]["silence"][j].length; i++) { // Pour chaque mot silence   ...
+                                    for (j = 0; j < filtered[mix]["silence"].length; j++) { // Pour chaque mot silence   ...
+
+                                        console.log("MOT silence : " , filtered[mix]["silence"][j]["word"]);
 
 
                                         if ((filtered[mix]["silence"][j]["score"]) || (filtered[mix]["silence"][j]["score"] == '0')) { // ... Ayant été noté
