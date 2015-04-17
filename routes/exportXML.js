@@ -52,7 +52,7 @@ module.exports = function(config) {
                                 nbOfMethods = value.pertinenceMethods.length,
                                 filtered = {};
 
-                            //Pour chaque methodes
+                            //Pour chaque methodes On filtre par methode et par type
                             for (var i = 1; i <= nbOfMethods; i++) {
                                 (function(e) {
                                     var methodId = "mi" + i;
