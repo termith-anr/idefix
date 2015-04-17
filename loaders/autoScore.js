@@ -54,7 +54,7 @@ module.exports = function(options,config) {
                             return (content["method"] === input.pertinenceMethods[i]);
                         }));
                     }
-                    console.log("arr : " , arr);
+                    //console.log("arr : " , arr);
                     return arr;
             }
             if(by === "type"){
@@ -119,8 +119,13 @@ module.exports = function(options,config) {
             var silences = filter(input.keywords, "type", "silence"),
                 pertinences = filter(input.keywords, "type", "pertinence");
 
-            var autoPertinence = config["autoPertinence"] ? config["autoPertinence"] : true,
-                autoSilence = config["autoSilence"] ? config["autoSilence"] : true;
+            console.log('config autoperitnence avant  :  ' , config["autoPertinence"]);
+
+            var autoPertinence = config.hasOwnProperty("autoPertinence") ? config["autoPertinence"] : true,
+                autoSilence = config.hasOwnProperty("autoSilence") ? config["autoSilence"] : true;
+
+            console.log('config pertinence  :  ' , autoPertinence);
+            console.log('config autoSilence  :  ' , autoSilence);
 
             if (silences.length > 0 && pertinences.length > 0) {
 
