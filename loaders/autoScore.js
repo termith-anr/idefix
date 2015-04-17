@@ -119,13 +119,8 @@ module.exports = function(options,config) {
             var silences = filter(input.keywords, "type", "silence"),
                 pertinences = filter(input.keywords, "type", "pertinence");
 
-            console.log('config autoperitnence avant  :  ' , config["autoPertinence"]);
-
             var autoPertinence = config.hasOwnProperty("autoPertinence") ? config["autoPertinence"] : true,
                 autoSilence = config.hasOwnProperty("autoSilence") ? config["autoSilence"] : true;
-
-            console.log('config pertinence  :  ' , autoPertinence);
-            console.log('config autoSilence  :  ' , autoSilence);
 
             if (silences.length > 0 && pertinences.length > 0) {
 

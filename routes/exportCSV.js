@@ -87,7 +87,7 @@ module.exports = function(config) {
                                     type = valueObject['type'] ? valueObject['type'] : '',
                                     word = valueObject.word ? valueObject.word : '',
                                     score = (valueObject.score || valueObject.score ===0) ? valueObject.score : '',
-                                    comment = valueObject.commentaire ? valueObject.commentaire : '',
+                                    comment = valueObject.comment ? valueObject.comment : '',
                                     correspondance,
                                     preference;
 
