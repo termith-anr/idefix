@@ -101,10 +101,6 @@ jQuery.fn.highlight = function (words, options) {
     }
     var re = new RegExp(pattern, flag);
 
-    if(re){
-        console.log("Bordel : " , re);
-    }
-
     return this.each(function () {
         jQuery.highlight(this, re, settings.element, settings.className);
     });
