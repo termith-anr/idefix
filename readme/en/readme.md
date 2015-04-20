@@ -1,20 +1,20 @@
 IDEFIX
 ======
 
-IDEFIX is a notation interface of indexed Termith's keywords
+IDEFIX is a notation interface of indexed Termith's keywords (XML-TEI language)
 
 *[learn more about termith](http://www.atilf.fr/ressources/termith/)*
 
-![PM2](https://raw.githubusercontent.com/termith-anr/idefix/master/assets/pictures/interface.png)
+![IDEFIX](https://raw.githubusercontent.com/termith-anr/idefix/master/assets/pictures/interface.png)
 
    
 # Summary
-#### *[The Requirements](https://github.com/termith-anr/idefix#requirements)*
-#### *[Standalone install](https://github.com/termith-anr/idefix#classic-install)* (Use it if you want to try/dev Idefix on a simple personal computer)
-#### *[Install with APP manager](https://github.com/termith-anr/idefix#install-with-app-manager)* (Use it on a server , or if you want to start many apps locally)
-#### *[List of options](https://github.com/termith-anr/idefix#list-of-config-options)*
+#### *[The Requirements](https://github.com/termith-anr/idefix/tree/master/readme/en#requirements)*
+#### *[Standalone install](https://github.com/termith-anr/idefix/tree/master/readme/en#standalone-install)* (Use it if you want to try/dev Idefix on a simple personal computer)
+#### *[Install with EzMaster](https://github.com/termith-anr/idefix/tree/master/readme/en#install-with-app-manager)* (Use it on a server , or if you want to start many apps locally)
+#### *[List of options](https://github.com/termith-anr/idefix/tree/master/readme/en#list-of-config-options)*
 #### *[User guide](https://docs.google.com/document/d/1Ea4bC-TBWlCTEf1r6YY3-1GP-blxpjxJm9jUGtATUV8/edit?usp=sharing)*
-#### *[Tests](https://github.com/termith-anr/idefix#tests)*
+#### *[Tests](https://github.com/termith-anr/idefix/tree/master/readme/en#tests)*
  
   
    
@@ -22,29 +22,22 @@ IDEFIX is a notation interface of indexed Termith's keywords
 
 - *[Node.Js](http://nodejs.org/)*
 
-  ex: (Ubuntu)
-
-  ```
-  curl -sL https://deb.nodesource.com/setup | sudo bash
-  sudo apt-get install -y nodejs
-  ```
-
 - *[MongoDB](http://www.mongodb.org/)*
 
-- Google Chrome (>31) OR Firefox (>26)
+- Firefox Only (>26)
 
 - A folder with your xml-tei files in
 
 
 # Install IDEFIX
 
-## Classic install
+## Standalone install
 
 ### Download
 
 #### With Git:
 
-- Clone our repo 
+- Clone our repo
   ```
   git clone https://github.com/termith-anr/idefix.git
   ```
@@ -56,8 +49,8 @@ IDEFIX is a notation interface of indexed Termith's keywords
 
 ### Install
 
-* Open a terminal (console) in the idefix previously downloaded folder 
-* Launch the command (will download required modules) :
+* Open a terminal in  idefix previously downloaded folder 
+* Launch :
 
     ```
      npm install 
@@ -65,10 +58,19 @@ IDEFIX is a notation interface of indexed Termith's keywords
 
 ## Start IDEFIX
 
-#### Create an idefix config file (folder.json)
+#### Create an idefix config file
 
-* Must have the STRICTLY same name as your document folder with ".json" extension
-* JSON config file must have to be next to document folder
+* Must have the STRICTLY SAME name as your document folder (which contains tei files) with ".json" extension
+* JSON config file must have to be next to document folder:
+```
+├── Computer/
+│   ├── folderName.json
+│   ├── folderName
+│   │   ├── tei-file-1.xml
+│   │   ├── tei-file-2.xml
+│   │   ├── ...
+│   │   ├── tei-file-x.xml
+```
 * Write this default config in :
 
 ```json
@@ -113,14 +115,14 @@ IDEFIX is a notation interface of indexed Termith's keywords
 More info about (*[castor-admin](https://github.com/madec-project/ezmaster)*)
 
 * First follow the *[castor-admin install](https://github.com/madec-project/ezmaster#installation)*
-* Go to *[IDEFIX Versions](https://github.com/termith-anr/idefix/releases)*  and copy the url "Source code(tar.gz)" you want. (Or via git for the currently dev version) 
-* *[Download Idefix](https://github.com/termith-anr/idefix#download)* in ~/apps 
+* Go to *[IDEFIX Versions](https://github.com/termith-anr/idefix/tree/master/readme/en/releases)*  and copy the url "Source code(tar.gz)" you want. (Or via git for the currently dev version) 
+* *[Download Idefix](https://github.com/termith-anr/idefix/tree/master/readme/en#download)* in ~/apps 
     ```
     cd ~/apps
     curl -L  https://urlExemple.tar.gz | tar zx
     ///REPLACE urlExemple.targz with the correct url////
     ```
-* *[Install Idefix](https://github.com/termith-anr/idefix#install)*
+* *[Install Idefix](https://github.com/termith-anr/idefix/tree/master/readme/en#install)*
 * Start castor-admin (with at least one app installed in ~/apps )
 ```bash
     castor-admin ~/apps
@@ -129,13 +131,13 @@ More info about (*[castor-admin](https://github.com/madec-project/ezmaster)*)
 * Add an instance app by clicking on "+ Add an instance"
 * Fill the required infos
 * Edit the config file by clicking on the params icon of the instance
-* Writte your config (or import *[example](http:// #start-idefix)*) (DO NOT add options with the "--- Not Managed ---" , this could break administration) *[see options](https://github.com/termith-anr/idefix#list-of-config-options)*
+* Writte your config (or import *[example](http:// #start-idefix)*) (DO NOT add options with the "--- Not Managed ---" , this could break administration) *[see options](https://github.com/termith-anr/idefix/tree/master/readme/en#list-of-config-options)*
 
 
 ## List of config options
 
-* "Only Managed" means the option is used only with *[app manager](https://github.com/termith-anr/idefix#install-with-app-manager)*
-* "Only Single Instance"  means the option DO NOT have to be in *[app manager](https://github.com/termith-anr/idefix#install-with-app-manager)* config (could break it)
+* "Only Managed" means the option is used only with *[app manager](https://github.com/termith-anr/idefix/tree/master/readme/en#install-with-app-manager)*
+* "Only Single Instance"  means the option DO NOT have to be in *[app manager](https://github.com/termith-anr/idefix/tree/master/readme/en#install-with-app-manager)* config (could break it)
 
 ##### title (REQUIRED/string) --- Only Managed ---
 
@@ -261,18 +263,19 @@ Check *[castor-core documentFields](https://github.com/castorjs/castor-core#docu
 
 - "$text" generate a field in mongo call "text" , used to filter documents in list of IDEFIX
 
+
 ## Test
 
 Idefix tests are usefull to check if the current version of idefix is working great.
 
-- Choose the format version you want to test (see *[full format list](https://github.com/termith-anr/idefix#teiformat-requiredstring)*)
+- Choose the format version you want to test (see *[full format list](https://github.com/termith-anr/idefix/tree/master/readme/en#teiformat-requiredstring)*)
 - Replace in this command line the format date to check
 - Start the app : 
 ```
     ./idefix  tests/instances/2015-02-13
 ```
 -Check the results , all text have to be green , no red.
--If you think you foun  bug(s) , please create a new *[github issue](https://github.com/termith-anr/idefix/issues/new)*
+-If you think you foun  bug(s) , please create a new *[github issue](https://github.com/termith-anr/idefix/tree/master/readme/en/issues/new)*
 
 
 
