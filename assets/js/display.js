@@ -667,9 +667,19 @@ $(document).ready(function() {
             $('#spanFullArticle').hide();
 
             if (fullArticleLoaded === 'no') {
-                $('.contentTei').load('/dump/' + pageId + '.xml').delay(560);
-                $('#fullArticleSection').delay(560).fadeIn(400).delay(400).addClass('fullArticleSectionShow');
-                fullLoaded = 'yes';
+                var contenuReplaced;
+                $.get('/dump/' + pageId + '.xml' , function(content){
+                    var contenu =  (new XMLSerializer()).serializeToString(content);
+                    contenuReplaced = contenu.replace(/<head/g , "<div");
+                    contenuReplaced = contenuReplaced.replace(/<\/head>/g , "</div>");
+                    contenuReplaced = contenuReplaced.replace(/<hi/g , "<i");
+                    contenuReplaced = contenuReplaced.replace(/<\/hi>/g , "</i>");
+
+                    $('.contentTei').append(contenuReplaced).delay(560);
+                    $('#fullArticleSection').delay(560).fadeIn(400).delay(400).addClass('fullArticleSectionShow');
+                    fullLoaded = 'yes';
+                });
+
             }
             else {
                 $('#fullArticleSection').delay(550).fadeIn().addClass('fullArticleSectionShow');
