@@ -27,26 +27,31 @@ $(document).ready(function() {
     $('.searchKeywords').on('click' , function(e){
         var keywordText = $(this).prev().text(),
             teiContent;
-        if(fullArticleLoaded === "no"){
+        if(fullArticleLoaded === "no") {
 
 
             // On charge le contenu
-            $('.contentTei').load('/dump/' + pageId + '.xml' , function(){
+            $.get('/dump/' + pageId + '.xml', function (content) {
+                var contenu = (new XMLSerializer()).serializeToString(content);
+                contenuReplaced = contenu.replace(/<head/g, "<div");
+                contenuReplaced = contenuReplaced.replace(/<\/head>/g, "</div>");
+                contenuReplaced = contenuReplaced.replace(/<hi/g, "<i");
+                contenuReplaced = contenuReplaced.replace(/<\/hi>/g, "</i>");
+
+                $('.contentTei').append(contenuReplaced).delay(560);
 
                 fullArticleLoaded = 'yes';
                 teiContent = $("#fullArticleContent text").children().not("front,back");
                 //Recherche dans tous le text
 
                 teiContent.highlight(keywordText, { wordsOnly: true });
-                $('#buttonFullArticle').trigger( "click" );
+                $('#buttonFullArticle').trigger("click");
                 $(".highlight:first").attr('id', 'firstHighlight');
-                setTimeout(function()
-                {
-                    $("#fullArticleSection").animate({scrollTop:$('#firstHighlight').position().top}, 'slow');
+                setTimeout(function () {
+                    $("#fullArticleSection").animate({scrollTop: $('#firstHighlight').position().top}, 'slow');
                 }, 700);
 
             });
-
         }
         else {
 
@@ -667,6 +672,7 @@ $(document).ready(function() {
             $('#spanFullArticle').hide();
 
             if (fullArticleLoaded === 'no') {
+
                 var contenuReplaced;
                 $.get('/dump/' + pageId + '.xml' , function(content){
                     var contenu =  (new XMLSerializer()).serializeToString(content);
@@ -682,6 +688,7 @@ $(document).ready(function() {
 
             }
             else {
+
                 $('#fullArticleSection').delay(550).fadeIn().addClass('fullArticleSectionShow');
             }
 
