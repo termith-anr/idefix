@@ -2233,9 +2233,10 @@ span.twitter-typeahead {
 }
 
 .searchKeywords:hover{
-    transform: scale(1.15);
-    color : rgba(136, 203, 195, 1);
-    opacity:  1;
+    transform: scale(1.16);
+    color: #333;
+    opacity: 1;
+    z-index: 999999999;
 }
 
 .highlight{
