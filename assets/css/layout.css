@@ -2244,5 +2244,11 @@ span.twitter-typeahead {
     padding-right: 3px;
     background: #CC6A63;
     color: #fff;
-    font-size: 18px;
+}
+
+.h1Highlight{
+    padding-left: 3px;
+    padding-right: 3px;
+    background: #fff;
+    color: #333;
 }

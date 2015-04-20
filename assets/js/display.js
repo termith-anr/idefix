@@ -24,11 +24,12 @@ $(document).ready(function() {
         config = object;
     });
 
-    $('.searchKeywords').on('click' , function(e){
+    $('.searchKeywords').on('click' , function(){
         var keywordText = $(this).prev().text(),
             teiContent;
         if(fullArticleLoaded === "no") {
 
+            var contenuReplaced;
 
             // On charge le contenu
             $.get('/dump/' + pageId + '.xml', function (content) {
@@ -39,14 +40,16 @@ $(document).ready(function() {
                 contenuReplaced = contenuReplaced.replace(/<\/hi>/g, "</i>");
 
                 $('.contentTei').append(contenuReplaced).delay(560);
-
                 fullArticleLoaded = 'yes';
                 teiContent = $("#fullArticleContent text").children().not("front,back");
                 //Recherche dans tous le text
 
+                $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
+                $('#articleSectionResumeDisplay').highlight(keywordText, { wordsOnly: true });
+                $('#h1DisplayDocs').highlight(keywordText, { wordsOnly: true  , className: 'h1Highlight'});
                 teiContent.highlight(keywordText, { wordsOnly: true });
                 $('#buttonFullArticle').trigger("click");
-                $(".highlight:first").attr('id', 'firstHighlight');
+                $(".contentTei .highlight:first").attr('id', 'firstHighlight');
                 setTimeout(function () {
                     $("#fullArticleSection").animate({scrollTop: $('#firstHighlight').position().top}, 'slow');
                 }, 700);
@@ -54,11 +57,13 @@ $(document).ready(function() {
             });
         }
         else {
-
+            $('body').unhighlight();
+            $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
+            $('#articleSectionResumeDisplay').highlight(keywordText, { wordsOnly: true });
+            $('#h1DisplayDocs').highlight(keywordText, { wordsOnly: true , className: 'h1Highlight' });
             teiContent = $("#fullArticleContent text").children().not("front,back");
-            teiContent.unhighlight();
             teiContent.highlight(keywordText, { wordsOnly: true });
-            $(".highlight:first").attr('id', 'firstHighlight');
+            $(".contentTei .highlight:first").attr('id', 'firstHighlight');
             $('#buttonFullArticle').trigger( "click");
             if($('#firstHighlight')) {
                 setTimeout(function () {
