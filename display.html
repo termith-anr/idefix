@@ -206,6 +206,7 @@
                                                     <option value="<corresp>" class="baseOption">
                                                         Corresp:
                                                     </option>
+
                                                     {% for currentObjectForCorresp in data.keywords %}
 
                                                         {% set indexObjectForCorresp = loop.index0 %}
@@ -218,11 +219,12 @@
 
                                                         {% endif %}
 
-                                                        <option value="deletemenow" class="deletePrefCorresp">
-                                                            /!\SUPPRIMER/!\
-                                                        </option>
-
                                                     {% endfor %}
+
+                                                    <option value="deletemenow" class="deletePrefCorresp">
+                                                        /!\SUPPRIMER/!\
+                                                    </option>
+
                                                 </select>
 
                                                 <input type="hidden" name="type" value="silence"/><!-- Type pertinence -->
