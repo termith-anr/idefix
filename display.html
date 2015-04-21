@@ -203,7 +203,7 @@
                                                 <input type="hidden" name="key" value="keywords.{{ indexObject }}.correspondance"/> <!-- Key Name -->
 
                                                 <select id="method-{{ indexMethod }}-corresp-list-{{ indexObject }}" class="formNotedKeywordList" name="val">
-                                                    <option value="<corresp>">
+                                                    <option value="<corresp>" class="baseOption">
                                                         Corresp:
                                                     </option>
                                                     {% for currentObjectForCorresp in data.keywords %}
@@ -217,6 +217,10 @@
                                                         </option>
 
                                                         {% endif %}
+
+                                                        <option value="deletemenow" class="deletePrefCorresp">
+                                                            /!\SUPPRIMER/!\
+                                                        </option>
 
                                                     {% endfor %}
                                                 </select>
@@ -313,23 +317,28 @@
 
                                                     <select id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList" name="val">
 
-                                                        <option value="<preference>">
+                                                        <option value="<preference>" class="baseOption">
                                                             Pref:
                                                         </option>
 
-                                                        {% for currentObjectPref in data.keywords %} pour chaque objet dans dat.kw
+                                                        {% for currentObjectPref in data.keywords %}
 
-                                                            {% set indexObjectPref = loop.index0 %} index de lobjet
+                                                            {% set indexObjectPref = loop.index0 %}
 
-                                                            {% if currentObjectPref.type == "pertinence"  and  currentObjectPref.method == currentMethod %} si c'ets une pertinence + methode en cours
+                                                            {% if currentObjectPref.type == "pertinence"  and  currentObjectPref.method == currentMethod %}
 
-                                                            <option data-id="{{ currentObjectPref['xml#id'] }}" value="{{ currentObjectPref.word }}" {% if data.keywords[indexObjectPref].word == currentObject.preference %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}><!-- Select the select word in mongo -->
+                                                            <option data-id="{{ currentObjectPref['xml#id'] }}" value="{{ currentObjectPref.word }}" {% if data.keywords[indexObjectPref].word == currentObject.preference %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}>
                                                             {{ currentObjectPref.word }}
                                                             </option>
 
                                                             {% endif %}
 
                                                         {% endfor %}
+
+                                                        <option value="deletemenow" class="deletePrefCorresp">
+                                                            /!\SUPPRIMER/!\
+                                                        </option>
+
 
                                                     </select>
 

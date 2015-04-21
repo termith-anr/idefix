@@ -951,7 +951,7 @@ $(document).ready(function() {
         //console.log(" previousSelectionId : " , previousSelectionId);
     });
 
-    $(".formNotedKeyword select option").on("click" , function(e){
+    $(".formNotedKeyword select option").on("click" , function(e) {
         e.stopPropagation();
         e.preventDefault();
 
@@ -965,210 +965,352 @@ $(document).ready(function() {
             idBtn = btn.attr("data-id"),
             selector = option.parent();
 
-        if(selector.attr("id").split('-')[2] === "corresp"){
+        if (selector.attr("id").split('-')[2] === "corresp") {
             type = "correspondance";
             nomLiaison = "idCorrespondance";
             estlie = "isCorrespondanceOf";
         }
-        else if (selector.attr("id").split('-')[2] === "preference"){
+        else if (selector.attr("id").split('-')[2] === "preference") {
             type = "preference";
             nomLiaison = "idPreference";
             estlie = "isPreferenceOf";
         }
 
-        // Sauvegarde de l'ID
-        $.ajax({
-            url: savePage,
-            type: "POST",
-            data: [
-                {
-                name : "key",
-                value : "keywords." + selector.attr("id").split('-')[4] + "." + nomLiaison
+        //Si on souhaite supprimer le correps / pref
+        if (motType === "deletemenow") {
+            console.log('IL FAUT A TOUT pris supprimer : ' , "keywords." + selector.attr("id").split('-')[4] + "." + nomLiaison);
+            $.ajax({
+                url: dropPage,
+                type: "POST",
+                data: [
+                    {
+                        name: "key",
+                        value: "keywords." + selector.attr("id").split('-')[4] + "." + type
 
-                },
-                {
-                    name : "val",
-                    value : xmlid
-                }
-            ],
-            success: function (e) {
-                //console.log('ID bien enregistré');
-
-                // Sauvegarde du texte
-                $.ajax({
-                    url: savePage,
-                    type: "POST",
-                    data: [
-                        {
-                        name : "key",
-                        value : "keywords." + selector.attr("id").split('-')[4] + "." + type
-
-                        },
-                        {
-                            name : "val",
-                            value : motType
-                        }
-                    ],
-                    success: function (e) {
-                        //console.log("Texte bien enregistré");
-
-                        $("option" , selector).removeAttr("selected").removeAttr("style");
-                        $(option).attr("style" , "background: #FF847C;color:#fff");
-                        $(option).prop("selected", true);
-
-                        //Affichage contour vert sauvegarde
-                        btn.css('box-shadow', '0px 1px 4px 0px green');
-                        setTimeout(function () {
-                            btn.css('box-shadow', '');
-                        }, 750);
-
-                        //Recherche du mot clé pour ajouter "estLeCorrespondantDe" (par ex)
-                        $.getJSON(contentPage, function (data) {
-                            data.data.keywords.filter(function(content,index){
-
-                                var arrToAdd = [],
-                                    arrToDelete = [];
-
-                                // Si c'est le mot clé dont on doit supprimer le "estLeCorrespondantDe"
-                                if(content["xml#id"] === previousSelectionId){
-
-                                    var oldArr = content[estlie];
-
-                                    console.log('Le tableau de liens du mot clés avant le split : ' , oldArr);
-                                    console.log('===================================================');
-
-                                    var oldArrSplit = oldArr.split(',,');
-
-                                    console.log('Le tableau de liens du mot clés aprés le split : ' , oldArrSplit);
-                                    console.log('===================================================');
-
-
-
-
-                                    console.log('LID que lon souhaite supprimé est : ' , previousSelectionId , ' OU  ' , currentIdToDelete );
-                                    console.log('===================================================');
-
-                                    // var indexArr = $.inArray(currentIdToDelete, oldArrSplit);
-                                    var indexArr = oldArrSplit.indexOf(currentIdToDelete);
-
-                                    console.log('lindex a supprimer dans le tableau est le n° ' , indexArr , ' ce qui correspon à :  ', oldArrSplit[indexArr]);
-                                    console.log('===================================================');
-
-
-
-                                    //SI l'id a supprimer est dans le tableau
-                                    if (indexArr > -1) {
-                                        var oldArrSplit2 = oldArrSplit.slice(0);
-                                        oldArrSplit2.splice(indexArr , 1);
-
-                                        console.log('Aprés le splice le tableau vaut  :  ' , oldArrSplit2);
-                                        console.log('===================================================');
-
-                                        arrToDelete = oldArrSplit2.join(",,");
-
-                                        console.log('Aprés le join le tableau vaut  :  ' , arrToDelete);
-                                        console.log('===================================================');
-
-                                        if(arrToDelete === ""){
-                                            $.ajax({
-                                                url: dropPage,
-                                                type: "POST",
-                                                data: [
-                                                    {
-                                                        name: "key",
-                                                        value: "keywords." + index + "." + estlie
-
-                                                    },
-                                                    {
-                                                        name: "val",
-                                                        value: ""
-                                                    }
-                                                ],
-                                                success : function(){
-                                                    console.log("est lié bien supprimé");
-                                                },
-                                                error  : function(e){
-                                                    console.log("impossible de supprimer , error : " , e );
-                                                }
-                                            });
-                                        }
-                                        else{
-                                            $.ajax({
-                                                url: savePage,
-                                                type: "POST",
-                                                data: [
-                                                    {
-                                                        name: "key",
-                                                        value: "keywords." + index + "." + estlie
-
-                                                    },
-                                                    {
-                                                        name: "val",
-                                                        value: arrToDelete
-                                                    }
-                                                ],
-                                                success : function(){
-                                                    console.log("est lié bien supprimé");
-                                                },
-                                                error  : function(e){
-                                                    console.log("impossible de supprimer , error : " , e );
-                                                }
-                                            });
-                                        }
-
-
-                                    }
-                                }
-
-                                // Si c'est le mot clé dont on doit ajouté le "estLeCorrespondantDe"
-                                if(content["xml#id"] === xmlid){
-
-                                    //Si le tableau existe déjà
-                                    if(content[estlie]){
-                                        //Si L'id a ajouté n'est pas déjà dedans
-                                        var splitted = content[estlie].split(',,');
-                                        if($.inArray( idBtn, splitted ) == -1){
-                                            splitted.push(idBtn);
-                                        }
-                                        arrToAdd = splitted.join(',,');
-                                    }
-                                    else{
-                                        arrToAdd = idBtn;
-                                    }
-
-                                    //console.log(data.data.keywords[index]);
-
-                                    $.ajax({
-                                        url: savePage,
-                                        type: "POST",
-                                        data: [
-                                            {
-                                                name: "key",
-                                                value: "keywords." + index + "." + estlie
-                                            },
-                                            {
-                                                name: "val",
-                                                value: arrToAdd
-                                            }
-                                        ],
-                                        success : function(){
-                                            console.log("est lié bien enregistré");
-                                        },
-                                        error : function(e){
-                                            console.log('error lors de l\'ajout :' , e)
-                                        }
-                                    });
-                                }
-                            })
-
-
-                        });
-
+                    },
+                    {
+                        name: "val",
+                        value: ""
                     }
-                });
-            }
-        });
+                ],
+                success : function(e){
+                    $.ajax({
+                        url: dropPage,
+                        type: "POST",
+                        data: [
+                            {
+                                name: "key",
+                                value: "keywords." + selector.attr("id").split('-')[4] + "." + nomLiaison
 
+                            },
+                            {
+                                name: "val",
+                                value: ""
+                            }
+                        ],
+                        success : function(){
+                            $("option", selector).removeAttr("selected").removeAttr("style");
+                            $(option).attr("style", "background: #FF847C;color:#fff");
+                            $(selector).prop('selectedIndex', -1);
+
+                            //Affichage contour vert sauvegarde
+                            btn.css('box-shadow', '0px 1px 4px 0px green');
+                            setTimeout(function () {
+                                btn.css('box-shadow', '');
+                            }, 750);
+                        }
+                    });
+
+                    $.getJSON(contentPage, function (data) {
+                        data.data.keywords.filter(function (content, index) {
+
+                            var  arrToDelete = [];
+
+                            // Si c'est le mot clé dont on doit supprimer le "estLeCorrespondantDe"
+                            if (content["xml#id"] === previousSelectionId) {
+
+                                var oldArr = content[estlie];
+
+                                console.log('Le tableau de liens du mot clés avant le split : ', oldArr);
+                                console.log('===================================================');
+
+                                var oldArrSplit = oldArr.split(',,');
+
+                                console.log('Le tableau de liens du mot clés aprés le split : ', oldArrSplit);
+                                console.log('===================================================');
+
+
+                                console.log('LID que lon souhaite supprimé est : ', previousSelectionId, ' OU  ', currentIdToDelete);
+                                console.log('===================================================');
+
+                                // var indexArr = $.inArray(currentIdToDelete, oldArrSplit);
+                                var indexArr = oldArrSplit.indexOf(currentIdToDelete);
+
+                                console.log('lindex a supprimer dans le tableau est le n° ', indexArr, ' ce qui correspon à :  ', oldArrSplit[indexArr]);
+                                console.log('===================================================');
+
+
+                                //SI l'id a supprimer est dans le tableau
+                                if (indexArr > -1) {
+                                    var oldArrSplit2 = oldArrSplit.slice(0);
+                                    oldArrSplit2.splice(indexArr, 1);
+
+                                    console.log('Aprés le splice le tableau vaut  :  ', oldArrSplit2);
+                                    console.log('===================================================');
+
+                                    arrToDelete = oldArrSplit2.join(",,");
+
+                                    console.log('Aprés le join le tableau vaut  :  ', arrToDelete);
+                                    console.log('===================================================');
+
+                                    if (arrToDelete === "") {
+                                        $.ajax({
+                                            url: dropPage,
+                                            type: "POST",
+                                            data: [
+                                                {
+                                                    name: "key",
+                                                    value: "keywords." + index + "." + estlie
+
+                                                },
+                                                {
+                                                    name: "val",
+                                                    value: ""
+                                                }
+                                            ],
+                                            success: function () {
+                                                console.log("est lié bien supprimé");
+                                            },
+                                            error: function (e) {
+                                                console.log("impossible de supprimer , error : ", e);
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        $.ajax({
+                                            url: savePage,
+                                            type: "POST",
+                                            data: [
+                                                {
+                                                    name: "key",
+                                                    value: "keywords." + index + "." + estlie
+
+                                                },
+                                                {
+                                                    name: "val",
+                                                    value: arrToDelete
+                                                }
+                                            ],
+                                            success: function () {
+                                                console.log("est lié bien supprimé");
+                                            },
+                                            error: function (e) {
+                                                console.log("impossible de supprimer , error : ", e);
+                                            }
+                                        });
+                                    }
+
+
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+        }
+
+        else{
+            // Sauvegarde de l'ID
+            $.ajax({
+                url: savePage,
+                type: "POST",
+                data: [
+                    {
+                        name: "key",
+                        value: "keywords." + selector.attr("id").split('-')[4] + "." + nomLiaison
+
+                    },
+                    {
+                        name: "val",
+                        value: xmlid
+                    }
+                ],
+                success: function (e) {
+                    //console.log('ID bien enregistré');
+
+                    // Sauvegarde du texte
+                    $.ajax({
+                        url: savePage,
+                        type: "POST",
+                        data: [
+                            {
+                                name: "key",
+                                value: "keywords." + selector.attr("id").split('-')[4] + "." + type
+
+                            },
+                            {
+                                name: "val",
+                                value: motType
+                            }
+                        ],
+                        success: function (e) {
+                            //console.log("Texte bien enregistré");
+
+                            $("option", selector).removeAttr("selected").removeAttr("style");
+                            $(option).attr("style", "background: #FF847C;color:#fff");
+                            $(option).prop("selected", true);
+
+                            //Affichage contour vert sauvegarde
+                            btn.css('box-shadow', '0px 1px 4px 0px green');
+                            setTimeout(function () {
+                                btn.css('box-shadow', '');
+                            }, 750);
+
+                            //Recherche du mot clé pour ajouter "estLeCorrespondantDe" (par ex)
+                            $.getJSON(contentPage, function (data) {
+                                data.data.keywords.filter(function (content, index) {
+
+                                    var arrToAdd = [],
+                                        arrToDelete = [];
+
+                                    // Si c'est le mot clé dont on doit supprimer le "estLeCorrespondantDe"
+                                    if (content["xml#id"] === previousSelectionId) {
+
+                                        var oldArr = content[estlie];
+
+                                        console.log('Le tableau de liens du mot clés avant le split : ', oldArr);
+                                        console.log('===================================================');
+
+                                        var oldArrSplit = oldArr.split(',,');
+
+                                        console.log('Le tableau de liens du mot clés aprés le split : ', oldArrSplit);
+                                        console.log('===================================================');
+
+
+                                        console.log('LID que lon souhaite supprimé est : ', previousSelectionId, ' OU  ', currentIdToDelete);
+                                        console.log('===================================================');
+
+                                        // var indexArr = $.inArray(currentIdToDelete, oldArrSplit);
+                                        var indexArr = oldArrSplit.indexOf(currentIdToDelete);
+
+                                        console.log('lindex a supprimer dans le tableau est le n° ', indexArr, ' ce qui correspon à :  ', oldArrSplit[indexArr]);
+                                        console.log('===================================================');
+
+
+                                        //SI l'id a supprimer est dans le tableau
+                                        if (indexArr > -1) {
+                                            var oldArrSplit2 = oldArrSplit.slice(0);
+                                            oldArrSplit2.splice(indexArr, 1);
+
+                                            console.log('Aprés le splice le tableau vaut  :  ', oldArrSplit2);
+                                            console.log('===================================================');
+
+                                            arrToDelete = oldArrSplit2.join(",,");
+
+                                            console.log('Aprés le join le tableau vaut  :  ', arrToDelete);
+                                            console.log('===================================================');
+
+                                            if (arrToDelete === "") {
+                                                $.ajax({
+                                                    url: dropPage,
+                                                    type: "POST",
+                                                    data: [
+                                                        {
+                                                            name: "key",
+                                                            value: "keywords." + index + "." + estlie
+
+                                                        },
+                                                        {
+                                                            name: "val",
+                                                            value: ""
+                                                        }
+                                                    ],
+                                                    success: function () {
+                                                        console.log("est lié bien supprimé");
+                                                    },
+                                                    error: function (e) {
+                                                        console.log("impossible de supprimer , error : ", e);
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                $.ajax({
+                                                    url: savePage,
+                                                    type: "POST",
+                                                    data: [
+                                                        {
+                                                            name: "key",
+                                                            value: "keywords." + index + "." + estlie
+
+                                                        },
+                                                        {
+                                                            name: "val",
+                                                            value: arrToDelete
+                                                        }
+                                                    ],
+                                                    success: function () {
+                                                        console.log("est lié bien supprimé");
+                                                    },
+                                                    error: function (e) {
+                                                        console.log("impossible de supprimer , error : ", e);
+                                                    }
+                                                });
+                                            }
+
+
+                                        }
+                                    }
+
+                                    // Si c'est le mot clé dont on doit ajouté le "estLeCorrespondantDe"
+                                    if (content["xml#id"] === xmlid) {
+
+                                        //Si le tableau existe déjà
+                                        if (content[estlie]) {
+                                            //Si L'id a ajouté n'est pas déjà dedans
+                                            var splitted = content[estlie].split(',,');
+                                            if ($.inArray(idBtn, splitted) == -1) {
+                                                splitted.push(idBtn);
+                                            }
+                                            arrToAdd = splitted.join(',,');
+                                        }
+                                        else {
+                                            arrToAdd = idBtn;
+                                        }
+
+                                        //console.log(data.data.keywords[index]);
+
+                                        $.ajax({
+                                            url: savePage,
+                                            type: "POST",
+                                            data: [
+                                                {
+                                                    name: "key",
+                                                    value: "keywords." + index + "." + estlie
+                                                },
+                                                {
+                                                    name: "val",
+                                                    value: arrToAdd
+                                                }
+                                            ],
+                                            success: function () {
+                                                console.log("est lié bien enregistré");
+                                            },
+                                            error: function (e) {
+                                                console.log('error lors de l\'ajout :', e)
+                                            }
+                                        });
+                                    }
+                                })
+
+
+                            });
+
+                        }
+                    });
+                }
+            });
+
+        }
 
     });
 

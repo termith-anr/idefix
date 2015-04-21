@@ -2252,3 +2252,8 @@ span.twitter-typeahead {
     background: #fff;
     color: #333;
 }
+
+.deletePrefCorresp{
+    background: #AA0000;
+    color : #fff;
+}
