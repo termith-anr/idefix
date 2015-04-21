@@ -28,5 +28,3 @@ module.exports = {
         }
     ]
 };
-
-module.exports.package = pkg = require('./package.json');

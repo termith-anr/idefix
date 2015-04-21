@@ -1342,6 +1342,7 @@ $(document).ready(function() {
                             li.addClass("keywordsMethodsDisplayDone");
                             li.removeClass("keywordsMethodsisplay");
                         }
+                        var isGood = false;
                         if((checkType.indexOf('silence') >= 0) && (checkType.indexOf('correspondance') < 0)) { // If it's a silence  notation ( not corresp )
                             console.log("SILENCE !!!");
                             if (config.showCorrespondance) { // If options is enable + isArray
@@ -1349,48 +1350,35 @@ $(document).ready(function() {
                                     if ((postData[1].value).toString() === (config.showCorrespondance[key]).toString()) { //If sent value is in options
                                         li.children('.formNotedKeywordsCorresp').css('display', '').addClass('preferenceAvailable');
                                         li.children('.divComments').addClass('commentsRight');
+                                        isGood = true;
                                         break; //Stop checking options values
                                     }
-                                    else { //If sent value not in options
-                                        li.children('.formNotedKeywordsCorresp').css('display', 'none').removeClass('preferenceAvailable');
-                                        li.children('.divComments').removeClass('commentsRight');
-                                        if( $('.formNotedKeywordList option:selected' , li).val() != '<corresp>' ){ //If a corresp was selected
+                                }
+                                if(!isGood){
+                                    var index  = (postData[0].value).split(".")[1];
+                                    li.children('.formNotedKeywordsCorresp').css('display', 'none').removeClass('preferenceAvailable');
+                                    li.children('.divComments').removeClass('commentsRight');
 
-                                            console.log("Un corresp est choisit");
-
-                                            postData[1].value = '<corresp>';
-
-                                            /*Point to exclude*/
-                                            var arr = (postData[0].value).split('.');
-                                            arr[(arr.length -1)] = 'correspondance';
-                                            postData[0].value = arr.join('.');
-
-                                            $.ajax({
-                                                url: formURL,
-                                                type: "POST",
-                                                data: postData,
-                                                success: function (e) {
-                                                    $('.formNotedKeywordList option:selected' , li).removeAttr('selected');
-                                                }
-                                            });
-                                        }
-                                    }
                                 }
                             }
                         }
                         else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('preference') < 0)) {// If it's an eval score notation ( not pref )
                             console.log('Pertinence');
                             if (config.showPreference) {// If options is enable + isArray
-
                                 for (key in config.showPreference) {//For all options values
+                                    console.log(config.showPreference);
                                     if ((postData[1].value).toString() === (config.showPreference[key]).toString()) {//If sent value is in options
                                         li.children('.formNotedKeywordsPref').css('display', '').addClass('preferenceAvailable');
                                         li.children('.divComments').addClass('commentsRight');
+                                        isGood = true;
                                         break; //Stop checking options values
                                     }
-                                    else {//If sent value not in options
+                                }
+                                if(!isGood){
+                                    var index  = (postData[0].value).split(".")[1];
+                                    li.children('.formNotedKeywordsPref').css('display', 'none').removeClass('preferenceAvailable');
+                                    li.children('.divComments').removeClass('commentsRight');
 
-                                    }
                                 }
                             }
                         }
