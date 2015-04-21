@@ -800,6 +800,9 @@ $(document).ready(function() {
                 $('#keywordsInist .btn-default').hide();
                 $('.inistForMethod-' + nb[1]).fadeIn().css('display', '');
             }
+            if(($('#inistKeywordsButton').css("display") === "none") && ($("#silenceBar").attr("aria-valuenow") >= 0.001 )){
+                $('#inistKeywordsButton').css("display" , "block");
+            }
         }
     );
 
