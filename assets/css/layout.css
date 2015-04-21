@@ -8,10 +8,6 @@
 *
 */
 
-
-@font-face {
-    font-family: 'manteka'; src: url('../fonts/manteka.ttf');
-}
 @font-face {
     font-family: 'segoe'; src: url('../fonts/segoeui.ttf');
 }
@@ -318,9 +314,6 @@ thead{
 tbody .browseNumb{
     background: #CC6A63;
     color: #fff;
-    font-family: 'manteka';
-
-
 }
 
 tbody .browseYear{
@@ -328,7 +321,7 @@ tbody .browseYear{
     border-bottom: 1px solid rgba(85, 85, 85, 0.4);
     border-right: 1px solid rgba(85, 85, 85, 0.4);
     border-top: 1px solid rgba(85, 85, 85, 0.4);
-    font-family: "segoeuisl";
+    font-family: "segoeuisl" , arial, sans-serif;
     overflow: hidden;
     padding-left: 2%;
     padding-right: 2%;
@@ -1561,7 +1554,6 @@ input[value='2']:checked + label {
 }
 
 #exportButton{
-    font-family: "manteka",arial,sans-serif;
     font-size: 17px;
     line-height: 47px;
     margin: 0px auto 40px;
@@ -1596,7 +1588,7 @@ input[value='2']:checked + label {
 .exportButtons{
     position: relative;
     opacity: 0.8;
-    font-family: "manteka" , arial, sans-serif;
+    font-family: "verdanna" , arial, sans-serif;
     font-size: 25px;
     background: none;
     text-shadow: none;
@@ -1655,7 +1647,7 @@ input[value='2']:checked + label {
 
 #selectBrowseDocs{
     float: right;
-    font-family: "manteka",arial, sans-serif;
+    font-family: "verdanna",arial, sans-serif;
     text-align: center;
 }
 #selectBrowseDocs label{
