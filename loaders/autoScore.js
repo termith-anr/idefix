@@ -92,6 +92,12 @@ module.exports = function(options,config) {
                         if(autoSilence === true){
                             var path = "keywords." + getIndex(input.keywords, silence[i]["id"]) + ".score";
                             insertContent(0 , path);
+                            var corresp = "keywords." + getIndex(input.keywords, silence[i]["id"]) + ".correspondance";
+                            insertContent(pertinence[j]["word"] , corresp);
+                            var correspID = "keywords." + getIndex(input.keywords, silence[i]["id"]) + ".idCorrespondance";
+                            insertContent(pertinence[j]["xml#id"] , correspID);
+                            var correspLie = "keywords." + getIndex(input.keywords, pertinence[j]["id"]) + ".isCorrespondanceOf";
+                            insertContent(silence[i]["xml#id"] , correspLie);
                             notedSilence ++;
                         }
                     }
