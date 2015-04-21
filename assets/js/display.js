@@ -490,7 +490,8 @@ $(document).ready(function() {
                 $(".divFormComments", divComments).css("background" , "#27ae60");
                 setTimeout(function () {
                     $(".divFormComments" , divComments).css('background', "");
-                    $('.inputComment' ,divComments).val('');
+                    $('.inputComment' ,divComments).typeahead('val' , '');
+                    $('.quitSpanComment' , divComments).trigger('click');
                 }, 750);
 
             }
