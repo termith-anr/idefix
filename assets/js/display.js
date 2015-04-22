@@ -57,7 +57,7 @@ $(document).ready(function() {
             });
         }
         else {
-            $('body').unhighlight();
+            $('body').unhighlight().unhighlight({className: 'h1Highlight'});
             $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
             $('#articleSectionResumeDisplay').highlight(keywordText, { wordsOnly: true });
             $('#h1DisplayDocs').highlight(keywordText, { wordsOnly: true , className: 'h1Highlight' });
