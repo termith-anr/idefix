@@ -29,6 +29,13 @@ module.exports = function(options,config) {
                 validatePertinence = "no",
                 validateSilence = "no";
 
+            if((abstract === null) || (abstract.length <= 50)){
+                abstract = jsonselect.match(".profileDesc .abstract .p > .#text" , input.content.json)[0];
+                if(!abstract){
+                    abstract = "Aucun résumé";
+                }
+            }
+
             /*
              * pertinencesNames  is an array of methods names , insert in input
              * keywords is an array of  words , insert in input
