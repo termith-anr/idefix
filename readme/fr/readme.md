@@ -8,14 +8,12 @@ IDEFIX est une interface graphique de notation de mot clés pour des fichiers XM
 ![IDEFIX](https://raw.githubusercontent.com/termith-anr/idefix/master/assets/pictures/interface.png)
 
 
-# Summary
-#### *[Les prérequis](https://github.com/termith-anr/idefix/tree/master/readme/fr#lesprérequis)*
-#### *[Installation sans serveur](https://github.com/termith-anr/idefix/tree/master/readme/en#standalone-install)* (Use it if you want to try/dev Idefix on a simple personal computer)
-#### *[Installation avec ezMaster](https://github.com/termith-anr/idefix/tree/master/readme/en#install-with-app-manager)* (Use it on a server , or if you want to start many apps locally)
-#### *[List of options](https://github.com/termith-anr/idefix/tree/master/readme/en#list-of-config-options)*
-#### *[User guide](https://docs.google.com/document/d/1Ea4bC-TBWlCTEf1r6YY3-1GP-blxpjxJm9jUGtATUV8/edit?usp=sharing)*
-#### *[Tests](https://github.com/termith-anr/idefix/tree/master/readme/en#tests)*
- 
+# Sommaire
+#### *[Les prérequis](https://github.com/termith-anr/idefix/tree/master/readme/fr#les-pr%C3%A9requis-1)*
+#### *[Installation sans serveur](https://github.com/termith-anr/idefix/tree/master/readme/fr#installation-sans-serveur)* (Use it if you want to try/dev Idefix on a simple personal computer)
+#### *[Installation avec ezMaster](https://github.com/termith-anr/idefix/tree/master/readme/fr#installation-avec-ezmaster)* (Use it on a server , or if you want to start many apps locally)
+#### *[Liste des options](https://github.com/termith-anr/idefix/tree/master/readme/fr#liste-des-options)*
+#### *[Guide utilisateur](https://docs.google.com/document/d/1Ea4bC-TBWlCTEf1r6YY3-1GP-blxpjxJm9jUGtATUV8/edit?usp=sharing)* 
   
    
 ### Les prérequis 
@@ -140,7 +138,7 @@ Plus d'info sur (*[ezMaster](https://github.com/madec-project/ezmaster)*)
 * Rentrez les informations demandées (à titres indicatives pour leur gestion).
 * Editer la configuration de l'instance en cliquant sur le bouton de paramétres de l'instance ajoutée
 * Appuyez sur "text" en hauteur pour switcher en mode texte 
-* Copiez-Collez la *[configuration de base](http:// #start-idefix)*) 
+* Copiez-Collez la *[configuration de base](https://github.com/termith-anr/idefix/tree/master/readme/fr#cr%C3%A9er-un-fichier-de-configuration)*) 
 * Ajoutez vos propres options si voulu ( /!\ Ne pas ajouter les option "--- Non ezMaster ---" ) *[Voir la liste d'option](https://github.com/termith-anr/idefix/tree/master/readme/fr#liste-des-options)*
 
 
@@ -149,7 +147,7 @@ Plus d'info sur (*[ezMaster](https://github.com/madec-project/ezmaster)*)
 * "ezMaster Seulement" précise que cette option n'est à utiliser qu'avec *[ezMaster](https://github.com/termith-anr/idefix/tree/master/readme/fr#install-with-app-manager)*
 * "Non ezMaster"  précise que cette option est à ne pas utiliser avec *[ezMaster](https://github.com/termith-anr/idefix/tree/master/readme/en#install-with-app-manager)* config (could break it)
 
-##### title (REQUIRED/string) --- ezMaster Seulement ---
+##### title (OBLIGATOIRE/texte) --- ezMaster Seulement ---
 
 Le titre de l'instance dans ezMaster ( à gauche )
 
@@ -157,7 +155,7 @@ Le titre de l'instance dans ezMaster ( à gauche )
 "title": "A title"
 ```
 
-##### port (REQUIRED/Number) --- Non ezMaster ---
+##### port (OBLIGATOIRE/Nombre) --- Non ezMaster ---
 
 Demande à Idefix d'utiliser un port en particulier
 
@@ -165,7 +163,7 @@ Demande à Idefix d'utiliser un port en particulier
 "port": 3001
 ```
     
-##### connexionURI (REQUIRED/String) --- Non ezMaster ---
+##### connexionURI (OBLIGATOIRE/texte) --- Non ezMaster ---
     
 Il s'agit de la connexion à mongoDB , IDEFIX utilise une base "Test" simple , cette option ne devrait pas être utilisée
     
@@ -173,7 +171,7 @@ Il s'agit de la connexion à mongoDB , IDEFIX utilise une base "Test" simple , c
 "connexionURI" : "mongodb://localhost:27017/test/"
 ```
 
-#### domain (REQUIRED/String)
+#### domain (OBLIGATOIRE/texte)
 
 Décrit le type de fichier du corpus ( chimie , linguistique ... )
 
@@ -182,7 +180,7 @@ Décrit le type de fichier du corpus ( chimie , linguistique ... )
 ```
 
 
-#### teiFormat (REQUIRED/String)
+#### teiFormat (OBLIGATOIRE/texte)
 
 Choix de la version du format des fichiers TEI
 Voici la liste actuelle :
@@ -225,7 +223,7 @@ Activer/Desactiver certaines formes d'exports
   }
 ```
 
-#### showPreference(OPTIONAL/Array)
+#### showPreference(OPTIONAL/Tableau)
 
 Tableau contenant les valeur ou l'on souhaite pouvoir acceder aux préférences
 
@@ -233,7 +231,7 @@ Tableau contenant les valeur ou l'on souhaite pouvoir acceder aux préférences
 "showPreference" : [0,2]
 ```
 
-#### showCorrespondance(OPTIONAL/Array)
+#### showCorrespondance(OPTIONAL/Tableau)
 
 Tableau contenant les valeur ou l'on souhaite pouvoir acceder aux correspondances
 
@@ -241,7 +239,7 @@ Tableau contenant les valeur ou l'on souhaite pouvoir acceder aux correspondance
 "showCorrespondance" : [1]
 ```
 
-#### comments(OPTIONAL/Array)
+#### comments(OPTIONAL/Tableau)
 
 Un tableau contenant une liste de commentaires souvent utilisés , ces commentaires seront proposés dans l'interface
 
@@ -267,7 +265,7 @@ Activé par default
 ```
  
  
-#### documentFields(REQUIRED/Object)
+#### documentFields(OBLIGATOIRE/Object)
 
 Plus d'infos sur *[castor-core documentFields](https://github.com/castorjs/castor-core#documentfields-1)*
 
