@@ -51,7 +51,7 @@ Remarque:
 Le nom de la méthode en cours est mis en évidence par sa couleur (sur la colonne de gauche), et chapeaute la liste des mots-clés (au centre).
 Chaque mot-clé est encadré d’un rectangle et porte un numéro qui désigne l’ordre de génération par la méthode d’indexation.
 ```
-Evaluer la pertinence d'un mot-clé d'un méthode
+Evaluer la pertinence d'un mot-clé d'une méthode
 -----
 Cliquez sur **0**, **1** ou **2** pour attribuer un score de pertience au mot-clé.
 ![AfficheMethode](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/notePertinence.png)
@@ -60,3 +60,10 @@ Cliquez sur **0**, **1** ou **2** pour attribuer un score de pertience au mot-cl
 Remarque:
 Une fois le score attribué, le chiffre change de couleur (0 devient rouge, 1 devient orange et 2 devient vert) et le contour gris disparaît.
 ```
+Indiquer ou supprimer la forme préféée d'un mot-clé d'une méthode
+-----
+![prefernce](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/preference.png)
+
+Saisir un commentaire
+-----
+https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/commentaire.png
