@@ -39,7 +39,7 @@ Aprés avoir cliqué sur un document, il s'ouvre comme ci-dessous. Il contient:
 * toutes les méthodes d'indexation autoamtique à évaluer.
 ![documentOuvert](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/ouvertureDoc.png)
 
-Mots-clés d'une méthode d'indexation autoamtique
+Afficher les mots-clés d'une méthode d'indexation autoamtique
 -----
 Pour afficher les mots-clés d'une méthode, cliquez sur le nom de la méthode souhaitée.
 Deux modes d'affichage au choix:
@@ -76,7 +76,7 @@ Chercher un mot-clé dans le résumé et le texte
 -----
 ![chercheMot](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/rechercheMot.png)
 
-Barre de progression
+Barre de progression et valider définitivement l'évaluation de la pertinece
 -----
 ![barreProgression](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/barreProgession.png)
 
