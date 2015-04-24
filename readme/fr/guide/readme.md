@@ -21,7 +21,7 @@ Consignes générales :
 
 ######1.Évaluation de la pertinence######
 Cette tâche consiste à déterminer si un mot-clé est pertinent pour représenter la problématique de l’article ou du résumé.
-Cette évaluation est formalisée par l’attribution d’un score de 0 à 2 :
+Cette évaluation est formalisée par l’attribution d’un score de **0** à **2** :
 * **Score 0 :** mot-clé non pertinent;
 * **Score 1 :** mot-clé pertinent, mais pas dans la forme proposée;
 * **Score 2 :** mot-clé pertinent
@@ -39,16 +39,16 @@ Cas particuliers :
 ######2.Évaluation du silence######
 Une fois l’évaluation de la pertinence terminée pour une méthode, il s’agit de repérer les mots-clés pouvant manquer à l’indexation proposée par cette méthode.
 Ces mots-clés manquants sont recherchés dans l’indexation Inist, qui représente l’indexation de référence.
-Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant un score de 0 à 2 :
+Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant un score de **0** à **-2** :
 * **Score 0 :** le mot-clé ne manque pas à l’indexation Termith
-* **Score 1 :** le mot-clé manque moyennement
-* **Score 2** : le mot-clé manque absolument
+* **Score -1 :** le mot-clé manque moyennement
+* **Score -2** : le mot-clé manque absolument
 ```
 Cas particuliers :
 Le mot-clé ne manque pas parce qu’il est déjà présent dans l’indexation Termith ⇨ score 0 + lien vers mot-clé Termith correspondant (correspondance exacte ou approximative)
 Le mot-clé ne manque pas parce qu’il provient d’une erreur d’indexation ⇨ score 0 + commentaire : « erreur d’indexation »
-Le mot-clé correspond à un mot plus ou moins important qui n’est pas présent dans le texte ⇨ score 1 + commentaire : « implicite » ou « générique » en fonction des cas
-Le mot-clé correspond à un mot important qui est présent dans le texte ⇨ score 2
+Le mot-clé correspond à un mot plus ou moins important qui n’est pas présent dans le texte ⇨ score -1 + commentaire : « implicite » ou « générique » en fonction des cas
+Le mot-clé correspond à un mot important qui est présent dans le texte ⇨ score -2
 
 ```
 
