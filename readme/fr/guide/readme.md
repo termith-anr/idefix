@@ -1,11 +1,16 @@
 Protocole d'évaluation
 ==============================
 Le scénario 2 a pour objectif d’évaluer la performance des différentes méthodes d’indexation utilisées dans Termith, par rapport aux pratiques d’indexation en vigueur à l’INIST.
+
 Ce scénario se déroule en 4 phases :
-**Phase 1 :** évaluation de l’indexation produite par 2 méthodes à partir du résumé dans un domaine (linguistique)
-**Phase 2 :** évaluation de l’indexation produite par 2 méthodes à partir du texte intégral dans un domaine (linguistique)
-**Phase 3 :** évaluation de l’indexation produite par X méthodes à partir du résumé dans 5 domaines (linguistique, archéologie, sciences de l’information, psychologie, chimie)
-**Phase 4 :** évaluation de l’indexation produite par X méthodes à partir du texte intégral dans 5 domaines (linguistique, archéologie, sciences de l’information, psychologie, chimie)
+ * Phase 1 : évaluation de l’indexation produite par 2 méthodes à partir du résumé dans un domaine (linguistique)
+
+* Phase 2 : évaluation de l’indexation produite par 2 méthodes à partir du texte intégral dans un domaine (linguistique)
+
+* Phase 3 : évaluation de l’indexation produite par X méthodes à partir du résumé dans 5 domaines (linguistique, archéologie, sciences de l’information, psychologie, chimie)
+
+* Phase 4 : évaluation de l’indexation produite par X méthodes à partir du texte intégral dans 5 domaines (linguistique, archéologie, sciences de l’information, psychologie, chimie)
+
 Pour chacune des phases, il s’agit d’évaluer :
 * la pertinence de chaque mot-clé proposé
 * le silence de la méthode, en se basant sur l’indexation Inist
