@@ -66,4 +66,4 @@ Indiquer ou supprimer la forme préféée d'un mot-clé d'une méthode
 
 Saisir un commentaire
 -----
-https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/commentaire.png
+![commentaire](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/commentaire.png)
