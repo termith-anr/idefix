@@ -16,8 +16,9 @@ Couleur de l'évaluation de la pertience et couleur de l'évaluation du silence
 A la page d'accueil, le titre de certains documents prend un fond coloré:
 * couleur **bleue** indique que c'est l'évaluation de la **pertience** qui est en cours;
 * couleur **grise** indique que c'est l'évaluation du **silence** qui est en cours.
-![accueil](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/couleurPertSilence.png)
+![couleurPertinenceSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/couleurPertSilence.png)
 
 Sélectionner un document
 ------------------------
-Cliquez un document pour le sélectionner.
+Cliquez sur un document pour le sélectionner.
+![selectionDoc](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/selectionDoc.png)
