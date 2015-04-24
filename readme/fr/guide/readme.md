@@ -1,3 +1,6 @@
+SCENARIO 2 - EVALUATION DE L'INDEXATION
+========================================
+
 Protocole d'évaluation
 ==============================
 Le scénario 2 a pour objectif d’évaluer la performance des différentes méthodes d’indexation utilisées dans Termith, par rapport aux pratiques d’indexation en vigueur à l’INIST.
