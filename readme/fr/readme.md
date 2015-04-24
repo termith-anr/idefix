@@ -13,7 +13,7 @@ IDEFIX est une interface graphique de notation de mot clés pour des fichiers XM
 #### *[Installation sans serveur](https://github.com/termith-anr/idefix/tree/master/readme/fr#installation-sans-serveur)* (Use it if you want to try/dev Idefix on a simple personal computer)
 #### *[Installation avec ezMaster](https://github.com/termith-anr/idefix/tree/master/readme/fr#installation-avec-ezmaster)* (Use it on a server , or if you want to start many apps locally)
 #### *[Liste des options](https://github.com/termith-anr/idefix/tree/master/readme/fr#liste-des-options)*
-#### *[Guide utilisateur](https://docs.google.com/document/d/1Ea4bC-TBWlCTEf1r6YY3-1GP-blxpjxJm9jUGtATUV8/edit?usp=sharing)* 
+#### *[Guide utilisateur](https://github.com/termith-anr/idex/tree/master/readme/fr/guide)* 
   
    
 ### Les prérequis 
