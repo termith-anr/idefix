@@ -38,3 +38,16 @@ Aprés avoir cliqué sur un document, il s'ouvre comme ci-dessous. Il contient:
 * la barre de progression pour l'évaluation de la pertinence dans un premier temps (la barre de progression pour le silence s'affichera après validation de la pertinence);
 * toutes les méthodes d'indexation autoamtique à évaluer.
 ![documentOuvert](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/ouvertureDoc.png)
+
+Mots-clés d'une méthode d'indexation autoamtique
+-----
+Pour afficher les mots-clés d'une méthode, cliquez sur le nom de la méthode souhaitée.
+Deux modes d'affichage au choix:
+* afficher sous forme de grille (par défaut);
+* afficher sous forme de liste.
+![AfficheMethode](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/afficheMethode.png)
+```
+Remarque:
+Le nom de la méthode en cours est mis en évidence par sa couleur (sur la colonne de gauche), et chapeaute la liste des mots-clés (au centre).
+Chaque mot-clé est encadré d’un rectangle et porte un numéro qui désigne l’ordre de génération par la méthode d’indexation.
+```
