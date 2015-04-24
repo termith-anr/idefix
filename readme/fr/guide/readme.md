@@ -76,7 +76,7 @@ Chercher un mot-clé dans le résumé et le texte
 -----
 ![chercheMot](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/rechercheMot.png)
 
-Barre de progression et valider définitivement l'évaluation de la pertinece
+Barre de progression et valider définitivement l'évaluation de la pertinence
 -----
 ![barreProgression](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/barreProgession.png)
 
@@ -91,3 +91,7 @@ Evaluer le silence d'une méthode d'indexation automatique par rapport aux mots-
 Valider définitivement l'évaluation du silence
 ----
 ![validerSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/ValidationSilence.png)
+
+Exporter les résultats de l'évaluation
+-----
+![export](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/export.png)
