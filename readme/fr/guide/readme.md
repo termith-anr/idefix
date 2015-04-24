@@ -71,3 +71,8 @@ Saisir un commentaire
 Sauvegarder ou supprimer un commentaire et quitter la zone commentaire sans sauvegarder
 -----
 ![ValiderCommentaire](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/validerCommentaire.png)
+
+Chercher un mot-clé dans le résumé et le texte
+-----
+![chercheMot](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/rechercheMot.png)
+
