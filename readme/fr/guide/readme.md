@@ -83,3 +83,7 @@ Barre de progression
 Afficher ou cacher les mots-clés de l'INIST
 -----
 ![motInist](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/afficheMotInist.png)
+
+Evaluer le silence d'une méthode d'indexation automatique par rapport aux mots-clés de l'INIST
+-----
+![evalSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/evalMotInist.png)
