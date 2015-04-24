@@ -22,3 +22,7 @@ Sélectionner un document
 ------------------------
 Cliquez sur un document pour le sélectionner.
 ![selectionDoc](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/selectionDoc.png)
+
+Texte, Pagination, Timer et Liste
+--------
+![paginationTexteTimerListe](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/pagination.png)
