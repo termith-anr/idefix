@@ -3,28 +3,28 @@ Protocole d'évaluation
 Le scénario 2 a pour objectif d’évaluer la performance des différentes méthodes d’indexation utilisées dans Termith, par rapport aux pratiques d’indexation en vigueur à l’INIST.
 
 Ce scénario se déroule en 4 phases :
-* Phase 1 : évaluation de l’indexation produite par 2 méthodes à partir du résumé dans un domaine (linguistique)
-* Phase 2 : évaluation de l’indexation produite par 2 méthodes à partir du texte intégral dans un domaine (linguistique)
+* **Phase 1 :** évaluation de l’indexation produite par 2 méthodes à partir du résumé dans un domaine (linguistique)
+* **Phase 2 :** évaluation de l’indexation produite par 2 méthodes à partir du texte intégral dans un domaine (linguistique)
 
-* Phase 3 : évaluation de l’indexation produite par X méthodes à partir du résumé dans 5 domaines (linguistique, archéologie, sciences de l’information, psychologie, chimie)
+* **Phase 3 :** évaluation de l’indexation produite par X méthodes à partir du résumé dans 5 domaines (linguistique, archéologie, sciences de l’information, psychologie, chimie)
 
-* Phase 4 : évaluation de l’indexation produite par X méthodes à partir du texte intégral dans 5 domaines (linguistique, archéologie, sciences de l’information, psychologie, chimie)
+* **Phase 4 :** évaluation de l’indexation produite par X méthodes à partir du texte intégral dans 5 domaines (linguistique, archéologie, sciences de l’information, psychologie, chimie)
 
 Pour chacune des phases, il s’agit d’évaluer :
-* la pertinence de chaque mot-clé proposé
-* le silence de la méthode, en se basant sur l’indexation Inist
+* la **pertinence** de chaque mot-clé proposé
+* le **silence** de la méthode, en se basant sur l’indexation Inist
 
 Consignes générales :
 * On ne consulte pas l’article en texte intégral quand on évalue l’indexation faite à partir du résumé
 * On ne modifie pas le score Termith quand on voit l’indexation Inist pour évaluer le silence de la méthode
-La pertinence et le silence d’un mot-clé sont évalués en fonction des formes présentes dans le texte
+* La pertinence et le silence d’un mot-clé sont évalués en fonction des formes présentes dans le texte
 
  ######1.Évaluation de la pertinence######
 Cette tâche consiste à déterminer si un mot-clé est pertinent pour représenter la problématique de l’article ou du résumé.
 Cette évaluation est formalisée par l’attribution d’un score de 0 à 2 :
-**Score 0 :** mot-clé non pertinent
-**Score 1 :** mot-clé pertinent, mais pas dans la forme proposée
-**Score 2 :** mot-clé pertinent
+* **Score 0 :** mot-clé non pertinent;
+* **Score 1 :** mot-clé pertinent, mais pas dans la forme proposée;
+* **Score 2 :** mot-clé pertinent
 
 ```
 Cas particuliers :
@@ -40,9 +40,9 @@ Cas particuliers :
 Une fois l’évaluation de la pertinence terminée pour une méthode, il s’agit de repérer les mots-clés pouvant manquer à l’indexation proposée par cette méthode.
 Ces mots-clés manquants sont recherchés dans l’indexation Inist, qui représente l’indexation de référence.
 Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant un score de 0 à 2 :
-**Score 0 :** le mot-clé ne manque pas à l’indexation Termith
-**Score 1 :** le mot-clé manque moyennement
-**Score 2** : le mot-clé manque absolument
+* **Score 0 :** le mot-clé ne manque pas à l’indexation Termith
+* **Score 1 :** le mot-clé manque moyennement
+* **Score 2** : le mot-clé manque absolument
 ```
 Cas particuliers :
 Le mot-clé ne manque pas parce qu’il est déjà présent dans l’indexation Termith ⇨ score 0 + lien vers mot-clé Termith correspondant (correspondance exacte ou approximative)
