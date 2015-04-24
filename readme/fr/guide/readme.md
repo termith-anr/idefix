@@ -87,3 +87,7 @@ Afficher ou cacher les mots-clés de l'INIST
 Evaluer le silence d'une méthode d'indexation automatique par rapport aux mots-clés de l'INIST
 -----
 ![evalSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/evalMotInist.png)
+
+Valider définitivement l'évaluation du silence
+----
+![validerSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/ValidationSilence.png)
