@@ -26,3 +26,15 @@ Cliquez sur un document pour le sélectionner.
 Texte, Pagination, Timer et Liste
 --------
 ![paginationTexteTimerListe](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/pagination.png)
+
+Document ouvert
+----
+Aprés avoir cliqué sur un document, il s'ouvre comme ci-dessous. Il contient:
+* le titre;
+* le résumé;
+* la possibilité d'afficher le texte en cliquant sur le bouton prévu;
+* le timer;
+* la discipline;
+* la barre de progression pour l'évaluation de la pertinence dans un premier temps (la barre de progression pour le silence s'affichera après validation de la pertinence);
+* toutes les méthodes d'indexation autoamtique à évaluer.
+![documentOuvert](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/ouvertureDoc.png)
