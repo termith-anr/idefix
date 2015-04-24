@@ -79,3 +79,7 @@ Chercher un mot-clé dans le résumé et le texte
 Barre de progression
 -----
 ![barreProgression](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/barreProgession.png)
+
+Afficher ou cacher les mots-clés de l'INIST
+-----
+![motInist](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/afficheMotInist.png)
