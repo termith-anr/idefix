@@ -53,8 +53,9 @@ Chaque mot-clé est encadré d’un rectangle et porte un numéro qui désigne l
 ```
 Evaluer la pertinence d'un mot-clé d'un méthode
 -----
-![AfficheMethode](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/notePertinence.png)
 Cliquez sur **0**, **1** ou **2** pour attribuer un score de pertience au mot-clé.
+![AfficheMethode](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/notePertinence.png)
+
 ```
 Remarque:
 Une fois le score attribué, le chiffre change de couleur (0 devient rouge, 1 devient orange et 2 devient vert) et le contour gris disparaît.
