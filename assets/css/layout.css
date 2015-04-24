@@ -631,14 +631,11 @@ table tr[data-href] {
     display: table-cell;
     font-style: italic;
     max-height: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
     padding-bottom: 15px;
-    position: absolute;
     text-align: left;
     vertical-align: middle;
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .methodLinkround:first-child{
@@ -1486,7 +1483,7 @@ input[value='2']:checked + label {
     transform: rotate(270deg);
     width: 90px;
     height: 25px;
-    transform-origin: 53% 166% 0;
+    transform-origin: 55% 174% 0px;
     display: inline-block;
 }
 
@@ -2248,4 +2245,45 @@ span.twitter-typeahead {
 .deletePrefCorresp{
     background: #AA0000;
     color : #fff;
+}
+
+.arrowScroll{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    font-size: 25px;
+    cursor: pointer;
+    color: rgba(204, 106, 99, 0.35);
+    transition : all 650ms;
+}
+
+.arrowScroll:hover{
+    color: rgba(204, 106, 99, 1);
+}
+
+.arrowScrollTop{
+    top: 6%;
+    left: calc((4.16% - 25px)/2);
+}
+
+.arrowScrollBottom{
+    top: 91%;
+    right : calc((4.16% - 25px)/2);
+}
+
+.arrowUp{
+    transform: rotate(180deg);
+}
+
+/* Litle resolution*/
+@media (max-width: 1199px) {
+    .divHoverH1Display{
+        width: 68.64%;
+    }
+    .resumeGliph{
+        width: 22%;
+    }
+    #buttonFullArticle{
+        width: 4.1%;
+    }
 }

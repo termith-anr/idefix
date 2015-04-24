@@ -90,7 +90,7 @@ jQuery.fn.highlight = function (words, options) {
         return word != '';
     });
     words = jQuery.map(words, function(word, i) {
-        return word.replace(/[-[\]{}()*+?.,-_'\\^$|#\s]/g, "\\$&");
+        return word.replace(/[-[\]{}()*+?.,-_'"\\^$|#\s]/g, "\\$&");
     });
     if (words.length == 0) { return this; };
 

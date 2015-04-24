@@ -39,30 +39,41 @@ $(document).ready(function() {
                 contenuReplaced = contenuReplaced.replace(/<hi/g, "<i");
                 contenuReplaced = contenuReplaced.replace(/<\/hi>/g, "</i>");
 
-                $('.contentTei').append(contenuReplaced).delay(560);
+                $('.contentTei').append(contenuReplaced);
+
                 fullArticleLoaded = 'yes';
                 teiContent = $("#fullArticleContent text").children().not("front,back");
                 //Recherche dans tous le text
-
+                teiContent.highlight(keywordText, { wordsOnly: true });
+                console.log(" hit : " , $(".highlight" , teiContent));
+                if($(".highlight" , teiContent).length < 1){
+                    teiContent.highlight(keywordText);
+                }
                 $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
                 $('#articleSectionResumeDisplay').highlight(keywordText, { wordsOnly: true });
                 $('#h1DisplayDocs').highlight(keywordText, { wordsOnly: true  , className: 'h1Highlight'});
-                teiContent.highlight(keywordText, { wordsOnly: true });
                 $('#buttonFullArticle').trigger("click");
                 $(".contentTei .highlight:first").attr('id', 'firstHighlight');
                 setTimeout(function () {
                     $("#fullArticleSection").animate({scrollTop: $('#firstHighlight').position().top}, 'slow');
-                }, 700);
+                }, 800);
 
             });
         }
         else {
+            teiContent = $("#fullArticleContent text").children().not("front,back");
+
             $('body').unhighlight().unhighlight({className: 'h1Highlight'});
+
+            teiContent.highlight(keywordText, { wordsOnly: true });
+            console.log(" hit : " , $(".highlight" , teiContent));
+            if($(".highlight" , teiContent).length < 1){
+                teiContent.highlight(keywordText);
+            }
+
             $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
             $('#articleSectionResumeDisplay').highlight(keywordText, { wordsOnly: true });
             $('#h1DisplayDocs').highlight(keywordText, { wordsOnly: true , className: 'h1Highlight' });
-            teiContent = $("#fullArticleContent text").children().not("front,back");
-            teiContent.highlight(keywordText, { wordsOnly: true });
             $(".contentTei .highlight:first").attr('id', 'firstHighlight');
             $('#buttonFullArticle').trigger( "click");
             if($('#firstHighlight')) {
@@ -460,6 +471,16 @@ $(document).ready(function() {
 
 
         });
+
+    $(".arrowScroll").on("click" , function(){
+        if(!$(this).hasClass("arrowUp")){
+            $("#sectionArticle , #keywordsDisplayDiv , #headerInfoDisplayDocs").scroller("scroll", 5000 , 1000);
+        }
+        else{
+            $("#sectionArticle , #keywordsDisplayDiv , #headerInfoDisplayDocs").scroller("scroll", 0 , 1000);
+        }
+        $(".arrowScroll").toggleClass("arrowUp");
+    });
 
 
     /* --- DELETE A COMMENT --- */

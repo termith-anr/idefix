@@ -33,18 +33,18 @@
         <span class="glyphicon glyphicon-align-center" id="spanFullArticle"></span>
         <span id="closeFullArticle" class="glyphicon glyphicon-remove"></span>
         <div id="fullArticleSection">
-            <div class="col-sm-2"></div>
-            <div id="fullArticleContent" class="contentTei col-sm-8"></div>
+            <div class="col-lg-2"></div>
+            <div id="fullArticleContent" class="contentTei col-lg-8"></div>
         </div>
     </div>
     {% endif %}
 
-    <div id="contentDisplay" class="col-lg-11 col-md-11 col-sm-11">
+    <span class="glyphicon glyphicon-arrow-down arrowScroll arrowScrollTop" title="Descendre tous les blocks"></span>
 
-
+    <div id="contentDisplay" class="col-lg-11 col-md-11">
 
             <!-- LEFT BLOC -->
-            <aside id="leftSection" class="col-lg-2 col-md-2 col-sm-2">
+            <aside id="leftSection" class="col-lg-2 col-md-3">
 
                 <header id="headerInfoDisplayDocs">
 
@@ -124,9 +124,9 @@
 
 
             <!-- RIGHT  BLOCK (Keywords) -->
-            <section id="keywordsSection" class="col-lg-10 col-md-10 col-sm-10">
+            <section id="keywordsSection" class="col-lg-10 col-md-9">
 
-                <div class="divHoverH1Display col-lg-12 col-md-12 col-sm-12">
+                <div class="divHoverH1Display col-lg-12 col-md-12">
 
                     <div id="h1Block">
                         <h1 id="h1DisplayDocs">
@@ -386,6 +386,9 @@
 
     </div>
 
+    <span class="glyphicon glyphicon-arrow-down arrowScroll arrowScrollBottom" title="Descendre tous les blocks"></span>
+
+
     {% if showSilence == true %}
         <div id="inistKeywordsButton" {% if data.fields.validatePertinence == "yes" %}style="display : block"{% else %}style="display: none"{% endif %}>
             <span>Afficher INIST</span>  <!-- Button to call Inist Keywords -->
@@ -408,7 +411,7 @@
 
 <script src="/assets/js/jquery.highlight.js"></script>
 
-<script src="/assets/js/display.min.js"></script>
+<script src="/assets/js/display.js"></script>
 
 
 {% endblock %}

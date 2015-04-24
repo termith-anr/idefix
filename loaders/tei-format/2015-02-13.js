@@ -48,6 +48,7 @@ module.exports = function(options,config) {
              * CREATING PERTINENCES
              */
             jsonselect.forEach(".TEI > .ns#stdf", input.content.json, function (element) { //For every ns#stdf
+
                 var usefullStdf = element.filter(function (content) { // Keep only stdf with a method ID
                     return (content['xml#id'] && content['xml#id'].indexOf('mi') >= 0);
                 });
@@ -103,6 +104,8 @@ module.exports = function(options,config) {
              */
             jsonselect.forEach(".TEI > .teiHeader .keywords", input.content.json, function (element) {
 
+                console.log("element : " , element);
+
                 // return only silences
                 var silences = element.filter(function (content) {
                     return (((content.scheme == "inist-francis" ) || (content.scheme == "inist-pascal" )) && ((content['xml#lang'] == "fr" )));
@@ -141,7 +144,6 @@ module.exports = function(options,config) {
                                 keywords.push(obj);
                             }
                         }
-
                     }
                 });
 
