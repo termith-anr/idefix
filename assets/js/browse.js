@@ -151,6 +151,19 @@ $(document).ready(function() {
         $('#exportMenu').hide();
     });
 
+
+    $('.informations').on('click' , function(){
+        var id = $(this).attr("data-id");
+        console.log($("#" + id));
+        $("#" + id).css("display" , "flex");
+        $('body').css('overflow' , 'hidden');
+    });
+
+    $('.infosQuit').on('click', function(){
+        $('body').css('overflow' , '');
+        $('.informationsContent').hide();
+    });
+
     if(localStorage['selecteur']){
 
         switch(localStorage['selecteur']){

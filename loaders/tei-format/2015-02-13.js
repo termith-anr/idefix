@@ -41,7 +41,9 @@ module.exports = function(options,config) {
              * keywords is an array of  words , insert in input
              * */
             var pertinencesNames = [],
-                keywords = [];
+                keywords = [],
+                maxScores = 0,
+                minScores = 0;
 
 
             /*
@@ -75,6 +77,8 @@ module.exports = function(options,config) {
                     if (xmlIdWord.length === word.length) {
                         // For every id
                         for (var j = 0; j < xmlIdWord.length; j++) {
+
+                            maxScores +=2;
 
                             // Create uniq id
                             var id = sha1("pertinence" + mix + methodName + word[j]);
@@ -127,6 +131,9 @@ module.exports = function(options,config) {
 
                         if (xmlIdWord.length === word.length) {
                             for (var j = 0; j < xmlIdWord.length; j++) {
+
+                                minScores -=2;
+
                                 // Create uniq id
                                 var id = sha1("silence" + methodName + word[j]);
 
@@ -157,6 +164,9 @@ module.exports = function(options,config) {
             objectPath.ensureExists(input, "fields.abstract", abstract);
             objectPath.ensureExists(input, "fields.validatePertinence", validatePertinence);
             objectPath.ensureExists(input, "fields.validateSilence", validateSilence);
+            objectPath.ensureExists(input, "fields.maxScores", maxScores);
+            objectPath.ensureExists(input, "fields.minScores", minScores);
+            objectPath.ensureExists(input, "fields.currentScores", 0);
 
         }
         /************************

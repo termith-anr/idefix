@@ -17,7 +17,10 @@ $(document).ready(function() {
         timer = $('#timer'),
         bodyBrowse = $('#bodyBrowse'),
         startOrStop= $('#startOrStop'),
-        fullArticleLoaded = 'no';
+        fullArticleLoaded = 'no',
+        minScores,
+        maxScores,
+        currentScores;
 
 
     $.getJSON( configPage , function(object){
@@ -244,6 +247,31 @@ $(document).ready(function() {
             // If silence are validated , stop timer at saved score
             var timeJob = data.data.timeJob ? parseFloat(data.data.timeJob) : 0,
                 stop = (data.data.validateSilence == "yes") ? timeJob : null;
+
+            maxScores = data.data.fields.maxScores;
+            currentScores = data.data.fields.currentScores;
+            minScores = data.data.fields.minScores;
+            console.log("Max : ", maxScores);
+            console.log("Min : " ,minScores);
+            console.log("Current : " ,currentScores);
+
+            if(currentScores < ((maxScores + minScores)/2 -((maxScores+minScores)/100)))
+            {
+                $(".colored , #sectionArticle .scroller-handle, #headerInfoDisplayDocs .scroller-handle, #keywordsDisplayDiv .scroller-handle").addClass("semiBadDocument");
+            }
+            else if(currentScores > ((maxScores + minScores)/2 -((maxScores+minScores)/100)))
+            {
+                $(".colored , #sectionArticle .scroller-handle, #headerInfoDisplayDocs .scroller-handle, #keywordsDisplayDiv .scroller-handle").addClass("semiGoodDocument");
+            }
+            else if(currentScores < (minScores/2))
+            {
+                $(".colored , #sectionArticle .scroller-handle, #headerInfoDisplayDocs .scroller-handle, #keywordsDisplayDiv .scroller-handle").addClass("badDocument");
+            }
+            else if(currentScores > (maxScores/2))
+            {
+                $(".colored , #sectionArticle .scroller-handle, #headerInfoDisplayDocs .scroller-handle, #keywordsDisplayDiv .scroller-handle").addClass("goodDocument");
+            }
+
 
             // INIT TIMMER
             timer.runner({
@@ -1339,15 +1367,32 @@ $(document).ready(function() {
 
     });
 
+    var previousScore;
+
+    $(".formNotedKeyword input:not(:checked) + label").on("mouseover", function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        previousScore = $(this).siblings(":checked + label" ).text();
+        if(!previousScore){
+            previousScore = 0;
+        }
+        console.log("previousScores: " , previousScore);
+
+    });
+
     // KEYWORDS
     $(".formNotedKeyword input").change(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
         var id = $(this).parent().attr('id');
         var serialized = $(this).parent().serializeArray(),
             postData = filter(serialized, "unserialized" ,"type"),
             formURL = $(this).parent().attr("action"),
-            li = $(this).parent().parent();
+            li = $(this).parent().parent(),
+            clickedScore = $(this).val();
 
-        console.log("ANCIEN : " ,postData );
+        console.log("clickedScores: " , clickedScore);
+
 
         $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
 
@@ -1357,6 +1402,25 @@ $(document).ready(function() {
                 type: "POST",
                 data: postData,
                 success: function (e) {
+
+                    currentScores += (clickedScore - previousScore);
+                    console.log("curentscore :" , currentScores);
+
+                    $.ajax({
+                        url: savePage,
+                        type: "POST",
+                        data: [
+                            {
+                                name: "key",
+                                value: "fields.currentScores"
+                            },
+                            {
+                                name: "val",
+                                value: currentScores
+                            }
+                        ]
+                    });
+
                     setTimeout(function () {
 
                         var checkType = (serialized[0].value + "-" + serialized[2].value).toString();
