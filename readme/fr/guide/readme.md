@@ -19,7 +19,7 @@ Consignes générales :
 * On ne modifie pas le score Termith quand on voit l’indexation Inist pour évaluer le silence de la méthode
 * La pertinence et le silence d’un mot-clé sont évalués en fonction des formes présentes dans le texte
 
- ######1.Évaluation de la pertinence######
+######1.Évaluation de la pertinence######
 Cette tâche consiste à déterminer si un mot-clé est pertinent pour représenter la problématique de l’article ou du résumé.
 Cette évaluation est formalisée par l’attribution d’un score de 0 à 2 :
 * **Score 0 :** mot-clé non pertinent;
