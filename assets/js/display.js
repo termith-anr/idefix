@@ -81,7 +81,6 @@ $(document).ready(function() {
 
         }
         else {
-
             $('body').unhighlight().unhighlight({className: 'h1Highlight'});
 
             $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
