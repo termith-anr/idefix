@@ -1,3 +1,5 @@
+
+
 Projet TermITH
 ==============
 ![logoTermith](https://github.com/termith-anr/scripts-formats/blob/master/Screens/jpeg/termihLogo.jpg)
@@ -53,15 +55,15 @@ Cette évaluation est formalisée par l’attribution d’un score de **0** à *
 ```
 Cas particuliers :
 
-* Le mot-clé n’est pas pertinent ⇨ score 0 + indiquer la raison en commentaire
+* Le mot-clé n’est pas pertinent => score 0 + indiquer la raison en commentaire
 
-* Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente également dans l’indexation   ⇨ score 1 + lien vers forme préférée dans l’indexation + score 2 à la forme préférée
+* Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente également dans l’indexation => score 1 + lien vers forme préférée dans l’indexation + score 2 à la forme préférée
 
-* Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente dans le texte, qui n’a pas été proposée dans l’indexation  ⇨ score 1 + indiquer en commentaire : « forme préférée dans le texte : xxxx »
+* Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente dans le texte, qui n’a pas été proposée dans l’indexation => score 1 + indiquer en commentaire : « forme préférée dans le texte : xxxx »
 
-* Le mot-clé est pertinent et est présent dans le texte ⇨ score 2
+* Le mot-clé est pertinent et est présent dans le texte => score 2
 
-* Le mot-clé est pertinent, mais est une variante d’une forme préférentielle qui n’est pas dans le texte ⇨ score 2 + indiquer en commentaire : « forme préférée pas dans le texte : xxx »
+* Le mot-clé est pertinent, mais est une variante d’une forme préférentielle qui n’est pas dans le texte => score 2 + indiquer en commentaire : « forme préférée pas dans le texte : xxx »
 
 ```
 
@@ -72,15 +74,15 @@ Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant u
 
 * **Score 0 :** le mot-clé ne manque pas à l’indexation Termith
 
-* **Score -1 :** le mot-clé manque moyennement
+* **Score 1 :** le mot-clé manque moyennement
 
-* **Score -2** : le mot-clé manque absolument
+* **Score 2** : le mot-clé manque absolument
 ```
 Cas particuliers :
 Le mot-clé ne manque pas parce qu’il est déjà présent dans l’indexation Termith ⇨ score 0 + lien vers mot-clé Termith correspondant (correspondance exacte ou approximative)
 Le mot-clé ne manque pas parce qu’il provient d’une erreur d’indexation ⇨ score 0 + commentaire : « erreur d’indexation »
-Le mot-clé correspond à un mot plus ou moins important qui n’est pas présent dans le texte ⇨ score -1 + commentaire : « implicite » ou « générique » en fonction des cas
-Le mot-clé correspond à un mot important qui est présent dans le texte ⇨ score -2
+Le mot-clé correspond à un mot plus ou moins important qui n’est pas présent dans le texte =>⇨ score 1 + commentaire : « implicite » ou « générique » en fonction des cas
+Le mot-clé correspond à un mot important qui est présent dans le texte =>⇨ score 2
 
 ```
 
@@ -188,6 +190,8 @@ Une fois le score attribué, le chiffre change de couleur (0 devient rouge, 1 de
 
 ![motInist](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/afficheMotInist.png)
 
+EVALUER LE SILENCE DES METHODES
+-----------
 ######13.Evaluer le silence d'une méthode d'indexation automatique par rapport aux mots-clés de l'INIST######
 
 ![evalSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/evalMotInist.png)
