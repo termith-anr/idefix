@@ -70,7 +70,7 @@ Cas particuliers :
 ######2.Évaluation du silence######
 Une fois l’évaluation de la pertinence terminée pour une méthode, il s’agit de repérer les mots-clés pouvant manquer à l’indexation proposée par cette méthode.
 Ces mots-clés manquants sont recherchés dans l’indexation Inist, qui représente l’indexation de référence.
-Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant un score de **0** à **-2** :
+Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant un score de **0** à **2** :
 
 * **Score 0 :** le mot-clé ne manque pas à l’indexation Termith
 
