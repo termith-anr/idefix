@@ -1,5 +1,14 @@
-SCENARIO 2 - EVALUATION DE L'INDEXATION
-========================================
+Projet TermITH
+==============
+![logoTermith](https://github.com/termith-anr/scripts-formats/blob/master/Screens/jpeg/termihLogo.jpg)
+
+SCENARIO D'UTILISATION N°2 
+===========================
+EVALUATION DE L'INDEXATION
+===========================
+OUTIL IDEFIX
+============
+![logoIdefix](https://github.com/termith-anr/scripts-formats/blob/master/Screens/svg/idefixLogo3.1.svg)
 
 Protocole d'évaluation
 ==============================
