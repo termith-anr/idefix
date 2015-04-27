@@ -8,7 +8,9 @@ EVALUATION DE L'INDEXATION
 ===========================
 OUTIL IDEFIX
 ============
-![logoIdefix](https://github.com/termith-anr/scripts-formats/blob/master/Screens/svg/idefixLogo3.1.svg)
+![logoIdefix](https://cdn.rawgit.com/termith-anr/scripts-formats/master/Screens/svg/idefixLogo3.1.svg)
+
+
 
 Protocole d'évaluation
 ==============================
