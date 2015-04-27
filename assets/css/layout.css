@@ -2335,22 +2335,18 @@ span.twitter-typeahead {
 
 .semiBadDocument{
     background: #e67e22 !important;
-    transition: all 900ms;
 }
 
 .goodDocument{
     background: #27ae60 !important;
-    transition: all 900ms;
 }
 
 .semiGoodDocument{
     background: #16a085 !important;
-    transition: all 900ms;
 }
 
 .badDocument{
     background: #c0392b !important;
-    transition: all 900ms;
 }
 
 #startOrStop.colored , #timer.colored , .arrowScroll.colored , .methodLinkround.colored , .keywordsMethodsDisplay.colored , .keywordsMethodsDisplayDone.colored{

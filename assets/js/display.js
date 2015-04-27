@@ -34,56 +34,63 @@ $(document).ready(function() {
 
             var contenuReplaced;
 
-            // On charge le contenu
-            $.get('/dump/' + pageId + '.xml', function (content) {
-                var contenu = (new XMLSerializer()).serializeToString(content);
-                contenuReplaced = contenu.replace(/<head/g, "<div");
-                contenuReplaced = contenuReplaced.replace(/<\/head>/g, "</div>");
-                contenuReplaced = contenuReplaced.replace(/<hi/g, "<i");
-                contenuReplaced = contenuReplaced.replace(/<\/hi>/g, "</i>");
+            if(config.showArticle) {
 
-                $('.contentTei').append(contenuReplaced);
+                // On charge le contenu
+                $.get('/dump/' + pageId + '.xml', function (content) {
+                    var contenu = (new XMLSerializer()).serializeToString(content);
+                    contenuReplaced = contenu.replace(/<head/g, "<div");
+                    contenuReplaced = contenuReplaced.replace(/<\/head>/g, "</div>");
+                    contenuReplaced = contenuReplaced.replace(/<hi/g, "<i");
+                    contenuReplaced = contenuReplaced.replace(/<\/hi>/g, "</i>");
 
-                fullArticleLoaded = 'yes';
-                teiContent = $("#fullArticleContent text").children().not("front,back");
-                //Recherche dans tous le text
-                teiContent.highlight(keywordText, { wordsOnly: true });
-                console.log(" hit : " , $(".highlight" , teiContent));
-                if($(".highlight" , teiContent).length < 1){
-                    teiContent.highlight(keywordText);
-                }
-                $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
-                $('#articleSectionResumeDisplay').highlight(keywordText, { wordsOnly: true });
-                $('#h1DisplayDocs').highlight(keywordText, { wordsOnly: true  , className: 'h1Highlight'});
-                $('#buttonFullArticle').trigger("click");
-                $(".contentTei .highlight:first").attr('id', 'firstHighlight');
-                setTimeout(function () {
-                    $("#fullArticleSection").animate({scrollTop: $('#firstHighlight').position().top}, 'slow');
-                }, 800);
+                    $('.contentTei').append(contenuReplaced);
 
-            });
+                    fullArticleLoaded = 'yes';
+                    teiContent = $("#fullArticleContent text").children().not("front,back");
+                    //Recherche dans tous le text
+                    teiContent.highlight(keywordText, { wordsOnly: true });
+                    console.log(" hit : ", $(".highlight", teiContent));
+                    if ($(".highlight", teiContent).length < 1) {
+                        teiContent.highlight(keywordText);
+                    }
+                    $('#buttonFullArticle').trigger("click");
+                    $(".contentTei .highlight:first").attr('id', 'firstHighlight');
+                    setTimeout(function () {
+                        $("#fullArticleSection").animate({scrollTop: $('#firstHighlight').position().top}, 'slow');
+                    }, 800);
+
+                });
+            }
+
+            $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
+            $('#articleSectionResumeDisplay').highlight(keywordText, { wordsOnly: true });
+            $('#h1DisplayDocs').highlight(keywordText, { wordsOnly: true  , className: 'h1Highlight'});
+
         }
         else {
-            teiContent = $("#fullArticleContent text").children().not("front,back");
 
             $('body').unhighlight().unhighlight({className: 'h1Highlight'});
 
-            teiContent.highlight(keywordText, { wordsOnly: true });
-            console.log(" hit : " , $(".highlight" , teiContent));
-            if($(".highlight" , teiContent).length < 1){
-                teiContent.highlight(keywordText);
+            if(config.showArticle) {
+                teiContent = $("#fullArticleContent text").children().not("front,back");
+                teiContent.highlight(keywordText, { wordsOnly: true });
+                console.log(" hit : ", $(".highlight", teiContent));
+                if ($(".highlight", teiContent).length < 1) {
+                    teiContent.highlight(keywordText);
+                }
+                $(".contentTei .highlight:first").attr('id', 'firstHighlight');
+                $('#buttonFullArticle').trigger("click");
+                if ($('#firstHighlight')) {
+                    setTimeout(function () {
+                        $("#fullArticleSection").animate({scrollTop: $('#firstHighlight').position().top}, 'slow');
+                    }, 700);
+                }
             }
 
             $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
             $('#articleSectionResumeDisplay').highlight(keywordText, { wordsOnly: true });
             $('#h1DisplayDocs').highlight(keywordText, { wordsOnly: true , className: 'h1Highlight' });
-            $(".contentTei .highlight:first").attr('id', 'firstHighlight');
-            $('#buttonFullArticle').trigger( "click");
-            if($('#firstHighlight')) {
-                setTimeout(function () {
-                    $("#fullArticleSection").animate({scrollTop: $('#firstHighlight').position().top}, 'slow');
-                }, 700);
-            }
 
         }
 
