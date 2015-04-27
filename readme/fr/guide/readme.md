@@ -17,7 +17,9 @@ Protocole d'évaluation
 Le scénario 2 a pour objectif d’évaluer la performance des différentes méthodes d’indexation utilisées dans Termith, par rapport aux pratiques d’indexation en vigueur à l’INIST.
 
 Ce scénario se déroule en 4 phases :
+
 * **Phase 1 :** évaluation de l’indexation produite par 2 méthodes à partir du résumé dans un domaine (linguistique)
+
 * **Phase 2 :** évaluation de l’indexation produite par 2 méthodes à partir du texte intégral dans un domaine (linguistique)
 
 * **Phase 3 :** évaluation de l’indexation produite par X méthodes à partir du résumé dans 5 domaines (linguistique, archéologie, sciences de l’information, psychologie, chimie)
@@ -25,27 +27,40 @@ Ce scénario se déroule en 4 phases :
 * **Phase 4 :** évaluation de l’indexation produite par X méthodes à partir du texte intégral dans 5 domaines (linguistique, archéologie, sciences de l’information, psychologie, chimie)
 
 Pour chacune des phases, il s’agit d’évaluer :
+
 * la **pertinence** de chaque mot-clé proposé
+
 * le **silence** de la méthode, en se basant sur l’indexation Inist
 
 Consignes générales :
+
 * On ne consulte pas l’article en texte intégral quand on évalue l’indexation faite à partir du résumé
+
 * On ne modifie pas le score Termith quand on voit l’indexation Inist pour évaluer le silence de la méthode
+
 * La pertinence et le silence d’un mot-clé sont évalués en fonction des formes présentes dans le texte
 
 ######1.Évaluation de la pertinence######
 Cette tâche consiste à déterminer si un mot-clé est pertinent pour représenter la problématique de l’article ou du résumé.
 Cette évaluation est formalisée par l’attribution d’un score de **0** à **2** :
+
 * **Score 0 :** mot-clé non pertinent;
+
 * **Score 1 :** mot-clé pertinent, mais pas dans la forme proposée;
+
 * **Score 2 :** mot-clé pertinent
 
 ```
 Cas particuliers :
+
 * Le mot-clé n’est pas pertinent ⇨ score 0 + indiquer la raison en commentaire
+
 * Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente également dans l’indexation   ⇨ score 1 + lien vers forme préférée dans l’indexation + score 2 à la forme préférée
+
 * Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente dans le texte, qui n’a pas été proposée dans l’indexation  ⇨ score 1 + indiquer en commentaire : « forme préférée dans le texte : xxxx »
+
 * Le mot-clé est pertinent et est présent dans le texte ⇨ score 2
+
 * Le mot-clé est pertinent, mais est une variante d’une forme préférentielle qui n’est pas dans le texte ⇨ score 2 + indiquer en commentaire : « forme préférée pas dans le texte : xxx »
 
 ```
@@ -54,8 +69,11 @@ Cas particuliers :
 Une fois l’évaluation de la pertinence terminée pour une méthode, il s’agit de repérer les mots-clés pouvant manquer à l’indexation proposée par cette méthode.
 Ces mots-clés manquants sont recherchés dans l’indexation Inist, qui représente l’indexation de référence.
 Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant un score de **0** à **-2** :
+
 * **Score 0 :** le mot-clé ne manque pas à l’indexation Termith
+
 * **Score -1 :** le mot-clé manque moyennement
+
 * **Score -2** : le mot-clé manque absolument
 ```
 Cas particuliers :
@@ -75,15 +93,21 @@ Manuel d'utilisation d'IDEFIX
 ![accueil](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/accueil.png)
 
 La page d'accueil permet de:
+
 * visualiser le nombre total de documents;
+
 * choisir le nombre de documents à afficher par page;
-* faire une recherche dans la liste de documents;   
+
+* faire une recherche dans la liste de documents;
+
 * afficher les documents par statut: Tous, Traités ou Non traités.
 
 ######Couleur de l'évaluation de la pertience et couleur de l'évaluation du silence######
 
 A la page d'accueil, le titre de certains documents prend un fond coloré:
+
 * couleur **bleue** indique que c'est l'évaluation de la **pertience** qui est en cours;
+
 * couleur **grise** indique que c'est l'évaluation du **silence** qui est en cours.
 ![couleurPertinenceSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/couleurPertSilence.png)
 
@@ -99,12 +123,19 @@ Cliquez sur un document pour le sélectionner.
 ######Document ouvert######
 
 Aprés avoir cliqué sur un document, il s'ouvre comme ci-dessous. Il contient:
+
 * le titre;
+
 * le résumé;
+
 * la possibilité d'afficher le texte en cliquant sur le bouton prévu;
+
 * le timer;
+
 * la discipline;
+
 * la barre de progression pour l'évaluation de la pertinence dans un premier temps (la barre de progression pour le silence s'affichera après validation de la pertinence);
+
 * toutes les méthodes d'indexation autoamtique à évaluer.
 ![documentOuvert](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/ouvertureDoc.png)
 
@@ -114,7 +145,9 @@ EVALUER LA PERTINENCE DES METHODES
 
 Pour afficher les mots-clés d'une méthode, cliquez sur le nom de la méthode souhaitée.
 Deux modes d'affichage au choix:
+
 * afficher sous forme de grille (par défaut);
+
 * afficher sous forme de liste.
 ![AfficheMethode](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/afficheMethode.png)
 ```
