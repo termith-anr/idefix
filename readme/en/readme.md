@@ -83,6 +83,7 @@ IDEFIX is a notation interface of indexed Termith's keywords (XML-TEI language)
    "showCorrespondance" : [1,2],
    "autoPertinence" : true,
    "autoSilence" : true,
+   "coloredDocument" : false,
    "exports" : {
      "csv" : true,
      "xml" : true,
@@ -255,7 +256,14 @@ If not provided , true is default
 ```json
 "autoPertinence" : true
 ```
- 
+
+#### coloredDocument (OPTIONNAL/Boolean)
+
+You can enable / disable the coloration changer when all methods are bad/good.
+ If not provided , false is default
+ ```json
+ "coloredDocument" : true
+ ```
  
 #### documentFields(REQUIRED/Object)
 

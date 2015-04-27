@@ -240,6 +240,38 @@ $(document).ready(function() {
         }
     };
 
+    var calculScores = function(){
+        console.log("Max : ", maxScores);
+        console.log("Min : " ,minScores);
+        currentScores = parseFloat(currentScores);
+        console.log("Current : " ,parseFloat(currentScores));
+
+        console.log("semi-good  : " , (((maxScores/2) >= currentScores) &&  (currentScores > (maxScores/4))));
+        console.log("maxScores/2" , (maxScores/2));
+        console.log("maxScores/4" , (maxScores/4));
+
+        if( (((minScores/2) > currentScores) &&  (currentScores <= (minScores/4))) )
+        {
+            $(".colored , #sectionArticle .scroller-handle, #headerInfoDisplayDocs .scroller-handle, #keywordsDisplayDiv .scroller-handle").addClass("semiBadDocument").removeClass("semiGoodDocument goodDocument");
+        }
+        else if( (((maxScores/2) >= currentScores) &&  (currentScores > (maxScores/4))) )
+        {
+            $(".colored , #sectionArticle .scroller-handle, #headerInfoDisplayDocs .scroller-handle, #keywordsDisplayDiv .scroller-handle").addClass("semiGoodDocument");
+        }
+        else if(currentScores < (minScores/2))
+        {
+            $(".colored , #sectionArticle .scroller-handle, #headerInfoDisplayDocs .scroller-handle, #keywordsDisplayDiv .scroller-handle").addClass("badDocument").removeClass("semiGoodDocument goodDocument semiBadDocument");
+        }
+        else if(currentScores > (maxScores/2))
+        {
+            $(".colored , #sectionArticle .scroller-handle, #headerInfoDisplayDocs .scroller-handle, #keywordsDisplayDiv .scroller-handle").addClass("goodDocument").removeClass("semiGoodDocument");
+        }
+        else if((currentScores >= (minScores/4) && (currentScores <= (maxScores/4)))){
+            $(".colored , #sectionArticle .scroller-handle, #headerInfoDisplayDocs .scroller-handle, #keywordsDisplayDiv .scroller-handle").removeClass("semiGoodDocument goodDocument semiBadDocument badDocument");
+        }
+
+    };
+
 
     //Get mongo data
     $.getJSON(contentPage, function (data) {
@@ -251,26 +283,10 @@ $(document).ready(function() {
             maxScores = data.data.fields.maxScores;
             currentScores = data.data.fields.currentScores;
             minScores = data.data.fields.minScores;
-            console.log("Max : ", maxScores);
-            console.log("Min : " ,minScores);
-            console.log("Current : " ,currentScores);
+            if(config.coloredDocument) {
+                calculScores();
+            }
 
-            if(currentScores < ((maxScores + minScores)/2 -((maxScores+minScores)/100)))
-            {
-                $(".colored , #sectionArticle .scroller-handle, #headerInfoDisplayDocs .scroller-handle, #keywordsDisplayDiv .scroller-handle").addClass("semiBadDocument");
-            }
-            else if(currentScores > ((maxScores + minScores)/2 -((maxScores+minScores)/100)))
-            {
-                $(".colored , #sectionArticle .scroller-handle, #headerInfoDisplayDocs .scroller-handle, #keywordsDisplayDiv .scroller-handle").addClass("semiGoodDocument");
-            }
-            else if(currentScores < (minScores/2))
-            {
-                $(".colored , #sectionArticle .scroller-handle, #headerInfoDisplayDocs .scroller-handle, #keywordsDisplayDiv .scroller-handle").addClass("badDocument");
-            }
-            else if(currentScores > (maxScores/2))
-            {
-                $(".colored , #sectionArticle .scroller-handle, #headerInfoDisplayDocs .scroller-handle, #keywordsDisplayDiv .scroller-handle").addClass("goodDocument");
-            }
 
 
             // INIT TIMMER
@@ -1391,6 +1407,10 @@ $(document).ready(function() {
             li = $(this).parent().parent(),
             clickedScore = $(this).val();
 
+        if($(this).parent().parent().parent().attr("id") === "keywordsInist"){
+            clickedScore = -(clickedScore);
+        }
+
         console.log("clickedScores: " , clickedScore);
 
 
@@ -1403,8 +1423,11 @@ $(document).ready(function() {
                 data: postData,
                 success: function (e) {
 
-                    currentScores += (clickedScore - previousScore);
+                    currentScores += (parseInt(clickedScore) - parseInt(previousScore));
                     console.log("curentscore :" , currentScores);
+                    if(config.coloredDocument) {
+                        calculScores();
+                    }
 
                     $.ajax({
                         url: savePage,

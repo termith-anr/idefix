@@ -2269,12 +2269,13 @@ span.twitter-typeahead {
     height: 25px;
     font-size: 25px;
     cursor: pointer;
-    color: rgba(204, 106, 99, 0.35);
+    color: rgba(204, 106, 99, 1);
+    opacity: 0.5;
     transition : all 650ms;
 }
 
 .arrowScroll:hover{
-    color: rgba(204, 106, 99, 1);
+    opacity: 1;
 }
 
 .arrowScrollTop{
@@ -2333,19 +2334,84 @@ span.twitter-typeahead {
 }
 
 .semiBadDocument{
-    background: orange ! important;
+    background: #e67e22 !important;
+    transition: all 900ms;
 }
 
 .goodDocument{
-    background: green ! important;
+    background: #27ae60 !important;
+    transition: all 900ms;
 }
 
 .semiGoodDocument{
-    background: greenyellow ! important;
+    background: #16a085 !important;
+    transition: all 900ms;
 }
 
 .badDocument{
-    background: red ! important;
+    background: #c0392b !important;
+    transition: all 900ms;
+}
+
+#startOrStop.colored , #timer.colored , .arrowScroll.colored , .methodLinkround.colored , .keywordsMethodsDisplay.colored , .keywordsMethodsDisplayDone.colored{
+    background: none !important;
+}
+
+#startOrStop.semiGoodDocument , #timer.semiGoodDocument , .arrowScroll.semiGoodDocument{
+    color: #16a085 ! important;
+}
+
+#startOrStop.semiBadDocument , #timer.semiBadDocument , .arrowScroll.semiBadDocument{
+    color: #e67e22 ! important;
+}
+
+#startOrStop.goodDocument , #timer.goodDocument , .arrowScroll.goodDocument{
+    color: #27ae60 ! important;
+}
+
+#startOrStop.badDocument , #timer.badDocument , .arrowScroll.badDocument{
+    color: #c0392b ! important;
+}
+
+
+.methodLinkround.semiGoodDocument , .keywordsMethodsDisplay.semiGoodDocument{
+    border-color: rgba(22, 160, 133, 0.6) ! important;
+}
+
+.methodLinkround.semiBadDocument , .keywordsMethodsDisplay.semiBadDocument{
+    border-color: rgba(230, 126, 34, 0.6) ! important;
+}
+
+.methodLinkround.goodDocument, .keywordsMethodsDisplay.goodDocument{
+    border-color: rgba(39, 174, 96, 0.6) ! important;
+}
+
+.methodLinkround.badDocument, .keywordsMethodsDisplay.badDocument{
+    border-color: rgba(192, 57, 43, 0.6) ! important;
+}
+
+/* Hover for changed  colors*/
+
+.methodLinkround.semiGoodDocument:hover{
+    border-color: rgba(22, 160, 133, 1) ! important;
+}
+
+.methodLinkround.semiBadDocument:hover{
+    border-color: rgba(230, 126, 34, 1) ! important;
+}
+
+.methodLinkround.goodDocument:hover{
+    border-color: rgba(39, 174, 96, 1) ! important;
+}
+
+.methodLinkround.badDocument:hover{
+    border-color: rgba(192, 57, 43, 1) ! important;
+}
+
+/* */
+
+.keywordsMethodsDisplayDone.colored{
+    border: 1px solid rgba(85, 85, 85, 0.3) !important;
 }
 
 /* Litle resolution*/

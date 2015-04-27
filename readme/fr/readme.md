@@ -88,6 +88,7 @@ IDEFIX est une interface graphique de notation de mot clés pour des fichiers XM
    "showCorrespondance" : [1,2],
    "autoPertinence" : true,
    "autoSilence" : true,
+   "coloredDocument" : false,
    "exports" : {
      "csv" : true,
      "xml" : true,
@@ -263,7 +264,12 @@ Activé par default
 ```json
 "autoPertinence" : true
 ```
- 
+
+#### coloredDocument (OPTIONNAL/Boolean)
+
+Activer / Desactiver le changement de couleur lorsque l'ensemble des méthodes semblent bonnes / mauvaise.
+Il s'agit d'un simple indicateur visuel.
+
  
 #### documentFields(OBLIGATOIRE/Object)
 
