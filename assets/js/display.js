@@ -34,6 +34,16 @@ $(document).ready(function() {
 
             var contenuReplaced;
 
+
+            fullArticleLoaded = 'yes';
+            $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
+            $('#articleSectionResumeDisplay').highlight(keywordText, { wordsOnly: true });
+            if ($("#abstractFullLenght .highlight").length < 1) {
+                $('#abstractFullLenght').highlight(keywordText);
+                $('#articleSectionResumeDisplay').highlight(keywordText);
+            }
+            $('#h1DisplayDocs').highlight(keywordText, { wordsOnly: true  , className: 'h1Highlight'});
+
             if(config.showArticle) {
 
                 // On charge le contenu
@@ -62,15 +72,24 @@ $(document).ready(function() {
 
                 });
             }
-
-            $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
-            $('#articleSectionResumeDisplay').highlight(keywordText, { wordsOnly: true });
-            $('#h1DisplayDocs').highlight(keywordText, { wordsOnly: true  , className: 'h1Highlight'});
+            else{
+                $("#sectionArticle .highlight:first").attr('id', 'firstHighlight');
+                setTimeout(function () {
+                    $("#sectionArticle").scroller("scroll" , "#sectionArticle #firstHighlight" , 800);
+                }, 800);
+            }
 
         }
         else {
 
             $('body').unhighlight().unhighlight({className: 'h1Highlight'});
+
+            $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
+            $('#articleSectionResumeDisplay').highlight(keywordText, { wordsOnly: true });
+            if ($("#abstractFullLenght .highlight").length < 1) {
+                $('#abstractFullLenght').highlight(keywordText);
+                $('#articleSectionResumeDisplay').highlight(keywordText);
+            }
 
             if(config.showArticle) {
                 teiContent = $("#fullArticleContent text").children().not("front,back");
@@ -87,10 +106,12 @@ $(document).ready(function() {
                     }, 700);
                 }
             }
-
-            $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
-            $('#articleSectionResumeDisplay').highlight(keywordText, { wordsOnly: true });
-            $('#h1DisplayDocs').highlight(keywordText, { wordsOnly: true , className: 'h1Highlight' });
+            else{
+                $("#sectionArticle .highlight:first").attr('id', 'firstHighlight');
+                setTimeout(function () {
+                    $("#sectionArticle").scroller("scroll" , "#sectionArticle #firstHighlight" , 800);
+                }, 800);
+            }
 
         }
 

@@ -265,6 +265,11 @@ You can enable / disable the coloration changer when all methods are bad/good.
  "coloredDocument" : true
  ```
  
+#### countAllKeywords (OPTIONNAL/Boolean)
+
+If enable , the number before the keywords willstart from 1 to X ( X is the last silence words ) 
+ex : 1 - 191 if document have 191  keywords
+ 
 #### documentFields(REQUIRED/Object)
 
 Check *[castor-core documentFields](https://github.com/castorjs/castor-core#documentfields-1)* for more informations
