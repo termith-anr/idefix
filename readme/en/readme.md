@@ -269,6 +269,11 @@ You can enable / disable the coloration changer when all methods are bad/good.
 
 If enable , the number before the keywords willstart from 1 to X ( X is the last silence words ) 
 ex : 1 - 191 if document have 191  keywords
+
+##### negativeSilence (OPTIONNAL/Boolean)
+
+If enable , SHow the silence score as negative
+ex : 0 /-1 /-2
  
 #### documentFields(REQUIRED/Object)
 

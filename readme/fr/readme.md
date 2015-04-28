@@ -285,6 +285,11 @@ Plus d'infos sur *[castor-core documentFields](https://github.com/castorjs/casto
 
 - "$text" ajoute un document mongo nommée "text" , utilisé dans le filtre de recherche sur la page d'accueil d'IDEFIX
 
+##### negativeSilence (OPTIONNAL/Boolean)
+
+Si activé , affiche les scores de silences en negatifs :
+ex : 0 /-1 /-2
+
 
 
 
