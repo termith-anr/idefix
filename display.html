@@ -27,6 +27,12 @@
 
 {% set countAllKeywords = config.countAllKeywords %}
 
+{% set beforeSilence = "" %}
+
+{% if ( config.negativeSilence == true ) %}
+    {% set beforeSilence = "-" %}
+{% endif %}
+
 
 
     <!-- Block of modal for full article -->
@@ -182,20 +188,20 @@
                                                 <!-- Value Name -->
                                                 {% if data.keywords[indexObject].score == '2' %}
                                                 <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">0</label>
-                                                <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">-1</label>
-                                                <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelBlock{% endif %}">-2</label>
+                                                <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">{{beforeSilence}}1</label>
+                                                <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelBlock{% endif %}">{{beforeSilence}}2</label>
                                                 {% elif data.keywords[indexObject].score == '1' %}
                                                 <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">0</label>
-                                                <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelBlock{% endif %}">-1</label>
-                                                <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">-2</label>
+                                                <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelBlock{% endif %}">{{beforeSilence}}1</label>
+                                                <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">{{beforeSilence}}2</label>
                                                 {% elif data.keywords[indexObject].score == '0' %}
                                                 <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0" checked><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelBlock{% endif %}">0</label>
-                                                <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">-1</label>
-                                                <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">-2</label>
+                                                <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">{{beforeSilence}}1</label>
+                                                <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">{{beforeSilence}}2</label>
                                                 {% else %}
                                                 <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">0</label>
-                                                <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">-1</label>
-                                                <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">-2</label>
+                                                <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">{{beforeSilence}}1</label>
+                                                <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if data.fields.validateSilence == 'yes' %}labelHide{% endif %}">{{beforeSilence}}2</label>
                                                 {% endif %}
 
                                                 <input type="hidden" name="type" value="silence"/><!-- Type pertinence -->

@@ -1415,7 +1415,7 @@ $(document).ready(function() {
     $(".formNotedKeyword input:not(:checked) + label").on("mouseover", function(e){
         e.stopPropagation();
         e.preventDefault();
-        previousScore = $(this).siblings(":checked + label" ).text();
+        previousScore = parseInt($(this).siblings(":checked + label" ).text());
         if(!previousScore){
             previousScore = 0;
         }
@@ -1432,10 +1432,10 @@ $(document).ready(function() {
             postData = filter(serialized, "unserialized" ,"type"),
             formURL = $(this).parent().attr("action"),
             li = $(this).parent().parent(),
-            clickedScore = $(this).val();
+            clickedScore = parseInt($(this).val());
 
         if($(this).parent().parent().parent().attr("id") === "keywordsInist"){
-            clickedScore = -(clickedScore);
+            clickedScore = parseInt(-(clickedScore));
         }
 
         console.log("clickedScores: " , clickedScore);
@@ -1450,7 +1450,7 @@ $(document).ready(function() {
                 data: postData,
                 success: function (e) {
 
-                    currentScores += (parseInt(clickedScore) - parseInt(previousScore));
+                    currentScores += parseInt((parseInt(clickedScore) - parseInt(previousScore)));
                     console.log("curentscore :" , currentScores);
                     if(config.coloredDocument) {
                         calculScores();
