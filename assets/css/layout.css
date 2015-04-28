@@ -2455,6 +2455,23 @@ span.twitter-typeahead {
     top: 56%;
 }
 
+.showInformations{
+    color: rgba(204, 106, 99, 0.5);
+    top: 49%;
+    left: 5.5%;
+    font-size: 25px;
+    position: fixed;
+    cursor: pointer;
+}
+
+.showInformations:hover{
+    color: rgba(204, 106, 99, 1);
+}
+
+.currentlyShowingInfos{
+    color: rgba(204, 106, 99, 1);
+}
+
 /* Litle resolution*/
 @media (max-width: 1199px) {
     .divHoverH1Display{

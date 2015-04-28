@@ -232,14 +232,28 @@ $(document).ready(function() {
 
     };
 
-    $('.informations').on('click' , function(){
-        var id = $(this).attr("data-id");
-        $(".informations").css('z-index' ,'0');
-        $("#contentDisplay").css("display" ,"none");
-        console.log($("#" + id));
-        $("#" + id).css("display" , "flex");
+    $(".showInformations").on("click" , function(){
+        if($(this).hasClass("currentlyShowingInfos")){
+            $(".informations").hide();
+            $(this).removeClass("currentlyShowingInfos");
+        }
+        else {
+            $(".informations").show();
+            $(this).addClass("currentlyShowingInfos");
+        }
+    });
+
+    $('.informations').on('click' , function() {
+        var id = $(this).attr("data-id")
+        $(".informations").css('z-index', '0');
+        $("#contentDisplay").css("display", "none");
+        if (!$("#" + id + " .imgInfos").length){
+            $("#" + id).prepend("<img src='" + $("#" + id).attr('data-src') + "' class='imgInfos'/>").delay(650).css("display", "flex");
+        }
+        else{
+            $("#" + id).css("display", "flex")
+        }
         $('body').css('overflow' , 'hidden');
-        $(".informations").css('z-index' ,'0');
     });
 
 
