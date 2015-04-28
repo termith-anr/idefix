@@ -845,6 +845,7 @@ table tr[data-href] {
     overflow-x: hidden;
     opacity: 0.15;
     position: absolute;
+    padding-top: 30px;
 }
 
 #sectionArticle .scroller-content{
@@ -913,7 +914,6 @@ span .methodsameDisplayD{
     display: block;
     vertical-align: middle;
     font-family: 'segoe';
-    padding-top:5px;
 }
 
 .articleSectionResumeDisplayView{
@@ -1451,6 +1451,7 @@ input[type=radio]:checked + label {
 
 .scroller-bar{
     border-left: 0 !important;
+    height: 100% !important;
 }
 
 
