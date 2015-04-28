@@ -154,6 +154,7 @@ $(document).ready(function() {
 
     $('.informations').on('click' , function(){
         var id = $(this).attr("data-id");
+        $(".informations").css('z-index' ,'0');
         console.log($("#" + id));
         $("#" + id).css("display" , "flex");
         $('body').css('overflow' , 'hidden');
@@ -162,6 +163,7 @@ $(document).ready(function() {
     $('.infosQuit').on('click', function(){
         $('body').css('overflow' , '');
         $('.informationsContent').hide();
+        $(".informations").css('z-index' ,'');
     });
 
     if(localStorage['selecteur']){

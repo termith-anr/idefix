@@ -2411,6 +2411,50 @@ span.twitter-typeahead {
     border: 1px solid rgba(85, 85, 85, 0.3) !important;
 }
 
+
+.informations[data-id="couleursListeInfos"]{
+    position: absolute;
+    top: 237px;
+    left: 35%;
+}
+
+.informations[data-id="selectListeInfos"]{
+    position: absolute;
+    top: 237px;
+    left: 13%;
+}
+
+.informations[data-id="documentInfos"]{
+    position: fixed;
+    left: 50%;
+    height: 5%;
+    display: flex;
+    align-items: center;
+}
+
+.informations[data-id="methodsInfos"]{
+    position: fixed;
+    left: 6%;
+    top: 56%;
+    z-index:99999;
+}
+
+.informations[data-id="preferenceInfos"], .informations[data-id="silenceKwInfos"] {
+    float: left;
+    font-size: 12px;
+}
+
+.informations[data-id="commentaireInfos"]{
+    float:right;
+    font-size: 12px;
+}
+
+.informations[data-id="silenceInfos"]{
+    position: absolute;
+    right: 0;
+    top: 56%;
+}
+
 /* Litle resolution*/
 @media (max-width: 1199px) {
     .divHoverH1Display{

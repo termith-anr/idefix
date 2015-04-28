@@ -275,8 +275,8 @@ Il s'agit d'un simple indicateur visuel.
 Si activé ( true ) , le chiffre devant les mot clés  dans le mode grille ira de 1  a X nombre de mot-clés du document
 ex : 1- 191 Si le document compte 191 mots-clés
 
-Sinon il ira de 0 a X ou X sera le nombre de mo-clés dans la méthode
-ex : 1-10 si la méthode compte 
+Sinon il ira de 0 à X ou X sera le nombre de mo-clés dans la méthode
+ex : 1-10 si la méthode compte
 
  
 #### documentFields(OBLIGATOIRE/Object)

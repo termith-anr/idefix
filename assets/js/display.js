@@ -152,6 +152,8 @@ $(document).ready(function() {
 
         };
 
+
+
     // Match content for typehead
     var substringMatcher = function(strs) {
         return function findMatches(q, cb) {
@@ -229,6 +231,24 @@ $(document).ready(function() {
         }
 
     };
+
+    $('.informations').on('click' , function(){
+        var id = $(this).attr("data-id");
+        $(".informations").css('z-index' ,'0');
+        $("#contentDisplay").css("display" ,"none");
+        console.log($("#" + id));
+        $("#" + id).css("display" , "flex");
+        $('body').css('overflow' , 'hidden');
+        $(".informations").css('z-index' ,'0');
+    });
+
+
+    $('.infosQuit').on('click', function(){
+        $('body').css('overflow' , '');
+        $("#contentDisplay").css("display" ,"");
+        $('.informationsContent').hide();
+        $(".informations").css('z-index' ,'');
+    });
 
     var saveTime = function(element,type){
 
