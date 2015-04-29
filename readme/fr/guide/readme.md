@@ -10,8 +10,6 @@ EVALUATION DE L'INDEXATION
 ===========================
 OUTIL IDEFIX
 ============
-![logoIdefix](https://cdn.rawgit.com/termith-anr/scripts-formats/master/Screens/svg/idefixLogo3.1.svg)
-
 
 
 Protocole d'évaluation
@@ -160,7 +158,7 @@ Chaque mot-clé est encadré d’un rectangle et porte un numéro qui désigne l
 ######6.Evaluer la pertinence d'un mot-clé d'une méthode######
 
 Cliquez sur **0**, **1** ou **2** pour attribuer un score de pertience au mot-clé.
-![AfficheMethode](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/notePertinence.png)
+![notePertinence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/notePertinence.png)
 
 ```
 Remarque:
