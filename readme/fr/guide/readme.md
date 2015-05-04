@@ -128,9 +128,6 @@ Cliquez sur un document pour le sélectionner.
 ![selectionDoc](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/selectionDoc.png)
 
 
-######3. Texte, Pagination, Timer et Liste######
-
-![paginationTexteTimerListe](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/pagination.png)
 
 ######4. Document ouvert######
 
@@ -142,13 +139,13 @@ Aprés avoir cliqué sur un document, il s'ouvre comme ci-dessous. Il contient:
 
 * la possibilité d'afficher le texte en cliquant sur le bouton prévu;
 
-* le timer;
+* le timer qui indique la durée totale passée sur un document. Il s'active autoamtiquement à l'ouverture du document. Il s'arrête automatiquement en plaçant la souris en dehors de la page en cours, en fermant le document en cours ou à la validation des deux évaluations (pertinence et silence);
 
 * la discipline;
 
 * la barre de progression pour l'évaluation de la pertinence dans un premier temps (la barre de progression pour le silence s'affichera après validation de la pertinence);
 
-* toutes les méthodes d'indexation autoamtique à évaluer.
+* toutes les méthodes d'indexation automatique à évaluer.
 ![documentOuvert](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/ouvertureDoc.png)
 
 EVALUER LA PERTINENCE DES METHODES
@@ -158,11 +155,13 @@ EVALUER LA PERTINENCE DES METHODES
 Pour afficher les mots-clés d'une méthode, cliquez sur le nom de la méthode souhaitée.
 Deux modes d'affichage au choix:
 
-* afficher sous forme de grille (par défaut);
+* afficher sous forme de grille (par défaut):
 
-* afficher sous forme de liste.
 ![AfficheMethode](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/afficheMethode.png)
 
+* afficher sous forme de liste:
+
+![AfficheMethode]()
 **Remarque:**
 
 Le nom de la méthode en cours est mis en évidence par sa couleur (sur la colonne de gauche), et chapeaute la liste des mots-clés (au centre).
