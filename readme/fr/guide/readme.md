@@ -40,7 +40,7 @@ Pour chacune des phases, il s’agit d’évaluer :
 
 * La pertinence et le silence d’un mot-clé sont évalués en fonction des formes présentes dans le texte.
 
-######1.Évaluation de la pertinence######
+######1. Évaluation de la pertinence######
 Cette tâche consiste à déterminer si un mot-clé est pertinent pour représenter la problématique de l’article ou du résumé.
 Cette évaluation est formalisée par l’attribution d’un score de **0** à **2** :
 
@@ -66,7 +66,7 @@ Cette évaluation est formalisée par l’attribution d’un score de **0** à *
 
 
 
-######2.Évaluation du silence######
+######2. Évaluation du silence######
 Une fois l’évaluation de la pertinence terminée pour une méthode, il s’agit de repérer les mots-clés pouvant manquer à l’indexation proposée par cette méthode.
 Ces mots-clés manquants sont recherchés dans l’indexation Inist, qui représente l’indexation de référence.
 Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant un score de **0** à **2** :
@@ -94,7 +94,7 @@ Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant u
 Manuel d'utilisation d'IDEFIX
 ==============================
 
-######0.Page d'accueil d'IDEFIX######
+######0. Page d'accueil d'IDEFIX######
 
 ![accueil](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/accueil.png)
 
@@ -108,7 +108,7 @@ La page d'accueil permet de:
 
 * afficher les documents par statut: Tous, Traités ou Non traités.
 
-######1.Couleur de l'évaluation de la pertinence et couleur de l'évaluation du silence######
+######1. Couleur de l'évaluation de la pertinence et couleur de l'évaluation du silence######
 
 Sur la page d'accueil, le titre de certains documents prend un fond coloré:
 
@@ -122,7 +122,7 @@ Certains documents sont déjà colorés avant l'intervention de l'évaluateur. C
 L'évaluateur peut bien sûr modifier le score attrbibué automatiquement.
 
 
-######2.Sélectionner un document######
+######2. Sélectionner un document######
 
 Cliquez sur un document pour le sélectionner.
 ![selectionDoc](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/selectionDoc.png)
@@ -130,11 +130,11 @@ Cliquez sur un document pour le sélectionner.
 Certains documents sont déjà colorés **bleu** avant l'intervention de l'évaluateur. Cela veut dire que des scores de pertinence (score 2) ont été attribués automatiquement en comparaison avec l'indexation INIST.
 L'évaluateur peut bien sûr modifier le score attribué automatiquement.
 
-######3.Texte, Pagination, Timer et Liste######
+######3. Texte, Pagination, Timer et Liste######
 
 ![paginationTexteTimerListe](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/pagination.png)
 
-######4.Document ouvert######
+######4. Document ouvert######
 
 Aprés avoir cliqué sur un document, il s'ouvre comme ci-dessous. Il contient:
 
@@ -155,7 +155,7 @@ Aprés avoir cliqué sur un document, il s'ouvre comme ci-dessous. Il contient:
 
 EVALUER LA PERTINENCE DES METHODES
 -----------
-######5.Afficher les mots-clés d'une méthode d'indexation autoamtique######
+######5. Afficher les mots-clés d'une méthode d'indexation autoamtique######
 
 Pour afficher les mots-clés d'une méthode, cliquez sur le nom de la méthode souhaitée.
 Deux modes d'affichage au choix:
@@ -164,54 +164,53 @@ Deux modes d'affichage au choix:
 
 * afficher sous forme de liste.
 ![AfficheMethode](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/afficheMethode.png)
-```
-Remarque:
-Le nom de la méthode en cours est mis en évidence par sa couleur (sur la colonne de gauche), et chapeaute la liste des mots-clés (au centre).
-Chaque mot-clé est encadré d’un rectangle et porte un numéro qui désigne l’ordre de génération par la méthode d’indexation.
-```
-######6.Evaluer la pertinence d'un mot-clé d'une méthode######
 
-Cliquez sur **0**, **1** ou **2** pour attribuer un score de pertience au mot-clé.
+**Remarque:**
+
+Le nom de la méthode en cours est mis en évidence par sa couleur (sur la colonne de gauche), et chapeaute la liste des mots-clés (au centre).
+
+Chaque mot-clé est encadré d’un rectangle et porte un numéro qui désigne l’ordre de génération par la méthode d’indexation.
+
+######6. Evaluer la pertinence d'un mot-clé d'une méthode######
+
+Cliquez sur **0**, **1** ou **2** pour attribuer un score de pertinence au mot-clé.
 ![notePertinence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/notePertinence.png)
 
-```
-Remarque:
-Une fois le score attribué, le chiffre change de couleur (0 devient rouge, 1 devient orange et 2 devient vert) et le contour gris disparaît.
-```
-######7.Indiquer ou supprimer la forme préféée d'un mot-clé d'une méthode######
 
-![prefernce](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/preference.png)
+######7. Indiquer ou supprimer la forme préférée d'un mot-clé d'une méthode######
 
-######8.Saisir un commentaire######
+![preference](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/preference.png)
+
+######8. Saisir un commentaire######
 
 ![commentaire](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/commentaire.png)
 
-######9.Sauvegarder ou supprimer un commentaire et quitter la zone commentaire sans sauvegarder######
+######9. Sauvegarder ou supprimer un commentaire et quitter la zone commentaire sans sauvegarder######
 
 ![ValiderCommentaire](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/validerCommentaire.png)
 
-######10.Chercher un mot-clé dans le résumé et le texte######
+######10. Chercher un mot-clé dans le résumé et le texte######
 
 ![chercheMot](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/rechercheMot.png)
 
-######11.Barre de progression et valider définitivement l'évaluation de la pertinence######
+######11. Barre de progression et valider définitivement l'évaluation de la pertinence######
 
 ![barreProgression](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/barreProgession.png)
 
-######12.Afficher ou cacher les mots-clés de l'INIST######
+######12. Afficher ou cacher les mots-clés de l'INIST######
 
 ![motInist](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/afficheMotInist.png)
 
 EVALUER LE SILENCE DES METHODES
 -----------
-######13.Evaluer le silence d'une méthode d'indexation automatique par rapport aux mots-clés de l'INIST######
+######13. Evaluer le silence d'une méthode d'indexation automatique par rapport aux mots-clés de l'INIST######
 
 ![evalSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/evalMotInist.png)
 
-######14.Valider définitivement l'évaluation du silence######
+######14. Valider définitivement l'évaluation du silence######
 
 ![validerSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/ValidationSilence.png)
 
-######15.Exporter les résultats de l'évaluation######
+######15. Exporter les résultats de l'évaluation######
 
 ![export](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/export.png)
