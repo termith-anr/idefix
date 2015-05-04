@@ -22,9 +22,9 @@ Ce scénario se déroule en 4 phases :
 
 * **Phase 2 :** évaluation de l’indexation produite par 2 méthodes à partir du texte intégral dans un domaine (linguistique)
 
-* **Phase 3 :** évaluation de l’indexation produite par 4 à 6 méthodes à partir du résumé dans 5 domaines (linguistique, archéologie, sciences de l’information et chimie)
+* **Phase 3 :** évaluation de l’indexation produite par 4 à 6 méthodes à partir du résumé dans 4 domaines (linguistique, archéologie, sciences de l’information et chimie)
 
-* **Phase 4 :** évaluation de l’indexation produite par 6+ méthodes à partir du texte intégral dans 5 domaines (linguistique, archéologie, sciences de l’information et chimie)
+* **Phase 4 :** évaluation de l’indexation produite par 6+ méthodes à partir du texte intégral dans 4 domaines (linguistique, archéologie, sciences de l’information et chimie)
 
 Pour chacune des phases, il s’agit d’évaluer :
 
@@ -79,15 +79,15 @@ Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant u
 
 **Cas particuliers :**
 
-1. Le mot-clé ne manque pas parce qu’il est déjà présent dans l’indexation Termith ⇨ score 0 + lien vers mot-clé Termith correspondant (correspondance exacte ou approximative);
+1. Le mot-clé ne manque pas parce qu’il est déjà présent dans l’indexation Termith => score 0 + lien vers mot-clé Termith correspondant (correspondance exacte ou approximative);
 
-2. Le mot-clé ne manque pas parce qu’il provient d’une erreur d’indexation ⇨ score 0 + commentaire : « erreur d’indexation »;
+2. Le mot-clé ne manque pas parce qu’il provient d’une erreur d’indexation => score 0 + commentaire : « erreur d’indexation »;
 
-3. Le mot-clé correspond à un mot plus ou moins important qui n’est pas présent dans le texte =>⇨ score 1 + commentaire : « implicite » ou « générique » en fonction des cas;
+3. Le mot-clé correspond à un mot plus ou moins important qui n’est pas présent dans le texte => score 1 + commentaire : « implicite » ou « générique » en fonction des cas;
 
 4. Le mot-clé correspond un mot d'importance moindre qui est présent dans le texte => score 1;
 
-5. Le mot-clé correspond à un mot important qui est présent dans le texte =>⇨ score 2.
+5. Le mot-clé correspond à un mot important qui est présent dans le texte => score 2.
 
 
 
@@ -118,7 +118,7 @@ Sur la page d'accueil, le titre de certains documents prend un fond coloré:
 ![couleurPertinenceSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/couleurPertSilence.png)
 
 **Remarques:**
-Certains documents sont déjà colorés avant l'intervention de l'évaluateur. Cela veut dire des scores de pertinence (score 2) ont été attribués automatiquement par comparaison avec l'indexation INIST. Si le mot-clé est présent dans l'indxation INIST, le score 2 est attribué automatiquement.
+Certains documents sont déjà colorés avant l'intervention de l'évaluateur. Cela veut dire des scores de pertinence ont été attribués automatiquement par comparaison avec l'indexation INIST. Ainsi, si le mot-clé est présent dans l'indexation INIST, le score 2 est attribué automatiquement.
 L'évaluateur peut bien sûr modifier ce score.
 
 
@@ -126,9 +126,7 @@ L'évaluateur peut bien sûr modifier ce score.
 
 Cliquez sur un document pour le sélectionner.
 ![selectionDoc](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/selectionDoc.png)
-**Remarque:**
-Certains documents sont déjà colorés **bleu** avant l'intervention de l'évaluateur. Cela veut dire que des scores de pertinence (score 2) ont été attribués automatiquement en comparaison avec l'indexation INIST.
-L'évaluateur peut bien sûr modifier le score attribué automatiquement.
+
 
 ######3. Texte, Pagination, Timer et Liste######
 
