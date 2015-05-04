@@ -22,9 +22,9 @@ Ce scénario se déroule en 4 phases :
 
 * **Phase 2 :** évaluation de l’indexation produite par 2 méthodes à partir du texte intégral dans un domaine (linguistique)
 
-* **Phase 3 :** évaluation de l’indexation produite par X méthodes à partir du résumé dans 5 domaines (linguistique, archéologie, sciences de l’information, psychologie, chimie)
+* **Phase 3 :** évaluation de l’indexation produite par 4 à 6 méthodes à partir du résumé dans 5 domaines (linguistique, archéologie, sciences de l’information et chimie)
 
-* **Phase 4 :** évaluation de l’indexation produite par X méthodes à partir du texte intégral dans 5 domaines (linguistique, archéologie, sciences de l’information, psychologie, chimie)
+* **Phase 4 :** évaluation de l’indexation produite par 6+ méthodes à partir du texte intégral dans 5 domaines (linguistique, archéologie, sciences de l’information et chimie)
 
 Pour chacune des phases, il s’agit d’évaluer :
 
