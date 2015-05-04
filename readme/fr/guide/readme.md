@@ -28,17 +28,17 @@ Ce scénario se déroule en 4 phases :
 
 Pour chacune des phases, il s’agit d’évaluer :
 
-* la **pertinence** de chaque mot-clé proposé
+* la **pertinence** de chaque mot-clé proposé;
 
-* le **silence** de la méthode, en se basant sur l’indexation Inist
+* le **silence** de la méthode, en se basant sur l’indexation Inist.
 
-Consignes générales :
+**Consignes générales :**
 
-* On ne consulte pas l’article en texte intégral quand on évalue l’indexation faite à partir du résumé
+* On ne consulte pas l’article en texte intégral quand on évalue l’indexation faite à partir du résumé;
 
-* On ne modifie pas le score Termith quand on voit l’indexation Inist pour évaluer le silence de la méthode
+* On ne modifie pas le score Termith quand on voit l’indexation Inist pour évaluer le silence de la méthode;
 
-* La pertinence et le silence d’un mot-clé sont évalués en fonction des formes présentes dans le texte
+* La pertinence et le silence d’un mot-clé sont évalués en fonction des formes présentes dans le texte.
 
 ######1.Évaluation de la pertinence######
 Cette tâche consiste à déterminer si un mot-clé est pertinent pour représenter la problématique de l’article ou du résumé.
@@ -48,22 +48,23 @@ Cette évaluation est formalisée par l’attribution d’un score de **0** à *
 
 * **Score 1 :** mot-clé pertinent, mais pas dans la forme proposée;
 
-* **Score 2 :** mot-clé pertinent
+* **Score 2 :** mot-clé pertinent.
 
-```
-Cas particuliers :
 
-* Le mot-clé n’est pas pertinent => score 0 + indiquer la raison en commentaire
+**Cas particuliers :**
 
-* Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente également dans l’indexation => score 1 + lien vers forme préférée dans l’indexation + score 2 à la forme préférée
+1. Le mot-clé n’est pas pertinent => score 0 + indiquer la raison en commentaire
 
-* Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente dans le texte, qui n’a pas été proposée dans l’indexation => score 1 + indiquer en commentaire : « forme préférée dans le texte : xxxx »
+2. Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente également dans l’indexation
+    => score 1 + lien vers forme préférée dans l’indexation + score 2 à la forme préférée
 
-* Le mot-clé est pertinent et est présent dans le texte => score 2
+3. Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente dans le texte, qui n’a pas été proposée dans l’indexation => score 1 + indiquer en commentaire : « forme préférée dans le texte : xxxx »
 
-* Le mot-clé est pertinent, mais est une variante d’une forme préférentielle qui n’est pas dans le texte => score 2 + indiquer en commentaire : « forme préférée pas dans le texte : xxx »
+4. Le mot-clé est pertinent et est présent dans le texte => score 2
 
-```
+5. Le mot-clé est pertinent, mais est une variante d’une forme préférentielle qui n’est pas dans le texte => score 2 + indiquer en commentaire : « forme préférée pas dans le texte : xxx »
+
+
 
 ######2.Évaluation du silence######
 Une fois l’évaluation de la pertinence terminée pour une méthode, il s’agit de repérer les mots-clés pouvant manquer à l’indexation proposée par cette méthode.
@@ -75,14 +76,19 @@ Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant u
 * **Score 1 :** le mot-clé manque moyennement
 
 * **Score 2** : le mot-clé manque absolument
-```
-Cas particuliers :
-Le mot-clé ne manque pas parce qu’il est déjà présent dans l’indexation Termith ⇨ score 0 + lien vers mot-clé Termith correspondant (correspondance exacte ou approximative)
-Le mot-clé ne manque pas parce qu’il provient d’une erreur d’indexation ⇨ score 0 + commentaire : « erreur d’indexation »
-Le mot-clé correspond à un mot plus ou moins important qui n’est pas présent dans le texte =>⇨ score 1 + commentaire : « implicite » ou « générique » en fonction des cas
-Le mot-clé correspond à un mot important qui est présent dans le texte =>⇨ score 2
 
-```
+**Cas particuliers :**
+
+1. Le mot-clé ne manque pas parce qu’il est déjà présent dans l’indexation Termith ⇨ score 0 + lien vers mot-clé Termith correspondant (correspondance exacte ou approximative);
+
+2. Le mot-clé ne manque pas parce qu’il provient d’une erreur d’indexation ⇨ score 0 + commentaire : « erreur d’indexation »;
+
+3. Le mot-clé correspond à un mot plus ou moins important qui n’est pas présent dans le texte =>⇨ score 1 + commentaire : « implicite » ou « générique » en fonction des cas;
+
+4. Le mot-clé correspond un mot d'importance moindre qui est présent dans le texte => score 1;
+
+5. Le mot-clé correspond à un mot important qui est présent dans le texte =>⇨ score 2.
+
 
 
 Manuel d'utilisation d'IDEFIX
@@ -98,23 +104,26 @@ La page d'accueil permet de:
 
 * choisir le nombre de documents à afficher par page;
 
-* faire une recherche dans la liste de documents;
+* faire une recherche de mot dans la liste de documents (sur le titre et le nom de fichier);
 
 * afficher les documents par statut: Tous, Traités ou Non traités.
 
-######1.Couleur de l'évaluation de la pertience et couleur de l'évaluation du silence######
+######1.Couleur de l'évaluation de la pertinence et couleur de l'évaluation du silence######
 
-A la page d'accueil, le titre de certains documents prend un fond coloré:
+Sur la page d'accueil, le titre de certains documents prend un fond coloré:
 
-* couleur **bleue** indique que c'est l'évaluation de la **pertience** qui est en cours;
+* couleur **bleue** correspond à l'évaluation de la **pertience** et indique le niveau de la progression de l'évaluation;
 
-* couleur **grise** indique que c'est l'évaluation du **silence** qui est en cours.
+* couleur **grise** correspond à l'évaluation du **silence** et indique le niveau de la progression de l'évaluation.
 ![couleurPertinenceSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/couleurPertSilence.png)
 
 ######2.Sélectionner un document######
 
 Cliquez sur un document pour le sélectionner.
 ![selectionDoc](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/selectionDoc.png)
+**Remarque:**
+Certains documents sont déjà colorés **bleu** avant l'intervention de l'évaluateur. Cela veut dire que des scores de pertinence (score 2) ont été attribués automatiquement en comparaison avec l'indexation INIST.
+L'évaluateur peut bien sûr modifier le score attribué automatiquement.
 
 ######3.Texte, Pagination, Timer et Liste######
 
