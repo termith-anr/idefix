@@ -162,7 +162,7 @@ Deux modes d'affichage au choix:
 * afficher sous forme de liste:
 
 ![AfficheMethode]()
-**Remarque:**
+**Remarques:**
 
 Le nom de la méthode en cours est mis en évidence par sa couleur (sur la colonne de gauche), et chapeaute la liste des mots-clés (au centre).
 
