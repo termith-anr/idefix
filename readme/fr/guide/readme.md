@@ -118,8 +118,8 @@ Sur la page d'accueil, le titre de certains documents prend un fond coloré:
 ![couleurPertinenceSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/couleurPertSilence.png)
 
 **Remarques:**
-Certains documents sont déjà colorés avant l'intervention de l'évaluateur. Cela veut dfire des scores de pertinence (score 2) ont été attribués automatiquement par comparaison avec l'indexation INIST.
-L'évaluateur peut bien sûr modifier le score attrbibué automatiquement.
+Certains documents sont déjà colorés avant l'intervention de l'évaluateur. Cela veut dfire des scores de pertinence (score 2) ont été attribués automatiquement par comparaison avec l'indexation INIST. Si le mot-clé est présent dans l'indxation INIST, le score 2 est attribué automatiquement.
+L'évaluateur peut bien sûr modifier ce score.
 
 
 ######2. Sélectionner un document######
