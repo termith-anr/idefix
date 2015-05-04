@@ -112,7 +112,7 @@ La page d'accueil permet de:
 
 Sur la page d'accueil, le titre de certains documents prend un fond coloré:
 
-* couleur **bleue** correspond à l'évaluation de la **pertience** et indique le niveau de la progression de l'évaluation;
+* couleur **bleue** correspond à l'évaluation de la **pertinence** et indique le niveau de la progression de l'évaluation;
 
 * couleur **grise** correspond à l'évaluation du **silence** et indique le niveau de la progression de l'évaluation.
 ![couleurPertinenceSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/couleurPertSilence.png)
