@@ -117,6 +117,11 @@ Sur la page d'accueil, le titre de certains documents prend un fond coloré:
 * couleur **grise** correspond à l'évaluation du **silence** et indique le niveau de la progression de l'évaluation.
 ![couleurPertinenceSilence](https://github.com/termith-anr/scripts-formats/blob/master/Screens/png/couleurPertSilence.png)
 
+**Remarques:**
+Certains documents sont déjà colorés avant l'intervention de l'évaluateur. Cela veut dfire des scores de pertinence (score 2) ont été attribués automatiquement par comparaison avec l'indexation INIST.
+L'évaluateur peut bien sûr modifier le score attrbibué automatiquement.
+
+
 ######2.Sélectionner un document######
 
 Cliquez sur un document pour le sélectionner.
