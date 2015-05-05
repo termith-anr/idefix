@@ -10,7 +10,6 @@
 
 
 var objectPath = require('object-path'),
-    kuler = require('kuler'),
     sha1 = require('sha1'),
     jsonselect = require('JSONSelect');
 

@@ -11,9 +11,7 @@
  ************************/
 
 
-var objectPath = require('object-path'),
-    kuler      = require('kuler');
-
+var objectPath = require('object-path');
 
 'use strict';
 module.exports = function(options,config) {

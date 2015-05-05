@@ -5,7 +5,6 @@
 
 var CSV = require('csv-string'),
     pmongo = require('promised-mongo'),
-    sugar = require('sugar'),
     dateFormat = require('dateformat');
 
 module.exports = function(config) {
