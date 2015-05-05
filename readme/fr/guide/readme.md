@@ -55,7 +55,7 @@ Cette évaluation est formalisée par l’attribution d’un score de **0** à *
 
 1. Le mot-clé n’est pas pertinent 
      
-         => **score 0** + **indiquer la raison en commentaire**
+ => **score 0** + **indiquer la raison en commentaire**
 
 2. Le mot-clé est pertinent, mais pas dans la forme proposée
 
