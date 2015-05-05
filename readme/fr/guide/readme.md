@@ -65,12 +65,18 @@ Cette évaluation est formalisée par l’attribution d’un score de **0** à *
         => **score 1 + lien vers forme préférée dans l’indexation**
         
         **+ score 2 à la forme préférée**
+   
+    * Si la forme préférentielle n'a pas été proposée dans l'indexation, mais présente dans le texte
+    
+        => **score 1 + indiquer en commentaire: "forme préfèrée dans le texte: xxxx"**
+        
+    * Si l aforme préférentielle n'est pas dans le texte
+    
+        => **score 2 + indiquer en commentaire: "forme préférée pas dans le texte: xxx"
+        
+3. Le mot-clé est pertinent dans l aforme proposé (qu'il soit présent ou non dans le texte)
 
-3. Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente dans le texte, qui n’a pas été proposée dans l’indexation => score 1 + indiquer en commentaire : « forme préférée dans le texte : xxxx »
-
-4. Le mot-clé est pertinent et est présent dans le texte => score 2
-
-5. Le mot-clé est pertinent, mais est une variante d’une forme préférentielle qui n’est pas dans le texte => score 2 + indiquer en commentaire : « forme préférée pas dans le texte : xxx »
+     => **score 2**
 
 
 
