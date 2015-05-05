@@ -70,9 +70,11 @@ Cette évaluation est formalisée par l’attribution d’un score de **0** à *
     
         => **score 1 + indiquer en commentaire: "forme préfèrée dans le texte: xxxx"**
         
-    * Si l aforme préférentielle n'est pas dans le texte
+    * Si la forme préférentielle n'est pas dans le texte
     
-        => **score 2 + indiquer en commentaire: "forme préférée pas dans le texte: xxx"
+    
+        => **score 2 + indiquer en commentaire: "forme préférée pas dans le texte: xxx"**
+        
         
 3. Le mot-clé est pertinent dans l aforme proposé (qu'il soit présent ou non dans le texte)
 
