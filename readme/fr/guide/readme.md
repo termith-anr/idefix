@@ -64,7 +64,7 @@ Cette évaluation est formalisée par l’attribution d’un score de **0** à *
     
         => **score 1 + lien vers forme préférée dans l’indexation**
         
-            + **score 2 à la forme préférée**
+        **+ score 2 à la forme préférée**
 
 3. Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente dans le texte, qui n’a pas été proposée dans l’indexation => score 1 + indiquer en commentaire : « forme préférée dans le texte : xxxx »
 
