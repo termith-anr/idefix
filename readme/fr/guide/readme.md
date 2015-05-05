@@ -38,7 +38,7 @@ Pour chacune des phases, il s’agit d’évaluer :
 
 * On ne modifie pas le score Termith quand on voit l’indexation Inist pour évaluer le silence de la méthode;
 
-* La pertinence et le silence d’un mot-clé sont évalués en fonction des formes présentes dans le texte.
+
 
 ######1. Évaluation de la pertinence######
 Cette tâche consiste à déterminer si un mot-clé est pertinent pour représenter la problématique de l’article ou du résumé.
