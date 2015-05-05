@@ -83,7 +83,9 @@ Cette évaluation est formalisée par l’attribution d’un score de **0** à *
 
 
 ######2. Évaluation du silence######
+
 Une fois l’évaluation de la pertinence terminée pour une méthode, il s’agit de repérer les mots-clés pouvant manquer à l’indexation proposée par cette méthode.
+
 Ces mots-clés manquants sont recherchés dans l’indexation Inist, qui représente l’indexation de référence.
 Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant un score de **0** à **2** :
 
@@ -95,15 +97,28 @@ Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant u
 
 **Cas particuliers :**
 
-1. Le mot-clé ne manque pas parce qu’il est déjà présent dans l’indexation Termith => score 0 + lien vers mot-clé Termith correspondant (correspondance exacte ou approximative);
+1. Le mot-clé ne manque pas parce qu’il est déjà présent dans l’indexation Termith 
 
-2. Le mot-clé ne manque pas parce qu’il provient d’une erreur d’indexation => score 0 + commentaire : « erreur d’indexation »;
 
-3. Le mot-clé correspond à un mot plus ou moins important qui n’est pas présent dans le texte => score 1 + commentaire : « implicite » ou « générique » en fonction des cas;
+     => **score 0 + lien vers mot-clé Termith correspondant (correspondance exacte ou approximative)**
 
-4. Le mot-clé correspond un mot d'importance moindre qui est présent dans le texte => score 1;
+2. Le mot-clé ne manque pas parce qu’il provient d’une erreur d’indexation 
+     
+     => **score 0 + commentaire : « erreur d’indexation »**
 
-5. Le mot-clé correspond à un mot important qui est présent dans le texte => score 2.
+3. Le mot-clé correspond à un mot plus ou moins important qui n’est pas présent dans le texte
+
+
+     => **score 1 + commentaire : « implicite » ou « générique » en fonction des cas**
+
+4. Le mot-clé correspond un mot d'importance moindre qui est présent dans le texte 
+
+     => **score 1**
+
+
+5. Le mot-clé correspond à un mot important qui est présent dans le texte 
+
+     => **score 2**
 
 
 
