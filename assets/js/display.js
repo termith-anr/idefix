@@ -11,7 +11,7 @@ $(document).ready(function() {
         pageId = pertinenceBar.attr('data-id'),
         savePage = '/save/' + pageId,
         dropPage = '/drop/' + pageId,
-        contentPage = '/display/' + pageId + ".json",
+        contentPage = '/display/' + pageId + ".json?flying=document",
         configPage = "/config.json",
         config = {},
         timer = $('#timer'),

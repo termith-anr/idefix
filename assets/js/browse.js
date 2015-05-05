@@ -3,7 +3,7 @@
 $(document).ready(function() {
 
     // Disable localstorage for phantomJS dalekjs Tests
-    var state = (window.navigator.userAgent.toLowerCase().indexOf("phantomjs") > -1 || window.navigator.userAgent.toLowerCase().indexOf("chrome") > -1) ? false : true;
+    var state = (window.navigator.userAgent.toLowerCase().indexOf("phantomjs") > -1) ? false : true;
     // Config DataTable
     var oTable = $('#browseTable').dataTable({
             "search" : {
@@ -12,7 +12,7 @@ $(document).ready(function() {
             ordering: true,
             dom : "ilfrtp",
             info : true,
-            ajax: "/browse.json",
+            ajax: "/browse.json?flying=listeDocuments",
             serverSide: true,
             lengthMenu : [15,1,3,5,10,25,50,100,200,500],
             "language": {
@@ -97,6 +97,8 @@ $(document).ready(function() {
             }
         }),
         thead = $('#menuThead');
+
+    console.log("oTable" , oTable);
 
     // DataTable filters
     $('#browseChangeList').on('change', function() {
