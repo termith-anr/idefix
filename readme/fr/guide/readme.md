@@ -38,7 +38,7 @@ Pour chacune des phases, il s’agit d’évaluer :
 
 * On ne modifie pas le score Termith quand on voit l’indexation Inist pour évaluer le silence de la méthode;
 
-* La pertinence et le silence d’un mot-clé sont évalués en fonction des formes présentes dans le texte.
+
 
 ######1. Évaluation de la pertinence######
 Cette tâche consiste à déterminer si un mot-clé est pertinent pour représenter la problématique de l’article ou du résumé.
@@ -53,21 +53,39 @@ Cette évaluation est formalisée par l’attribution d’un score de **0** à *
 
 **Cas particuliers :**
 
-1. Le mot-clé n’est pas pertinent => score 0 + indiquer la raison en commentaire
+1. Le mot-clé n’est pas pertinent 
+     
+ => **score 0** + **indiquer la raison en commentaire**
 
-2. Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente également dans l’indexation
-    => score 1 + lien vers forme préférée dans l’indexation + score 2 à la forme préférée
+2. Le mot-clé est pertinent, mais pas dans la forme proposée
 
-3. Le mot-clé est pertinent, mais est une variante d’une forme préférentielle présente dans le texte, qui n’a pas été proposée dans l’indexation => score 1 + indiquer en commentaire : « forme préférée dans le texte : xxxx »
+    * Si la forme préférentielle est présente également dans l'indexation
+    
+    
+        => **score 1 + lien vers forme préférée dans l’indexation**
+        
+        **+ score 2 à la forme préférée**
+   
+    * Si la forme préférentielle n'a pas été proposée dans l'indexation, mais présente dans le texte
+    
+        => **score 1 + indiquer en commentaire: "forme préfèrée dans le texte: xxxx"**
+        
+    * Si la forme préférentielle n'est pas dans le texte
+    
+    
+        => **score 2 + indiquer en commentaire: "forme préférée pas dans le texte: xxx"**
+        
+        
+3. Le mot-clé est pertinent dans l aforme proposé (qu'il soit présent ou non dans le texte)
 
-4. Le mot-clé est pertinent et est présent dans le texte => score 2
-
-5. Le mot-clé est pertinent, mais est une variante d’une forme préférentielle qui n’est pas dans le texte => score 2 + indiquer en commentaire : « forme préférée pas dans le texte : xxx »
+     => **score 2**
 
 
 
 ######2. Évaluation du silence######
+
 Une fois l’évaluation de la pertinence terminée pour une méthode, il s’agit de repérer les mots-clés pouvant manquer à l’indexation proposée par cette méthode.
+
 Ces mots-clés manquants sont recherchés dans l’indexation Inist, qui représente l’indexation de référence.
 Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant un score de **0** à **2** :
 
@@ -79,15 +97,28 @@ Cette tâche consiste donc à évaluer chaque mot-clé Inist en lui attribuant u
 
 **Cas particuliers :**
 
-1. Le mot-clé ne manque pas parce qu’il est déjà présent dans l’indexation Termith => score 0 + lien vers mot-clé Termith correspondant (correspondance exacte ou approximative);
+1. Le mot-clé ne manque pas parce qu’il est déjà présent dans l’indexation Termith 
 
-2. Le mot-clé ne manque pas parce qu’il provient d’une erreur d’indexation => score 0 + commentaire : « erreur d’indexation »;
 
-3. Le mot-clé correspond à un mot plus ou moins important qui n’est pas présent dans le texte => score 1 + commentaire : « implicite » ou « générique » en fonction des cas;
+     => **score 0 + lien vers mot-clé Termith correspondant (correspondance exacte ou approximative)**
 
-4. Le mot-clé correspond un mot d'importance moindre qui est présent dans le texte => score 1;
+2. Le mot-clé ne manque pas parce qu’il provient d’une erreur d’indexation 
+     
+     => **score 0 + commentaire : « erreur d’indexation »**
 
-5. Le mot-clé correspond à un mot important qui est présent dans le texte => score 2.
+3. Le mot-clé correspond à un mot plus ou moins important qui n’est pas présent dans le texte
+
+
+     => **score 1 + commentaire : « implicite » ou « générique » en fonction des cas**
+
+4. Le mot-clé correspond un mot d'importance moindre qui est présent dans le texte 
+
+     => **score 1**
+
+
+5. Le mot-clé correspond à un mot important qui est présent dans le texte 
+
+     => **score 2**
 
 
 
