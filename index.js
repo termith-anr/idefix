@@ -25,7 +25,21 @@ module.exports = {
             "script" : "autoScore.js",
             "pattern" : "**/*.xml"
         }
-    ]
+    ],
+    "documentFields" : {
+        "$text": {
+            "get" : ["fields.title","basename"],
+            "join": " | "
+        }
+    },
+    "flyingFields": {
+        "$listeDocuments": {
+            "mask": "_id,wid,basename,fields,progressSilenceKeywords,progressNotedKeywords,validatePertinence,validateSilence,text"
+        },
+        "$document": {
+            "mask": "_id,wid,basename,fields,progressSilenceKeywords,progressNotedKeywords,validatePertinence,validateSilence,keywords,pertinenceMethods,text,timeJob"
+        }
+    }
 };
 
 module.exports.package = pkg = require('./package.json');

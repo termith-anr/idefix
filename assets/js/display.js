@@ -3,8 +3,6 @@
  */
 $(document).ready(function() {
 
-
-
     // ProgressBar & Timer ( getting json info )
     var pertinenceBar = $('#pertinenceBar'),
         silenceBar = $('#silenceBar'),
@@ -85,6 +83,7 @@ $(document).ready(function() {
 
             $('#abstractFullLenght').highlight(keywordText, { wordsOnly: true });
             $('#articleSectionResumeDisplay').highlight(keywordText, { wordsOnly: true });
+            $('#h1DisplayDocs').highlight(keywordText, { wordsOnly: true  , className: 'h1Highlight'});
             if ($("#abstractFullLenght .highlight").length < 1) {
                 $('#abstractFullLenght').highlight(keywordText);
                 $('#articleSectionResumeDisplay').highlight(keywordText);
@@ -119,38 +118,38 @@ $(document).ready(function() {
     //Hide preference & corresp if options enabled
     var hideElements = function(){
 
-            var notedDiv = $('.methodsKeywords .keywordsMethodsDisplayDone');
+        var notedDiv = $('.methodsKeywords .keywordsMethodsDisplayDone');
 
-            if(config.showPreference) {
-                $('input:checked' , notedDiv).each(function(index){
-                    for(var key in config.showPreference ) {
-                        if ($(this).val().toString() === config.showPreference[key].toString()) {
-                            var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
-                            $('.formNotedKeywordsPref' ,divKeywords).css('display', '').addClass('preferenceAvailable');
-                            $('.divComments' , divKeywords).addClass('commentsRight');
-                            break;
-                        }
+        if(config.showPreference) {
+            $('input:checked' , notedDiv).each(function(index){
+                for(var key in config.showPreference ) {
+                    if ($(this).val().toString() === config.showPreference[key].toString()) {
+                        var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
+                        $('.formNotedKeywordsPref' ,divKeywords).css('display', '').addClass('preferenceAvailable');
+                        $('.divComments' , divKeywords).addClass('commentsRight');
+                        break;
                     }
-                });
-            }
+                }
+            });
+        }
 
 
-            notedDiv = $('#keywordsInist .keywordsMethodsDisplayDone');
+        notedDiv = $('#keywordsInist .keywordsMethodsDisplayDone');
 
-            if(config.showCorrespondance) {
-                $('input:checked' , notedDiv).each(function(index){
-                    for(var key in config.showCorrespondance ) {
-                        if ($(this).val().toString() === config.showCorrespondance[key].toString()) {
-                            var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
-                            $('.formNotedKeywordsCorresp' ,divKeywords).css('display', '').addClass('preferenceAvailable');
-                            $('.divComments' , divKeywords).addClass('commentsRight');
-                            break;
-                        }
+        if(config.showCorrespondance) {
+            $('input:checked' , notedDiv).each(function(index){
+                for(var key in config.showCorrespondance ) {
+                    if ($(this).val().toString() === config.showCorrespondance[key].toString()) {
+                        var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
+                        $('.formNotedKeywordsCorresp' ,divKeywords).css('display', '').addClass('preferenceAvailable');
+                        $('.divComments' , divKeywords).addClass('commentsRight');
+                        break;
                     }
-                });
-            }
+                }
+            });
+        }
 
-        };
+    };
 
 
 
@@ -169,7 +168,7 @@ $(document).ready(function() {
             // contains the substring `q`, add it to the `matches` array
             $.each(strs, function(i, str) {
                 if (substrRegex.test(str)) {
-                // the typeahead jQuery plugin expects suggestions to a
+                    // the typeahead jQuery plugin expects suggestions to a
                     // JavaScript object, refer to typeahead docs for more info
                     matches.push({ value: str });
                 }
@@ -181,21 +180,21 @@ $(document).ready(function() {
 
     // Init typeAHead twitter
     var typeAHead = function(data){
-            //console.log("source : " , data);
-            var inputs = $('.inputComment');
-            inputs.typeahead(
-                {
-                    hint: true,
-                    highlight: true,
-                    minLength: 1
-                },
-                {
+        //console.log("source : " , data);
+        var inputs = $('.inputComment');
+        inputs.typeahead(
+            {
+                hint: true,
+                highlight: true,
+                minLength: 1
+            },
+            {
                 name: 'data',
                 displayKey: 'value',
                 source: substringMatcher(data)
-                }
-            );
-        };
+            }
+        );
+    };
 
     /**
      *
@@ -337,245 +336,245 @@ $(document).ready(function() {
     //Get mongo data
     $.getJSON(contentPage, function (data) {
 
-            // If silence are validated , stop timer at saved score
-            var timeJob = data.data.timeJob ? parseFloat(data.data.timeJob) : 0,
-                stop = (data.data.validateSilence == "yes") ? timeJob : null;
+        // If silence are validated , stop timer at saved score
+        var timeJob = data.data.timeJob ? parseFloat(data.data.timeJob) : 0,
+            stop = (data.data.validateSilence == "yes") ? timeJob : null;
 
-            maxScores = data.data.fields.maxScores;
-            currentScores = data.data.fields.currentScores;
-            minScores = data.data.fields.minScores;
-            if(config.coloredDocument) {
-                calculScores();
+        maxScores = data.data.fields.maxScores;
+        currentScores = data.data.fields.currentScores;
+        minScores = data.data.fields.minScores;
+        if(config.coloredDocument) {
+            calculScores();
+        }
+
+
+
+        // INIT TIMMER
+        timer.runner({
+            autostart: true,
+            startAt: timeJob,
+            stopAt : stop,
+            milliseconds: true,
+            format: function(time){
+                var seconds = Math.floor((time / 1000) % 60);
+                var minutes = Math.floor((time / (60 * 1000)) % 60);
+
+                return minutes + "mn " + seconds + "s";
             }
+        });
 
 
 
-            // INIT TIMMER
-            timer.runner({
-                autostart: true,
-                startAt: timeJob,
-                stopAt : stop,
-                milliseconds: true,
-                format: function(time){
-                    var seconds = Math.floor((time / 1000) % 60);
-                    var minutes = Math.floor((time / (60 * 1000)) % 60);
+        // Click on timer button
+        startOrStop.click(function() {
 
-                    return minutes + "mn " + seconds + "s";
-                }
-            });
+            //If it's running (play)
+            if($(this).hasClass('isRunning')){
 
+                //Change button clases
+                timer.runner('stop');
+                $(this).toggleClass('isRunning stopped glyphicon-play glyphicon-pause stopedByButton');
 
-
-            // Click on timer button
-            startOrStop.click(function() {
-
-                //If it's running (play)
-                if($(this).hasClass('isRunning')){
-
-                    //Change button clases
-                    timer.runner('stop');
-                    $(this).toggleClass('isRunning stopped glyphicon-play glyphicon-pause stopedByButton');
-
-                    //Get time info
-                    var timerInfo = timer.runner('info'),
-                        timeToSave = timerInfo.time;
-
-                    //Save Time info to mongo
-                    $.ajax({
-                        type: "POST",
-                        url: savePage,
-                        data: [
-                            { name: "key", value: "timeJob"} ,
-                            { name: "val", value: timeToSave}
-                        ]
-                    });
-                }
-
-                //If it was stopped (stop)
-                else if ($(this).hasClass('stopped')){
-                    timer.runner('start');
-                    $(this).toggleClass('isRunning stopped glyphicon-play glyphicon-pause stopedByButton');
-                }
-            });
-
-
-
-
-
-            // When mouse leave the work-window
-            bodyBrowse.mouseleave(function() {
-
-                //If it's running (play)
-                if(startOrStop.hasClass('isRunning')){
-
-                    //Change button clases
-                    timer.runner('stop');
-                    startOrStop.toggleClass('isRunning stopped glyphicon-play glyphicon-pause');
-
-                    //Get time info
-                    var timerInfo = timer.runner('info'),
-                        timeToSave = timerInfo.time;
-
-                    //Save Time info to mongo
-                    $.ajax({
-                        type: "POST",
-                        url: savePage,
-                        data: [
-                            { name: "key", value: "timeJob"} ,
-                            { name: "val", value: timeToSave}
-                        ]
-                    });
-
-                }
-            });
-
-
-
-            // When mouse re-enter the work-window
-            bodyBrowse.mouseenter(function() {
-
-                // If it was stopped by button
-                if(!startOrStop.hasClass('stopedByButton')) {
-
-                    //If it was stopped
-                    if (startOrStop.hasClass('stopped')) {
-
-                        //Restart timer
-                        timer.runner('start');
-                        startOrStop.toggleClass('isRunning stopped glyphicon-play glyphicon-pause');
-                    }
-                }
-            });
-
-
-
-            // When click on "LISTE" , returning to documents
-            $('#divNavMiddle a').on('click' , function(){
-
-                //Get timer info
-                var href = this.href,
-                    timerInfo = timer.runner('info'),
+                //Get time info
+                var timerInfo = timer.runner('info'),
                     timeToSave = timerInfo.time;
 
-                //Save Timer info
+                //Save Time info to mongo
                 $.ajax({
                     type: "POST",
                     url: savePage,
                     data: [
                         { name: "key", value: "timeJob"} ,
                         { name: "val", value: timeToSave}
-                    ],
-                    success: function(){
-                        window.location.href = href;
-                    }
+                    ]
+                });
+            }
+
+            //If it was stopped (stop)
+            else if ($(this).hasClass('stopped')){
+                timer.runner('start');
+                $(this).toggleClass('isRunning stopped glyphicon-play glyphicon-pause stopedByButton');
+            }
+        });
+
+
+
+
+
+        // When mouse leave the work-window
+        bodyBrowse.mouseleave(function() {
+
+            //If it's running (play)
+            if(startOrStop.hasClass('isRunning')){
+
+                //Change button clases
+                timer.runner('stop');
+                startOrStop.toggleClass('isRunning stopped glyphicon-play glyphicon-pause');
+
+                //Get time info
+                var timerInfo = timer.runner('info'),
+                    timeToSave = timerInfo.time;
+
+                //Save Time info to mongo
+                $.ajax({
+                    type: "POST",
+                    url: savePage,
+                    data: [
+                        { name: "key", value: "timeJob"} ,
+                        { name: "val", value: timeToSave}
+                    ]
                 });
 
-                //Stop default action url
-                return false;
+            }
+        });
 
+
+
+        // When mouse re-enter the work-window
+        bodyBrowse.mouseenter(function() {
+
+            // If it was stopped by button
+            if(!startOrStop.hasClass('stopedByButton')) {
+
+                //If it was stopped
+                if (startOrStop.hasClass('stopped')) {
+
+                    //Restart timer
+                    timer.runner('start');
+                    startOrStop.toggleClass('isRunning stopped glyphicon-play glyphicon-pause');
+                }
+            }
+        });
+
+
+
+        // When click on "LISTE" , returning to documents
+        $('#divNavMiddle a').on('click' , function(){
+
+            //Get timer info
+            var href = this.href,
+                timerInfo = timer.runner('info'),
+                timeToSave = timerInfo.time;
+
+            //Save Timer info
+            $.ajax({
+                type: "POST",
+                url: savePage,
+                data: [
+                    { name: "key", value: "timeJob"} ,
+                    { name: "val", value: timeToSave}
+                ],
+                success: function(){
+                    window.location.href = href;
+                }
             });
 
-            // If silence are not validated
-            if(data.data.fields.validateSilence == "no"){
-                //Get config infos & call functions
-                hideElements();
-                typeAHead(config.comments);
-            }
-
-            if(data.data.fields.validatePertinence == "no") {
-
-                var startPageRatio = 0;
-
-                if (data.data.progressNotedKeywords) {
-                    startPageRatio = parseFloat(data.data.progressNotedKeywords);
-                }
-
-                pertinenceBar.progressbar({ max: 1, value: startPageRatio });
-
-                $(".ui-progressbar-value", pertinenceBar).html((startPageRatio * 100).toFixed() + "%");
-
-
-                if (startPageRatio <= 0.25) {
-                    $(".ui-progressbar-value", pertinenceBar).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
-                }
-
-                if (startPageRatio > 0.25 && startPageRatio <= 0.6) {
-                    $(".ui-progressbar-value", pertinenceBar).addClass("progress-bar-striped progress-bar-warning isDisable");
-                }
-
-
-                if (startPageRatio > 0.6 && startPageRatio < 1) {
-                    $(".ui-progressbar-value", pertinenceBar).addClass("progress-bar-striped progress-bar-success isDisable");
-                }
-
-
-                if (startPageRatio === 1) {
-                    $(".ui-progressbar-value", pertinenceBar).addClass("progress-bar-info");
-
-                    if (data.data.fields.validatePertinence == "no") {
-                        $(".ui-progressbar-value", pertinenceBar).parent().addClass('isNotValidated');
-                        $(".ui-progressbar-value", pertinenceBar).html('100% : VALIDEZ!');
-                    }
-
-
-                }
-
-
-
-            }
-
-            else if (data.data.fields.validatePertinence == "yes") {
-
-                pertinenceBar.progressbar({ max: 1, value: 1 });
-
-                $(".ui-progressbar-value", pertinenceBar).parent().addClass('isValidated');
-                $(".ui-progressbar-value", pertinenceBar).html(" 100%");
-
-                var startPageRatio = 0;
-
-                if (data.data.progressSilenceKeywords) {
-                    startPageRatio = parseFloat(data.data.progressSilenceKeywords);
-                }
-
-                silenceBar.progressbar({ max: 1, value: startPageRatio });
-
-                $(".ui-progressbar-value", silenceBar).html((startPageRatio * 100).toFixed() + "%");
-
-
-                if (startPageRatio <= 0.25) {
-                    $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
-                }
-
-                if (startPageRatio > 0.25 && startPageRatio <= 0.6) {
-                    $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-warning isDisable");
-                }
-
-
-                if (startPageRatio > 0.6 && startPageRatio < 1) {
-                    $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-success isDisable");
-                }
-
-
-                if (startPageRatio === 1) {
-                    $(".ui-progressbar-value", silenceBar).addClass("progress-bar-info");
-
-                    if (data.data.fields.validateSilence == "no") {
-                        $(".ui-progressbar-value", silenceBar).parent().addClass('isNotValidated');
-                        $(".ui-progressbar-value", silenceBar).html('100% : VALIDEZ!');
-                    }
-                    else if (data.data.fields.validateSilence == "yes") {
-                        $(".ui-progressbar-value", silenceBar).parent().addClass('isValidated');
-                        $(".ui-progressbar-value", silenceBar).html('100%');
-                    }
-
-
-
-                }
-
-            }
-
+            //Stop default action url
+            return false;
 
         });
+
+        // If silence are not validated
+        if(data.data.fields.validateSilence == "no"){
+            //Get config infos & call functions
+            hideElements();
+            typeAHead(config.comments);
+        }
+
+        if(data.data.fields.validatePertinence == "no") {
+
+            var startPageRatio = 0;
+
+            if (data.data.progressNotedKeywords) {
+                startPageRatio = parseFloat(data.data.progressNotedKeywords);
+            }
+
+            pertinenceBar.progressbar({ max: 1, value: startPageRatio });
+
+            $(".ui-progressbar-value", pertinenceBar).html((startPageRatio * 100).toFixed() + "%");
+
+
+            if (startPageRatio <= 0.25) {
+                $(".ui-progressbar-value", pertinenceBar).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
+            }
+
+            if (startPageRatio > 0.25 && startPageRatio <= 0.6) {
+                $(".ui-progressbar-value", pertinenceBar).addClass("progress-bar-striped progress-bar-warning isDisable");
+            }
+
+
+            if (startPageRatio > 0.6 && startPageRatio < 1) {
+                $(".ui-progressbar-value", pertinenceBar).addClass("progress-bar-striped progress-bar-success isDisable");
+            }
+
+
+            if (startPageRatio === 1) {
+                $(".ui-progressbar-value", pertinenceBar).addClass("progress-bar-info");
+
+                if (data.data.fields.validatePertinence == "no") {
+                    $(".ui-progressbar-value", pertinenceBar).parent().addClass('isNotValidated');
+                    $(".ui-progressbar-value", pertinenceBar).html('100% : VALIDEZ!');
+                }
+
+
+            }
+
+
+
+        }
+
+        else if (data.data.fields.validatePertinence == "yes") {
+
+            pertinenceBar.progressbar({ max: 1, value: 1 });
+
+            $(".ui-progressbar-value", pertinenceBar).parent().addClass('isValidated');
+            $(".ui-progressbar-value", pertinenceBar).html(" 100%");
+
+            var startPageRatio = 0;
+
+            if (data.data.progressSilenceKeywords) {
+                startPageRatio = parseFloat(data.data.progressSilenceKeywords);
+            }
+
+            silenceBar.progressbar({ max: 1, value: startPageRatio });
+
+            $(".ui-progressbar-value", silenceBar).html((startPageRatio * 100).toFixed() + "%");
+
+
+            if (startPageRatio <= 0.25) {
+                $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-danger progress-bar-striped isDisable");
+            }
+
+            if (startPageRatio > 0.25 && startPageRatio <= 0.6) {
+                $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-warning isDisable");
+            }
+
+
+            if (startPageRatio > 0.6 && startPageRatio < 1) {
+                $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-success isDisable");
+            }
+
+
+            if (startPageRatio === 1) {
+                $(".ui-progressbar-value", silenceBar).addClass("progress-bar-info");
+
+                if (data.data.fields.validateSilence == "no") {
+                    $(".ui-progressbar-value", silenceBar).parent().addClass('isNotValidated');
+                    $(".ui-progressbar-value", silenceBar).html('100% : VALIDEZ!');
+                }
+                else if (data.data.fields.validateSilence == "yes") {
+                    $(".ui-progressbar-value", silenceBar).parent().addClass('isValidated');
+                    $(".ui-progressbar-value", silenceBar).html('100%');
+                }
+
+
+
+            }
+
+        }
+
+
+    });
 
     $(".arrowScroll").on("click" , function(){
         if(!$(this).hasClass("arrowUp")){
@@ -658,7 +657,7 @@ $(document).ready(function() {
             postData = $(this).parents('form').serializeArray(),
             input = $(this),
             id = $(this).parent().attr('data-id');
-            console.log('data: ' , postData);
+        console.log('data: ' , postData);
         if (keycode == '13') {
             event.preventDefault();
             $.ajax({
@@ -669,7 +668,7 @@ $(document).ready(function() {
 
                     var divComments = input.parents(".divComments");
                     $(".divFormComments", divComments).css("background" , "#27ae60");
-                        setTimeout(function () {
+                    setTimeout(function () {
                         $(".divFormComments" , divComments).css('background', "");
                         $(".quitSpanComment" , divComments).css("display" , "");
                         divComments.removeClass('divCommentsOpened');
@@ -729,33 +728,33 @@ $(document).ready(function() {
         var span = $(this),
             divComment = $(this).parents('.divComments'),
             form = $('form' ,divComment);
-            $.ajax({
-                type: "POST",
-                url: savePage,
-                data: form.serializeArray(),
-                success: function (e) {
-                    var divComments = span.parents(".divComments");
-                    $(".divFormComments", divComments).css("background", "#27ae60");
-                    setTimeout(function () {
-                        $(".divFormComments", divComments).css('background', "");
-                        $(".quitSpanComment", divComments).css("display", "");
-                        divComments.removeClass('divCommentsOpened');
-                        $(".divFormComments", divComments).hide();
-                        $(".etcSpanComment", divComments).fadeIn();
-                        var otherBtn = divComments.closest('.btn');
+        $.ajax({
+            type: "POST",
+            url: savePage,
+            data: form.serializeArray(),
+            success: function (e) {
+                var divComments = span.parents(".divComments");
+                $(".divFormComments", divComments).css("background", "#27ae60");
+                setTimeout(function () {
+                    $(".divFormComments", divComments).css('background', "");
+                    $(".quitSpanComment", divComments).css("display", "");
+                    divComments.removeClass('divCommentsOpened');
+                    $(".divFormComments", divComments).hide();
+                    $(".etcSpanComment", divComments).fadeIn();
+                    var otherBtn = divComments.closest('.btn');
 
 
-                        otherBtn.siblings().css('opacity', '');
-                        otherBtn.siblings().css('visibility', '');
-                        otherBtn.siblings().removeClass('no-transition');
-                        otherBtn.css('box-shadow', '');
-                        otherBtn.css('overflow', '');
-                    }, 750);
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
+                    otherBtn.siblings().css('opacity', '');
+                    otherBtn.siblings().css('visibility', '');
+                    otherBtn.siblings().removeClass('no-transition');
+                    otherBtn.css('box-shadow', '');
+                    otherBtn.css('overflow', '');
+                }, 750);
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
     });
 
     /* --- END SHOW/ADD COMMENT---- */

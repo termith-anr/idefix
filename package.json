@@ -1,8 +1,8 @@
 {
   "name": "idefix",
   "version": "7.3.0",
-  "author": [],
-  "contributors": [],
+  "author": ["Matthias Dieudonne"],
+  "contributors": ["Matthias Dieudonne" ,"Nourdine Combo", "Thouvenin Nicolas"],
   "description": "",
   "keywords": [],
   "homepage": "http://github.com/termith-anr/idefix",
