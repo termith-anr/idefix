@@ -34,7 +34,7 @@ module.exports = {
     },
     "flyingFields": {
         "$listeDocuments": {
-            "mask": "_id,wid,basename,fields,progressSilenceKeywords,progressNotedKeywords,validatePertinence,validateSilence,text"
+            "mask": "_id,wid,basename,fields,progressSilenceKeywords,progressNotedKeywords,text"
         },
         "$document": {
             "mask": "_id,wid,basename,fields,progressSilenceKeywords,progressNotedKeywords,validatePertinence,validateSilence,keywords,pertinenceMethods,text,timeJob"

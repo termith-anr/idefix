@@ -366,7 +366,7 @@ $(document).ready(function() {
 
         // If silence are validated , stop timer at saved score
         var timeJob = data.data.timeJob ? parseFloat(data.data.timeJob) : 0,
-            stop = (data.data.validateSilence == "yes") ? timeJob : null;
+            stop = (data.data.fields.validateSilence == "yes") ? timeJob : null;
 
         maxScores = data.data.fields.maxScores;
         currentScores = parseInt(data.data.fields.currentScores);
@@ -558,7 +558,7 @@ $(document).ready(function() {
                 if(nbKw === seuil){
                     designCircles($(methodsBut[i]),"seuil")
                 }
-                else if(nbKw < seuil){
+                else if(nbKw < 1){
                     designCircles($(methodsBut[i]),"done")
                 }
 
@@ -612,6 +612,22 @@ $(document).ready(function() {
                     $(".ui-progressbar-value", silenceBar).html('100%');
                 }
 
+
+
+            }
+
+            for(var i = 0 ; i < methodsBut.length ; i++){
+                var nb = $(methodsBut[i]).attr("id").split("-")[1],
+                    nbKw = $("#keywordsInist .keywordsMethodsDisplay[data-nb=" + nb +"]").length;
+
+                $(methodsBut[i]).attr("title" , "Il reste " + nbKw + " mot(s) Silences(s)");
+
+                if( (nbKw <= seuil) && (nbKw > 0 )){
+                    designCircles($(methodsBut[i]),"seuil");
+                }
+                else if(nbKw === 0){
+                    designCircles($(methodsBut[i]),"done");
+                }
 
 
             }
@@ -1015,21 +1031,13 @@ $(document).ready(function() {
                     type: "POST",
                     url: savePage,
                     data: [
-                        { name: "key", value: barreField} ,
+                        { name: "key", value: "fields." + barreField } ,
                         { name: "val", value: "yes"}
                     ],
                     success: function (e) {
 
                         barre.removeClass('isNotValidated').addClass('isValidated');
                         $(".methodLinkround").removeClass("isNotValidated isValidated").removeAttr("style");
-                        $.ajax({
-                            type: "POST",
-                            url: savePage,
-                            data: [
-                                { name: "key", value: "fields." + barreField} ,
-                                { name: "val", value: "yes"}
-                            ]
-                        });
 
                         if(barreField == "validatePertinence"){
                             console.log('pertinence validée');
@@ -1585,7 +1593,7 @@ $(document).ready(function() {
                             if( $( ".inistForMethod-" + methodNb + ".keywordsMethodsDisplay" , li.parent()).length === seuil){
                                 designCircles(methodConcerned,"seuil");
                             }
-                            else if( $( ".inistForMethod-" + methodNb + ".keywordsMethodsDisplay" , li.parent()).length < seuil){
+                            else if( $( ".inistForMethod-" + methodNb + ".keywordsMethodsDisplay" , li.parent()).length < 1){
                                 designCircles(methodConcerned,"done");
                             }
                         }
@@ -1609,7 +1617,7 @@ $(document).ready(function() {
                             }
 
                             methodConcerned.attr("title" , "Il reste " + $(".keywordsMethodsDisplay" , li.parent()).length + " mot(s) Pertinence(s)");
-                            if($(".keywordsMethodsDisplay" , li.parent()).length === 1){
+                            if($(".keywordsMethodsDisplay" , li.parent()).length === seuil){
                                 designCircles(methodConcerned , "seuil");
                             }
                             else if($(".keywordsMethodsDisplay" , li.parent()).length < 1){

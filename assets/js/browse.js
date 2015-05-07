@@ -38,13 +38,13 @@ $(document).ready(function() {
                 var rowValue = oTable.fnGetData( index );
 
                 // IF Silence is 100% validated
-                if(rowValue['validateSilence'] === "yes"){
+                if(rowValue['fields']['validateSilence'] === "yes"){
 
                     $(row).attr('class', 'trValidate');
 
                 }
                 // IF Methods are 100% validated but Silence no
-                else if((rowValue['validatePertinence'] === "yes") && (rowValue['fields']['validateSilence'] === "no")) {
+                else if((rowValue['fields']['validatePertinence'] === "yes") && (rowValue['fields']['validateSilence'] === "no")) {
 
                     var ratioSilence = rowValue['progressSilenceKeywords'] ? parseFloat(rowValue['progressSilenceKeywords'])*100 + "%" : 0;
 
