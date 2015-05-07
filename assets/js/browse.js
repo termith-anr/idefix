@@ -2,8 +2,6 @@
 
 $(document).ready(function() {
 
-    // Disable localstorage for phantomJS dalekjs Tests
-    var state = (window.navigator.userAgent.toLowerCase().indexOf("phantomjs") > -1) ? false : true;
     // Config DataTable
     var oTable = $('#browseTable').dataTable({
             "search" : {
@@ -33,20 +31,20 @@ $(document).ready(function() {
                 { data: 'basename' , className: "browseYear browseTd", searchable: true},
                 { data: 'fields.title' , className: "browseTitle browseTd", searchable: true}
             ],
-            stateSave: state,
+            stateSave: true,
 
             "fnCreatedRow": function( row, td, index ) {
 
                 var rowValue = oTable.fnGetData( index );
 
                 // IF Silence is 100% validated
-                if(rowValue['validateSilence'] == "yes"){
+                if(rowValue['validateSilence'] === "yes"){
 
                     $(row).attr('class', 'trValidate');
 
                 }
                 // IF Methods are 100% validated but Silence no
-                else if((rowValue['validatePertinence'] == "yes") && (rowValue['fields']['validateSilence'] == "no")) {
+                else if((rowValue['validatePertinence'] === "yes") && (rowValue['fields']['validateSilence'] === "no")) {
 
                     var ratioSilence = rowValue['progressSilenceKeywords'] ? parseFloat(rowValue['progressSilenceKeywords'])*100 + "%" : 0;
 
@@ -63,7 +61,7 @@ $(document).ready(function() {
 
                 }
                 // IF Methods are not validated
-                else if(rowValue['fields']['validatePertinence'] == "no") {
+                else if(rowValue['fields']['validatePertinence'] === "no") {
 
                     var ratioMethods = rowValue['progressNotedKeywords'] ? rowValue['progressNotedKeywords'] : 0;
 

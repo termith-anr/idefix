@@ -12,18 +12,23 @@ $(document).ready(function() {
         contentPage = '/display/' + pageId + ".json?flying=document",
         configPage = "/config.json",
         config = {},
+        methodsBut = $(".methodsNameDisplayD > div"),
         timer = $('#timer'),
         bodyBrowse = $('#bodyBrowse'),
         startOrStop= $('#startOrStop'),
         fullArticleLoaded = 'no',
         minScores,
         maxScores,
-        currentScores;
+        currentScores,
+        seuil;
 
 
     $.getJSON( configPage , function(object){
         config = object;
+        seuil = config.circleSeuil ? config.circleSeuil : 1;
     });
+
+
 
     $('.searchKeywords').on('click' , function(){
         var keywordText = $(this).prev().text(),
@@ -231,6 +236,29 @@ $(document).ready(function() {
 
     };
 
+    var designCircles = function(circle,option){
+        if(option === "done"){
+            if( (!config.circleDesign) || (config.circleDesign === "grey")){
+                circle.removeClass("isNotValidated").addClass("isValidated");
+            }
+            else if(config.circleDesign === "opacity"){
+                circle.removeClass("isNotValidated").css("opacity" , "0.2");
+            }
+            else if(config.circleDesign === "colors"){
+                circle.removeClass("isNotValidated").css("border-color" , "#27ae60");
+            }
+        }
+        else if (option === "seuil"){
+            if( (!config.circleDesign) || (config.circleDesign === "grey") || (config.circleDesign === "opacity")){
+                circle.addClass("isNotValidated");
+            }
+            else if(config.circleDesign === "colors"){
+                circle.css("border-color" , "#e67e22");
+            }
+        }
+
+    };
+
     $(".showInformations").on("click" , function(){
         if($(this).hasClass("currentlyShowingInfos")){
             $(".informations").hide();
@@ -341,7 +369,7 @@ $(document).ready(function() {
             stop = (data.data.validateSilence == "yes") ? timeJob : null;
 
         maxScores = data.data.fields.maxScores;
-        currentScores = data.data.fields.currentScores;
+        currentScores = parseInt(data.data.fields.currentScores);
         minScores = data.data.fields.minScores;
         if(config.coloredDocument) {
             calculScores();
@@ -475,13 +503,13 @@ $(document).ready(function() {
         });
 
         // If silence are not validated
-        if(data.data.fields.validateSilence == "no"){
+        if(data.data.fields.validateSilence === "no"){
             //Get config infos & call functions
             hideElements();
             typeAHead(config.comments);
         }
 
-        if(data.data.fields.validatePertinence == "no") {
+        if(data.data.fields.validatePertinence === "no") {
 
             var startPageRatio = 0;
 
@@ -511,7 +539,7 @@ $(document).ready(function() {
             if (startPageRatio === 1) {
                 $(".ui-progressbar-value", pertinenceBar).addClass("progress-bar-info");
 
-                if (data.data.fields.validatePertinence == "no") {
+                if (data.data.fields.validatePertinence === "no") {
                     $(".ui-progressbar-value", pertinenceBar).parent().addClass('isNotValidated');
                     $(".ui-progressbar-value", pertinenceBar).html('100% : VALIDEZ!');
                 }
@@ -520,10 +548,27 @@ $(document).ready(function() {
             }
 
 
+            for(var i = 0 ; i < methodsBut.length ; i++){
+                var nb = $(methodsBut[i]).attr("id").split("-")[1],
+                    block = $("#method" + nb + "ListOfKeywords"),
+                    nbKw = $(".keywordsMethodsDisplay" , block).length;
+
+                $(methodsBut[i]).attr("title" , "Il reste " + nbKw + " mot(s) Pertinence(s)");
+
+                if(nbKw === seuil){
+                    designCircles($(methodsBut[i]),"seuil")
+                }
+                else if(nbKw < seuil){
+                    designCircles($(methodsBut[i]),"done")
+                }
+
+            }
+
+
 
         }
 
-        else if (data.data.fields.validatePertinence == "yes") {
+        else if (data.data.fields.validatePertinence === "yes") {
 
             pertinenceBar.progressbar({ max: 1, value: 1 });
 
@@ -916,12 +961,12 @@ $(document).ready(function() {
                 $('#sectionArticle').css('opacity', '1');
                 $("#keywordsDisplayDiv").show();
                 $('#listOrGrid span').show();
-                $('#methodButton-' + nb[1]).css('borderColor', '#CC6A63').siblings().css('borderColor', '');
+                $('#methodButton-' + nb[1]).addClass("onCircle").siblings().removeClass('onCircle');
             }
             if ($("#method" + nb[1] + 'ListOfKeywords').css('display') == 'none') {
                 $('.methodsKeywords').not('#method' + nb[1] + 'ListOfKeywords').hide("slide", { direction: "right" }, 500);
                 $('#method' + nb[1] + 'ListOfKeywords').show("slide", { direction: "left" }, 500);
-                $('#methodButton-' + nb[1]).css('borderColor', '#CC6A63').siblings().css('borderColor', '');
+                $('#methodButton-' + nb[1]).addClass("onCircle").siblings().removeClass("onCircle");
                 $('#keywordsInist .btn-default').hide();
                 $('.inistForMethod-' + nb[1]).fadeIn().css('display', '');
             }
@@ -956,13 +1001,15 @@ $(document).ready(function() {
 
         }
 
-
         if(barre.attr('aria-valuenow') != "1"){
             return;
         }
 
         if (!barre.hasClass('isValidated')) {
             if(confirm('Souhaitez-vous valider définitivement les Mot-Clés ' +  type  + '?')) {
+
+                console.log("Save page  : " , savePage);
+                console.log("barreField : " , barreField)
 
                 $.ajax({
                     type: "POST",
@@ -974,6 +1021,7 @@ $(document).ready(function() {
                     success: function (e) {
 
                         barre.removeClass('isNotValidated').addClass('isValidated');
+                        $(".methodLinkround").removeClass("isNotValidated isValidated").removeAttr("style");
                         $.ajax({
                             type: "POST",
                             url: savePage,
@@ -1473,7 +1521,6 @@ $(document).ready(function() {
 
         console.log("clickedScores: " , clickedScore);
 
-
         $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
 
         $.ajax(
@@ -1511,9 +1558,11 @@ $(document).ready(function() {
                         $('#' + id + ' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
                         if (!li.hasClass("keywordsMethodsDisplayDone")) {
                             li.addClass("keywordsMethodsDisplayDone");
-                            li.removeClass("keywordsMethodsisplay");
+                            li.removeClass("keywordsMethodsDisplay");
                         }
-                        var isGood = false;
+                        var isGood = false,
+                            methodNb = li.attr("data-nb"),
+                            methodConcerned = $("#methodButton-" + methodNb);
                         if((checkType.indexOf('silence') >= 0) && (checkType.indexOf('correspondance') < 0)) { // If it's a silence  notation ( not corresp )
                             console.log("SILENCE !!!");
                             if (config.showCorrespondance) { // If options is enable + isArray
@@ -1532,6 +1581,13 @@ $(document).ready(function() {
 
                                 }
                             }
+                            methodConcerned.attr("title" , "Il reste " + $( ".inistForMethod-" + methodNb + ".keywordsMethodsDisplay" , li.parent()).length + " mot(s) Silence(s)");
+                            if( $( ".inistForMethod-" + methodNb + ".keywordsMethodsDisplay" , li.parent()).length === seuil){
+                                designCircles(methodConcerned,"seuil");
+                            }
+                            else if( $( ".inistForMethod-" + methodNb + ".keywordsMethodsDisplay" , li.parent()).length < seuil){
+                                designCircles(methodConcerned,"done");
+                            }
                         }
                         else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('preference') < 0)) {// If it's an eval score notation ( not pref )
                             console.log('Pertinence');
@@ -1549,9 +1605,17 @@ $(document).ready(function() {
                                     var index  = (postData[0].value).split(".")[1];
                                     li.children('.formNotedKeywordsPref').css('display', 'none').removeClass('preferenceAvailable');
                                     li.children('.divComments').removeClass('commentsRight');
-
                                 }
                             }
+
+                            methodConcerned.attr("title" , "Il reste " + $(".keywordsMethodsDisplay" , li.parent()).length + " mot(s) Pertinence(s)");
+                            if($(".keywordsMethodsDisplay" , li.parent()).length === 1){
+                                designCircles(methodConcerned , "seuil");
+                            }
+                            else if($(".keywordsMethodsDisplay" , li.parent()).length < 1){
+                                designCircles(methodConcerned , "done");
+                            }
+                            /* $( ".keywordsMethodsDisplay" , li.parent()).length */
                         }
 
                         //Affichage contour vert sauvegarde
@@ -1577,7 +1641,7 @@ $(document).ready(function() {
                             //console.log('allPertinence ', allPertinence , " allSilence " , allSilence , " notedPertinence ", notedPertinence , " notedSilence " ,notedSilence );
 
 
-                            if(data.data.fields.validatePertinence == "no") { // Si Les méthodes ne sont pas déjà validées
+                            if(data.data.fields.validatePertinence === "no") { // Si Les méthodes ne sont pas déjà validées
 
                                 var ratio = notedPertinence.length/allPertinence.length;
 

@@ -2467,6 +2467,10 @@ span.twitter-typeahead {
     color: rgba(204, 106, 99, 1);
 }
 
+.onCircle{
+    border-color : #CC6A63;
+}
+
 /* Litle resolution*/
 @media (max-width: 1199px) {
     .divHoverH1Display{
