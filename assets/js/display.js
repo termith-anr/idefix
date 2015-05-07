@@ -616,6 +616,9 @@ $(document).ready(function() {
 
             }
 
+        }
+
+        if((data.data.fields.validatePertinence === "yes") && (data.data.fields.validateSilence === "no")){
             for(var i = 0 ; i < methodsBut.length ; i++){
                 var nb = $(methodsBut[i]).attr("id").split("-")[1],
                     nbKw = $("#keywordsInist .keywordsMethodsDisplay[data-nb=" + nb +"]").length;
@@ -628,14 +631,11 @@ $(document).ready(function() {
                 else if(nbKw === 0){
                     designCircles($(methodsBut[i]),"done");
                 }
-
-
             }
-
         }
 
 
-    });
+        });
 
     $(".arrowScroll").on("click" , function(){
         if(!$(this).hasClass("arrowUp")){

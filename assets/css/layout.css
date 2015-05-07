@@ -673,6 +673,8 @@ table tr[data-href] {
     color: #333;
     font-style: italic;
     transition: all 250ms;
+    -moz-user-select: none;
+    user-select : none;
 }
 
 .methodLinkround:hover{
@@ -1103,7 +1105,11 @@ span .methodsameDisplayD{
     max-height: 105px;
     overflow-y: hidden;
     cursor: auto !important;
-
+    -khtml-user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 .keywordsMethodsDisplayDone{
@@ -1123,6 +1129,11 @@ span .methodsameDisplayD{
     overflow: hidden;
     opacity: 0.7;
     cursor: auto !important;
+    -khtml-user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 .keywordsMethodsDisplayDone:hover{
