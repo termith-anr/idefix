@@ -29,7 +29,6 @@ $(document).ready(function() {
     });
 
 
-
     $('.searchKeywords').on('click' , function(){
         var keywordText = $(this).prev().text(),
             teiContent;
@@ -507,6 +506,15 @@ $(document).ready(function() {
             //Get config infos & call functions
             hideElements();
             typeAHead(config.comments);
+            $(window).load(function() {
+                    $('.methodLinkround').tooltipster({
+                        animation: 'fade',
+                        delay: 200,
+                        theme: 'tooltipster-light',
+                        touchDevices: false,
+                        trigger: 'hover'});
+                }
+            );
         }
 
         if(data.data.fields.validatePertinence === "no") {
@@ -1596,6 +1604,7 @@ $(document).ready(function() {
                             else if( $( ".inistForMethod-" + methodNb + ".keywordsMethodsDisplay" , li.parent()).length < 1){
                                 designCircles(methodConcerned,"done");
                             }
+
                         }
                         else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('preference') < 0)) {// If it's an eval score notation ( not pref )
                             console.log('Pertinence');
@@ -1625,6 +1634,10 @@ $(document).ready(function() {
                             }
                             /* $( ".keywordsMethodsDisplay" , li.parent()).length */
                         }
+
+                        console.log("title : " , methodConcerned.attr("title"));
+                        methodConcerned.tooltipster("content" , methodConcerned.attr("title"));
+                        methodConcerned.attr("title" , "");
 
                         //Affichage contour vert sauvegarde
                         li.css('box-shadow', '0px 1px 4px 0px green');
@@ -1794,6 +1807,5 @@ $(document).ready(function() {
     });
 
     /* --- END OF SUBMIT AJAX ---*/
-
 
 });
