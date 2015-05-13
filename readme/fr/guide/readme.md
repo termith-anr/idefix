@@ -6,41 +6,43 @@ Projet TermITH
 OUTIL IDEFIX
 ============
 
-![accueil](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/accueil.png)
+![accueil](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/0-accueil.png)
 
-![couleurPertinenceSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/couleurPertSilence.png)
+![couleurPertinenceSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/1-couleurPertSilence.png)
 
-![selectionDoc](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/selectionDoc.png)
+![selectionDoc](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/2-selectionDoc.png)
 
-![documentOuvert](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/ouvertureDoc.png)
+![documentOuvert](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/3-ouvertureDoc.png)
 
 EVALUER LA PERTINENCE DES METHODES
 -----------
 
 
-![AfficheMethode](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/afficheMethode.png)
+![AfficheMethode](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/4-afficheMethode.png)
 
-![AfficheMethode](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/afficheMethodeListe.png)
+![AfficheMethode](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/4-afficheMethodeListe.png)
 
-![notePertinence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/notePertinence.png)
+![notePertinence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/5-notePertinence.png)
 
-![preference](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/preference.png)
+![preference](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/6-preference.png)
 
 
-![commentaire](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/commentaire.jpg)
+![commentaire](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/7-commentaire.png)
 
-![ValiderCommentaire](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/validerCommentaire.png)
+![ValiderCommentaire](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/8-validerCommentaire.png)
 
-![chercheMot](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/rechercheMot.png)
+![chercheMot](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/9-rechercheMot.png)
 
-![barreProgression](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/barreProgession.png)
+![barreProgression](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/10-barreProgession.png)
 
-![motInist](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/afficheMotInist.png)
 
 EVALUER LE SILENCE DES METHODES
 -----------
-![evalSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/evalMotInist.png)
 
-![validerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/ValidationSilence.png)
+![motInist](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/11-afficheMotInist.png)
 
-![export](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/export.png)
+![evalSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/12-evalMotInist.png)
+
+![validerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/13-ValidationSilence.png)
+
+![export](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-export.png)
