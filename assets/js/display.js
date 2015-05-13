@@ -1010,14 +1010,14 @@ $(document).ready(function() {
 
     $('#pertinenceBar , #silenceBar').on('click', function (e) {
 
-        if($(this).attr('id') == "pertinenceBar" ){
+        if($(this).attr('id') === "pertinenceBar" ){
 
             var barre  = $("#pertinenceBar"),
                 barreField = "validatePertinence",
                 type = "Méthodes";
 
         }
-        else if($(this).attr('id') == "silenceBar" ){
+        else if($(this).attr('id') === "silenceBar" ){
 
             var barre  = $("#silenceBar"),
                 barreField = "validateSilence",
@@ -1033,7 +1033,7 @@ $(document).ready(function() {
             if(confirm('Souhaitez-vous valider définitivement les Mot-Clés ' +  type  + '?')) {
 
                 console.log("Save page  : " , savePage);
-                console.log("barreField : " , barreField)
+                console.log("barreField : " , barreField);
 
                 $.ajax({
                     type: "POST",
@@ -1101,12 +1101,14 @@ $(document).ready(function() {
                             });
                             var inpuChecked = $('.methodsKeywords .formNotedKeyword input:checked ');
                             $(".methodsKeywords :input").prop("disabled", true);
-                            $('.methodsKeywords .formNotedKeywordsPreference , .methodsKeywords .divComments').hide();
+                            $('.methodsKeywords .formNotedKeywordList , .methodsKeywords .divComments').css({
+                                background: "grey",
+                                color : "white",
+                                border : "none"
+                            });
                             $(".ui-progressbar-value", barre).removeClass('isNotValidated').addClass('isValidated').html('100%');
 
                             $('#inistKeywordsButton').show();
-
-
                         }
                         else if (barreField == "validateSilence"){
                             $('#timer').runner('stop');

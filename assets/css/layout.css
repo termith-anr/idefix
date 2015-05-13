@@ -200,6 +200,9 @@ body > header{
     cursor: pointer;
 }
 
+#backAbsctract:hover{
+    color: #fff;
+}
 .resumeKeywordsFull{
     margin: 0 auto;
     padding: 0;
@@ -781,7 +784,7 @@ table tr[data-href] {
 
 .resumeGliph{
     background: none repeat scroll 0 0 #CC6A63;
-    color: #fff;
+    color: #E5E5E5;
     display: inline-block;
     font-size: 23px;
     line-height: normal;
@@ -1790,6 +1793,18 @@ input[type=radio]:checked + label {
     width: 25px;
 }
 
+.divComments{
+    border-radius: 25px;
+    bottom: 3%;
+    float: none;
+    height: 25px;
+    line-height: 12px;
+    margin: 0 auto;
+    right: 3%;
+    text-align: center;
+    width: 25px;
+}
+
 .divComments:hover{
     background: none repeat scroll 0 0 rgba(204, 106, 99, 1);
 }
@@ -2130,9 +2145,16 @@ input[type=radio]:checked + label {
 .labelBlock{
     display: block !important;
     font-size: 22px !important;
+    padding: 0 !important;
 }
 .labelHide{
     display: none !important;
+}
+
+.blockForms{
+    background: #B3B3B3 !important;
+    color : #fff !important;
+    border: none !important;
 }
 
 /* EXPORT */
