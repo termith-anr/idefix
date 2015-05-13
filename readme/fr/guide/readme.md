@@ -6,10 +6,7 @@ Projet TermITH
 OUTIL IDEFIX
 ============
 
-
 ![accueil](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/accueil.png)
-
-######1. Couleur de l'évaluation de la pertinence et couleur de l'évaluation du silence######
 
 ![couleurPertinenceSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/couleurPertSilence.png)
 
@@ -29,7 +26,6 @@ EVALUER LA PERTINENCE DES METHODES
 
 ![preference](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/preference.png)
 
-######8. Saisir un commentaire######
 
 ![commentaire](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/commentaire.jpg)
 
