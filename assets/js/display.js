@@ -131,6 +131,7 @@ $(document).ready(function() {
                         var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
                         $('.formNotedKeywordsPref' ,divKeywords).css('display', '').addClass('preferenceAvailable');
                         $('.divComments' , divKeywords).addClass('commentsRight');
+                        $('.divCommentsBlocked' , divKeywords).addClass('commentsRight');
                         break;
                     }
                 }
@@ -147,6 +148,7 @@ $(document).ready(function() {
                         var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
                         $('.formNotedKeywordsCorresp' ,divKeywords).css('display', '').addClass('preferenceAvailable');
                         $('.divComments' , divKeywords).addClass('commentsRight');
+                        $('.divCommentsBlocked' , divKeywords).addClass('commentsRight');
                         break;
                     }
                 }
@@ -501,6 +503,15 @@ $(document).ready(function() {
 
         });
 
+        if(data.data.fields.validatePertinence === "yes" || data.data.fields.validateSilence === "yes"){
+            $('.divCommentsBlocked').each(function () {
+                console.log("divblocked : ", $(".inputComment", this)[0].value);
+                if($(".inputComment", this)[0].value){
+                    $(this).attr("title", $(".inputComment", this)[0].value);
+                }
+            });
+        }
+
         // If silence are not validated
         if(data.data.fields.validateSilence === "no"){
             //Get config infos & call functions
@@ -512,7 +523,25 @@ $(document).ready(function() {
                         delay: 200,
                         theme: 'tooltipster-light',
                         touchDevices: false,
-                        trigger: 'hover'});
+                        trigger: 'hover'
+                    });
+                    $('.divCommentsBlocked[title][title!=""]').tooltipster({
+                        animation: 'fade',
+                        delay: 200,
+                        theme: 'tooltipster-light',
+                        touchDevices: false,
+                        trigger: 'hover',
+                        position: 'bottom'
+                    });
+                    $('.divCommentsBlocked').not("[title]").tooltipster({
+                        animation: 'fade',
+                        delay: 200,
+                        theme: 'tooltipster-default',
+                        touchDevices: false,
+                        trigger: 'hover',
+                        position: 'bottom',
+                        content : "Vide"
+                    });
                 }
             );
         }
@@ -1106,6 +1135,7 @@ $(document).ready(function() {
                                 color : "white",
                                 border : "none"
                             });
+
                             $(".ui-progressbar-value", barre).removeClass('isNotValidated').addClass('isValidated').html('100%');
 
                             $('#inistKeywordsButton').show();

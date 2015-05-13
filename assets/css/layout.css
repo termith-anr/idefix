@@ -1793,7 +1793,7 @@ input[type=radio]:checked + label {
     width: 25px;
 }
 
-.divComments{
+.divCommentsBlocked{
     border-radius: 25px;
     bottom: 3%;
     float: none;
