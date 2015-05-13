@@ -35,11 +35,11 @@ EVALUER LA PERTINENCE DES METHODES
 
 ![barreProgression](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/barreProgession.png)
 
-![motInist](https://raw.githubusercontent.com/termith-anr/scripts-formats/blob/master/Screens/png/afficheMotInist.png)
+![motInist](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/afficheMotInist.png)
 
 EVALUER LE SILENCE DES METHODES
 -----------
-![evalSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/blob/master/Screens/png/evalMotInist.png)
+![evalSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/evalMotInist.png)
 
 ![validerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/ValidationSilence.png)
 
