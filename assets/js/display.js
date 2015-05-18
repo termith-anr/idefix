@@ -525,7 +525,7 @@ $(document).ready(function() {
                         touchDevices: false,
                         trigger: 'hover'
                     });
-                    $('.divCommentsBlocked[title][title!=""]').tooltipster({
+                    $('.divCommentsBlocked[title][title!=""] , .divComments[title][title!=""]').tooltipster({
                         animation: 'fade',
                         delay: 200,
                         theme: 'tooltipster-light',
@@ -533,10 +533,10 @@ $(document).ready(function() {
                         trigger: 'hover',
                         position: 'bottom'
                     });
-                    $('.divCommentsBlocked').not("[title]").tooltipster({
+                    $('.divCommentsBlocked , .divComments ').not("[title]").tooltipster({
                         animation: 'fade',
                         delay: 200,
-                        theme: 'tooltipster-default',
+                        theme: 'tooltipster-red',
                         touchDevices: false,
                         trigger: 'hover',
                         position: 'bottom',
@@ -755,7 +755,7 @@ $(document).ready(function() {
             postData = $(this).parents('form').serializeArray(),
             input = $(this),
             id = $(this).parent().attr('data-id');
-        console.log('data: ' , postData);
+        console.log('data: ' , postData[1].value);
         if (keycode == '13') {
             event.preventDefault();
             $.ajax({
@@ -766,6 +766,7 @@ $(document).ready(function() {
 
                     var divComments = input.parents(".divComments");
                     $(".divFormComments", divComments).css("background" , "#27ae60");
+                    $(divComments).tooltipster("content" , postData[1].value);
                     setTimeout(function () {
                         $(".divFormComments" , divComments).css('background', "");
                         $(".quitSpanComment" , divComments).css("display" , "");
@@ -802,6 +803,13 @@ $(document).ready(function() {
             otherBtn.siblings().css('visibility', '');
             otherBtn.css('box-shadow', '');
             otherBtn.css('overflow', '');
+        }
+    });
+
+    $(".divComments").on("mouseover" , function(event){
+        if($(this).hasClass("divCommentsOpened")){
+            event.stopImmediatePropagation();
+            console.log("tools : ");
         }
     });
 

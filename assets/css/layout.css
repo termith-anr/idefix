@@ -1095,6 +1095,7 @@ span .methodsameDisplayD{
 }
 
 .keywordsMethodsDisplay{
+    min-width: 135px;
     background: none repeat scroll 0 0 transparent;
     border: 2px solid #FF9C95;
     color: #333;
@@ -1117,6 +1118,7 @@ span .methodsameDisplayD{
 
 .keywordsMethodsDisplayDone{
     position: relative;
+    min-width: 135px;
     background: none repeat scroll 0 0 transparent;
     border: 1px solid rgba(85,85,85,0.3);
     color: #333;
