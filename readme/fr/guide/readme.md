@@ -3,8 +3,22 @@ Projet TermITH
 ==============
 ![logoTermith](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/jpeg/termihLogo.jpg)
 
-OUTIL IDEFIX
+IDEFIX: Interface d'évaluation de l'indexation Termith
 ============
+
+Guide d'utilisation
+================
+
+
+Date: mai 2015
+
+Version: 1
+
+Auteurs: 
+- Nourdine Combo : nourdine.combo@inist.fr
+- Matthias Dieudonné : matthias.dieudonne@inist.fr
+- Sabine Barreaux : sabine.barreaux@inist.fr
+
 
 ***Navigateur Web à utiliser: Firefox version 34 ou plus*** 
 
