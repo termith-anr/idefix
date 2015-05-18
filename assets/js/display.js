@@ -131,6 +131,7 @@ $(document).ready(function() {
                         var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
                         $('.formNotedKeywordsPref' ,divKeywords).css('display', '').addClass('preferenceAvailable');
                         $('.divComments' , divKeywords).addClass('commentsRight');
+                        $('.divCommentsBlocked' , divKeywords).addClass('commentsRight');
                         break;
                     }
                 }
@@ -147,6 +148,7 @@ $(document).ready(function() {
                         var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
                         $('.formNotedKeywordsCorresp' ,divKeywords).css('display', '').addClass('preferenceAvailable');
                         $('.divComments' , divKeywords).addClass('commentsRight');
+                        $('.divCommentsBlocked' , divKeywords).addClass('commentsRight');
                         break;
                     }
                 }
@@ -501,6 +503,15 @@ $(document).ready(function() {
 
         });
 
+        if(data.data.fields.validatePertinence === "yes" || data.data.fields.validateSilence === "yes"){
+            $('.divCommentsBlocked').each(function () {
+                console.log("divblocked : ", $(".inputComment", this)[0].value);
+                if($(".inputComment", this)[0].value){
+                    $(this).attr("title", $(".inputComment", this)[0].value);
+                }
+            });
+        }
+
         // If silence are not validated
         if(data.data.fields.validateSilence === "no"){
             //Get config infos & call functions
@@ -512,7 +523,25 @@ $(document).ready(function() {
                         delay: 200,
                         theme: 'tooltipster-light',
                         touchDevices: false,
-                        trigger: 'hover'});
+                        trigger: 'hover'
+                    });
+                    $('.divCommentsBlocked[title][title!=""] , .divComments[title][title!=""]').tooltipster({
+                        animation: 'fade',
+                        delay: 200,
+                        theme: 'tooltipster-light',
+                        touchDevices: false,
+                        trigger: 'hover',
+                        position: 'bottom'
+                    });
+                    $('.divCommentsBlocked , .divComments ').not("[title]").tooltipster({
+                        animation: 'fade',
+                        delay: 200,
+                        theme: 'tooltipster-red',
+                        touchDevices: false,
+                        trigger: 'hover',
+                        position: 'bottom',
+                        content : "Vide"
+                    });
                 }
             );
         }
@@ -726,7 +755,7 @@ $(document).ready(function() {
             postData = $(this).parents('form').serializeArray(),
             input = $(this),
             id = $(this).parent().attr('data-id');
-        console.log('data: ' , postData);
+        console.log('data: ' , postData[1].value);
         if (keycode == '13') {
             event.preventDefault();
             $.ajax({
@@ -737,6 +766,7 @@ $(document).ready(function() {
 
                     var divComments = input.parents(".divComments");
                     $(".divFormComments", divComments).css("background" , "#27ae60");
+                    $(divComments).tooltipster("content" , postData[1].value);
                     setTimeout(function () {
                         $(".divFormComments" , divComments).css('background', "");
                         $(".quitSpanComment" , divComments).css("display" , "");
@@ -773,6 +803,13 @@ $(document).ready(function() {
             otherBtn.siblings().css('visibility', '');
             otherBtn.css('box-shadow', '');
             otherBtn.css('overflow', '');
+        }
+    });
+
+    $(".divComments").on("mouseover" , function(event){
+        if($(this).hasClass("divCommentsOpened")){
+            event.stopImmediatePropagation();
+            console.log("tools : ");
         }
     });
 
@@ -1106,6 +1143,7 @@ $(document).ready(function() {
                                 color : "white",
                                 border : "none"
                             });
+
                             $(".ui-progressbar-value", barre).removeClass('isNotValidated').addClass('isValidated').html('100%');
 
                             $('#inistKeywordsButton').show();

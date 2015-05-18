@@ -4,6 +4,9 @@
 
 {% block head %}
 <title>{{data.fields.title}}</title>
+<link rel="stylesheet" type="text/css" href="/assets/css/tooltipster.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/themes/tooltipster-light.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/themes/tooltipster-red.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/full-article.css">
 {% endblock %}
 
@@ -47,35 +50,35 @@
 </div>
 {% endif %}
 
-<div id="documentInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/ouvertureDoc.png">
+<div id="documentInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/3-ouvertureDoc.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="methodsInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/afficheMethode.png">
+<div id="methodsInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/4-afficheMethode.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="pertinenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/notePertinence.png">
+<div id="pertinenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/5-notePertinence.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="preferenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/preference.png">
+<div id="preferenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/6-preference.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="commentaireInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/validerCommentaire.png">
+<div id="commentaireInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/8-validerCommentaire.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="progressionInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/barreProgession.png">
+<div id="progressionInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/10-barreProgession.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="silenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/afficheMotInist.png">
+<div id="silenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/11-afficheMotInist.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="silenceKwInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/evalMotInist.png">
+<div id="silenceKwInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/12-evalMotInist.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
@@ -282,7 +285,7 @@
 
         </form>
 
-        <div class="{% if data.fields.validateSilence == 'yes' %}blockForms divCommentsBlocked{% else %}divComments{% endif %}" title="{% if data.keywords[indexObject].comment %} {{ data.keywords[indexObject].comment }} {% else %}Zone commentaire{% endif %}">
+        <div class="{% if data.fields.validateSilence == 'yes' %}blockForms divCommentsBlocked{% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
             <span class="etcSpanComment">...</span>
 
             <div class="divFormComments">
@@ -366,11 +369,11 @@
 
         </form>
         <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="preferenceInfos" style="display: none"></span>
-        <form {% if data.fields.validateSilence == 'yes' %}disabled="disabled"{% endif %} class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsPref row {% if data.fields.validatePertinence == 'yes' %}blockForms{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}">
+        <form  class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsPref row" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}">
 
             <input type="hidden" name="key" value="keywords.{{ indexObject }}.preference"/> <!-- Key Name -->
 
-            <select id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList" name="val" title="Un mot voisin préféré (même méthode)">
+            <select {% if data.fields.validatePertinence == 'yes' %}disabled="disabled"{% endif %} id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList {% if data.fields.validatePertinence == 'yes' %}blockForms{% endif %}" name="val" title="Un mot voisin préféré (même méthode)">
 
                 <option value="<preference>" class="baseOption">
                     Pref:
@@ -403,7 +406,7 @@
 
         <span title="informations" class="glyphicon glyphicon-info-sign informations " data-id="commentaireInfos" style="display: none"></span>
 
-        <div class="{% if data.fields.validatePertinence == 'yes' %}blockForms divCommentsBlocked{% else %}divComments{% endif %}" title="{% if data.keywords[indexObject].comment %} {{ data.keywords[indexObject].comment }} {% else %}Zone commentaire{% endif %}">
+        <div class="{% if data.fields.validatePertinence == 'yes' %}blockForms divCommentsBlocked{% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
             <span class="etcSpanComment">...</span>
 
             <div class="divFormComments">
@@ -466,6 +469,8 @@
 <script src="/assets/js/bootstrap3-typeahead.min.js"></script>
 
 <script src="/assets/js/jquery.highlight.js"></script>
+
+<script src="/assets/js/jquery.tooltipster.min.js"></script>
 
 <script src="/assets/js/display.js"></script>
 
