@@ -6,6 +6,9 @@ Projet TermITH
 OUTIL IDEFIX
 ============
 
+***Navigateur Web à utiliser: Firefox version 34 ou plus*** 
+
+
 ![accueil](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/0-accueil.png)
 
 ![couleurPertinenceSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/1-couleurPertSilence.png)
