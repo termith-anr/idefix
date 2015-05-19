@@ -20,7 +20,13 @@ Auteurs:
 - Sabine Barreaux : sabine.barreaux@inist.fr
 
 
-***Navigateur Web à utiliser: Firefox version 34 ou plus*** 
+#### Navigateur Web à utiliser: Firefox version 34 ou plus
+
+#### Remarques:
+
+- Il existe des options dans IDEFIX. Elles sont activées/désactivées par votre administrateur.
+
+- Une des otpions est la génération automatique des scores. Si un mot-clé termith est identique à un mot-clé INIST, des scores sont attribués automatiquement au démarrage de l'application.
 
 
 ![accueil](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/0-accueil.png)
