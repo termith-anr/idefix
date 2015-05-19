@@ -26,7 +26,7 @@ Auteurs:
 
 - Il existe des options dans IDEFIX. Elles sont activées/désactivées par votre administrateur.
 
-- Une des otpions est la génération automatique des scores. Si un mot-clé termith est identique à un mot-clé INIST, des scores sont attribués automatiquement au démarrage de l'application.
+- Une des options est la génération automatique de scores. Si un mot-clé termith est identique à un mot-clé INIST, des scores sont attribués automatiquement au démarrage de l'application.
 
 
 ![accueil](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/0-accueil.png)
