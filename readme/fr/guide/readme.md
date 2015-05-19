@@ -3,8 +3,31 @@ Projet TermITH
 ==============
 ![logoTermith](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/jpeg/termihLogo.jpg)
 
-OUTIL IDEFIX
+IDEFIX: Interface d'évaluation de l'indexation Termith
 ============
+
+Guide d'utilisation
+================
+
+
+Date: mai 2015
+
+Version: 1
+
+Auteurs: 
+- Nourdine Combo : nourdine.combo@inist.fr
+- Matthias Dieudonné : matthias.dieudonne@inist.fr
+- Sabine Barreaux : sabine.barreaux@inist.fr
+
+
+#### Navigateur Web à utiliser: Firefox version 34 ou plus
+
+#### Remarques:
+
+- Il existe des options dans IDEFIX. Elles sont activées/désactivées par votre administrateur.
+
+- Une des otpions est la génération automatique des scores. Si un mot-clé termith est identique à un mot-clé INIST, des scores sont attribués automatiquement au démarrage de l'application.
+
 
 ![accueil](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/0-accueil.png)
 
