@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/tooltipster.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/themes/tooltipster-light.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/themes/tooltipster-red.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/themes/tooltipster-shadow.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/full-article.css">
 {% endblock %}
 
@@ -369,11 +370,13 @@
 
         </form>
         <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="preferenceInfos" style="display: none"></span>
-        <form  class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsPref row" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}">
+
+        {% if data.keywords[indexObject].preference or data.fields.validatePertinence != "yes" %}
+        <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsPref row" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}">
 
             <input type="hidden" name="key" value="keywords.{{ indexObject }}.preference"/> <!-- Key Name -->
 
-            <select {% if data.fields.validatePertinence == 'yes' %}disabled="disabled"{% endif %} id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList {% if data.fields.validatePertinence == 'yes' %}blockForms{% endif %}" name="val" title="Un mot voisin préféré (même méthode)">
+            <select {% if data.fields.validatePertinence == 'yes' %}disabled="disabled"{% endif %} id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList {% if data.fields.validatePertinence == 'yes' %}blockForms{% endif %}" name="val" {% if data.keywords[indexObjectPref].word %}title="{{data.keywords[indexObjectPref].word}}"{% endif %}>
 
                 <option value="<preference>" class="baseOption">
                     Pref:
@@ -403,6 +406,11 @@
             <input type="hidden" name="type" value="pertinence"/><!-- Type pertinence -->
 
         </form>
+        {% endif %}
+
+        <div title="{{ data.keywords[indexObject].comment }}"></div>
+
+        {% if data.keywords[indexObject].comment or data.fields.validatePertinence != "yes" %}
 
         <span title="informations" class="glyphicon glyphicon-info-sign informations " data-id="commentaireInfos" style="display: none"></span>
 
@@ -423,6 +431,8 @@
             </div>
 
         </div>
+
+        {% endif %}
 
 
 

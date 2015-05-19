@@ -511,41 +511,6 @@ $(document).ready(function() {
                 }
             });
         }
-
-        // If silence are not validated
-        if(data.data.fields.validateSilence === "no"){
-            //Get config infos & call functions
-            hideElements();
-            typeAHead(config.comments);
-            $(window).load(function() {
-                    $('.methodLinkround').tooltipster({
-                        animation: 'fade',
-                        delay: 200,
-                        theme: 'tooltipster-light',
-                        touchDevices: false,
-                        trigger: 'hover'
-                    });
-                    $('.divCommentsBlocked[title][title!=""] , .divComments[title][title!=""]').tooltipster({
-                        animation: 'fade',
-                        delay: 200,
-                        theme: 'tooltipster-light',
-                        touchDevices: false,
-                        trigger: 'hover',
-                        position: 'bottom'
-                    });
-                    $('.divCommentsBlocked , .divComments ').not("[title]").tooltipster({
-                        animation: 'fade',
-                        delay: 200,
-                        theme: 'tooltipster-red',
-                        touchDevices: false,
-                        trigger: 'hover',
-                        position: 'bottom',
-                        content : "Vide"
-                    });
-                }
-            );
-        }
-
         if(data.data.fields.validatePertinence === "no") {
 
             var startPageRatio = 0;
@@ -671,8 +636,43 @@ $(document).ready(function() {
             }
         }
 
+        // If silence are not validated
+        if(data.data.fields.validateSilence === "no"){
+            //Get config infos & call functions
+            typeAHead(config.comments);
+            $('.methodLinkround').tooltipster({
+                animation: 'fade',
+                delay: 200,
+                theme: 'tooltipster-light',
+                touchDevices: false,
+                trigger: 'hover',
+                hideOnClick : true
+            });
+            $('.divCommentsBlocked[title][title!=""] , .divComments[title][title!=""]').tooltipster({
+                animation: 'fade',
+                delay: 500,
+                theme: 'tooltipster-light',
+                touchDevices: false,
+                trigger: 'hover',
+                position: 'bottom',
+                hideOnClick : true
+            });
+            $('.divCommentsBlocked , .divComments ').not("[title]").tooltipster({
+                animation: 'fade',
+                delay: 500,
+                theme: 'tooltipster-light',
+                touchDevices: false,
+                trigger: 'hover',
+                position: 'bottom',
+                content : "Commentaire vide",
+                hideOnClick : true
+            });
+        }
 
-        });
+        hideElements();
+
+
+    });
 
     $(".arrowScroll").on("click" , function(){
         if(!$(this).hasClass("arrowUp")){
@@ -750,6 +750,12 @@ $(document).ready(function() {
         $('.inputComment', this).focus();
     });
 
+    $(".divComments").on("mouseover" , function(event){
+        if($(this).hasClass("divCommentsOpened")){
+            event.stopImmediatePropagation();
+        }
+    });
+
     $('.inputComment').keydown(function (event) {
         var keycode = (event.keyCode ? event.keyCode : event.which),
             postData = $(this).parents('form').serializeArray(),
@@ -766,7 +772,8 @@ $(document).ready(function() {
 
                     var divComments = input.parents(".divComments");
                     $(".divFormComments", divComments).css("background" , "#27ae60");
-                    $(divComments).tooltipster("content" , postData[1].value);
+                    $(divComments).tooltipster("content",  postData[1].value);
+                    $(".tooltipster-base").hide();
                     setTimeout(function () {
                         $(".divFormComments" , divComments).css('background', "");
                         $(".quitSpanComment" , divComments).css("display" , "");
@@ -806,12 +813,6 @@ $(document).ready(function() {
         }
     });
 
-    $(".divComments").on("mouseover" , function(event){
-        if($(this).hasClass("divCommentsOpened")){
-            event.stopImmediatePropagation();
-            console.log("tools : ");
-        }
-    });
 
     $('.quitSpanComment').on('click', function (e) {
         e.stopPropagation();
@@ -1100,7 +1101,6 @@ $(document).ready(function() {
 
                                 silenceBar.progressbar({ max: 1, value: silenceRatio });
 
-                                console.log(silenceBar);
 
                                 silenceBar.removeClass('hidden');
 
@@ -1124,8 +1124,7 @@ $(document).ready(function() {
                                     $(".ui-progressbar-value", silenceBar).addClass("progress-bar-info").removeClass('isDisable');
 
                                     if (data.data.fields.validateSilence == "no") {
-                                        $(".ui-progressbar-value", silenceBar).parent().addClass('isNotValidated').removeClass('isDisable');
-                                        $(".ui-progressbar-value", silenceBar).html('100% : VALIDEZ!');
+
                                     }
                                     else if (data.data.fields.validateSilence == "yes") {
                                         $(".ui-progressbar-value", silenceBar).parent().addClass('isValidated');
@@ -1137,7 +1136,7 @@ $(document).ready(function() {
                                 }
                             });
                             var inpuChecked = $('.methodsKeywords .formNotedKeyword input:checked ');
-                            $(".methodsKeywords :input").prop("disabled", true);
+                            $(".methodsKeywords .formNotedKeywordList").prop("disabled", true);
                             $('.methodsKeywords .formNotedKeywordList , .methodsKeywords .divComments').css({
                                 background: "grey",
                                 color : "white",
@@ -1152,9 +1151,15 @@ $(document).ready(function() {
                             $('#timer').runner('stop');
                             $('#startOrStop').hide();
                             var inpuChecked = $('#keywordsInist .formNotedKeyword input:checked ');
-                            $("#keywordsInist :input").prop("disabled", true);
                             $('#keywordsInist .formNotedKeywordsPreference , #keywordsInist .divComments').hide();
                             $(".ui-progressbar-value", barre).removeClass('isNotValidated').addClass('isValidated').html('100%');
+
+                            $(".methodsKeywords .formNotedKeywordList").prop("disabled", true);
+                            $('#keywordsInist .formNotedKeywordList , #keywordsInist .divComments').css({
+                                background: "grey",
+                                color : "white",
+                                border : "none"
+                            });
 
                         }
 
@@ -1676,7 +1681,7 @@ $(document).ready(function() {
                         }
 
                         console.log("title : " , methodConcerned.attr("title"));
-                        methodConcerned.tooltipster("content" , methodConcerned.attr("title"));
+                        methodConcerned.tooltipster("content",  methodConcerned.attr("title"));
                         methodConcerned.attr("title" , "");
 
                         //Affichage contour vert sauvegarde
