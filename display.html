@@ -251,12 +251,15 @@
             <ins class="loading"></ins>
 
         </form>
+
+        {% if data.keywords[indexObject].correspondance or data.fields.validatePertinence != "yes" %}
+
         <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="silenceKwInfos" style="display: none"></span>
-        <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsCorresp row" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}">
+        <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsCorresp row" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].correspondance and data.fields.validateSilence == 'yes' %}Correspondant : {{data.keywords[indexObject].correspondance}}{% else %}Un mot TermITH correspond mieux{% endif %}">
 
             <input type="hidden" name="key" value="keywords.{{ indexObject }}.correspondance"/> <!-- Key Name -->
 
-            <select id="method-{{ indexMethod }}-corresp-list-{{ indexObject }}"  {% if data.fields.validateSilence == 'yes' %}disabled="disabled"{% endif %} class="formNotedKeywordList {% if data.fields.validateSilence == 'yes' %}blockForms{% endif %}" name="val" title="Un mot TermITH est préféré">
+            <select id="method-{{ indexMethod }}-corresp-list-{{ indexObject }}"  {% if data.fields.validateSilence == 'yes' %}disabled="disabled"{% endif %} class="formNotedKeywordList {% if data.fields.validateSilence == 'yes' %}blockForms{% endif %}" name="val" >
                 <option value="<corresp>" class="baseOption">
                     Corresp:
                 </option>
@@ -285,6 +288,9 @@
 
 
         </form>
+        {% endif %}
+
+        {% if data.keywords[indexObject].comment or data.fields.validateSilence != "yes" %}
 
         <div class="{% if data.fields.validateSilence == 'yes' %}blockForms divCommentsBlocked{% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
             <span class="etcSpanComment">...</span>
@@ -304,6 +310,8 @@
             </div>
 
         </div>
+
+        {% endif %}
 
     </div>
 
@@ -376,7 +384,7 @@
 
             <input type="hidden" name="key" value="keywords.{{ indexObject }}.preference"/> <!-- Key Name -->
 
-            <select {% if data.fields.validatePertinence == 'yes' %}disabled="disabled"{% endif %} id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList {% if data.fields.validatePertinence == 'yes' %}blockForms{% endif %}" name="val" {% if data.keywords[indexObjectPref].word %}title="{{data.keywords[indexObjectPref].word}}"{% endif %}>
+            <select {% if data.fields.validatePertinence == 'yes' %}disabled="disabled"{% endif %} id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList {% if data.fields.validatePertinence == 'yes' %}blockForms{% endif %}" name="val" title="{% if data.keywords[indexObject].correspondance and data.fields.validatePertinence == "yes" %}Préférence : {{data.keywords[indexObject].preference}}{% else %}Un mot TermITH est préféré{% endif %}">
 
                 <option value="<preference>" class="baseOption">
                     Pref:

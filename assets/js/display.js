@@ -648,28 +648,29 @@ $(document).ready(function() {
                 trigger: 'hover',
                 hideOnClick : true
             });
-            $('.divCommentsBlocked[title][title!=""] , .divComments[title][title!=""]').tooltipster({
-                animation: 'fade',
-                delay: 500,
-                theme: 'tooltipster-light',
-                touchDevices: false,
-                trigger: 'hover',
-                position: 'bottom',
-                hideOnClick : true
-            });
-            $('.divCommentsBlocked , .divComments ').not("[title]").tooltipster({
-                animation: 'fade',
-                delay: 500,
-                theme: 'tooltipster-light',
-                touchDevices: false,
-                trigger: 'hover',
-                position: 'bottom',
-                content : "Commentaire vide",
-                hideOnClick : true
-            });
         }
 
         hideElements();
+
+        $('.divCommentsBlocked[title][title!=""] , .divComments[title][title!=""] , .formNotedKeywordsPreference[title][title!=""][title!="Un mot TermITH correspond mieux"]').tooltipster({
+            animation: 'fade',
+            delay: 250,
+            theme: 'tooltipster-light',
+            touchDevices: false,
+            trigger: 'hover',
+            position: 'bottom',
+            hideOnClick : true
+        });
+        $('.divCommentsBlocked , .divComments ').not("[title]").tooltipster({
+            animation: 'fade',
+            delay: 500,
+            theme: 'tooltipster-light',
+            touchDevices: false,
+            trigger: 'hover',
+            position: 'bottom',
+            content : "Commentaire vide",
+            hideOnClick : true
+        });
 
 
     });
@@ -1189,7 +1190,9 @@ $(document).ready(function() {
         //console.log(" previousSelectionId : " , previousSelectionId);
     });
 
-    $(".formNotedKeyword select option").on("click" , function(e) {
+    $(".formNotedKeywordList option").on("click" , function(e) {
+
+        console.log("tu as cliqué sur option");
         e.stopPropagation();
         e.preventDefault();
 
