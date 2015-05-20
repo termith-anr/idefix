@@ -14,7 +14,7 @@ Date: mai 2015
 
 Version: 1
 
-Auteurs: Nourdine Combo, Matthias Dieudonné et Sabine Barreaux : sabine.barreaux@inist.fr
+Auteurs: Nourdine Combo, Matthias Dieudonné et Sabine Barreaux
 
 
 #### Navigateur Web à utiliser: Firefox version 34 ou plus
