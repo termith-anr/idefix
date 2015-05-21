@@ -1260,9 +1260,6 @@ input[type=radio]:checked + label {
 }
 
 .formNotedKeyword{
-    display: table;
-    margin: 0 auto;
-    height:40px;
 }
 
 .formNotedKeyword label{
@@ -1533,8 +1530,6 @@ input[type=radio]:checked + label {
 
 .formNotedKeywordsPreference{
     display: none;
-    float: left;
-    margin-left: 5%;
 }
 
 .keywordsMethodsDisplayDone .preferenceAvailable{
@@ -1553,6 +1548,7 @@ input[type=radio]:checked + label {
     font-size: 13px;
     text-align: center;
     width: 69px;
+    height: 25px;
 }
 
 .formNotedKeywordsPreference label{
@@ -1789,20 +1785,14 @@ input[type=radio]:checked + label {
     float: none;
     height: 25px;
     line-height: 12px;
-    margin: 0 auto;
-    right: 3%;
     text-align: center;
     width: 25px;
 }
 
 .divCommentsBlocked{
     border-radius: 25px;
-    bottom: 3%;
-    float: none;
     height: 25px;
     line-height: 12px;
-    margin: 0 auto;
-    right: 3%;
     text-align: center;
     width: 25px;
 }
@@ -2517,4 +2507,14 @@ span.twitter-typeahead {
     #buttonFullArticle{
         width: 4.1%;
     }
+}
+
+.prefInfobulle{
+    width: 75px;
+    border-radius: 7px;
+}
+
+.formNotedKeywordList{
+    width: 100%;
+    border-radius: 4px;
 }

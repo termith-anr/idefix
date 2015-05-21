@@ -223,7 +223,7 @@
     <div data-id="{{data.keywords[indexObject]['xml#id']}}" data-nb="{{ indexMethod }}" class="btn btn-default inistForMethod-{{ indexMethod }} {% if ((data.keywords[indexObject].score) or (data.keywords[indexObject].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay colored {% endif %}">
         <span class="idOfWord">{% if ( countAllKeywords == true ) %} {{ indexObject+1 }} {% else %} {{ indexFromMethod }} {% endif %} - </span> <span class="keywordsText">{{ currentObject.word|d('Pas de mots clés') }}</span> <span class="fa fa-search searchKeywords" title="Rechercher ce mot-clé"></span>
 
-        <form class="formNotedKeyword row" id="silenceScore-{{ indexMethod }}-{{ indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
+        <form class="formNotedKeyword" id="silenceScore-{{ indexMethod }}-{{ indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
 
             <input class="inistKey" type="hidden" name="key" value="keywords.{{ indexObject }}.score"/><!-- Key Name -->
 
@@ -252,10 +252,12 @@
 
         </form>
 
-        {% if data.keywords[indexObject].correspondance or data.fields.validatePertinence != "yes" %}
+       <div style="display: flex; justify-content: space-around;">
+
+        {% if data.keywords[indexObject].correspondance or data.fields.validateSilence != "yes" %}
 
         <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="silenceKwInfos" style="display: none"></span>
-        <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsCorresp row" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].correspondance and data.fields.validateSilence == 'yes' %}Correspondant : {{data.keywords[indexObject].correspondance}}{% else %}Un mot TermITH correspond mieux{% endif %}">
+        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or data.fields.validateSilence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsCorresp preferenceAvailable {% if data.keywords[indexObject].correspondance and data.fields.validateSilence == 'yes' %}prefInfobulle{% endif %}" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].correspondance and data.fields.validateSilence == 'yes' %}Correspondant : {{data.keywords[indexObject].correspondance}}{% else %}Un mot TermITH correspond mieux{% endif %}">
 
             <input type="hidden" name="key" value="keywords.{{ indexObject }}.correspondance"/> <!-- Key Name -->
 
@@ -313,6 +315,8 @@
 
         {% endif %}
 
+       </div>
+
     </div>
 
     {% endif %}
@@ -348,7 +352,7 @@
     <div data-id="{{data.keywords[indexObject]['xml#id']}}" data-nb="{{ indexMethod }}" class="btn btn-default {% if ((data.keywords[indexObject].score) or (data.keywords[indexObject].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay colored {% endif %}">
         <span class="idOfWord"> {% if ( countAllKeywords == true ) %} {{ indexObject+1 }} {% else %} {{ indexFromMethod }} {% endif %} - </span> <span class="keywordsText">{{ data.keywords[indexObject].word|d('Pas de mots clés') }}</span> <span class="fa fa-search searchKeywords" title="Rechercher ce mot-clé"></span>
 
-        <form class="formNotedKeyword row" id="method-{{ indexMethod }}-{{indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
+        <form class="formNotedKeyword" id="method-{{ indexMethod }}-{{indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
 
             <input type="hidden" name="key" value="keywords.{{ indexObject }}.score"/><!-- Key Name -->
 
@@ -377,10 +381,14 @@
             <ins class="loading"></ins>
 
         </form>
-        <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="preferenceInfos" style="display: none"></span>
+
+        <div style="display: flex; justify-content: space-around;">
 
         {% if data.keywords[indexObject].preference or data.fields.validatePertinence != "yes" %}
-        <form class="formNotedKeyword formNotedKeywordsPreference formNotedKeywordsPref row" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}">
+
+        <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="preferenceInfos" style="display: none"></span>
+
+        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or data.fields.validatePertinence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref preferenceAvailable {% if data.keywords[indexObject].preference and data.fields.validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}">
 
             <input type="hidden" name="key" value="keywords.{{ indexObject }}.preference"/> <!-- Key Name -->
 
@@ -416,13 +424,11 @@
         </form>
         {% endif %}
 
-        <div title="{{ data.keywords[indexObject].comment }}"></div>
-
         {% if data.keywords[indexObject].comment or data.fields.validatePertinence != "yes" %}
 
         <span title="informations" class="glyphicon glyphicon-info-sign informations " data-id="commentaireInfos" style="display: none"></span>
 
-        <div class="{% if data.fields.validatePertinence == 'yes' %}blockForms divCommentsBlocked{% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
+        <div class="{% if data.fields.validatePertinence == 'yes' %}blockForms divCommentsBlocked {% if data.keywords[indexObject].comment%}commentsRight{% endif %} {% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
             <span class="etcSpanComment">...</span>
 
             <div class="divFormComments">
@@ -442,6 +448,7 @@
 
         {% endif %}
 
+      </div>
 
 
     </div>

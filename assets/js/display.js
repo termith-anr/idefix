@@ -126,8 +126,8 @@ $(document).ready(function() {
 
         if(config.showPreference) {
             $('input:checked' , notedDiv).each(function(index){
-                for(var key in config.showPreference ) {
-                    if ($(this).val().toString() === config.showPreference[key].toString()) {
+                for(var i = 0 ; i < config.showPreference.length ; i++ ) {
+                    if ($(this).val().toString() === config.showPreference[i].toString()) {
                         var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
                         $('.formNotedKeywordsPref' ,divKeywords).css('display', '').addClass('preferenceAvailable');
                         $('.divComments' , divKeywords).addClass('commentsRight');
@@ -143,8 +143,9 @@ $(document).ready(function() {
 
         if(config.showCorrespondance) {
             $('input:checked' , notedDiv).each(function(index){
-                for(var key in config.showCorrespondance ) {
-                    if ($(this).val().toString() === config.showCorrespondance[key].toString()) {
+                console.log(" config.showCorrespondance" ,  config.showCorrespondance);
+                for(var i = 0 ; i < config.showCorrespondance.length ; i++ ) {
+                    if ($(this).val().toString() === config.showCorrespondance[i].toString()) {
                         var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
                         $('.formNotedKeywordsCorresp' ,divKeywords).css('display', '').addClass('preferenceAvailable');
                         $('.divComments' , divKeywords).addClass('commentsRight');
@@ -649,8 +650,9 @@ $(document).ready(function() {
                 hideOnClick : true
             });
         }
-
-        hideElements();
+        $(window).on("load", function() {
+            hideElements();
+        });
 
         $('.divCommentsBlocked[title][title!=""] , .divComments[title][title!=""] , .formNotedKeywordsPreference[title][title!=""][title!="Un mot TermITH correspond mieux"]').tooltipster({
             animation: 'fade',
@@ -1630,18 +1632,20 @@ $(document).ready(function() {
                         if((checkType.indexOf('silence') >= 0) && (checkType.indexOf('correspondance') < 0)) { // If it's a silence  notation ( not corresp )
                             console.log("SILENCE !!!");
                             if (config.showCorrespondance) { // If options is enable + isArray
-                                for (var key in config.showCorrespondance) { //For all options values
-                                    if ((postData[1].value).toString() === (config.showCorrespondance[key]).toString()) { //If sent value is in options
-                                        li.children('.formNotedKeywordsCorresp').css('display', '').addClass('preferenceAvailable');
-                                        li.children('.divComments').addClass('commentsRight');
+                                for (var i = 0 ; i< config.showCorrespondance.length ; i++) { //For all options values
+                                    if ((postData[1].value).toString() === (config.showCorrespondance[i]).toString()) { //If sent value is in options
+                                        console.log("Boucle 1");
+                                        $('.formNotedKeywordsCorresp' , li).css('display', 'inline-block');
+                                        $('.divComments' , li).css('display' , 'inline-block');
                                         isGood = true;
                                         break; //Stop checking options values
                                     }
                                 }
                                 if(!isGood){
+                                    console.log("Boucle 2");
                                     var index  = (postData[0].value).split(".")[1];
-                                    li.children('.formNotedKeywordsCorresp').css('display', 'none').removeClass('preferenceAvailable');
-                                    li.children('.divComments').removeClass('commentsRight');
+                                    $('.formNotedKeywordsCorresp' , li).css('display', 'none').removeClass('preferenceAvailable');
+                                    $('.divComments' , li).css('display', '');
 
                                 }
                             }
@@ -1657,19 +1661,19 @@ $(document).ready(function() {
                         else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('preference') < 0)) {// If it's an eval score notation ( not pref )
                             console.log('Pertinence');
                             if (config.showPreference) {// If options is enable + isArray
-                                for (key in config.showPreference) {//For all options values
+                                for(var i = 0 ; i < config.showPreference.length ; i++) {//For all options values
                                     console.log(config.showPreference);
-                                    if ((postData[1].value).toString() === (config.showPreference[key]).toString()) {//If sent value is in options
-                                        li.children('.formNotedKeywordsPref').css('display', '').addClass('preferenceAvailable');
-                                        li.children('.divComments').addClass('commentsRight');
+                                    if ((postData[1].value).toString() === (config.showPreference[i]).toString()) {//If sent value is in options
+                                        $('.formNotedKeywordsPref' , li).css('display', 'inline-block');
+                                        $('.divComments', li).css('display' , 'inline-block');
                                         isGood = true;
                                         break; //Stop checking options values
                                     }
                                 }
                                 if(!isGood){
                                     var index  = (postData[0].value).split(".")[1];
-                                    li.children('.formNotedKeywordsPref').css('display', 'none').removeClass('preferenceAvailable');
-                                    li.children('.divComments').removeClass('commentsRight');
+                                    $('.formNotedKeywordsPref' , li).css('display', 'none').removeClass('preferenceAvailable');
+                                    $('.divComments' , li).css('display' , '');
                                 }
                             }
 
