@@ -669,7 +669,15 @@ $(document).ready(function() {
             content : "Commentaire vide",
             hideOnClick : true
         });
-
+        $('.blockForms').tooltipster({
+            animation: 'fade',
+            delay: 500,
+            theme: 'tooltipster-light',
+            touchDevices: false,
+            trigger: 'hover',
+            position: 'bottom',
+            hideOnClick : true
+        });
 
     });
 

@@ -388,11 +388,11 @@
 
         <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="preferenceInfos" style="display: none"></span>
 
-        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or data.fields.validatePertinence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref {% if data.keywords[indexObject].preference and data.fields.validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}">
+        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or data.fields.validatePertinence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref {% if data.keywords[indexObject].preference and data.fields.validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].preference and data.fields.validatePertinence == 'yes' %}Préférence : {{data.keywords[indexObject].preference}}{% else %}Un mot TermITH est préféré{% endif %}">
 
             <input type="hidden" name="key" value="keywords.{{ indexObject }}.preference"/> <!-- Key Name -->
 
-            <select {% if data.fields.validatePertinence == 'yes' %}disabled="disabled"{% endif %} id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList {% if data.fields.validatePertinence == 'yes' %}blockForms{% endif %}" name="val" title="{% if data.keywords[indexObject].correspondance and data.fields.validatePertinence == "yes" %}Préférence : {{data.keywords[indexObject].preference}}{% else %}Un mot TermITH est préféré{% endif %}">
+            <select {% if data.fields.validatePertinence == 'yes' %}disabled="disabled"{% endif %} id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList {% if data.fields.validatePertinence == 'yes' %}blockForms{% endif %}" name="val" >
 
                 <option value="<preference>" class="baseOption">
                     Pref:
@@ -428,7 +428,7 @@
 
         <span title="informations" class="glyphicon glyphicon-info-sign informations " data-id="commentaireInfos" style="display: none"></span>
 
-        <div class="{% if data.fields.validatePertinence == 'yes' %}blockForms divCommentsBlocked {% if data.keywords[indexObject].comment%}commentsRight{% endif %} {% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
+        <div class="{% if data.fields.validatePertinence == 'yes' %}blockForms divCommentsBlocked {% endif %} divComments" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
             <span class="etcSpanComment">...</span>
 
             <div class="divFormComments">
