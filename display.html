@@ -257,7 +257,7 @@
         {% if data.keywords[indexObject].correspondance or data.fields.validateSilence != "yes" %}
 
         <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="silenceKwInfos" style="display: none"></span>
-        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or data.fields.validateSilence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsCorresp preferenceAvailable {% if data.keywords[indexObject].correspondance and data.fields.validateSilence == 'yes' %}prefInfobulle{% endif %}" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].correspondance and data.fields.validateSilence == 'yes' %}Correspondant : {{data.keywords[indexObject].correspondance}}{% else %}Un mot TermITH correspond mieux{% endif %}">
+        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or data.fields.validateSilence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsCorresp {% if data.keywords[indexObject].correspondance and data.fields.validateSilence == 'yes' %}prefInfobulle{% endif %}" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].correspondance and data.fields.validateSilence == 'yes' %}Correspondant : {{data.keywords[indexObject].correspondance}}{% else %}Un mot TermITH correspond mieux{% endif %}">
 
             <input type="hidden" name="key" value="keywords.{{ indexObject }}.correspondance"/> <!-- Key Name -->
 
@@ -388,7 +388,7 @@
 
         <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="preferenceInfos" style="display: none"></span>
 
-        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or data.fields.validatePertinence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref preferenceAvailable {% if data.keywords[indexObject].preference and data.fields.validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}">
+        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or data.fields.validatePertinence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref {% if data.keywords[indexObject].preference and data.fields.validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}">
 
             <input type="hidden" name="key" value="keywords.{{ indexObject }}.preference"/> <!-- Key Name -->
 

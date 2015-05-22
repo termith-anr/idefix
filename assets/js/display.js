@@ -128,10 +128,9 @@ $(document).ready(function() {
             $('input:checked' , notedDiv).each(function(index){
                 for(var i = 0 ; i < config.showPreference.length ; i++ ) {
                     if ($(this).val().toString() === config.showPreference[i].toString()) {
+                        console.log("this : " , $(this) , " valeur : " , $(this).val().toString());
                         var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
                         $('.formNotedKeywordsPref' ,divKeywords).css('display', '').addClass('preferenceAvailable');
-                        $('.divComments' , divKeywords).addClass('commentsRight');
-                        $('.divCommentsBlocked' , divKeywords).addClass('commentsRight');
                         break;
                     }
                 }
@@ -148,8 +147,6 @@ $(document).ready(function() {
                     if ($(this).val().toString() === config.showCorrespondance[i].toString()) {
                         var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
                         $('.formNotedKeywordsCorresp' ,divKeywords).css('display', '').addClass('preferenceAvailable');
-                        $('.divComments' , divKeywords).addClass('commentsRight');
-                        $('.divCommentsBlocked' , divKeywords).addClass('commentsRight');
                         break;
                     }
                 }
@@ -650,9 +647,8 @@ $(document).ready(function() {
                 hideOnClick : true
             });
         }
-        $(window).on("load", function() {
-            hideElements();
-        });
+
+        hideElements();
 
         $('.divCommentsBlocked[title][title!=""] , .divComments[title][title!=""] , .formNotedKeywordsPreference[title][title!=""][title!="Un mot TermITH correspond mieux"]').tooltipster({
             animation: 'fade',
@@ -1139,11 +1135,44 @@ $(document).ready(function() {
                                 }
                             });
                             var inpuChecked = $('.methodsKeywords .formNotedKeyword input:checked ');
-                            $(".methodsKeywords .formNotedKeywordList").prop("disabled", true);
-                            $('.methodsKeywords .formNotedKeywordList , .methodsKeywords .divComments').css({
-                                background: "grey",
-                                color : "white",
-                                border : "none"
+                            $(".methodsKeywords .formNotedKeywordList").each(function(){
+                                var pref = $("option:selected" , this).val();
+
+                                if( pref && ($("option:selected" , this).val() != "<preference>")){
+                                    $(this).attr("title" , pref).tooltipster({
+                                        animation: 'fade',
+                                        delay: 200,
+                                        theme: 'tooltipster-light',
+                                        touchDevices: false,
+                                        trigger: 'hover',
+                                        hideOnClick : true
+                                    })
+                                        .css({
+                                        background: "grey",
+                                        color : "white",
+                                        border : "none"
+                                    })
+                                        .prop("disabled", true);
+                                }
+                                else{
+                                    $(this).parents(".formNotedKeywordsPreference").hide();
+                                }
+                            });
+                            $('.methodsKeywords .divComments').each(function(){
+                               var comment = $(".inputComment" , this).val();
+                                console.log("comment :  " , comment);
+                                if(comment){
+                                    $(this)
+                                    .css({
+                                    background: "grey",
+                                    color : "white",
+                                    border : "none"
+                                    })
+                                    .prop("disabled", true);
+                                }
+                                else{
+                                    $(this).hide();
+                                }
                             });
 
                             $(".ui-progressbar-value", barre).removeClass('isNotValidated').addClass('isValidated').html('100%');
@@ -1187,9 +1216,10 @@ $(document).ready(function() {
         e.stopPropagation();
         e.preventDefault();
         previousSelectionId = $(this).find(":selected").attr("data-id");
-        currentIdToDelete = $(this).parent().parent().attr("data-id")
+        currentIdToDelete = $(this).parents(".keywordsMethodsDisplayDone").attr("data-id");
 
-        //console.log(" previousSelectionId : " , previousSelectionId);
+        console.log(" currentIdToDelete : " , currentIdToDelete);
+        console.log(" previousSelectionId : " , previousSelectionId);
     });
 
     $(".formNotedKeywordList option").on("click" , function(e) {
@@ -1204,9 +1234,11 @@ $(document).ready(function() {
             motType = option.val(),
             xmlid = option.attr("data-id"),
             nomLiaison = "",
-            btn = option.parent().parent().parent(),
+            btn = option.parents(".keywordsMethodsDisplayDone"),
             idBtn = btn.attr("data-id"),
             selector = option.parent();
+
+        console.log("btn : " , btn , " idBtn : " , idBtn);
 
         if (selector.attr("id").split('-')[2] === "corresp") {
             type = "correspondance";
@@ -1221,7 +1253,7 @@ $(document).ready(function() {
 
         //Si on souhaite supprimer le correps / pref
         if (motType === "deletemenow") {
-            console.log('IL FAUT A TOUT pris supprimer : ' , "keywords." + selector.attr("id").split('-')[4] + "." + nomLiaison);
+            console.log('Il faut supprimer : ' , "keywords." + selector.attr("id").split('-')[4] + "." + nomLiaison);
             $.ajax({
                 url: dropPage,
                 type: "POST",
