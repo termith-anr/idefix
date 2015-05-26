@@ -116,6 +116,9 @@ $(document).ready(function() {
             }
 
         }
+        if(!$(".highlight").length > 0){
+            alert("Le mot n'a pa été trouvé ou est présent sous une autre forme")
+        }
 
     });
 
