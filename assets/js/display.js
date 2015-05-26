@@ -1230,9 +1230,9 @@ $(document).ready(function() {
         console.log(" previousSelectionId : " , previousSelectionId);
     });
 
-    $(".formNotedKeywordList option").on("click" , function(e) {
+    $(".formNotedKeywordList").on("change" , function(e) {
 
-        console.log("tu as cliqué sur option");
+        console.log("Changement de pref/corresp");
         e.stopPropagation();
         e.preventDefault();
 
@@ -1240,13 +1240,13 @@ $(document).ready(function() {
             estlie = "",
             option = $(this),
             motType = option.val(),
-            xmlid = option.attr("data-id"),
-            nomLiaison = "",
             btn = option.parents(".keywordsMethodsDisplayDone"),
+            xmlid = $("option[value='" + motType +"']" , btn).attr("data-id"),
+            nomLiaison = "",
             idBtn = btn.attr("data-id"),
-            selector = option.parent();
+            selector = $("select" , btn);
 
-        console.log("btn : " , btn , " idBtn : " , idBtn);
+        console.log("xmlid : ", xmlid , "btn : " , btn , " idBtn : " , idBtn);
 
         if (selector.attr("id").split('-')[2] === "corresp") {
             type = "correspondance";
@@ -1293,7 +1293,7 @@ $(document).ready(function() {
                         ],
                         success : function(){
                             $("option", selector).removeAttr("selected").removeAttr("style");
-                            $(option).attr("style", "background: #FF847C;color:#fff");
+                            $("option[value='" + motType + "']" , btn).attr("style", "background: #FF847C;color:#fff");
                             $(selector).prop('selectedIndex', -1);
 
                             //Affichage contour vert sauvegarde
@@ -1440,8 +1440,8 @@ $(document).ready(function() {
                             //console.log("Texte bien enregistré");
 
                             $("option", selector).removeAttr("selected").removeAttr("style");
-                            $(option).attr("style", "background: #FF847C;color:#fff");
-                            $(option).prop("selected", true);
+                            $("option[value='" + motType + "']" , btn).attr("style", "background: #FF847C;color:#fff");
+                            $("option[value='" + motType + "']" , btn).prop("selected", true);
 
                             //Affichage contour vert sauvegarde
                             btn.css('box-shadow', '0px 1px 4px 0px green');
