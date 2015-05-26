@@ -1884,4 +1884,9 @@ $(document).ready(function() {
 
     /* --- END OF SUBMIT AJAX ---*/
 
+
+    $(".magicButton").on("click" , function(){
+        var nb = $(this).attr("data-id")
+        for()
+    });
 });
