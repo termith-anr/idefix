@@ -1419,7 +1419,7 @@ $(document).ready(function() {
                         success: function (e) {
                             //console.log("Texte bien enregistré");
 
-                            $(".formNotedKeywordsPref" ,btn).tooltipster("content" , motType);
+                            $(".formNotedKeywordsPreference" ,btn).attr("title" , motType);
                             $("option", selector).removeAttr("selected").removeAttr("style");
                             $("option[value='" + motType + "']" , btn).attr("style", "background: #FF847C;color:#fff");
                             $("option[value='" + motType + "']" , btn).prop("selected", true);
