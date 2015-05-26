@@ -388,7 +388,7 @@
 
         <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="preferenceInfos" style="display: none"></span>
 
-        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or data.fields.validatePertinence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref {% if data.keywords[indexObject].preference and data.fields.validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].preference and data.fields.validatePertinence == 'yes' %}Préférence : {{data.keywords[indexObject].preference}}{% else %}Un mot TermITH est préféré{% endif %}">
+        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or data.fields.validatePertinence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref {% if data.keywords[indexObject].preference and data.fields.validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].preference %}Préférence : {{data.keywords[indexObject].preference}}{% else %}Un mot TermITH est préféré{% endif %}">
 
             <input type="hidden" name="key" value="keywords.{{ indexObject }}.preference"/> <!-- Key Name -->
 

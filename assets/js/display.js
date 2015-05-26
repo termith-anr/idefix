@@ -659,7 +659,7 @@ $(document).ready(function() {
             position: 'bottom',
             hideOnClick : true
         });
-        $('.divCommentsBlocked , .divComments ').not("[title]").tooltipster({
+        $('.divCommentsBlocked , .divComments').not("[title]").tooltipster({
             animation: 'fade',
             delay: 500,
             theme: 'tooltipster-light',
@@ -1077,7 +1077,6 @@ $(document).ready(function() {
         if (!barre.hasClass('isValidated')) {
             if(confirm('Souhaitez-vous valider définitivement les Mot-Clés ' +  type  + '?')) {
 
-                console.log("Save page  : " , savePage);
                 console.log("barreField : " , barreField);
 
                 $.ajax({
@@ -1147,14 +1146,7 @@ $(document).ready(function() {
                                 var pref = $("option:selected" , this).val();
 
                                 if( pref && ($("option:selected" , this).val() != "<preference>")){
-                                    $(this).attr("title" , pref).tooltipster({
-                                        animation: 'fade',
-                                        delay: 200,
-                                        theme: 'tooltipster-light',
-                                        touchDevices: false,
-                                        trigger: 'hover',
-                                        hideOnClick : true
-                                    })
+                                    $(this).attr("title" , pref)
                                         .css({
                                         background: "grey",
                                         color : "white",
@@ -1419,8 +1411,6 @@ $(document).ready(function() {
                     }
                 ],
                 success: function (e) {
-                    //console.log('ID bien enregistré');
-
                     // Sauvegarde du texte
                     $.ajax({
                         url: savePage,
@@ -1439,6 +1429,7 @@ $(document).ready(function() {
                         success: function (e) {
                             //console.log("Texte bien enregistré");
 
+                            $(".formNotedKeywordsPref" ,btn).tooltipster("content" , motType);
                             $("option", selector).removeAttr("selected").removeAttr("style");
                             $("option[value='" + motType + "']" , btn).attr("style", "background: #FF847C;color:#fff");
                             $("option[value='" + motType + "']" , btn).prop("selected", true);
