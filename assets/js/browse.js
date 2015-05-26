@@ -103,21 +103,15 @@ $(document).ready(function() {
 
         if( $(this).val() == 'traites'){
             oTable.fnFilter( 'yes' , 1 );
-            if(state) {
                 localStorage['selecteur'] = "traites";
-            }
         }
         else if( $(this).val() == 'nonTraites'){
             oTable.fnFilter( 'no' , 1 );
-            if(state) {
                 localStorage['selecteur'] = "nonTraites";
-            }
         }
         else if( $(this).val() == 'tous'){
             oTable.fnFilter('',1);
-            if(state) {
                 localStorage['selecteur'] = "tous";
-            }
         }
     } );
 
