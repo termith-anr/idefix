@@ -650,7 +650,7 @@ $(document).ready(function() {
 
         hideElements();
 
-        $('.divCommentsBlocked[title][title!=""] , .divComments[title][title!=""] , .formNotedKeywordsPreference[title][title!=""][title!="Un mot TermITH correspond mieux"]').tooltipster({
+        $('.divCommentsBlocked[title][title!=""] , .divComments[title][title!=""]').tooltipster({
             animation: 'fade',
             delay: 250,
             theme: 'tooltipster-light',
@@ -669,16 +669,6 @@ $(document).ready(function() {
             content : "Commentaire vide",
             hideOnClick : true
         });
-        $('.blockForms').tooltipster({
-            animation: 'fade',
-            delay: 500,
-            theme: 'tooltipster-light',
-            touchDevices: false,
-            trigger: 'hover',
-            position: 'bottom',
-            hideOnClick : true
-        });
-
     });
 
     $(".arrowScroll").on("click" , function(){
@@ -1146,7 +1136,7 @@ $(document).ready(function() {
                                 var pref = $("option:selected" , this).val();
 
                                 if( pref && ($("option:selected" , this).val() != "<preference>")){
-                                    $(this).attr("title" , pref)
+                                    $(this)
                                         .css({
                                         background: "grey",
                                         color : "white",
@@ -1159,7 +1149,7 @@ $(document).ready(function() {
                                 }
                             });
                             $('.methodsKeywords .divComments').each(function(){
-                               var comment = $(".inputComment" , this).val();
+                               var comment = $(".tt-input" , this).val();
                                 console.log("comment :  " , comment);
                                 if(comment){
                                     $(this)
