@@ -1886,9 +1886,17 @@ $(document).ready(function() {
 
 
     $(".magicButton").on("click" , function(){
+
+        $("body").children().css({
+            filter : "grayscale(100%)",
+            opacity : 0.6
+        });
+        $("body").append("<div class='infoMessage'><span class='loader-quart' style='display: table-cell;'></span></div>");
+
         var nb = $(this).attr("data-id"),
             type = $(this).attr("data-type"),
             nbMatch = 0 ,
+            arr = [],
             currentKwdsList = (type === "method") ? $(".btn" , "#method" + nb + "ListOfKeywords") : $(".inistForMethod-" + nb , "#keywordsInist") ;
 
         // Pour les mots méthods
@@ -1898,39 +1906,62 @@ $(document).ready(function() {
                 var currentKw = value,
                     currentWord = $(".keywordsText" , currentKw).text().toUpperCase(),
                     currentScore = $("input:checked" , currentKw) ? $("input:checked" , currentKw).val() : null;
-                $("#method"+ nb +"ListOfKeywords")
-                    .siblings(".methodsKeywords")
-                    // Pour chaque autre méthode
-                    .each(function(index , value){
-                        var otherMethod = value;
-                        // Pour chaque autre mot dans l'autre méthode :
-                        $("input:checked" , otherMethod).parents(".btn").each(function(index , value){
-                            var otherKw = value,
-                                otherWord = $(".keywordsText" , otherKw).text().toUpperCase(),
-                                otherScore = $("input:checked" , otherKw) ? $("input:checked" , otherKw).val() : null;
-                            // Si mots sont identiques & (le mot en cours ne posséde pas de score ou les cores sont differents)
-                            if((currentWord === otherWord) && (!currentScore || otherScore != currentScore )){
+                // SI le mot ne vient pas d'etre noté
+                if(arr.indexOf(currentWord) <= -1) {
+                    arr.push(currentWord);
+                    $("#method" + nb + "ListOfKeywords")
+                        .siblings(".methodsKeywords")
+                        // Pour chaque autre méthode
+                        .each(function (index, value) {
+                            var otherMethod = value;
+                            // Pour chaque autre mot dans l'autre méthode :
+                            $("input:checked", otherMethod).parents(".btn").each(function (index, value) {
+                                var otherKw = value,
+                                    otherWord = $(".keywordsText", otherKw).text().toUpperCase(),
+                                    otherScore = $("input:checked", otherKw) ? $("input:checked", otherKw).val() : null;
+                                // Si mots sont identiques & (le mot en cours ne posséde pas de score ou les cores sont differents)
+                                if ((currentWord === otherWord) && (!currentScore || otherScore != currentScore )) {
 
-                                var currentKey = $(".formNotedKeyword input[type='hidden'][name='key']" ,currentKw).val(),
-                                    current2Check = $(".formNotedKeyword input[type='radio'][value='" + otherScore + "']" ,currentKw).attr("id");
-                                console.log(" mot : " , currentWord , " - " , currentKey  ," / "  , otherWord , " - " , otherScore);
+                                    var currentKey = $(".formNotedKeyword input[type='hidden'][name='key']", currentKw).val().split(".")[1],
+                                        current2Check = $(".formNotedKeyword input[type='radio'][value='" + otherScore + "']", currentKw).attr("id"),
+                                        otherComment = $(".tt-input", otherKw).val();
+                                    console.log(" mot : ", currentWord, " - ", currentKey, " / ", otherWord, " - ", otherScore);
 
-                                $("label[for='" + current2Check + "']").trigger( "click" );
-                                //Envoi du score
-                                /*$.ajax(
-                                    {
-                                        url: savePage,
-                                        type: "POST",
-                                        data: [
-                                            { name: "key", value: currentKey} ,
-                                            { name: "val", value: otherScore}
-                                        ]
-                                    }
-                                );*/
-                            }
+                                    $("label[for='" + current2Check + "']").trigger("click");
+                                    nbMatch++;
+                                    console.log("nbmmat", nbMatch);
+                                    //Envoi du commentaire
+                                    $.ajax(
+                                        {
+                                            url: savePage,
+                                            type: "POST",
+                                            data: [
+                                                { name: "key", value: "keywords." + currentKey + ".comment"} ,
+                                                { name: "val", value: otherComment}
+                                            ],
+                                            success: function () {
+                                                $(".inputComment", currentKw).typeahead('val', otherComment);
+                                                $(".divComments", currentKw).tooltipster("content", otherComment);
+
+                                            }
+                                        }
+                                    );
+                                }
+                            });
                         });
-                    });
+                }
             });
+            setTimeout(function(){
+                $(".infoMessage").html( nbMatch + " mots traités !").delay(750).fadeOut(750 ,function() {
+                    $(this).remove();
+                    $("body").children().css({
+                        filter : "",
+                        opacity : ""
+                    });
+                });
+            }, 750);
+
+
         }
 
     });

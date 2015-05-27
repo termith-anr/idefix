@@ -2521,8 +2521,32 @@ span.twitter-typeahead {
 
 .magicButton{
     cursor: pointer;
+    font-size: 25px;
+    transition : all 550ms;
 }
 
 .magicButton:hover{
-    color: #CC6A63
+    color: #CC6A63;
+}
+
+.infoMessage{
+    position: absolute;
+    z-index: 999999999;
+    color: #555;
+    height: 200px;
+    width: 300px;
+    left: calc(50% - 150px);
+    top: calc(50% - 100px);
+    border: 5px solid rgb(204, 106, 99);
+    border-radius: 20px;
+    font-family: verdana;
+    font-weight: bold;
+    background: #ffffff;
+    color: #555;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
