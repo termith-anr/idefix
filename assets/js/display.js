@@ -995,9 +995,9 @@ $(document).ready(function() {
 
     $("#backAbsctract").on('click', function () {
         if ($("#sectionArticle").css('opacity') !== '0.15') {
-            if ($('#abstractFullLenght').css('display') == 'none') {
+            if ($('.divOnResume').css('display') == 'none') {
                 $('#listOrGrid span').hide();
-                $('#abstractFullLenght').css('display', 'block').siblings().not(".divHoverH1Display").hide();
+                $('.divOnResume').css('display', 'flex').siblings().not(".divHoverH1Display").hide();
                 $('#keywordsInist').hide();
                 $(".methodsKeywords").css('width', '100%');
                 $("#inistKeywordsButton ").hide();
@@ -1018,8 +1018,8 @@ $(document).ready(function() {
         function () {
             var id = $(this).attr('id');
             var nb = id.split('-');
-            if ($('#abstractFullLenght').css('display') == 'block') {
-                $('#abstractFullLenght').hide();
+            if ($('.divOnResume').css('display') == 'flex') {
+                $('.divOnResume').hide();
                 $('#sectionArticle').css('opacity', '1');
                 $("#keywordsDisplayDiv").show();
                 $('#listOrGrid span').show();

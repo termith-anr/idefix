@@ -751,10 +751,9 @@ table tr[data-href] {
     color: #fff;
     display: table-cell;
     float: none;
-    font-family: verdana;
-    font-size: 18px;
+    font-family: chaparral , 'Georgia', serif;
+    font-size: 20px;
     line-height: normal;
-    font-style: italic;
     margin: 0 auto;
     text-align: center;
     vertical-align: middle;
@@ -886,6 +885,8 @@ span .methodsameDisplayD{
 #keywordsSection h2{
     margin-bottom: 40px;
     color: #444;
+    font-family: chaparral;
+    font-size: 25px;
 }
 
 .keywordsGliph{
@@ -1512,20 +1513,28 @@ input[type=radio]:checked + label {
     display: inline-block;
 }
 
+.divOnResume{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 87.75%;
+    position:absolute;
+    top: 12.25%;
+}
+
 #abstractFullLenght{
     display: block;
-    color: #555;
-    font-family: verdana;
-    font-size: 20px;
-    height: 75%;
-    left: 12.25%;
-    margin: 0 auto;
+    color: #333;
+    font-family: Auto;
+    font-size: 16px;
+    line-height: 26px;
     overflow-y: auto;
-    position: absolute;
-    top: 25%;
-    width: 75%;
     z-index: 200;
     text-align: justify;
+    text-indent: 3vw;
+    hyphens: auto;
+    max-width: 75ch;
 }
 
 .formNotedKeywordsPreference{
