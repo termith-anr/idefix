@@ -1886,7 +1886,52 @@ $(document).ready(function() {
 
 
     $(".magicButton").on("click" , function(){
-        var nb = $(this).attr("data-id")
-        for()
+        var nb = $(this).attr("data-id"),
+            type = $(this).attr("data-type"),
+            nbMatch = 0 ,
+            currentKwdsList = (type === "method") ? $(".btn" , "#method" + nb + "ListOfKeywords") : $(".inistForMethod-" + nb , "#keywordsInist") ;
+
+        // Pour les mots méthods
+        if(type ===  "method"){
+            // Pour chaque mot termith en cours
+            currentKwdsList.each(function(index, value){
+                var currentKw = value,
+                    currentWord = $(".keywordsText" , currentKw).text().toUpperCase(),
+                    currentScore = $("input:checked" , currentKw) ? $("input:checked" , currentKw).val() : null;
+                $("#method"+ nb +"ListOfKeywords")
+                    .siblings(".methodsKeywords")
+                    // Pour chaque autre méthode
+                    .each(function(index , value){
+                        var otherMethod = value;
+                        // Pour chaque autre mot dans l'autre méthode :
+                        $("input:checked" , otherMethod).parents(".btn").each(function(index , value){
+                            var otherKw = value,
+                                otherWord = $(".keywordsText" , otherKw).text().toUpperCase(),
+                                otherScore = $("input:checked" , otherKw) ? $("input:checked" , otherKw).val() : null;
+                            // Si mots sont identiques & (le mot en cours ne posséde pas de score ou les cores sont differents)
+                            if((currentWord === otherWord) && (!currentScore || otherScore != currentScore )){
+
+                                var currentKey = $(".formNotedKeyword input[type='hidden'][name='key']" ,currentKw).val(),
+                                    current2Check = $(".formNotedKeyword input[type='radio'][value='" + otherScore + "']" ,currentKw).attr("id");
+                                console.log(" mot : " , currentWord , " - " , currentKey  ," / "  , otherWord , " - " , otherScore);
+
+                                $("label[for='" + current2Check + "']").trigger( "click" );
+                                //Envoi du score
+                                /*$.ajax(
+                                    {
+                                        url: savePage,
+                                        type: "POST",
+                                        data: [
+                                            { name: "key", value: currentKey} ,
+                                            { name: "val", value: otherScore}
+                                        ]
+                                    }
+                                );*/
+                            }
+                        });
+                    });
+            });
+        }
+
     });
 });

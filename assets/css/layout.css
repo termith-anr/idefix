@@ -2518,3 +2518,11 @@ span.twitter-typeahead {
     width: 100%;
     border-radius: 4px;
 }
+
+.magicButton{
+    cursor: pointer;
+}
+
+.magicButton:hover{
+    color: #CC6A63
+}
