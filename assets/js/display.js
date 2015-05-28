@@ -1975,7 +1975,6 @@ $(document).ready(function() {
                                         success: function () {
                                             $(".inputComment", currentKw).typeahead('val', otherComment);
                                             $(".divComments", currentKw).tooltipster("content", otherComment);
-
                                         }
                                     }
                                 );

@@ -8,6 +8,8 @@
 *
 */
 
+@import url(http://fonts.googleapis.com/css?family=Abel);
+
 @font-face {
     font-family: 'segoe'; src: url('../fonts/segoeui.ttf');
 }
@@ -21,6 +23,11 @@
 @font-face {
     font-family: 'segoeuisl'; src: url('../fonts/segoeuisl.ttf');
 }
+
+@font-face {
+    font-family: 'chaparral'; src: url('../fonts/ChaparralPro-Regular.woff');
+}
+
 
 @media (min-width: 1600px) {
 
@@ -672,8 +679,8 @@ table tr[data-href] {
     width: 95px;
     font-size: 16px;
     text-align: center;
-    font-family: segoeuisl;
-    color: #333;
+    font-family: Abel,"Georgia",serif;
+    color: #555;
     font-style: italic;
     transition: all 250ms;
     -moz-user-select: none;
@@ -751,7 +758,7 @@ table tr[data-href] {
     color: #fff;
     display: table-cell;
     float: none;
-    font-family: chaparral , 'Georgia', serif;
+    font-family: Abel , 'Georgia', serif;
     font-size: 20px;
     line-height: normal;
     margin: 0 auto;
@@ -885,7 +892,7 @@ span .methodsameDisplayD{
 #keywordsSection h2{
     margin-bottom: 40px;
     color: #444;
-    font-family: chaparral;
+    font-family: Abel;
     font-size: 25px;
 }
 
