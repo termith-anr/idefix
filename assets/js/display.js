@@ -1885,10 +1885,6 @@ $(document).ready(function() {
 
     /* --- END OF SUBMIT AJAX ---*/
 
-    var magicScore = function(index,value,currentKw,currentWord,currentScore,nbMatch){
-    };
-
-
     $(".magicButton").on("click" , function(){
 
         $("body").children().css({
@@ -1904,67 +1900,27 @@ $(document).ready(function() {
             currentKwdsList = (type === "method") ? $(".btn" , "#method" + nb + "ListOfKeywords") : $(".inistForMethod-" + nb , "#keywordsInist"),
             otherKwdsList = (type === "method") ? $("#method" + nb + "ListOfKeywords").siblings(".methodsKeywords")  : $(".inistForMethod-" + nb, "#keywordsInist").siblings(".btn:not(.inistForMethod-" + nb + ")");
 
-            console.log("otherKwdsList : ", otherKwdsList);
             // Pour chaque mot termith en cours
             currentKwdsList.each(function(index, value){
                 var currentKw = value,
                     currentWord = $(".keywordsText" , currentKw).text().toUpperCase(),
                     currentScore = $("input:checked" , currentKw) ? $("input:checked" , currentKw).val() : null;
-                // SI le mot ne vient pas d'etre noté
-                if(arr.indexOf(currentWord) <= -1) {
-                    arr.push(currentWord);
-                    console.log("Passage n°" , nbMatch);
-                    if(type === "method"){
-                        otherKwdsList
-                            // Pour chaque autre méthode
-                            .each(function (index, value) {
-                                var otherMethod = value;
-                                // Pour chaque autre mot dans l'autre méthode :
-                                $("input:checked", otherMethod).parents(".btn").each(function(index, value){
-                                    var otherKw = value,
-                                        otherWord = $(".keywordsText", otherKw).text().toUpperCase(),
-                                        otherScore = $("input:checked", otherKw) ? $("input:checked", otherKw).val() : null;
-                                    // Si mots sont identiques & (le mot en cours ne posséde pas de score ou les cores sont differents)
-                                    if ((currentWord === otherWord) && (!currentScore || otherScore != currentScore ) && (otherScore)) {
 
-                                        var currentKey = $(".formNotedKeyword input[type='hidden'][name='key']", currentKw).val().split(".")[1],
-                                            current2Check = $(".formNotedKeyword input[type='radio'][value='" + otherScore + "']", currentKw).attr("id"),
-                                            otherComment = $(".tt-input", otherKw).val();
-
-                                        $("label[for='" + current2Check + "']").trigger("click");
-                                        nbMatch++;
-                                        //Envoi du commentaire
-                                        $.ajax(
-                                            {
-                                                url: savePage,
-                                                type: "POST",
-                                                data: [
-                                                    { name: "key", value: "keywords." + currentKey + ".comment"} ,
-                                                    { name: "val", value: otherComment}
-                                                ],
-                                                success: function () {
-                                                    $(".inputComment", currentKw).typeahead('val', otherComment);
-                                                    $(".divComments", currentKw).tooltipster("content", otherComment);
-
-                                                }
-                                            }
-                                        );
-                                    }
-                                });
-                            });
-                    }
-                    else if (type === "silence"){
-                        otherKwdsList
-                            // Pour chaque uutres mots
-                            .each(function(index, value){
+                console.log("Passage n°" , nbMatch);
+                console.log("=====================");
+                if(type === "method"){
+                    otherKwdsList
+                        // Pour chaque autre méthode
+                        .each(function (index, value) {
+                            var otherMethod = value;
+                            // Pour chaque autre mot dans l'autre méthode :
+                            $("input:checked", otherMethod).parents(".btn").each(function(index, value){
                                 var otherKw = value,
                                     otherWord = $(".keywordsText", otherKw).text().toUpperCase(),
                                     otherScore = $("input:checked", otherKw) ? $("input:checked", otherKw).val() : null;
-                                // Si mots sont identiques & (le mot en cours ne posséde pas de score ou les cores sont differents)
-                                if ((currentWord === otherWord) && (!currentScore || otherScore != currentScore ) && (otherScore) ) {
-
-                                    console.log("currentWord === otherWord : ", currentWord , otherWord);
-
+                                // Si mots sont identiques & le mot n'a pas déjà été noté & (le mot en cours ne posséde pas de score ou les cores sont differents)
+                                if ((currentWord === otherWord) && (arr.indexOf(otherWord) <= -1) && (!currentScore || otherScore != currentScore ) && (otherScore)) {
+                                    arr.push(otherWord);
                                     var currentKey = $(".formNotedKeyword input[type='hidden'][name='key']", currentKw).val().split(".")[1],
                                         current2Check = $(".formNotedKeyword input[type='radio'][value='" + otherScore + "']", currentKw).attr("id"),
                                         otherComment = $(".tt-input", otherKw).val();
@@ -1989,8 +1945,42 @@ $(document).ready(function() {
                                     );
                                 }
                             });
+                        });
+                }
+                else if (type === "silence"){
+                    otherKwdsList
+                        // Pour chaque uutres mots
+                        .each(function(index, value){
+                            var otherKw = value,
+                                otherWord = $(".keywordsText", otherKw).text().toUpperCase(),
+                                otherScore = $("input:checked", otherKw) ? $("input:checked", otherKw).val() : null;
+                            // Si mots sont identiques & (le mot en cours ne posséde pas de score ou les cores sont differents)
+                            if ((currentWord === otherWord) && (arr.indexOf(otherWord) <= -1) && (!currentScore || otherScore != currentScore ) && (otherScore) ) {
+                                arr.push(otherWord);
+                                var currentKey = $(".formNotedKeyword input[type='hidden'][name='key']", currentKw).val().split(".")[1],
+                                    current2Check = $(".formNotedKeyword input[type='radio'][value='" + otherScore + "']", currentKw).attr("id"),
+                                    otherComment = $(".tt-input", otherKw).val();
 
-                    }
+                                $("label[for='" + current2Check + "']").trigger("click");
+                                nbMatch++;
+                                //Envoi du commentaire
+                                $.ajax(
+                                    {
+                                        url: savePage,
+                                        type: "POST",
+                                        data: [
+                                            { name: "key", value: "keywords." + currentKey + ".comment"} ,
+                                            { name: "val", value: otherComment}
+                                        ],
+                                        success: function () {
+                                            $(".inputComment", currentKw).typeahead('val', otherComment);
+                                            $(".divComments", currentKw).tooltipster("content", otherComment);
+
+                                        }
+                                    }
+                                );
+                            }
+                        });
 
                 }
             });
