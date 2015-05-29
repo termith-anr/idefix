@@ -380,10 +380,12 @@ $(document).ready(function() {
             stopAt : stop,
             milliseconds: true,
             format: function(time){
-                var seconds = Math.floor((time / 1000) % 60);
-                var minutes = Math.floor((time / (60 * 1000)) % 60);
+                var timeSeconds = (time / 1000),
+                    hours = Math.floor(timeSeconds / 3600),
+                    minutes = Math.floor((timeSeconds % 3600)/60),
+                    seconds = Math.floor((timeSeconds % 3600) - (minutes*60));
 
-                return minutes + "mn " + seconds + "s";
+                return  hours + "h " + minutes + "mn " + seconds + "s";
             }
         });
 
@@ -1148,6 +1150,7 @@ $(document).ready(function() {
                                     color : "white",
                                     border : "none"
                                     })
+                                    .toggleClass("divCommentsBlocked divComments")
                                     .prop("disabled", true);
                                 }
                                 else{
@@ -1158,19 +1161,46 @@ $(document).ready(function() {
                             $(".ui-progressbar-value", barre).removeClass('isNotValidated').addClass('isValidated').html('100%');
 
                             $('#inistKeywordsButton').show();
+                            $(".methodsKeywords .magicButton").remove();
                         }
                         else if (barreField == "validateSilence"){
                             $('#timer').runner('stop');
                             $('#startOrStop').hide();
                             var inpuChecked = $('#keywordsInist .formNotedKeyword input:checked ');
-                            $('#keywordsInist .formNotedKeywordsPreference , #keywordsInist .divComments').hide();
                             $(".ui-progressbar-value", barre).removeClass('isNotValidated').addClass('isValidated').html('100%');
 
-                            $(".methodsKeywords .formNotedKeywordList").prop("disabled", true);
-                            $('#keywordsInist .formNotedKeywordList , #keywordsInist .divComments').css({
-                                background: "grey",
-                                color : "white",
-                                border : "none"
+                            $('#keywordsInist .formNotedKeywordList').each(function(){
+                                var corresp = $("option:selected" , this).val();
+
+                                if( corresp && ($("option:selected" , this).val() != "<corresp>")){
+                                    $(this)
+                                        .css({
+                                            background: "grey",
+                                            color : "white",
+                                            border : "none"
+                                        })
+                                        .prop("disabled", true);
+                                }
+                                else{
+                                    $(this).parents(".formNotedKeywordsPreference").hide();
+                                }
+                            });
+
+                            $('#keywordsInist .divComments').each(function(){
+                                var comment = $(".tt-input" , this).val();
+                                if(comment){
+                                    $(this)
+                                        .css({
+                                            background: "grey",
+                                            color : "white",
+                                            border : "none"
+                                        })
+                                        .toggleClass("divCommentsBlocked divComments")
+                                        .prop("disabled", true);
+                                }
+                                else{
+                                    $(this).hide();
+                                }
                             });
 
                         }
@@ -1180,6 +1210,8 @@ $(document).ready(function() {
                             label.siblings('label').addClass('labelHide');
                             label.addClass('labelBlock');
                         }
+
+                        $("#keywordsInist .magicButton").remove();
 
 
                     }

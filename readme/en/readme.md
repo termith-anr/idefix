@@ -275,25 +275,8 @@ ex : 1 - 191 if document have 191  keywords
 If enable , SHow the silence score as negative
 ex : 0 /-1 /-2
  
-#### documentFields(REQUIRED/Object)
 
-Check *[castor-core documentFields](https://github.com/castorjs/castor-core#documentfields-1)* for more informations
-
-- "$text" generate a field in mongo call "text" , used to filter documents in list of IDEFIX
-
-
-## Test
-
-Idefix tests are usefull to check if the current version of idefix is working great.
-
-- Choose the format version you want to test (see *[full format list](https://github.com/termith-anr/idefix/tree/master/readme/en#teiformat-requiredstring)*)
-- Replace in this command line the format date to check
-- Start the app : 
-```
-    ./idefix  tests/instances/2015-02-13
-```
--Check the results , all text have to be green , no red.
--If you think you foun  bug(s) , please create a new *[github issue](https://github.com/termith-anr/idefix/tree/master/readme/en/issues/new)*
+-If you think you found  bug(s) , please create a new *[github issue](https://github.com/termith-anr/idefix/tree/master/readme/en/issues/new)*
 
 
 

@@ -278,18 +278,33 @@ ex : 1- 191 Si le document compte 191 mots-clés
 Sinon il ira de 0 à X ou X sera le nombre de mo-clés dans la méthode
 ex : 1-10 si la méthode compte
 
- 
-#### documentFields(OBLIGATOIRE/Object)
-
-Plus d'infos sur *[castor-core documentFields](https://github.com/castorjs/castor-core#documentfields-1)*
-
-- "$text" ajoute un document mongo nommée "text" , utilisé dans le filtre de recherche sur la page d'accueil d'IDEFIX
 
 ##### negativeSilence (OPTIONNAL/Boolean)
 
 Si activé , affiche les scores de silences en negatifs :
 ex : 0 /-1 /-2
 
+##### magicScore (OPTIONNAL/Boolean)
+
+Si activé , permet en cliquant sur un bouton de répercuter les scores de mots identiques de toutes les autres méthodes à celle ouverte
+
+Désactivé par default
+
+
+##### circleSeuil (OPTIONNAL/Number)
+
+Permet de définir un seuil : si le nombre de mot clés non encore notés d'une méthode passe sous ce seuil , un effet est produit.
+
+2 est le seuil par default
+
+
+##### circleDesign (OPTIONNAL/Number)
+
+Permet de définir le look souhaité à l'affiche du seuil de mot clés ainsi que l'effet pour une méthode complétement évaluée
+
+- "grey", option par default , la méthode clignote lors du seuil et se grise une fois terminée.
+- "opacity", la méthode clignote lors du seuil et devient transparente une fois terminée.
+- "colors" , la méthode devient orange lors du seuil et devient verte une fois terminée.
 
 
 
