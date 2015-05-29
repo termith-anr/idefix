@@ -22,10 +22,14 @@ $(document).ready(function() {
         currentScores,
         seuil;
 
-
-    $.getJSON( configPage , function(object){
-        config = object;
-        seuil = config.circleSeuil ? config.circleSeuil : 1;
+    $.ajax({
+        url: configPage,
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+            config = data;
+            seuil = config.circleSeuil ? config.circleSeuil : 1;
+        }
     });
 
 
@@ -62,7 +66,6 @@ $(document).ready(function() {
                     teiContent = $("#fullArticleContent text").children().not("front,back");
                     //Recherche dans tous le text
                     teiContent.highlight(keywordText, { wordsOnly: true });
-                    console.log(" hit : ", $(".highlight", teiContent));
                     if ($(".highlight", teiContent).length < 1) {
                         teiContent.highlight(keywordText);
                     }
@@ -96,7 +99,6 @@ $(document).ready(function() {
             if(config.showArticle) {
                 teiContent = $("#fullArticleContent text").children().not("front,back");
                 teiContent.highlight(keywordText, { wordsOnly: true });
-                console.log(" hit : ", $(".highlight", teiContent));
                 if ($(".highlight", teiContent).length < 1) {
                     teiContent.highlight(keywordText);
                 }
@@ -131,7 +133,6 @@ $(document).ready(function() {
             $('input:checked' , notedDiv).each(function(index){
                 for(var i = 0 ; i < config.showPreference.length ; i++ ) {
                     if ($(this).val().toString() === config.showPreference[i].toString()) {
-                        console.log("this : " , $(this) , " valeur : " , $(this).val().toString());
                         var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
                         $('.formNotedKeywordsPref' ,divKeywords).css('display', '').addClass('preferenceAvailable');
                         break;
@@ -145,7 +146,6 @@ $(document).ready(function() {
 
         if(config.showCorrespondance) {
             $('input:checked' , notedDiv).each(function(index){
-                console.log(" config.showCorrespondance" ,  config.showCorrespondance);
                 for(var i = 0 ; i < config.showCorrespondance.length ; i++ ) {
                     if ($(this).val().toString() === config.showCorrespondance[i].toString()) {
                         var divKeywords = ($(this).parents('.keywordsMethodsDisplayDone'));
@@ -187,7 +187,6 @@ $(document).ready(function() {
 
     // Init typeAHead twitter
     var typeAHead = function(data){
-        //console.log("source : " , data);
         var inputs = $('.inputComment');
         inputs.typeahead(
             {
@@ -239,7 +238,9 @@ $(document).ready(function() {
     };
 
     var designCircles = function(circle,option){
+        console.log("passage par la fonciton circle");
         if(option === "done"){
+            console.log("config : ", config);
             if( (!config.circleDesign) || (config.circleDesign === "grey")){
                 circle.removeClass("isNotValidated").addClass("isValidated");
             }
@@ -331,14 +332,7 @@ $(document).ready(function() {
     };
 
     var calculScores = function(){
-        console.log("Max : ", maxScores);
-        console.log("Min : " ,minScores);
         currentScores = parseFloat(currentScores);
-        console.log("Current : " ,parseFloat(currentScores));
-
-        console.log("semi-good  : " , (((maxScores/2) >= currentScores) &&  (currentScores > (maxScores/4))));
-        console.log("maxScores/2" , (maxScores/2));
-        console.log("maxScores/4" , (maxScores/4));
 
         if( (((minScores/2) > currentScores) &&  (currentScores <= (minScores/4))) )
         {
@@ -506,7 +500,6 @@ $(document).ready(function() {
 
         if(data.data.fields.validatePertinence === "yes" || data.data.fields.validateSilence === "yes"){
             $('.divCommentsBlocked').each(function () {
-                console.log("divblocked : ", $(".inputComment", this)[0].value);
                 if($(".inputComment", this)[0].value){
                     $(this).attr("title", $(".inputComment", this)[0].value);
                 }
@@ -549,6 +542,8 @@ $(document).ready(function() {
 
 
             }
+
+            console.log("Pertinence non validée");
 
 
             for(var i = 0 ; i < methodsBut.length ; i++){
@@ -707,8 +702,6 @@ $(document).ready(function() {
                 console.log(" La suppresion à échouée , error : ", e);
             },
             success : function(e){
-                console.log(e);
-
                 var divComments = span.parents(".divComments");
                 $(".divFormComments", divComments).css("background" , "#27ae60");
                 setTimeout(function () {
@@ -761,7 +754,6 @@ $(document).ready(function() {
             postData = $(this).parents('form').serializeArray(),
             input = $(this),
             id = $(this).parent().attr('data-id');
-        console.log('data: ' , postData[1].value);
         if (keycode == '13') {
             event.preventDefault();
             $.ajax({
@@ -1071,8 +1063,6 @@ $(document).ready(function() {
         if (!barre.hasClass('isValidated')) {
             if(confirm('Souhaitez-vous valider définitivement les Mot-Clés ' +  type  + '?')) {
 
-                console.log("barreField : " , barreField);
-
                 $.ajax({
                     type: "POST",
                     url: savePage,
@@ -1086,7 +1076,6 @@ $(document).ready(function() {
                         $(".methodLinkround").removeClass("isNotValidated isValidated").removeAttr("style");
 
                         if(barreField == "validatePertinence"){
-                            console.log('pertinence validée');
                             var progressSilence = 0;
                             $.getJSON(contentPage, function (data) {
                                 progressSilence = data.data.progressSilenceKeywords ? data.data.progressSilenceKeywords : 0;
@@ -1094,9 +1083,7 @@ $(document).ready(function() {
                                 var silenceRatio = 0;
 
                                 if (progressSilence) {
-                                    console.log('progressSilence : ', progressSilence );
                                     silenceRatio = parseFloat(progressSilence);
-                                    console.log('silenceRatio : ', silenceRatio );
                                 }
 
                                 silenceBar.progressbar({ max: 1, value: silenceRatio });
@@ -1154,7 +1141,6 @@ $(document).ready(function() {
                             });
                             $('.methodsKeywords .divComments').each(function(){
                                var comment = $(".tt-input" , this).val();
-                                console.log("comment :  " , comment);
                                 if(comment){
                                     $(this)
                                     .css({
@@ -1212,13 +1198,10 @@ $(document).ready(function() {
         previousSelectionId = $(this).find(":selected").attr("data-id");
         currentIdToDelete = $(this).parents(".keywordsMethodsDisplayDone").attr("data-id");
 
-        console.log(" currentIdToDelete : " , currentIdToDelete);
-        console.log(" previousSelectionId : " , previousSelectionId);
     });
 
     $(".formNotedKeywordList").on("change" , function(e) {
 
-        console.log("Changement de pref/corresp");
         e.stopPropagation();
         e.preventDefault();
 
@@ -1231,8 +1214,6 @@ $(document).ready(function() {
             nomLiaison = "",
             idBtn = btn.attr("data-id"),
             selector = $("select" , btn);
-
-        console.log("xmlid : ", xmlid , "btn : " , btn , " idBtn : " , idBtn);
 
         if (selector.attr("id").split('-')[2] === "corresp") {
             type = "correspondance";
@@ -1247,7 +1228,6 @@ $(document).ready(function() {
 
         //Si on souhaite supprimer le correps / pref
         if (motType === "deletemenow") {
-            console.log('Il faut supprimer : ' , "keywords." + selector.attr("id").split('-')[4] + "." + nomLiaison);
             $.ajax({
                 url: dropPage,
                 type: "POST",
@@ -1300,37 +1280,17 @@ $(document).ready(function() {
 
                                 var oldArr = content[estlie];
 
-                                console.log('Le tableau de liens du mot clés avant le split : ', oldArr);
-                                console.log('===================================================');
-
                                 var oldArrSplit = oldArr.split(',,');
-
-                                console.log('Le tableau de liens du mot clés aprés le split : ', oldArrSplit);
-                                console.log('===================================================');
-
-
-                                console.log('LID que lon souhaite supprimé est : ', previousSelectionId, ' OU  ', currentIdToDelete);
-                                console.log('===================================================');
 
                                 // var indexArr = $.inArray(currentIdToDelete, oldArrSplit);
                                 var indexArr = oldArrSplit.indexOf(currentIdToDelete);
-
-                                console.log('lindex a supprimer dans le tableau est le n° ', indexArr, ' ce qui correspon à :  ', oldArrSplit[indexArr]);
-                                console.log('===================================================');
-
 
                                 //SI l'id a supprimer est dans le tableau
                                 if (indexArr > -1) {
                                     var oldArrSplit2 = oldArrSplit.slice(0);
                                     oldArrSplit2.splice(indexArr, 1);
 
-                                    console.log('Aprés le splice le tableau vaut  :  ', oldArrSplit2);
-                                    console.log('===================================================');
-
                                     arrToDelete = oldArrSplit2.join(",,");
-
-                                    console.log('Aprés le join le tableau vaut  :  ', arrToDelete);
-                                    console.log('===================================================');
 
                                     if (arrToDelete === "") {
                                         $.ajax({
@@ -1347,9 +1307,6 @@ $(document).ready(function() {
                                                     value: ""
                                                 }
                                             ],
-                                            success: function () {
-                                                console.log("est lié bien supprimé");
-                                            },
                                             error: function (e) {
                                                 console.log("impossible de supprimer , error : ", e);
                                             }
@@ -1370,9 +1327,6 @@ $(document).ready(function() {
                                                     value: arrToDelete
                                                 }
                                             ],
-                                            success: function () {
-                                                console.log("est lié bien supprimé");
-                                            },
                                             error: function (e) {
                                                 console.log("impossible de supprimer , error : ", e);
                                             }
@@ -1421,8 +1375,6 @@ $(document).ready(function() {
                             }
                         ],
                         success: function (e) {
-                            //console.log("Texte bien enregistré");
-
                             $(".formNotedKeywordsPreference" ,btn).attr("title" , motType);
                             $("option", selector).removeAttr("selected").removeAttr("style");
                             $("option[value='" + motType + "']" , btn).attr("style", "background: #FF847C;color:#fff");
@@ -1446,37 +1398,17 @@ $(document).ready(function() {
 
                                         var oldArr = content[estlie];
 
-                                        console.log('Le tableau de liens du mot clés avant le split : ', oldArr);
-                                        console.log('===================================================');
-
                                         var oldArrSplit = oldArr.split(',,');
-
-                                        console.log('Le tableau de liens du mot clés aprés le split : ', oldArrSplit);
-                                        console.log('===================================================');
-
-
-                                        console.log('LID que lon souhaite supprimé est : ', previousSelectionId, ' OU  ', currentIdToDelete);
-                                        console.log('===================================================');
 
                                         // var indexArr = $.inArray(currentIdToDelete, oldArrSplit);
                                         var indexArr = oldArrSplit.indexOf(currentIdToDelete);
-
-                                        console.log('lindex a supprimer dans le tableau est le n° ', indexArr, ' ce qui correspon à :  ', oldArrSplit[indexArr]);
-                                        console.log('===================================================');
-
 
                                         //SI l'id a supprimer est dans le tableau
                                         if (indexArr > -1) {
                                             var oldArrSplit2 = oldArrSplit.slice(0);
                                             oldArrSplit2.splice(indexArr, 1);
 
-                                            console.log('Aprés le splice le tableau vaut  :  ', oldArrSplit2);
-                                            console.log('===================================================');
-
                                             arrToDelete = oldArrSplit2.join(",,");
-
-                                            console.log('Aprés le join le tableau vaut  :  ', arrToDelete);
-                                            console.log('===================================================');
 
                                             if (arrToDelete === "") {
                                                 $.ajax({
@@ -1493,9 +1425,6 @@ $(document).ready(function() {
                                                             value: ""
                                                         }
                                                     ],
-                                                    success: function () {
-                                                        console.log("est lié bien supprimé");
-                                                    },
                                                     error: function (e) {
                                                         console.log("impossible de supprimer , error : ", e);
                                                     }
@@ -1516,9 +1445,6 @@ $(document).ready(function() {
                                                             value: arrToDelete
                                                         }
                                                     ],
-                                                    success: function () {
-                                                        console.log("est lié bien supprimé");
-                                                    },
                                                     error: function (e) {
                                                         console.log("impossible de supprimer , error : ", e);
                                                     }
@@ -1544,9 +1470,6 @@ $(document).ready(function() {
                                         else {
                                             arrToAdd = idBtn;
                                         }
-
-                                        //console.log(data.data.keywords[index]);
-
                                         $.ajax({
                                             url: savePage,
                                             type: "POST",
@@ -1560,9 +1483,6 @@ $(document).ready(function() {
                                                     value: arrToAdd
                                                 }
                                             ],
-                                            success: function () {
-                                                console.log("est lié bien enregistré");
-                                            },
                                             error: function (e) {
                                                 console.log('error lors de l\'ajout :', e)
                                             }
@@ -1591,7 +1511,6 @@ $(document).ready(function() {
         if(!previousScore){
             previousScore = 0;
         }
-        console.log("previousScores: " , previousScore);
 
     });
 
@@ -1610,7 +1529,6 @@ $(document).ready(function() {
             clickedScore = parseInt(-(clickedScore));
         }
 
-        console.log("clickedScores: " , clickedScore);
 
         $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
 
@@ -1622,7 +1540,6 @@ $(document).ready(function() {
                 success: function (e) {
 
                     currentScores += parseInt((parseInt(clickedScore) - parseInt(previousScore)));
-                    console.log("curentscore :" , currentScores);
                     if(config.coloredDocument) {
                         calculScores();
                     }
@@ -1655,11 +1572,9 @@ $(document).ready(function() {
                             methodNb = li.attr("data-nb"),
                             methodConcerned = $("#methodButton-" + methodNb);
                         if((checkType.indexOf('silence') >= 0) && (checkType.indexOf('correspondance') < 0)) { // If it's a silence  notation ( not corresp )
-                            console.log("SILENCE !!!");
                             if (config.showCorrespondance) { // If options is enable + isArray
                                 for (var i = 0 ; i< config.showCorrespondance.length ; i++) { //For all options values
                                     if ((postData[1].value).toString() === (config.showCorrespondance[i]).toString()) { //If sent value is in options
-                                        console.log("Boucle 1");
                                         $('.formNotedKeywordsCorresp' , li).css('display', 'inline-block');
                                         $('.divComments' , li).css('display' , 'inline-block');
                                         isGood = true;
@@ -1667,7 +1582,6 @@ $(document).ready(function() {
                                     }
                                 }
                                 if(!isGood){
-                                    console.log("Boucle 2");
                                     var index  = (postData[0].value).split(".")[1];
                                     $('.formNotedKeywordsCorresp' , li).css('display', 'none').removeClass('preferenceAvailable');
                                     $('.divComments' , li).css('display', '');
@@ -1684,10 +1598,8 @@ $(document).ready(function() {
 
                         }
                         else if((checkType.indexOf('pertinence') >= 0) && (checkType.indexOf('preference') < 0)) {// If it's an eval score notation ( not pref )
-                            console.log('Pertinence');
                             if (config.showPreference) {// If options is enable + isArray
                                 for(var i = 0 ; i < config.showPreference.length ; i++) {//For all options values
-                                    console.log(config.showPreference);
                                     if ((postData[1].value).toString() === (config.showPreference[i]).toString()) {//If sent value is in options
                                         $('.formNotedKeywordsPref' , li).css('display', 'inline-block');
                                         $('.divComments', li).css('display' , 'inline-block');
@@ -1712,7 +1624,6 @@ $(document).ready(function() {
                             /* $( ".keywordsMethodsDisplay" , li.parent()).length */
                         }
 
-                        console.log("title : " , methodConcerned.attr("title"));
                         methodConcerned.tooltipster("content",  methodConcerned.attr("title"));
                         methodConcerned.attr("title" , "");
 
@@ -1735,8 +1646,6 @@ $(document).ready(function() {
                                 notedPertinence = filter(allPertinence, "score"),
                                 notedSilence = filter(allSilence, "score"),
                                 nbOfTotalSourceKeywords = 0;
-
-                            //console.log('allPertinence ', allPertinence , " allSilence " , allSilence , " notedPertinence ", notedPertinence , " notedSilence " ,notedSilence );
 
 
                             if(data.data.fields.validatePertinence === "no") { // Si Les méthodes ne sont pas déjà validées
@@ -1906,8 +1815,6 @@ $(document).ready(function() {
                     currentWord = $(".keywordsText" , currentKw).text().toUpperCase(),
                     currentScore = $("input:checked" , currentKw) ? $("input:checked" , currentKw).val() : null;
 
-                console.log("Passage n°" , nbMatch);
-                console.log("=====================");
                 if(type === "method"){
                     otherKwdsList
                         // Pour chaque autre méthode
