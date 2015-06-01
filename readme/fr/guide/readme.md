@@ -12,7 +12,7 @@ Guide d'utilisation
 
 Date: mai 2015
 
-Version: 1
+Version: 3
 
 Auteurs: Nourdine Combo, Matthias Dieudonné et Sabine Barreaux
 
