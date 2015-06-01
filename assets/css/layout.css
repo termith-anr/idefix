@@ -25,7 +25,11 @@
 }
 
 @font-face {
-    font-family: 'chaparral'; src: url('../fonts/ChaparralPro-Regular.woff');
+    font-family: 'raleway'; src: url('../fonts/Raleway-Thin.ttf.ttf');
+}
+
+@font-face {
+    font-family: 'lmr'; src: url('../fonts/lmromanslant10-regular.otf');
 }
 
 
@@ -679,7 +683,7 @@ table tr[data-href] {
     width: 95px;
     font-size: 16px;
     text-align: center;
-    font-family: Abel,"Georgia",serif;
+    font-family: raleway,"Georgia",serif;
     color: #555;
     font-style: italic;
     transition: all 250ms;
@@ -758,8 +762,8 @@ table tr[data-href] {
     color: #fff;
     display: table-cell;
     float: none;
-    font-family: Abel , 'Georgia', serif;
-    font-size: 20px;
+    font-family: 'verdana', sans-serif, arial;
+    font-size: 19px;
     line-height: normal;
     margin: 0 auto;
     text-align: center;
@@ -1533,9 +1537,9 @@ input[type=radio]:checked + label {
 #abstractFullLenght{
     display: block;
     color: #333;
-    font-family: Auto;
-    font-size: 16px;
-    line-height: 26px;
+    font-family: "Georgia";
+    font-size: 17px;
+    line-height: 31px;
     overflow-y: auto;
     z-index: 200;
     text-align: justify;
