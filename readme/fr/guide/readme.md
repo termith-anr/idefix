@@ -10,9 +10,9 @@ Guide d'utilisation
 ================
 
 
-Date: mai 2015
+Date: juin 2015
 
-Version: 1
+Version: 3
 
 Auteurs: Nourdine Combo, Matthias Dieudonné et Sabine Barreaux
 
@@ -56,13 +56,17 @@ EVALUER LA PERTINENCE DES METHODES
 ![barreProgression](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/10-barreProgession.png)
 
 
+![barreProgression](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/11-rappelCommentaireScore.png)
+
+
+
 EVALUER LE SILENCE DES METHODES
 -----------
 
-![motInist](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/11-afficheMotInist.png)
+![motInist](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/12-afficheMotInist.png)
 
-![evalSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/12-evalMotInist.png)
+![evalSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/13-evalMotInist.png)
 
-![validerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/13-ValidationSilence.png)
+![validerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-ValidationSilence.png)
 
-![export](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-export.png)
+![export](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-export.png)
