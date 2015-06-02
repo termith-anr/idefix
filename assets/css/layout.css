@@ -898,7 +898,7 @@ span .methodsameDisplayD{
     margin-bottom: 40px;
     color: #666;
     font-family: segoe;
-    font-size: 25px;
+    font-size: 21px;
     font-weight: bold;
     font-style: italic;
 }
@@ -928,7 +928,7 @@ span .methodsameDisplayD{
     font-size:16px;
     display: block;
     vertical-align: middle;
-    font-family: 'segoe';
+    font-family: 'georgia';
 }
 
 .articleSectionResumeDisplayView{
@@ -1545,10 +1545,10 @@ input[type=radio]:checked + label {
 
 #abstractFullLenght{
     display: block;
-    color: #333;
+    color: #444;
     font-family: "Georgia";
-    font-size: 17px;
-    line-height: 31px;
+    font-size: 18px;
+    line-height: 33px;
     overflow-y: auto;
     z-index: 200;
     text-align: justify;
@@ -2509,7 +2509,7 @@ span.twitter-typeahead {
 .showInformations{
     color: rgba(204, 106, 99, 0.5);
     top: 49%;
-    left: 5.5%;
+    left: calc( (4.16% - 25px) / 2) );
     font-size: 25px;
     position: fixed;
     cursor: pointer;
