@@ -69,11 +69,22 @@ $(document).ready(function() {
                     if ($(".highlight", teiContent).length < 1) {
                         teiContent.highlight(keywordText);
                     }
-                    $('#buttonFullArticle').trigger("click");
-                    $(".contentTei .highlight:first").attr('id', 'firstHighlight');
-                    setTimeout(function () {
-                        $("#fullArticleSection").animate({scrollTop: $('#firstHighlight').position().top}, 'slow');
-                    }, 800);
+                    if ($(".highlight", teiContent).length >= 1) {
+                        $('#buttonFullArticle').trigger("click");
+                        $(".contentTei .highlight:first").attr('id', 'firstHighlight');
+                        setTimeout(function () {
+                            $("#fullArticleSection").animate({scrollTop: $('#firstHighlight').position().top}, 'slow');
+                        }, 800);
+                    }
+                    else if( $("#sectionArticle .highlight").length >= 1){
+                        $("#sectionArticle .highlight:first").attr('id', 'firstHighlight');
+                        setTimeout(function () {
+                            $("#sectionArticle").scroller("scroll" , "#sectionArticle #firstHighlight" , 800);
+                        }, 800);
+                    }
+                    else{
+                        alert("Le mot n'a pa été trouvé ou est présent sous une autre forme");
+                    }
 
                 });
             }
@@ -85,6 +96,7 @@ $(document).ready(function() {
             }
 
         }
+        // Si article complet déja chargé
         else {
             $('body').unhighlight().unhighlight({className: 'h1Highlight'});
 
@@ -102,24 +114,35 @@ $(document).ready(function() {
                 if ($(".highlight", teiContent).length < 1) {
                     teiContent.highlight(keywordText);
                 }
-                $(".contentTei .highlight:first").attr('id', 'firstHighlight');
-                $('#buttonFullArticle').trigger("click");
-                if ($('#firstHighlight')) {
+                if ($(".highlight", teiContent).length >= 1) {
+                    $(".contentTei .highlight:first").attr('id', 'firstHighlight');
+                    $('#buttonFullArticle').trigger("click");
                     setTimeout(function () {
                         $("#fullArticleSection").animate({scrollTop: $('#firstHighlight').position().top}, 'slow');
                     }, 700);
                 }
+                else if ( $("#sectionArticle .highlight").length >= 1 ){
+                    $("#sectionArticle .highlight:first").attr('id', 'firstHighlight');
+                    setTimeout(function () {
+                        $("#sectionArticle").scroller("scroll" , "#sectionArticle #firstHighlight" , 800);
+                    }, 800);
+                }
+                else{
+                    alert("Le mot n'a pa été trouvé ou est présent sous une autre forme")
+                }
             }
             else{
-                $("#sectionArticle .highlight:first").attr('id', 'firstHighlight');
-                setTimeout(function () {
-                    $("#sectionArticle").scroller("scroll" , "#sectionArticle #firstHighlight" , 800);
-                }, 800);
+                if ( $("#sectionArticle .highlight").length >= 1 ){
+                    $("#sectionArticle .highlight:first").attr('id', 'firstHighlight');
+                    setTimeout(function () {
+                        $("#sectionArticle").scroller("scroll" , "#sectionArticle #firstHighlight" , 800);
+                    }, 800);
+                }
+                else{
+                    alert("Le mot n'a pa été trouvé ou est présent sous une autre forme");
+                }
             }
 
-        }
-        if(!$(".highlight").length > 0){
-            alert("Le mot n'a pa été trouvé ou est présent sous une autre forme")
         }
 
     });

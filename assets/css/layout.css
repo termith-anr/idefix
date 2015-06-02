@@ -25,7 +25,7 @@
 }
 
 @font-face {
-    font-family: 'raleway'; src: url('../fonts/Raleway-Thin.ttf.ttf');
+    font-family: 'raleway'; src: url('../fonts/Raleway-Regular.ttf');
 }
 
 @font-face {
@@ -169,8 +169,9 @@ body > header{
     margin-top: 10px;
     text-align: center;
     font-size: 23px;
-    color: #CC6A63;
+    color: #8F8F8F;
     line-height: 23px;
+    font-family: segoe,"verdana",sans-serif,arial;
 }
 
 
@@ -473,7 +474,7 @@ table tr[data-href] {
     height: 23px;
     margin-top: 5px;
     font-size: 23px;
-    color: #CC6A63;
+    color: #8F8F8F;
     line-height: 23px;
     cursor: pointer;
 }
@@ -530,8 +531,8 @@ table tr[data-href] {
 
 #divNavMiddle p a{
     color: #fff;
-    font-family: verdana;
-    font-size: 19px;
+    font-family: segoe , verdana , sans-serif, arial;
+    font-size: 18px;
     font-weight: normal;
     letter-spacing: 1px;
 }
@@ -615,8 +616,6 @@ table tr[data-href] {
     width: 100%;
 }
 
-.methodLinkround{
-}
 
 .methodLinkround span{
     display: table-cell;
@@ -657,7 +656,6 @@ table tr[data-href] {
     text-align: center;
     font-size: 20px;
     height: 105px;
-    letter-spacing: 1px;
     display:table;
     width: 100%;
 }
@@ -681,10 +679,10 @@ table tr[data-href] {
     margin: 15px auto 0;
     position: relative;
     width: 95px;
-    font-size: 16px;
+    font-size: 15px;
     text-align: center;
-    font-family: raleway,"Georgia",serif;
-    color: #555;
+    font-family: segoe,"Georgia",serif;
+    color: #8F8F8F;
     font-style: italic;
     transition: all 250ms;
     -moz-user-select: none;
@@ -697,6 +695,7 @@ table tr[data-href] {
 
 .disciplineInfoDisplay{
     background: none repeat scroll 0 0 #cc6a63;
+    color: #E0E0E0;
     border-radius: 0 50px;
     display: table;
     font-size: 18px;
@@ -706,6 +705,8 @@ table tr[data-href] {
     position: relative;
     vertical-align: middle;
     width: 80%;
+    font-style: italic;
+    text-transform: uppercase;
 }
 
 .disciplineInfoDisplay span{
@@ -762,7 +763,7 @@ table tr[data-href] {
     color: #fff;
     display: table-cell;
     float: none;
-    font-family: 'verdana', sans-serif, arial;
+    font-family: segoe, 'verdana', sans-serif, arial;
     font-size: 19px;
     line-height: normal;
     margin: 0 auto;
@@ -895,9 +896,11 @@ span .methodsameDisplayD{
 
 #keywordsSection h2{
     margin-bottom: 40px;
-    color: #444;
-    font-family: Abel;
+    color: #666;
+    font-family: segoe;
     font-size: 25px;
+    font-weight: bold;
+    font-style: italic;
 }
 
 .keywordsGliph{
@@ -1109,7 +1112,7 @@ span .methodsameDisplayD{
 .keywordsMethodsDisplay{
     min-width: 135px;
     background: none repeat scroll 0 0 transparent;
-    border: 2px solid #FF9C95;
+    border: 2px dashed #FF9C95;
     color: #333;
     font-family: 'segoe', verdana;
     font-size: 16px;
@@ -1126,6 +1129,11 @@ span .methodsameDisplayD{
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
+    border-radius: 16px;
+}
+
+.keywordsMethodsDisplay:hover{
+    border-color: #CC6A63;
 }
 
 .keywordsMethodsDisplayDone{
@@ -1151,6 +1159,7 @@ span .methodsameDisplayD{
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
+    border-radius: 16px;
 }
 
 .keywordsMethodsDisplayDone:hover{
@@ -2130,10 +2139,12 @@ input[type=radio]:checked + label {
     transition : width 1500ms linear;
     -webkit-transition : width  1500ms linear;
     color: #fff;
+    font-family: segoe;
+    font-size: 13px;
 }
 
 #pertinenceBar{
-    background: rgba(104,104,104,0.5);
+    background: #E0E0E0;
     border: 0;
     height: 18px;
     border-radius: 9px;
@@ -2514,6 +2525,7 @@ span.twitter-typeahead {
 
 .onCircle{
     border-color : #CC6A63;
+    color: #555;
 }
 
 /* Litle resolution*/
