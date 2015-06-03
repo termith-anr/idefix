@@ -378,7 +378,7 @@ tbody .browseTitle{
     color: #555;
     transition: all 700ms ease 0s;
     font-size: 20px;
-    font-family: "segoeuisl" , sans-serif;
+    font-family: "segoe" , sans-serif;
     width: 75% !important;
 
 }
@@ -2115,6 +2115,7 @@ input[type=radio]:checked + label {
     color: #444;
     font-size: 14px;
     font-family: "segoe" , sans-serif;
+    color: #CC6A63;
 }
 
 .form-control:focus{
