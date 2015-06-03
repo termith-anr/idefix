@@ -66,11 +66,11 @@ EVALUER LA PERTINENCE DES METHODES
 EVALUER LE SILENCE DES METHODES
 -----------
 
-![motsAevaluerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-mcEvaluersilence.png)
+![motsAevaluerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-afficheMotInist.png)
 
-![motInist](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-afficheMotInist.png)
+![motInist](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-evalMotInist.png)
 
-![evalSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-evalMotInist.png)
+![evalSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-mcEvaluersilence.png)
 
 ![validerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png)
 
