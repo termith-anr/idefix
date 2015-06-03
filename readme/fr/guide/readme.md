@@ -37,36 +37,41 @@ Auteurs: Nourdine Combo, Matthias Dieudonné et Sabine Barreaux
 EVALUER LA PERTINENCE DES METHODES
 -----------
 
+![timer](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/4-timer.png)
 
-![AfficheMethode](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/4-afficheMethode.png)
+![motsAevaluer](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/5-mcEvaluerPertinence.png)
 
-![AfficheMethode](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/4-afficheMethodeListe.png)
+![AfficheMethodeGrille](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/6a-afficheMethodeGrille.png)
 
-![notePertinence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/5-notePertinence.png)
+![AfficheMethodeListe](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/6b-afficheMethodeListe.png)
 
-![preference](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/6-preference.png)
+![notePertinence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/7-notePertinence.png)
 
-
-![commentaire](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/7-commentaire.png)
-
-![ValiderCommentaire](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/8-validerCommentaire.png)
-
-![chercheMot](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/9-rechercheMot.png)
-
-![barreProgression](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/10-barreProgession.png)
+![preference](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/8-preference.png)
 
 
-![barreProgression](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/11-rappelCommentaireScore.png)
+![commentaire](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/9-commentaire.png)
+
+![ValiderCommentaire](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/10-validerCommentaire.png)
+
+![chercheMot](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/11-rechercheMot.png)
+
+![barreProgression](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/12-barreProgession.png)
+
+
+![barreProgression](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/13-rappelCommentaireScore.png)
 
 
 
 EVALUER LE SILENCE DES METHODES
 -----------
 
-![motInist](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/12-afficheMotInist.png)
+![motsAevaluerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-msEvaluersilence.png)
 
-![evalSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/13-evalMotInist.png)
+![motInist](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-afficheMotInist.png)
 
-![validerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-ValidationSilence.png)
+![evalSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-evalMotInist.png)
 
-![export](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-export.png)
+![validerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png)
+
+![export](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/18-export.png)
