@@ -178,9 +178,9 @@ body > header{
 
 
 #h1Browse{
-    font-size: 39px;
+    font-size: 40px;
     color: rgba(85, 85, 85, 0.8);
-    font-family: verdana;
+    font-family: Georgia, "Times New Roman", Times, serif;
     letter-spacing: 12px;
     float: none;
     text-align: center;
@@ -2510,7 +2510,7 @@ span.twitter-typeahead {
 .showInformations{
     color: rgba(204, 106, 99, 0.5);
     top: 49%;
-    left: calc((4.16% - 25px)/2);
+    left: calc(6.25% - 25px);
     font-size: 25px;
     position: fixed;
     cursor: pointer;
@@ -2582,4 +2582,18 @@ span.twitter-typeahead {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.guidesLink{
+    font-size: 28px;
+    font-family: segoe;
+    font-style: italic;
+    color: #F8A19A;
+    cursor: pointer;
+    transition : color 750ms;
+}
+
+.guidesLink:hover{
+    text-decoration: none;
+    color: #fff;
 }

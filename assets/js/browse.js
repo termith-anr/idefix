@@ -115,6 +115,10 @@ $(document).ready(function() {
         }
     } );
 
+    $(".guidesLink").on("click" , function(){
+        $("body").append("<div style='background: red; color : #f5f5f5 ; font-size: 41px;width: 100vw; height: 100vh;display: flex;justify-content: center;align-items: center; position: fixed; z-index: 999999'></div>")
+    });
+
 
     // Fixed top menu
     $(window).scroll(function () {
