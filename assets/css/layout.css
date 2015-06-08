@@ -2188,10 +2188,10 @@ input[type=radio]:checked + label {
     width: 100%;
     height: 100%;
     background: rgba(204, 106, 99, 0.85);
-    z-index: 9999;
+    z-index: 999;
 }
 
-#exportQuit{
+#infosQuit{
     cursor: pointer;
     font-size: 30px;
     color: #fff;
