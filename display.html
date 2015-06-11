@@ -372,19 +372,19 @@
             <!-- Value Name -->
             {% if data.keywords[indexObject].score == '2' %}
             <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}"  title="Non pertinent">0</label>
-            <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" ><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Bon mais un autre est meilleur">1</label>
+            <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" ><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label>
             <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelBlock{% endif %}" title="Pertinent">2</label>
             {% elif data.keywords[indexObject].score == '1' %}
             <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}"  title="Non pertinent">0</label>
-            <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelBlock{% endif %}" title="Bon mais un autre est meilleur">1</label>
+            <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelBlock{% endif %}" title="Pertinent mais sous une autre forme">1</label>
             <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent">2</label>
             {% elif data.keywords[indexObject].score == '0' %}
             <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0" checked><label for="input0-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelBlock{% endif %}"  title="Non pertinent">0</label>
-            <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Bon mais un autre est meilleur">1</label>
+            <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label>
             <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent">2</label>
             {% else %}
             <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}"  title="Non pertinent">0</label>
-            <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Bon mais un autre est meilleur">1</label>
+            <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label>
             <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent">2</label>
             {% endif %}
 

@@ -261,7 +261,6 @@ $(document).ready(function() {
     };
 
     var designCircles = function(circle,option){
-        console.log("passage par la fonciton circle");
         if(option === "done"){
             console.log("config : ", config);
             if( (!config.circleDesign) || (config.circleDesign === "grey")){
@@ -567,8 +566,6 @@ $(document).ready(function() {
 
 
             }
-
-            console.log("Pertinence non validée");
 
 
             for(var i = 0 ; i < methodsBut.length ; i++){
@@ -1321,7 +1318,7 @@ $(document).ready(function() {
                             }
                         ],
                         success : function(){
-                            $("option", selector).removeAttr("selected").removeAttr("style");
+                            $("option", selector).removeAttr("selected").removeAttr("style").attr("title" , "");
                             $("option[value='" + motType + "']" , btn).attr("style", "background: #FF847C;color:#fff");
                             $(selector).prop('selectedIndex', -1);
 
@@ -1687,8 +1684,7 @@ $(document).ready(function() {
                             /* $( ".keywordsMethodsDisplay" , li.parent()).length */
                         }
 
-                        methodConcerned.tooltipster("content",  methodConcerned.attr("title"));
-                        methodConcerned.attr("title" , "");
+
 
                         //Affichage contour vert sauvegarde
                         li.css('box-shadow', '0px 1px 4px 0px green');
@@ -1842,7 +1838,8 @@ $(document).ready(function() {
 
                         });
 
-
+                        methodConcerned.tooltipster("content",  methodConcerned.attr("title"));
+                        methodConcerned.attr("title" , "");
 
                     }, 900);
 

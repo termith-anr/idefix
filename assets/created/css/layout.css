@@ -1524,6 +1524,7 @@ input[type=radio]:checked + label {
     height: 80.75%;
     position:absolute;
     top: 20.25%;
+    overflow-y: auto;
 }
 
 #abstractFullLenght{
@@ -1538,6 +1539,17 @@ input[type=radio]:checked + label {
     text-indent: 3vw;
     hyphens: auto;
     max-width: 75ch;
+}
+
+@media all and (max-width: 1399px) {
+    #h1DisplayDocs{
+        font-size: 17px;
+
+    }
+    #abstractFullLenght{
+        padding: 4vw;
+        font-size: 16px;
+    }
 }
 
 .formNotedKeywordsPreference{
@@ -2579,4 +2591,8 @@ span.twitter-typeahead {
 .guidesLink:hover{
     text-decoration: none;
     color: #fff;
+}
+
+.scroller-active .scroller-content{
+    width: calc(100% - 13px);
 }
