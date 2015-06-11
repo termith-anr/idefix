@@ -750,9 +750,11 @@ $(document).ready(function() {
             etcSpan = $('.etcSpanComment', this),
             divFormComments = $('.divFormComments', this),
             inputComment = $('.inputComment', this),
-            otherBtn = $(this).closest('.btn');
+            otherBtn = $(this).closest('.btn'),
+            btn = $(this).parents(".btn");
 
         e.stopPropagation();
+        btn.css("border-radius" , "0px");
         otherBtn.siblings().addClass('no-transition');
         otherBtn.siblings().css('opacity', '0');
         otherBtn.siblings().css('visibility', 'hidden');
@@ -779,6 +781,7 @@ $(document).ready(function() {
             postData = $(this).parents('form').serializeArray(),
             input = $(this),
             id = $(this).parent().attr('data-id');
+        //Valider
         if (keycode == '13') {
             event.preventDefault();
             $.ajax({
@@ -789,7 +792,6 @@ $(document).ready(function() {
 
                     var divComments = input.parents(".divComments");
                     $(".divFormComments", divComments).css("background" , "#27ae60");
-                    $(divComments).tooltipster("content",  postData[1].value);
                     $(".tooltipster-base").hide();
                     setTimeout(function () {
                         $(".divFormComments" , divComments).css('background', "");
@@ -800,16 +802,18 @@ $(document).ready(function() {
 
                         var otherBtn = divComments.closest('.btn');
 
-
+                        divComments.parents(".btn").css("border-radius" , "");
                         otherBtn.siblings().css('opacity', '');
                         otherBtn.siblings().css('visibility', '');
                         otherBtn.siblings().removeClass('no-transition');
                         otherBtn.css('box-shadow', '');
                         otherBtn.css('overflow', '');
                     }, 750);
+                    $(divComments).tooltipster("content",  postData[1].value);
                 }
             });
         }
+        //Quiter
         else if (keycode == '27') {
             var divComment = $(this).closest('.divComments'),
                 quitSpan = $('.quitSpanComment', divComment),
@@ -821,7 +825,7 @@ $(document).ready(function() {
             etcSpan.fadeIn();
             var otherBtn = $(this).closest('.btn');
 
-
+            divFormComments.parents(".btn").css("border-radius" , "");
             otherBtn.siblings().css('transition', '');
             otherBtn.siblings().css('opacity', '');
             otherBtn.siblings().css('visibility', '');
@@ -833,6 +837,7 @@ $(document).ready(function() {
 
     $('.quitSpanComment').on('click', function (e) {
         e.stopPropagation();
+        $(this).parents(".btn").css("border-radius" , "");
         $(this).hide();
         var parr = $(this).parents('.divComments');
         parr.removeClass('divCommentsOpened');
@@ -851,7 +856,8 @@ $(document).ready(function() {
     $('.saveSpanComment').on('click', function (e) {
         var span = $(this),
             divComment = $(this).parents('.divComments'),
-            form = $('form' ,divComment);
+            form = $('form' ,divComment),
+            postData = form.serializeArray();
         $.ajax({
             type: "POST",
             url: savePage,
@@ -859,6 +865,7 @@ $(document).ready(function() {
             success: function (e) {
                 var divComments = span.parents(".divComments");
                 $(".divFormComments", divComments).css("background", "#27ae60");
+                $(".tooltipster-base").hide();
                 setTimeout(function () {
                     $(".divFormComments", divComments).css('background', "");
                     $(".quitSpanComment", divComments).css("display", "");
@@ -874,6 +881,7 @@ $(document).ready(function() {
                     otherBtn.css('box-shadow', '');
                     otherBtn.css('overflow', '');
                 }, 750);
+                $(divComments).tooltipster("content",  postData[1].value);
             },
             error: function (e) {
                 console.log(e);

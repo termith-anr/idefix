@@ -8,35 +8,18 @@
 *
 */
 
-@import url(http://fonts.googleapis.com/css?family=Abel);
-
 @font-face {
-    font-family: 'segoe'; src: url('../fonts/segoeui.ttf');
+    font-family: 'segoe'; src: url('../../vendor/fonts/segoeui.ttf');
 }
 
 @font-face {
-    font-family: 'segoeprb'; src: url('../fonts/segoeprb.ttf');
+    font-family: 'segoeprb'; src: url('../../vendor/fonts/segoeprb.ttf');
 }
 @font-face {
-    font-family: 'segoepr'; src: url('../fonts/segoepr.ttf');
+    font-family: 'segoepr'; src: url('../../vendor/fonts/segoepr.ttf');
 }
 @font-face {
-    font-family: 'segoeuisl'; src: url('../fonts/segoeuisl.ttf');
-}
-
-@font-face {
-    font-family: 'raleway'; src: url('../fonts/Raleway-Regular.ttf');
-}
-
-@font-face {
-    font-family: 'lmr'; src: url('../fonts/lmromanslant10-regular.otf');
-}
-
-
-@media (min-width: 1600px) {
-
-
-
+    font-family: 'segoeuisl'; src: url('../../vendor/fonts/segoeuisl.ttf');
 }
 
 html{
@@ -1164,7 +1147,7 @@ span .methodsameDisplayD{
 
 .keywordsMethodsDisplayDone:hover{
     background: none repeat scroll 0 0 transparent;
-    transition: all 500ms;
+    /*transition: all 500ms;*/
 }
 .keywordsMethodsDisplay:hover{
     background: none repeat scroll 0 0 transparent;
@@ -1834,7 +1817,7 @@ input[type=radio]:checked + label {
 .keywordsMethodsDisplayDone .divComments{
 
     display: block;
-    transition: all 600ms ease 0s;
+    /*transition: all 600ms ease 0s;*/
 
 }
 

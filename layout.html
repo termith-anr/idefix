@@ -6,12 +6,12 @@
         {% endblock %}
 
         <meta name="description" content="{{ page.description|d(site.description) }}">
-		<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-theme.min.css">
-		<link rel="stylesheet" type="text/css" href="/assets/css/jquery.fs.scroller.css">
-		<link rel="stylesheet" type="text/css" href="/assets/css/dataTables.bootstrap.css">
-        <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="/assets/css/layout.css">
+		<link rel="stylesheet" type="text/css" href="/assets/vendor/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/assets/vendor/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="/assets/vendor/css/jquery.fs.scroller.css">
+		<link rel="stylesheet" type="text/css" href="/assets/vendor/css/dataTables.bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/assets/vendor/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/assets/created/css/layout.css">
 
         <!--<script src="/bundle.js"></script> -->
 	</head>
@@ -19,8 +19,8 @@
 	{% block content %}
 	{% endblock %}
 
-    <script src="/assets/js/jquery.min.js"></script>
-    <script src="/assets/js/jquery-ui.min.js"></script>
+    <script src="/assets/vendor/js/jquery.min.js"></script>
+    <script src="/assets/vendor/js/jquery-ui.min.js"></script>
 	{% block scripts %}
 	{% endblock %}
 
