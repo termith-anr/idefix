@@ -1258,11 +1258,18 @@ $(document).ready(function() {
     var previousSelectionId,
         currentIdToDelete;
 
+    $(".formNotedKeyword select option").on("click" , function(e){
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
     $(".formNotedKeyword select").on("click" , function(e){
         e.stopPropagation();
         e.preventDefault();
         previousSelectionId = $(this).find(":selected").attr("data-id");
         currentIdToDelete = $(this).parents(".keywordsMethodsDisplayDone").attr("data-id");
+
+        console.log(" previousSelectionId : ", previousSelectionId , " currentIdToDelete : ", currentIdToDelete);
 
     });
 
@@ -1461,6 +1468,8 @@ $(document).ready(function() {
 
                                     // Si c'est le mot clé dont on doit supprimer le "estLeCorrespondantDe"
                                     if (content["xml#id"] === previousSelectionId) {
+
+                                        console.log("content : " , content , " previousSelectionId " , previousSelectionId);
 
                                         var oldArr = content[estlie];
 
