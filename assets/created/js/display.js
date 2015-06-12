@@ -735,6 +735,7 @@ $(document).ready(function() {
                 setTimeout(function () {
                     $(".divFormComments" , divComments).css('background', "");
                     $('.inputComment' ,divComments).typeahead('val' , '');
+                    $(divComments).tooltipster("content" , "Commentaire vide");
                     $('.quitSpanComment' , divComments).trigger('click');
                 }, 750);
 
