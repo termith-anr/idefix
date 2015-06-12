@@ -1110,7 +1110,11 @@ $(document).ready(function() {
                     success: function (e) {
 
                         barre.removeClass('isNotValidated').addClass('isValidated');
-                        $(".methodLinkround").removeClass("isNotValidated isValidated").removeAttr("style");
+                        $(".methodLinkround").removeClass("isNotValidated isValidated").removeAttr("style").each(function(index, element){
+                            var nbMethod = $(element).attr("id").split("-")[1];
+                            var nbKwRestant = $("#keywordsInist .btn[data-nb='" + nbMethod + "']").length  - $("#keywordsInist .keywordsMethodsDisplayDone[data-nb='" + nbMethod  + "']").length
+                            $(element).tooltipster("content" ,  "Il reste " + nbKwRestant + " mot(s) Silences")
+                        });
 
                         if(barreField == "validatePertinence"){
                             var progressSilence = 0;
