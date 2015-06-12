@@ -36,6 +36,7 @@ $(document).ready(function() {
     $('.searchKeywords').on('click' , function(){
         var keywordText = $(this).prev().text(),
             teiContent;
+        // Si article complet jamais chargé
         if(fullArticleLoaded === "no") {
 
             var contenuReplaced;
@@ -82,17 +83,22 @@ $(document).ready(function() {
                             $("#sectionArticle").scroller("scroll" , "#sectionArticle #firstHighlight" , 800);
                         }, 800);
                     }
-                    else{
+                    else if($("#h1DisplayDocs .h1Highlight").length <= 0){
                         alert("Le mot n'a pa été trouvé ou est présent sous une autre forme");
                     }
 
                 });
             }
             else{
-                $("#sectionArticle .highlight:first").attr('id', 'firstHighlight');
-                setTimeout(function () {
-                    $("#sectionArticle").scroller("scroll" , "#sectionArticle #firstHighlight" , 800);
-                }, 800);
+                if ( $("#sectionArticle .highlight").length >= 1 ){
+                    $("#sectionArticle .highlight:first").attr('id', 'firstHighlight');
+                    setTimeout(function () {
+                        $("#sectionArticle").scroller("scroll" , "#sectionArticle #firstHighlight" , 800);
+                    }, 800);
+                }
+                else if($("#h1DisplayDocs .h1Highlight").length <= 0){
+                    alert("Le mot n'a pa été trouvé ou est présent sous une autre forme");
+                }
             }
 
         }
@@ -127,7 +133,7 @@ $(document).ready(function() {
                         $("#sectionArticle").scroller("scroll" , "#sectionArticle #firstHighlight" , 800);
                     }, 800);
                 }
-                else{
+                else if($("#h1DisplayDocs .h1Highlight").length <= 0){
                     alert("Le mot n'a pa été trouvé ou est présent sous une autre forme")
                 }
             }
@@ -138,7 +144,7 @@ $(document).ready(function() {
                         $("#sectionArticle").scroller("scroll" , "#sectionArticle #firstHighlight" , 800);
                     }, 800);
                 }
-                else{
+                else if($("#h1DisplayDocs .h1Highlight").length <= 0){
                     alert("Le mot n'a pa été trouvé ou est présent sous une autre forme");
                 }
             }
@@ -1318,9 +1324,9 @@ $(document).ready(function() {
                             }
                         ],
                         success : function(){
-                            $("option", selector).removeAttr("selected").removeAttr("style").attr("title" , "");
+                            $("option", selector).removeAttr("selected").removeAttr("style");
                             $("option[value='" + motType + "']" , btn).attr("style", "background: #FF847C;color:#fff");
-                            $(selector).prop('selectedIndex', -1);
+                            $(selector).prop('selectedIndex', -1).parents("form").attr("title" , "Ce lien vient d'être supprimé !");
 
                             //Affichage contour vert sauvegarde
                             btn.css('box-shadow', '0px 1px 4px 0px green');
