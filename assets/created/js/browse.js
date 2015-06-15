@@ -116,7 +116,11 @@ $(document).ready(function() {
     } );
 
     $(".guidesLink").on("click" , function(){
-        $("body").css("overflow" , "hidden").append("<div style='top: 0;background: rgba(204, 106, 99, 0.85); color : #f5f5f5 ; font-size: 41px;width: 100vw; height: 100vh;display: flex;justify-content: center;align-items: center; position: fixed;'><span class='infosQuit glyphicon glyphicon-remove'></span><div id='exportXML' class='btn btn-default exportButtons' data-href='http://raw.githubusercontent.com/termith-anr/idefix/master/readme/fr/guide/readme.pdf'>Manuel Idefix</div></div>")
+        $("body").css("overflow" , "hidden").append("<div style='top: 0;background: rgba(204, 106, 99, 0.85); color : #f5f5f5 ; font-size: 41px;width: 100vw; height: 100vh;display: flex;justify-content: center;align-items: center; position: fixed;'>" +
+            "<span class='infosQuit glyphicon glyphicon-remove'></span>" +
+            "<div class='btn btn-default exportButtons' data-href='http://termith-anr.github.io/scripts-formats/guides/readme.pdf'>Manuel Idefix</div>" +
+            "<div class='btn btn-default exportButtons' data-href='http://termith-anr.github.io/scripts-formats/guides/readme.pdf'>Manuel Idefix</div>" +
+            "</div>")
     });
 
 
@@ -133,7 +137,7 @@ $(document).ready(function() {
 
     // Get data-href of csv score & redirect to it
     var goToLocation  = function(element){
-        window.location = element.currentTarget.getAttribute('data-href');
+        window.open(element.currentTarget.getAttribute('data-href') , '_blank' );
     };
 
 
