@@ -67,15 +67,19 @@
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="methodsInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/4-afficheMethode.png">
+<div id="methodsInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/5-mcEvaluerPertinence.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-mcEvaluersilence.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="pertinenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/5-notePertinence.png">
+<div id="pertinenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/7-notePertinence.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/8-preference.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/9-commentaire.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/10-validerCommentaire.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/11-rechercheMot.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/13-rappelCommentaireScore.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="preferenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/6-preference.png">
+<div id="preferenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-evalMotInist.png">
+    <span class="infosQuit glyphicon glyphicon-remove" ></span>
+</div>
+
+<div id="silenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/6-preference.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
@@ -83,11 +87,11 @@
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="progressionInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/10-barreProgession.png">
+<div id="progressionInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/12-barreProgession.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="silenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/11-afficheMotInist.png">
+<div id="silencesBlockInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-afficheMotInist.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
@@ -217,7 +221,7 @@
 
 <div id="keywordsInist">
 
-    <h2> INIST {% if (magicScore == true) and (validateSilence != 'yes') %}<span class="glyphicon glyphicon-edit magicButton" data-type="silence"></span>{% endif %}</h2>
+    <h2> <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="silenceInfos" style="display: none"></span> INIST {% if (magicScore == true) and (validateSilence != 'yes') %}<span class="glyphicon glyphicon-edit magicButton" data-type="silence"></span>{% endif %}</h2>
 
     {%  for currentMethod in data.pertinenceMethods %}
 
@@ -269,7 +273,6 @@
 
         {% if data.keywords[indexObject].correspondance or validateSilence != "yes" %}
 
-        <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="silenceKwInfos" style="display: none"></span>
         <form class="formNotedKeyword {% if data.keywords[indexObject].comment or validateSilence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsCorresp {% if data.keywords[indexObject].correspondance and validateSilence == 'yes' %}prefInfobulle{% endif %}" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].correspondance and validateSilence == 'yes' %}Correspondant : {{data.keywords[indexObject].correspondance}}{% else %}Un mot TermITH correspond mieux{% endif %}">
 
             <input type="hidden" name="key" value="keywords.{{ indexObject }}.correspondance"/> <!-- Key Name -->
@@ -399,8 +402,6 @@
 
         {% if data.keywords[indexObject].preference or validatePertinence != "yes" %}
 
-        <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="preferenceInfos" style="display: none"></span>
-
         <form class="formNotedKeyword {% if data.keywords[indexObject].comment or validatePertinence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref {% if data.keywords[indexObject].preference and validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].preference %}Préférence : {{data.keywords[indexObject].preference}}{% else %}Un mot TermITH est préféré{% endif %}">
 
             <input type="hidden" name="key" value="keywords.{{ indexObject }}.preference"/> <!-- Key Name -->
@@ -438,8 +439,6 @@
         {% endif %}
 
         {% if data.keywords[indexObject].comment or validatePertinence != "yes" %}
-
-        <span title="informations" class="glyphicon glyphicon-info-sign informations " data-id="commentaireInfos" style="display: none"></span>
 
         <div class="{% if validatePertinence == 'yes' %}blockForms divCommentsBlocked {% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
             <span class="etcSpanComment">...</span>
@@ -489,7 +488,7 @@
 <div id="inistKeywordsButton" {% if validatePertinence == "yes" %}style="display : block"{% else %}style="display: none"{% endif %}>
 <span>Afficher INIST</span>  <!-- Button to call Inist Keywords -->
 </div>
-<span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="silenceInfos" style="display: none"></span>
+<span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="silencesBlockInfos" style="display: none"></span>
 {% endif %}
 
 

@@ -305,7 +305,10 @@ $(document).ready(function() {
         $(".informations").css('z-index', '0');
         $("#contentDisplay").css("display", "none");
         if (!$("#" + id + " .imgInfos").length){
-            $("#" + id).prepend("<img src='" + $("#" + id).attr('data-src') + "' class='imgInfos'/>").delay(650).css("display", "flex");
+            var imgs = $("#" + id).attr('data-src').split("/;/");
+            for(var i = 0 ; i < imgs.length ; i++){
+                $("#" + id).prepend("<img src='" + imgs[i] + "' class='imgInfos' style='order : " + i + "'/>").delay(650).css("display", "flex");
+            }
         }
         else{
             $("#" + id).css("display", "flex")
