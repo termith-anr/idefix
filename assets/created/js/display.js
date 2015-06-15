@@ -268,7 +268,6 @@ $(document).ready(function() {
 
     var designCircles = function(circle,option){
         if(option === "done"){
-            console.log("config : ", config);
             if( (!config.circleDesign) || (config.circleDesign === "grey")){
                 circle.removeClass("isNotValidated").addClass("isValidated");
             }
@@ -392,10 +391,10 @@ $(document).ready(function() {
         var timeJob = data.data.timeJob ? parseFloat(data.data.timeJob) : 0,
             stop = (data.data.fields.validateSilence == "yes") ? timeJob : null;
 
-        maxScores = data.data.fields.maxScores;
-        currentScores = parseInt(data.data.fields.currentScores);
-        minScores = data.data.fields.minScores;
         if(config.coloredDocument) {
+            maxScores = data.data.fields.maxScores;
+            currentScores = parseInt(data.data.fields.currentScores);
+            minScores = data.data.fields.minScores;
             calculScores();
         }
 
@@ -1619,25 +1618,25 @@ $(document).ready(function() {
                 data: postData,
                 success: function (e) {
 
-                    currentScores += parseInt((parseInt(clickedScore) - parseInt(previousScore)));
-                    if(config.coloredDocument) {
-                        calculScores();
-                    }
 
-                    $.ajax({
-                        url: savePage,
-                        type: "POST",
-                        data: [
-                            {
-                                name: "key",
-                                value: "fields.currentScores"
-                            },
-                            {
-                                name: "val",
-                                value: currentScores
-                            }
-                        ]
-                    });
+                    if(config.coloredDocument) {
+                        currentScores += parseInt((parseInt(clickedScore) - parseInt(previousScore)));
+                        calculScores();
+                        $.ajax({
+                            url: savePage,
+                            type: "POST",
+                            data: [
+                                {
+                                    name: "key",
+                                    value: "fields.currentScores"
+                                },
+                                {
+                                    name: "val",
+                                    value: currentScores
+                                }
+                            ]
+                        });
+                    }
 
                     setTimeout(function () {
 

@@ -119,7 +119,7 @@ $(document).ready(function() {
         $("body").css("overflow" , "hidden").append("<div style='top: 0;background: rgba(204, 106, 99, 0.85); color : #f5f5f5 ; font-size: 41px;width: 100vw; height: 100vh;display: flex;justify-content: center;align-items: center; position: fixed;'>" +
             "<span class='infosQuit glyphicon glyphicon-remove'></span>" +
             "<div class='btn btn-default exportButtons' data-href='http://termith-anr.github.io/scripts-formats/guides/readme.pdf'>Manuel Idefix</div>" +
-            "<div class='btn btn-default exportButtons' data-href='http://termith-anr.github.io/scripts-formats/guides/readme.pdf'>Manuel Idefix</div>" +
+            "<div class='btn btn-default exportButtons' data-href='http://termith-anr.github.io/scripts-formats/guides/protocoleEvaluationSc2.pdf'>Protocole d'évaluation</div>" +
             "</div>")
     });
 
