@@ -67,7 +67,7 @@
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="methodsInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/5-mcEvaluerPertinence.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-mcEvaluersilence.png">
+<div id="methodsInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/5-mcEvaluerPertinence.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-evalMotInist.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
@@ -75,7 +75,7 @@
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="preferenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-evalMotInist.png">
+<div id="preferenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-mcEvaluersilence.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
@@ -246,21 +246,21 @@
 
                         <!-- Value Name -->
                         {% if data.keywords[indexObject].score == '2' %}
-                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Présent / Pas important">0</label>
-                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Absent / Autre forme / +ou- important">{{beforeSilence}}1</label>
-                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelBlock{% endif %}" title="Absent / Important">{{beforeSilence}}2</label>
+                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Ne manque pas">0</label>
+                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
+                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelBlock{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
                         {% elif data.keywords[indexObject].score == '1' %}
-                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Présent / Pas important">0</label>
-                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelBlock{% endif %}" title="Absent / Autre forme / +ou- important">{{beforeSilence}}1</label>
-                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Absent / Important">{{beforeSilence}}2</label>
+                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Ne manque pas">0</label>
+                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelBlock{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
+                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
                         {% elif data.keywords[indexObject].score == '0' %}
-                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0" checked><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelBlock{% endif %}" title="Présent / Pas important">0</label>
-                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Absent / Autre forme / +ou- important">{{beforeSilence}}1</label>
-                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Absent / Important">{{beforeSilence}}2</label>
+                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0" checked><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelBlock{% endif %}" title="Ne manque pas">0</label>
+                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
+                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
                         {% else %}
-                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Mot Présent / Pas important">0</label>
-                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Mot Absent / Autre forme / +ou- important">{{beforeSilence}}1</label>
-                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Mot Absent / Important">{{beforeSilence}}2</label>
+                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Ne manque pas">0</label>
+                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
+                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
                         {% endif %}
 
                         <input type="hidden" name="type" value="silence"/><!-- Type pertinence -->
@@ -509,7 +509,7 @@
 
 <script src="/assets/vendor/js/jquery.tooltipster.min.js"></script>
 
-<script src="/assets/created/js/display.js"></script>
+<script src="/assets/created/js/display.min.js"></script>
 
 
 {% endblock %}

@@ -1897,6 +1897,7 @@ $(document).ready(function() {
                     currentWord = $(".keywordsText" , currentKw).text().toUpperCase(),
                     currentScore = $("input:checked" , currentKw) ? $("input:checked" , currentKw).val() : null;
 
+
                 if(type === "method"){
                     otherKwdsList
                         // Pour chaque autre méthode
@@ -1908,7 +1909,7 @@ $(document).ready(function() {
                                     otherWord = $(".keywordsText", otherKw).text().toUpperCase(),
                                     otherScore = $("input:checked", otherKw) ? $("input:checked", otherKw).val() : null;
                                 // Si mots sont identiques & le mot n'a pas déjà été noté & (le mot en cours ne posséde pas de score ou les cores sont differents)
-                                if ((currentWord === otherWord) && (arr.indexOf(otherWord) <= -1) && (!currentScore) && (otherScore)) {
+                                if ((currentWord === otherWord) && (arr.indexOf(otherWord) <= -1) && (!currentScore && currentScore!= 0) && (otherScore)) {
                                     arr.push(otherWord);
                                     var currentKey = $(".formNotedKeyword input[type='hidden'][name='key']", currentKw).val().split(".")[1],
                                         current2Check = $(".formNotedKeyword input[type='radio'][value='" + otherScore + "']", currentKw).attr("id"),
@@ -1944,7 +1945,7 @@ $(document).ready(function() {
                                 otherWord = $(".keywordsText", otherKw).text().toUpperCase(),
                                 otherScore = $("input:checked", otherKw) ? $("input:checked", otherKw).val() : null;
                             // Si mots sont identiques & (le mot en cours ne posséde pas de score ou les cores sont differents)
-                            if ((currentWord === otherWord) && (arr.indexOf(otherWord) <= -1) && (!currentScore || otherScore != currentScore ) && (otherScore) ) {
+                            if ((currentWord === otherWord) && (arr.indexOf(otherWord) <= -1) && (!currentScore && currentScore!= 0) && (otherScore) ) {
                                 arr.push(otherWord);
                                 var currentKey = $(".formNotedKeyword input[type='hidden'][name='key']", currentKw).val().split(".")[1],
                                     current2Check = $(".formNotedKeyword input[type='radio'][value='" + otherScore + "']", currentKw).attr("id"),
