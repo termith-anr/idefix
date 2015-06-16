@@ -68,9 +68,9 @@ EVALUER LE SILENCE DES METHODES
 
 ![motsAevaluerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-afficheMotInist.png)
 
-![motInist](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-evalMotInist.png)
+![motInist](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-mcEvaluersilence.png)
 
-![evalSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-mcEvaluersilence.png)
+![evalSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-evalMotInist.png)
 
 ![validerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png)
 
