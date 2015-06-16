@@ -1275,9 +1275,6 @@ $(document).ready(function() {
         e.preventDefault();
         previousSelectionId = $(this).find(":selected").attr("data-id");
         currentIdToDelete = $(this).parents(".keywordsMethodsDisplayDone").attr("data-id");
-
-        console.log(" previousSelectionId : ", previousSelectionId , " currentIdToDelete : ", currentIdToDelete);
-
     });
 
     $(".formNotedKeywordList").on("change" , function(e) {
@@ -1475,8 +1472,6 @@ $(document).ready(function() {
 
                                     // Si c'est le mot clé dont on doit supprimer le "estLeCorrespondantDe"
                                     if (content["xml#id"] === previousSelectionId) {
-
-                                        console.log("content : " , content , " previousSelectionId " , previousSelectionId);
 
                                         var oldArr = content[estlie];
 
