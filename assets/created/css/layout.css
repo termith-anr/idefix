@@ -1597,7 +1597,7 @@ input[type=radio]:checked + label {
 
 }
 
-#exportButton{
+#exportButton , #guidesLink{
     font-size: 17px;
     line-height: 47px;
     margin: 0px auto 40px;
@@ -1618,10 +1618,10 @@ input[type=radio]:checked + label {
 
 }
 
-#exportButton:hover{
+#exportButton:hover , #guidesLink:hover{
     background: #CC6A63;
     border-radius: 6px;
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 #headerDiv{
@@ -2057,7 +2057,7 @@ input[type=radio]:checked + label {
 }
 
 .linkLogosPatner{
-    margin-left: 15px;
+    margin-left: 1.5vw;
 }
 
 .linkLogosPatner:first-child {

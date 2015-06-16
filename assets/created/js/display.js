@@ -1244,6 +1244,8 @@ $(document).ready(function() {
                                 }
                             });
 
+                            $("#keywordsInist .magicButton").remove();
+
                         }
 
                         for( var i = 0 ; i < inpuChecked.length ; i++ ){
@@ -1251,8 +1253,6 @@ $(document).ready(function() {
                             label.siblings('label').addClass('labelHide');
                             label.addClass('labelBlock');
                         }
-
-                        $("#keywordsInist .magicButton").remove();
 
 
                     }
