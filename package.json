@@ -27,6 +27,7 @@
     "csv-string": "^2.2.2",
     "dateformat": "^1.0.11",
     "castor-core": "^2.2.0",
+    "castor-load-backup": "^1.0.0",
     "object-path": "^0.9.0",
     "promised-mongo": "^0.11.1",
     "xml-writer": "^1.6.0",
