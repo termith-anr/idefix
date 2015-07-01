@@ -17,11 +17,13 @@ module.exports = function(options,config) {
 
 
         // Execute this loader only for this format given in json config file
-        if(config.teiFormat === "2015-02-13") {
+        if(config.teiFormat === "2015-02-13" && (!input.keywords)) {
 
             /************************
              ****   EXECUTION    ****
              ************************/
+
+                console.log("Mots clés");
 
             // Create Idefix fields
             var title = jsonselect.match(".titleStmt .title .xml#lang ~ .#text" , input.content.json) ? jsonselect.match(".titleStmt .title .xml#lang ~ .#text" ,  input.content.json)[0].toString() : null,
@@ -67,8 +69,6 @@ module.exports = function(options,config) {
                     // add methodName to ana array
                     pertinencesNames.push(methodName);
 
-                    console.log(" mix : ", mix, " nom : ", methodName);
-
                     //An array of id + word in the same order
                     var xmlIdWord = jsonselect.match(":root > .ns#annotations .xml#id", usefullStdf[i]),
                         word = jsonselect.match(":root > .ns#annotations .#text", usefullStdf[i]);
@@ -98,7 +98,6 @@ module.exports = function(options,config) {
                         }
                     }
 
-                    //console.log("id : " , xmlIdWord , "\n" , " word : " , word);
                 }
 
             });
@@ -107,8 +106,6 @@ module.exports = function(options,config) {
              * CREATING SILENCES
              */
             jsonselect.forEach(".TEI > .teiHeader .keywords", input.content.json, function (element) {
-
-                console.log("element : " , element);
 
                 // return only silences
                 var silences = element.filter(function (content) {

@@ -21,7 +21,7 @@ module.exports = function(options, config) {
     return function (input, submit) {
 
         // Execute this loader only for this format given in json config file
-        if(config.teiFormat === "2014-11-01") {
+        if(config.teiFormat === "2014-11-01" && (!input.keywords)) {
 
             /************************
              ****   EXECUTION    ****

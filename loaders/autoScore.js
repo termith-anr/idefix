@@ -10,15 +10,25 @@
  ****    MODULES     ****
  ************************/
 
-
-var objectPath = require('object-path');
+var objectPath = require('object-path'),
+    pmongo = require("promised-mongo"),
+    crypto = require("crypto");
 
 'use strict';
 module.exports = function(options,config) {
     options = options || {};
+    options.toKeep = options.toKeep ? options.toKeep : null;
+    options.connexionURI = options.connexionURI || 'mongodb://localhost:27017/test/';
+
     config = config.get();
     return function (input, submit) {
 
+        options.collectionName = options.collectionName ||  crypto.createHash('sha1').update(input.basedir).digest('hex');
+
+        var coll = pmongo(options.connexionURI).collection(options.collectionName),
+            isNoted = false;
+
+       
 
         /***********************
          ****    FUNCTIONS   ****
@@ -52,7 +62,6 @@ module.exports = function(options,config) {
                             return (content["method"] === input.pertinenceMethods[i]);
                         }));
                     }
-                    //console.log("arr : " , arr);
                     return arr;
             }
             if(by === "type"){
@@ -119,44 +128,51 @@ module.exports = function(options,config) {
          ****   EXECUTION    ****
          ************************/
 
-        if(input.keywords){
-            var silences = filter(input.keywords, "type", "silence"),
-                pertinences = filter(input.keywords, "type", "pertinence");
+        coll.findOne({ fid : input.fid }).then(function(doc){
+            if(input.keywords && (!isNoted) ){
 
-            var autoPertinence = config.hasOwnProperty("autoPertinence") ? config["autoPertinence"] : true,
-                autoSilence = config.hasOwnProperty("autoSilence") ? config["autoSilence"] : true;
+                console.log("autoscore : " , isNoted);
 
-            if (silences.length > 0 && pertinences.length > 0) {
+                var silences = filter(input.keywords, "type", "silence"),
+                    pertinences = filter(input.keywords, "type", "pertinence");
 
-                silences = filter(silences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
-                pertinences = filter(pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
+                var autoPertinence = config.hasOwnProperty("autoPertinence") ? config["autoPertinence"] : true,
+                    autoSilence = config.hasOwnProperty("autoSilence") ? config["autoSilence"] : true;
 
-                for (var i = 0; i < input.pertinenceMethods.length; i++) { // Pour chaque nom de methodes
-                    for (j = 0; j < silences.length; j++) { // Pour chaque methode dans les silences
-                        for (k = 0; k < pertinences.length; k++) { // Pour chaque méthodes dans les pertinences
-                            if ((silences[j][0].method === pertinences[k][0].method) && (silences[j][0].method === input.pertinenceMethods[i])) { // Si les nom des méthodes des premiers objets ( déjà triés ) sont identiques
+                if (silences.length > 0 && pertinences.length > 0) {
 
-                                var aScore = compareAndScore(silences[j], pertinences[k], "word"); // On compare chaque méthodes
+                    silences = filter(silences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
+                    pertinences = filter(pertinences, "method"); //Get an array like that => [ [M1], [M2] , ... ]
 
+                    for (var i = 0; i < input.pertinenceMethods.length; i++) { // Pour chaque nom de methodes
+                        for (var j = 0; j < silences.length; j++) { // Pour chaque methode dans les silences
+                            for (var k = 0; k < pertinences.length; k++) { // Pour chaque méthodes dans les pertinences
+                                if ((silences[j][0].method === pertinences[k][0].method) && (silences[j][0].method === input.pertinenceMethods[i])) { // Si les nom des méthodes des premiers objets ( déjà triés ) sont identiques
+
+                                    var aScore = compareAndScore(silences[j], pertinences[k], "word"); // On compare chaque méthodes
+
+                                }
                             }
                         }
                     }
-                }
-                var noted = filter(input.keywords, "score"),
-                    notedSilence = filter(noted, "type", "silence").length,
-                    allSilence = filter(input.keywords, "type", "silence").length,
-                    notedPertinence = filter(noted, "type", "pertinence").length,
-                    allPertinence = filter(input.keywords, "type", "pertinence").length;
-                if (autoPertinence === true) {
-                    insertContent(notedPertinence / allPertinence, "progressNotedKeywords");
-                }
-                if (autoSilence === true) {
-                    insertContent(notedSilence / allSilence, "progressSilenceKeywords");
-                }
-                //console.log('Nombre de mot silences notés : ', notedSilence, ' Nombre de mot silences totaux : ', allSilence, ' Nombre de mot pertinence notés : ', notedPertinence, ' Nombre de mot pertinence totaux : ', allPertinence);
+                    var noted = filter(input.keywords, "score"),
+                        notedSilence = filter(noted, "type", "silence").length,
+                        allSilence = filter(input.keywords, "type", "silence").length,
+                        notedPertinence = filter(noted, "type", "pertinence").length,
+                        allPertinence = filter(input.keywords, "type", "pertinence").length;
+                    if (autoPertinence === true) {
+                        insertContent(notedPertinence / allPertinence, "progressNotedKeywords");
+                    }
+                    if (autoSilence === true) {
+                        insertContent(notedSilence / allSilence, "progressSilenceKeywords");
+                    }
 
+                }
             }
-        }
+        }).catch(function(err){
+            console.error("Database not create or not answering : ", err);
+            submit(err, input);
+        });
 
 
         /************************
