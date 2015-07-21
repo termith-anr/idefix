@@ -63,25 +63,30 @@ module.exports = function(config) {
                             docTest = new DOMParser().parseFromString(doc.toString(), 'text/xml'), // Creation du Doc
                             serializer = new XMLSerializer(), // DOM -> STRING XML
                             stdf = docTest.getElementsByTagName('ns:stdf'),
-                            nbOfMethods = value.pertinenceMethods.length,
+                            methodsList = value.pertinenceMethods,
                             filtered = {};
 
+                            //console.log("Il y a " , methodsList.length , 'methodes');
+
                         //Pour chaque methodes On filtre par methode et par type
-                        for (var i = 1; i <= nbOfMethods; i++) {
+                        for (var i = 1; i <= methodsList.length; i++) {
+                            //console.log("Methode n°" , i);
                             (function(e) {
-                                var methodId = "mi" + i;
+                                var methodId = methodsList[i-1];
+                                console.log("MethodId : " , methodId);
                                 filtered[methodId] = {
                                     silence: [],
                                     pertinence: []
                                 };
                                 keywords.filter(function (content) {
-                                    if ((content["methodId"] === methodId) && (content["type"] === "silence")) {
+                                    if ((content["method"] === methodId) && (content["type"] === "silence")) {
                                         filtered[methodId].silence.push(content);
                                     }
-                                    else if ((content["methodId"] === methodId) && (content["type"] === "pertinence")) {
+                                    else if ((content["method"] === methodId) && (content["type"] === "pertinence")) {
                                         filtered[methodId].pertinence.push(content);
                                     }
                                 })
+                                //console.log("filtered : " , filtered[methodId]);
                             })(i);
                         }
 
@@ -89,21 +94,24 @@ module.exports = function(config) {
                         // Pour chaque stdf trouvé:
                         for( i = 0 ; i < stdf.length ; i++){
 
-                            console.log('STDF n° ' , i+1 , " trouvé");
-                            console.log('Lattribut xml trouvé vaut : ' ,stdf[i].getAttribute('xml:id'));
-
+                            //console.log('STDF n° ' , i+1 , " trouvé");
+                            //console.log('Lattribut xml trouvé vaut : ' ,stdf[i].getAttribute('xml:id'));
 
 
                             //Si l'id de la method du sdf vaut le i en cours ...
                             if(stdf[i].getAttribute('xml:id').indexOf("mi") > -1){
 
-                                console.log("On commence a faire un fichier avec  attribut :  " , stdf[i].getAttribute('xml:id'));
-
-                                var creation = new XMLWriter(true);
-
                                 var mix = stdf[i].getAttribute('xml:id').toString();
 
-                                console.log('Nous sommes donc à la methode : ' , mix);
+                                //console.log('Nous sommes donc à la methode : ' , mix);
+
+                                var application = stdf[i].getElementsByTagName("application")[0];
+
+                                var realID = application.getAttribute("ident");
+
+                                //console.log("realID : " , realID);
+
+                                var creation = new XMLWriter(true);
 
                                 creation
                                     .startElement("ns:stdf")
@@ -136,36 +144,36 @@ module.exports = function(config) {
                                     .writeAttribute("type","pertinence")
                                 ;
 
-                                for (var j = 0; j < filtered[mix]["pertinence"].length; j++) { // Pour chaque mot pertinence   ...
+                                for (var j = 0; j < filtered[realID]["pertinence"].length; j++) { // Pour chaque mot pertinence   ...
 
                                     //console.log("Mot filtré n°" , j);
 
 
-                                    if ((filtered[mix]["pertinence"][j]["score"]) || (filtered[mix]["pertinence"][j]["score"] == '0')) { // ... Ayant été noté
+                                    if ((filtered[realID]["pertinence"][j]["score"]) || (filtered[realID]["pertinence"][j]["score"] == '0')) { // ... Ayant été noté
 
                                         creation
                                             .startElement("span")
-                                            .writeAttribute("from" , '#' + filtered[mix]["pertinence"][j]["xml#id"])
+                                            .writeAttribute("from" , '#' + filtered[realID]["pertinence"][j]["xml#id"])
                                             .startElement("num")
                                             .writeAttribute("type" ,  "pertinence")
-                                            .text(filtered[mix]["pertinence"][j]["score"])
+                                            .text(filtered[realID]["pertinence"][j]["score"])
                                             .endElement() // Fin Num
                                         ;
 
                                         // Si il y a un preference
-                                        if(filtered[mix]["pertinence"][j]["preference"]){
+                                        if(filtered[realID]["pertinence"][j]["preference"]){
                                             creation
                                                 .startElement("link")
                                                 .writeAttribute("type" ,  "preferredForm")
-                                                .writeAttribute("target" ,  "#" + filtered[mix]["pertinence"][j]["idPreference"])
+                                                .writeAttribute("target" ,  "#" + filtered[realID]["pertinence"][j]["idPreference"])
                                                 .endElement();
                                             ;
                                         }
 
                                         // Si il y a un IsCorrespondanceOf
-                                        if(filtered[mix]["pertinence"][j]["isCorrespondanceOf"]){
+                                        if(filtered[realID]["pertinence"][j]["isCorrespondanceOf"]){
 
-                                            var arrIsCorrespondanceOf = filtered[mix]["pertinence"][j]["isCorrespondanceOf"].split(",,");
+                                            var arrIsCorrespondanceOf = filtered[realID]["pertinence"][j]["isCorrespondanceOf"].split(",,");
                                             arrIsCorrespondanceOf.forEach(function(content,index){
                                                 creation
                                                     .startElement("link")
@@ -178,9 +186,9 @@ module.exports = function(config) {
                                         }
 
                                         // Si il y a un commentaire
-                                        if(filtered[mix]["pertinence"][j]["comment"]){
+                                        if(filtered[realID]["pertinence"][j]["comment"]){
                                             creation
-                                                .writeElement("note" , filtered[mix]["pertinence"][j]["comment"])
+                                                .writeElement("note" , filtered[realID]["pertinence"][j]["comment"])
                                             ;
                                         }
 
@@ -197,37 +205,37 @@ module.exports = function(config) {
                                     .writeAttribute("type","silence")
                                 ;
 
-                                for (j = 0; j < filtered[mix]["silence"].length; j++) { // Pour chaque mot silence   ...
+                                for (j = 0; j < filtered[realID]["silence"].length; j++) { // Pour chaque mot silence   ...
 
-                                    console.log("MOT silence : " , filtered[mix]["silence"][j]["word"]);
+                                    //console.log("MOT silence : " , filtered[realID]["silence"][j]["word"]);
 
 
-                                    if ((filtered[mix]["silence"][j]["score"]) || (filtered[mix]["silence"][j]["score"] == '0')) { // ... Ayant été noté
+                                    if ((filtered[realID]["silence"][j]["score"]) || (filtered[realID]["silence"][j]["score"] == '0')) { // ... Ayant été noté
 
                                         creation
                                             .startElement("span")
-                                            .writeAttribute("from" , '#' + filtered[mix]["silence"][j]["xml#id"])
+                                            .writeAttribute("from" , '#' + filtered[realID]["silence"][j]["xml#id"])
                                             .startElement("num")
                                             .writeAttribute("type" ,  "silence")
-                                            .text(filtered[mix]["silence"][j]["score"])
+                                            .text(filtered[realID]["silence"][j]["score"])
                                             .endElement() // Fin Num
                                         ;
 
                                         // Si il y a un preference
-                                        if(filtered[mix]["silence"][j]["correspondance"]){
+                                        if(filtered[realID]["silence"][j]["correspondance"]){
                                             creation
                                                 .startElement("link")
                                                 .writeAttribute("type" ,  "TermithForm")
-                                                .writeAttribute("target" ,  "#" + filtered[mix]["silence"][j]["idCorrespondance"])
+                                                .writeAttribute("target" ,  "#" + filtered[realID]["silence"][j]["idCorrespondance"])
                                                 .endElement()
                                             ;
                                         }
 
 
                                         // Si il y a un commentaire
-                                        if(filtered[mix]["silence"][j]["comment"]){
+                                        if(filtered[realID]["silence"][j]["comment"]){
                                             creation
-                                                .writeElement("note" , filtered[mix]["silence"][j] ["comment"])
+                                                .writeElement("note" , filtered[realID]["silence"][j] ["comment"])
                                             ;
                                         }
 
