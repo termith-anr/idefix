@@ -19,7 +19,11 @@
 <body id="bodyBrowse">
 
 
-{% set unlockIDEFIX = config.unlockIDEFIX %}
+{% if ( config.unlockIDEFIX == true ) %}
+{% set unlockIDEFIX = true %}
+{% else %}
+{% set unlockIDEFIX = false %}
+{% endif %}
 
 {% set numberOfMethods = data.pertinenceMethods.length %}
 
