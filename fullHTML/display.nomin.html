@@ -19,7 +19,7 @@
 <body id="bodyBrowse">
 
 
-
+{% set unlockIDEFIX = config.unlockIDEFIX %}
 
 {% set numberOfMethods = data.pertinenceMethods.length %}
 
@@ -246,21 +246,21 @@
 
                         <!-- Value Name -->
                         {% if data.keywords[indexObject].score == '2' %}
-                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Ne manque pas">0</label>
-                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
-                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelBlock{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
+                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Ne manque pas">0</label>
+                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
+                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelBlock{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
                         {% elif data.keywords[indexObject].score == '1' %}
-                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Ne manque pas">0</label>
-                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelBlock{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
-                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
+                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Ne manque pas">0</label>
+                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelBlock{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
+                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
                         {% elif data.keywords[indexObject].score == '0' %}
-                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0" checked><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelBlock{% endif %}" title="Ne manque pas">0</label>
-                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
-                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
+                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0" checked><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelBlock{% endif %}" title="Ne manque pas">0</label>
+                        <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
+                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
                         {% else %}
-                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Ne manque pas">0</label>
+                        <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Ne manque pas">0</label>
                         <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
-                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
+                        <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
                         {% endif %}
 
                         <input type="hidden" name="type" value="silence"/><!-- Type pertinence -->
@@ -271,13 +271,13 @@
 
                     <div style="display: flex; justify-content: space-around;">
 
-                        {% if data.keywords[indexObject].correspondance or validateSilence != "yes" %}
+                        {% if data.keywords[indexObject].correspondance or validateSilence != "yes" or unlockIDEFIX == true %}
 
-                        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or validateSilence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsCorresp {% if data.keywords[indexObject].correspondance and validateSilence == 'yes' %}prefInfobulle{% endif %}" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].correspondance and validateSilence == 'yes' %}Correspondant : {{data.keywords[indexObject].correspondance}}{% else %}Un mot TermITH correspond mieux{% endif %}">
+                        <form class="formNotedKeyword {% if data.keywords[indexObject].correspondance or validateSilence != 'yes' or unlockIDEFIX == true %}formNotedKeywordsPreference{% endif %} formNotedKeywordsCorresp {% if data.keywords[indexObject].correspondance and validateSilence == 'yes' and  unlockIDEFIX == false %}prefInfobulle{% endif %}" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].correspondance and validateSilence == 'yes' and unlockIDEFIX == false %}Correspondant : {{data.keywords[indexObject].correspondance}}{% else %}Un mot TermITH correspond mieux{% endif %}">
 
                             <input type="hidden" name="key" value="keywords.{{ indexObject }}.correspondance"/> <!-- Key Name -->
 
-                            <select id="method-{{ indexMethod }}-corresp-list-{{ indexObject }}"  {% if validateSilence == 'yes' %}disabled="disabled"{% endif %} class="formNotedKeywordList {% if validateSilence == 'yes' %}blockForms{% endif %}" name="val" >
+                            <select id="method-{{ indexMethod }}-corresp-list-{{ indexObject }}"  {% if validateSilence == 'yes' and unlockIDEFIX == false %}disabled="disabled"{% endif %} class="formNotedKeywordList {% if validateSilence == 'yes' and unlockIDEFIX == false %}blockForms{% endif %}" name="val" >
                             <option value="<corresp>" class="baseOption">
                                 Corresp:
                             </option>
@@ -308,9 +308,9 @@
                         </form>
                         {% endif %}
 
-                        {% if data.keywords[indexObject].comment or validateSilence != "yes" %}
+                        {% if data.keywords[indexObject].comment or validateSilence != "yes" or unlockIDEFIX == true  %}
 
-                        <div class="{% if validateSilence == 'yes' %}blockForms divCommentsBlocked{% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
+                        <div class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}blockForms divCommentsBlocked{% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
                             <span class="etcSpanComment">...</span>
 
                             <div class="divFormComments">
@@ -374,21 +374,21 @@
 
                         <!-- Value Name -->
                         {% if data.keywords[indexObject].score == '2' %}
-                        <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}"  title="Non pertinent">0</label>
-                        <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" ><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label>
-                        <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelBlock{% endif %}" title="Pertinent">2</label>
+                        <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}"  title="Non pertinent">0</label>
+                        <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" ><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label>
+                        <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelBlock{% endif %}" title="Pertinent">2</label>
                         {% elif data.keywords[indexObject].score == '1' %}
-                        <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}"  title="Non pertinent">0</label>
-                        <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelBlock{% endif %}" title="Pertinent mais sous une autre forme">1</label>
-                        <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent">2</label>
+                        <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}"  title="Non pertinent">0</label>
+                        <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelBlock{% endif %}" title="Pertinent mais sous une autre forme">1</label>
+                        <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' and unlockIDEFIX == false  %}labelHide{% endif %}" title="Pertinent">2</label>
                         {% elif data.keywords[indexObject].score == '0' %}
-                        <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0" checked><label for="input0-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelBlock{% endif %}"  title="Non pertinent">0</label>
-                        <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label>
-                        <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent">2</label>
+                        <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0" checked><label for="input0-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelBlock{% endif %}"  title="Non pertinent">0</label>
+                        <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label>
+                        <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Pertinent">2</label>
                         {% else %}
-                        <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}"  title="Non pertinent">0</label>
-                        <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label>
-                        <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent">2</label>
+                        <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}"  title="Non pertinent">0</label>
+                        <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label>
+                        <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}"  class="{% if validatePertinence == 'yes'  and unlockIDEFIX == false %}labelHide{% endif %}" title="Pertinent">2</label>
                         {% endif %}
 
                         <input type="hidden" name="type" value="pertinence"/><!-- Type pertinence -->
@@ -400,13 +400,13 @@
 
                     <div style="display: flex; justify-content: space-around;">
 
-                        {% if data.keywords[indexObject].preference or validatePertinence != "yes" %}
+                        {% if data.keywords[indexObject].preference or validatePertinence != "yes" or unlockIDEFIX == true %}
 
-                        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or validatePertinence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref {% if data.keywords[indexObject].preference and validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].preference %}Préférence : {{data.keywords[indexObject].preference}}{% else %}Un mot TermITH est préféré{% endif %}">
+                        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or validatePertinence != 'yes' or unlockIDEFIX == true %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref {% if data.keywords[indexObject].preference and validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].preference %}Préférence : {{data.keywords[indexObject].preference}}{% else %}Un mot TermITH est préféré{% endif %}">
 
                             <input type="hidden" name="key" value="keywords.{{ indexObject }}.preference"/> <!-- Key Name -->
 
-                            <select {% if validatePertinence == 'yes' %}disabled="disabled"{% endif %} id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList {% if validatePertinence == 'yes' %}blockForms{% endif %}" name="val" >
+                            <select {% if validatePertinence == 'yes' and unlockIDEFIX == false %}disabled="disabled"{% endif %} id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList {% if validatePertinence == 'yes' and unlockIDEFIX == false %}blockForms{% endif %}" name="val" >
 
                             <option value="<preference>" class="baseOption">
                                 Pref:
@@ -438,9 +438,9 @@
                         </form>
                         {% endif %}
 
-                        {% if data.keywords[indexObject].comment or validatePertinence != "yes" %}
+                        {% if data.keywords[indexObject].comment or validatePertinence != "yes" or unlockIDEFIX == true %}
 
-                        <div class="{% if validatePertinence == 'yes' %}blockForms divCommentsBlocked {% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
+                        <div class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}blockForms divCommentsBlocked {% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
                             <span class="etcSpanComment">...</span>
 
                             <div class="divFormComments">
@@ -485,7 +485,7 @@
 
 
 {% if showSilence == true %}
-<div id="inistKeywordsButton" {% if validatePertinence == "yes" %}style="display : block"{% else %}style="display: none"{% endif %}>
+<div id="inistKeywordsButton" {% if validatePertinence == "yes" or unlockIDEFIX == true %}style="display : block"{% else %}style="display: none"{% endif %}>
 <span>Afficher INIST</span>  <!-- Button to call Inist Keywords -->
 </div>
 <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="silencesBlockInfos" style="display: none"></span>

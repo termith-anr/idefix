@@ -1,1 +1,308 @@
-{% extends "layout.html" %} {% block head %} <title>{{data.fields.title}}</title> <link rel="stylesheet" type="text/css" href="/assets/vendor/css/tooltipster.css"> <link rel="stylesheet" type="text/css" href="/assets/vendor/css/themes/tooltipster-light.css"> <link rel="stylesheet" type="text/css" href="/assets/created/css/full-article.css"> {% endblock %} {% block content %} <body id="bodyBrowse"> {% set numberOfMethods = data.pertinenceMethods.length %} {% set currentMethod = 0 %} {% set showArticle = config.showArticle %} {% set showSilence = config.showSilence %} {% set validatePertinence = data.fields.validatePertinence %} {% set validateSilence = data.fields.validateSilence %} {% set showSilence = config.showSilence %} {% set countAllKeywords = config.countAllKeywords %} {% set beforeSilence = "" %} {% if ( config.negativeSilence == true ) %} {% set beforeSilence = "-" %} {% endif %} {% if ( config.magicScore == true ) %} {% set magicScore = true %} {% else %} {% set magicScore = false %} {% endif %} {% if showArticle == true %} <div id="buttonFullArticle" class="" title="Afficher l'article complet"> <span class="glyphicon glyphicon-align-center" id="spanFullArticle"></span> <span id="closeFullArticle" class="glyphicon glyphicon-remove"></span> <div id="fullArticleSection"> <div class="col-lg-2"></div> <div id="fullArticleContent" class="contentTei"></div> </div> </div> {% endif %} <div id="documentInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/3-ouvertureDoc.png"> <span class="infosQuit glyphicon glyphicon-remove"></span> </div> <div id="methodsInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/5-mcEvaluerPertinence.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-evalMotInist.png"> <span class="infosQuit glyphicon glyphicon-remove"></span> </div> <div id="pertinenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/7-notePertinence.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/8-preference.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/9-commentaire.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/10-validerCommentaire.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/11-rechercheMot.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/13-rappelCommentaireScore.png"> <span class="infosQuit glyphicon glyphicon-remove"></span> </div> <div id="preferenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-mcEvaluersilence.png"> <span class="infosQuit glyphicon glyphicon-remove"></span> </div> <div id="silenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/6-preference.png"> <span class="infosQuit glyphicon glyphicon-remove"></span> </div> <div id="commentaireInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/8-validerCommentaire.png"> <span class="infosQuit glyphicon glyphicon-remove"></span> </div> <div id="progressionInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/12-barreProgession.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png"> <span class="infosQuit glyphicon glyphicon-remove"></span> </div> <div id="silencesBlockInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-afficheMotInist.png"> <span class="infosQuit glyphicon glyphicon-remove"></span> </div> <div id="silenceKwInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/12-evalMotInist.png"> <span class="infosQuit glyphicon glyphicon-remove"></span> </div> <span class="glyphicon glyphicon-arrow-down arrowScroll arrowScrollTop colored" title="Descendre tous les blocks"></span> <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="documentInfos" style="display: none"></span> <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="methodsInfos" style="display: none"></span> <span title="Montrer les informations" class="glyphicon glyphicon-info-sign showInformations"></span> <div id="contentDisplay" class="col-lg-11 col-md-11"> <aside id="leftSection" class="col-lg-2 col-md-3"> <header id="headerInfoDisplayDocs"> <div class="divTopDisplay colored"> <div id="divNavMiddle" class="col-lg-12 col-md-12 col-sm-12"> <p> <a href="/index.html" title="Retour à la liste de documents">Liste</a> </p> </div> </div> <div id="timer" class="colored"> </div> {% if validateSilence != 'yes' %} <span class="glyphicon glyphicon-play isRunning colored" id="startOrStop"></span> {% endif %} <div class="displayDiscipline" title="Discipline"> <div class="disciplineInfoDisplay colored"> <span>{{ config.domain|d('non renseigné !') }}</span> </div> </div> <div id="listOrGrid"> <span id="grid" class="glyphicon glyphicon-th gridOrListButton" style="opacity : 1" title="Mots en grille"></span> <span id="list" class="glyphicon glyphicon-list active gridOrListButton" title="Mots en liste"></span> </div> <span title="informations" class="glyphicon glyphicon-info-sign informations " data-id="progressionInfos" style="display: none"></span> <div data-id="{{ data.wid }}" id="pertinenceBar" title="Progression des pertinences" class="progress {% if validatePertinence  == 'yes' %}isValidated{% endif %}"> </div> <div id="silenceBar" data-id="{{ data.wid }}" title="Progression des silences" class="progress {% if validateSilence  == 'yes' %}isValidated show{% elif validatePertinence == 'yes' %}show{% else %}hidden{% endif %}"></div> <div class="displayMethodBu"> <div class="methodsNameDisplayD"> {% for buttons in range(0,numberOfMethods) %} <div id="methodButton-{{ loop.index0 }}" class="methodLinkround colored"> <span>Méthode {{ loop.index }}</span> </div> {% endfor %} </div> </div> </header> <section id="sectionArticle"> <span class="glyphicon glyphicon-align-left resumeGliph colored" id="backAbsctract" title="Agrandir le résumé"></span> <article id="articleSectionResumeDisplay" style=""> <p> {{ data.fields.abstract|d('Pas de resume') }} </p> </article> </section> </aside> <section id="keywordsSection" class="col-lg-10 col-md-9"> <div class="divHoverH1Display colored col-lg-12 col-md-12"> <div id="h1Block"> <h1 id="h1DisplayDocs"> {{ data.fields.title|d('Pas de titre') }} </h1> </div> <div id="arroundedBlock"> </div> </div> <div class="divOnResume"> <p id="abstractFullLenght" lang="fr"> {{ data.fields.abstract|d('Pas de resume') }} </p> </div> <div id="keywordsDisplayDiv" class="col-lg-12 col-md-12 col-sm-12"> {% if ( showSilence == true ) %} <div id="keywordsInist"> <h2> <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="silenceInfos" style="display: none"></span> INIST {% if (magicScore == true) and (validateSilence != 'yes') %}<span class="glyphicon glyphicon-edit magicButton" data-type="silence"></span>{% endif %}</h2> {% for currentMethod in data.pertinenceMethods %} {% set indexMethod = loop.index0 %} {% set indexFromMethod = 0 %} {% for currentObject in data.keywords %} {% set indexObject = loop.index0 %} {% if currentObject.type == "silence" and currentObject.method == currentMethod %} {% set indexFromMethod = indexFromMethod+1 %} <div data-id="{{data.keywords[indexObject]['xml#id']}}" data-nb="{{ indexMethod }}" class="btn btn-default inistForMethod-{{ indexMethod }} {% if ((data.keywords[indexObject].score) or (data.keywords[indexObject].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay colored {% endif %}"> <span class="idOfWord">{% if ( countAllKeywords == true ) %} {{ indexObject+1 }} {% else %} {{ indexFromMethod }} {% endif %} - </span> <span class="keywordsText">{{ currentObject.word|d('Pas de mots clés') }}</span> <span class="fa fa-search searchKeywords" title="Rechercher ce mot-clé"></span> <form class="formNotedKeyword" id="silenceScore-{{ indexMethod }}-{{ indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post"> <input class="inistKey" type="hidden" name="key" value="keywords.{{ indexObject }}.score"/> {% if data.keywords[indexObject].score == '2' %} <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Ne manque pas">0</label> <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label> <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelBlock{% endif %}" title="Manque absolument">{{beforeSilence}}2</label> {% elif data.keywords[indexObject].score == '1' %} <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Ne manque pas">0</label> <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelBlock{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label> <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label> {% elif data.keywords[indexObject].score == '0' %} <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0" checked><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelBlock{% endif %}" title="Ne manque pas">0</label> <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label> <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label> {% else %} <input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Ne manque pas">0</label> <input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label> <input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label> {% endif %} <input type="hidden" name="type" value="silence"/> <ins class="loading"></ins> </form> <div style="display: flex; justify-content: space-around;"> {% if data.keywords[indexObject].correspondance or validateSilence != "yes" %} <form class="formNotedKeyword {% if data.keywords[indexObject].comment or validateSilence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsCorresp {% if data.keywords[indexObject].correspondance and validateSilence == 'yes' %}prefInfobulle{% endif %}" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].correspondance and validateSilence == 'yes' %}Correspondant : {{data.keywords[indexObject].correspondance}}{% else %}Un mot TermITH correspond mieux{% endif %}"> <input type="hidden" name="key" value="keywords.{{ indexObject }}.correspondance"/> <select id="method-{{ indexMethod }}-corresp-list-{{ indexObject }}" {% if validateSilence=='yes' %}disabled="disabled"{% endif %} class="formNotedKeywordList {% if validateSilence == 'yes' %}blockForms{% endif %}" name="val"> <option value="<corresp>" class="baseOption"> Corresp: </option> {% for currentObjectForCorresp in data.keywords %} {% set indexObjectForCorresp = loop.index0 %} {% if currentObjectForCorresp.type == "pertinence" and currentObjectForCorresp.method == currentMethod %} <option data-id="{{ currentObjectForCorresp['xml#id'] }}" value="{{ currentObjectForCorresp.word }}" {% if data.keywords[indexObject].correspondance==data.keywords[indexObjectForCorresp].word %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}> {{ currentObjectForCorresp.word }} </option> {% endif %} {% endfor %} <option value="deletemenow" class="deletePrefCorresp"> /!\SUPPRIMER/!\ </option> </select> <input type="hidden" name="type" value="silence"/> </form> {% endif %} {% if data.keywords[indexObject].comment or validateSilence != "yes" %} <div class="{% if validateSilence == 'yes' %}blockForms divCommentsBlocked{% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}> <span class="etcSpanComment">...</span> <div class="divFormComments"> <div class="leaveOrSaveComment"> <span class="quitSpanComment" title="Quitter sans sauvegarder"> <span class="glyphicon glyphicon-remove"></span> </span> <span class="saveSpanComment" title="Sauvegarder le commentaire"> <span class="glyphicon glyphicon-ok"></span> </span> </div> <form data-id="{{ data.wid }}" action="/save/{{ data.wid }}" style="padding:0; margin: 0"> <input type="hidden" name="key" value="keywords.{{ indexObject }}.comment"/> <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords[indexObject].comment }}"/> <span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span> </form> </div> </div> {% endif %} </div> </div> {% endif %} {% endfor %} {% endfor %} </div> {% endif %} {% for currentMethod in data.pertinenceMethods %} {% set indexMethod = loop.index0 %} {% set indexFromMethod = 0 %} <div id="method{{ indexMethod }}ListOfKeywords" class="methodsKeywords"> <h2> <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="pertinenceInfos" style="display: none"></span> Méthode {{ indexMethod+1 }} {% if (magicScore == true) and (validatePertinence != 'yes') %}<span class="glyphicon glyphicon-edit magicButton" data-id="{{ indexMethod }}" data-type="method"></span>{% endif %}</h2> {% for currentObject in data.keywords %} {% set indexObject = loop.index0 %} {% if currentObject.type == "pertinence" and currentObject.method == currentMethod %} {% set indexFromMethod = indexFromMethod + 1 %} <div data-id="{{data.keywords[indexObject]['xml#id']}}" data-nb="{{ indexMethod }}" class="btn btn-default {% if ((data.keywords[indexObject].score) or (data.keywords[indexObject].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay colored {% endif %}"> <span class="idOfWord"> {% if ( countAllKeywords == true ) %} {{ indexObject+1 }} {% else %} {{ indexFromMethod }} {% endif %} - </span> <span class="keywordsText">{{ data.keywords[indexObject].word|d('Pas de mots clés') }}</span> <span class="fa fa-search searchKeywords" title="Rechercher ce mot-clé"></span> <form class="formNotedKeyword" id="method-{{ indexMethod }}-{{indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post"> <input type="hidden" name="key" value="keywords.{{ indexObject }}.score"/> {% if data.keywords[indexObject].score == '2' %} <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Non pertinent">0</label> <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label> <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' %}labelBlock{% endif %}" title="Pertinent">2</label> {% elif data.keywords[indexObject].score == '1' %} <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Non pertinent">0</label> <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' %}labelBlock{% endif %}" title="Pertinent mais sous une autre forme">1</label> <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent">2</label> {% elif data.keywords[indexObject].score == '0' %} <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0" checked><label for="input0-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' %}labelBlock{% endif %}" title="Non pertinent">0</label> <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label> <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent">2</label> {% else %} <input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Non pertinent">0</label> <input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label> <input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' %}labelHide{% endif %}" title="Pertinent">2</label> {% endif %} <input type="hidden" name="type" value="pertinence"/> <ins class="loading"></ins> </form> <div style="display: flex; justify-content: space-around;"> {% if data.keywords[indexObject].preference or validatePertinence != "yes" %} <form class="formNotedKeyword {% if data.keywords[indexObject].comment or validatePertinence != 'yes' %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref {% if data.keywords[indexObject].preference and validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].preference %}Préférence : {{data.keywords[indexObject].preference}}{% else %}Un mot TermITH est préféré{% endif %}"> <input type="hidden" name="key" value="keywords.{{ indexObject }}.preference"/> <select {% if validatePertinence=='yes' %}disabled="disabled"{% endif %} id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList {% if validatePertinence == 'yes' %}blockForms{% endif %}" name="val"> <option value="<preference>" class="baseOption"> Pref: </option> {% for currentObjectPref in data.keywords %} {% set indexObjectPref = loop.index0 %} {% if currentObjectPref.type == "pertinence" and currentObjectPref.method == currentMethod %} <option data-id="{{ currentObjectPref['xml#id'] }}" value="{{ currentObjectPref.word }}" {% if data.keywords[indexObjectPref].word==currentObject.preference %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}> {{ currentObjectPref.word }} </option> {% endif %} {% endfor %} <option value="deletemenow" class="deletePrefCorresp"> /!\SUPPRIMER/!\ </option> </select> <input type="hidden" name="type" value="pertinence"/> </form> {% endif %} {% if data.keywords[indexObject].comment or validatePertinence != "yes" %} <div class="{% if validatePertinence == 'yes' %}blockForms divCommentsBlocked {% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}> <span class="etcSpanComment">...</span> <div class="divFormComments"> <div class="leaveOrSaveComment"> <span class="quitSpanComment" title="Quitter sans sauvegarder"> <span class="glyphicon glyphicon-remove"></span> </span> <span class="saveSpanComment" title="Sauvegarder le commentaire"> <span class="glyphicon glyphicon-ok"></span> </span> </div> <form data-id="{{ data.wid }}" action="/save/{{ data.wid }}" style="padding:0; margin: 0"> <input type="hidden" name="key" value="keywords.{{ indexObject }}.comment"/> <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords[indexObject].comment }}"/> <span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span> </form> </div> </div> {% endif %} </div> </div> {% endif %} {% endfor %} </div> {% endfor %} </div> </section> </div> <span class="glyphicon glyphicon-arrow-down arrowScroll arrowScrollBottom colored" title="Descendre tous les blocks"></span> {% if showSilence == true %} <div id="inistKeywordsButton" {% if validatePertinence=="yes" %}style="display : block"{% else %}style="display: none"{% endif %}> <span>Afficher INIST</span> </div> <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="silencesBlockInfos" style="display: none"></span> {% endif %} {% endblock %} {% block scripts %} <script src="/assets/vendor/js/jquery.runner.js" type="text/javascript"></script> <script src="/assets/vendor/js/jquery.fs.scroller.min.js"></script> <script src="/assets/vendor/js/bootstrap3-typeahead.min.js"></script> <script src="/assets/vendor/js/jquery.highlight.js"></script> <script src="/assets/vendor/js/jquery.tooltipster.min.js"></script> <script src="/assets/created/js/display.min.js"></script> {% endblock %}
+{% extends "layout.html" %}
+{% block head %}
+<title>{{data.fields.title}}</title>
+<link rel="stylesheet" type="text/css" href="/assets/vendor/css/tooltipster.css">
+<link rel="stylesheet" type="text/css" href="/assets/vendor/css/themes/tooltipster-light.css">
+<link rel="stylesheet" type="text/css" href="/assets/created/css/full-article.css">
+{% endblock %}
+{% block content %}
+<body id="bodyBrowse">
+{% set unlockIDEFIX = config.unlockIDEFIX %}
+{% set numberOfMethods = data.pertinenceMethods.length %}
+{% set currentMethod = 0 %}
+{% set showArticle = config.showArticle %}
+{% set showSilence = config.showSilence %}
+{% set validatePertinence = data.fields.validatePertinence %}
+{% set validateSilence = data.fields.validateSilence %}
+{% set showSilence = config.showSilence %}
+{% set countAllKeywords = config.countAllKeywords %}
+{% set beforeSilence = "" %}
+{% if ( config.negativeSilence == true ) %}
+{% set beforeSilence = "-" %}
+{% endif %}
+{% if ( config.magicScore == true ) %}
+{% set magicScore = true %}
+{% else %}
+{% set magicScore = false %}
+{% endif %}
+{% if showArticle == true %}
+<div id="buttonFullArticle" class="" title="Afficher l'article complet">
+<span class="glyphicon glyphicon-align-center" id="spanFullArticle"></span>
+<span id="closeFullArticle" class="glyphicon glyphicon-remove"></span>
+<div id="fullArticleSection">
+<div class="col-lg-2"></div>
+<div id="fullArticleContent" class="contentTei"></div>
+</div>
+</div>
+{% endif %}
+<div id="documentInfos" class="informationsContent" style="display:none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/3-ouvertureDoc.png">
+<span class="infosQuit glyphicon glyphicon-remove"></span>
+</div>
+<div id="methodsInfos" class="informationsContent" style="display:none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/5-mcEvaluerPertinence.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-evalMotInist.png">
+<span class="infosQuit glyphicon glyphicon-remove"></span>
+</div>
+<div id="pertinenceInfos" class="informationsContent" style="display:none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/7-notePertinence.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/8-preference.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/9-commentaire.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/10-validerCommentaire.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/11-rechercheMot.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/13-rappelCommentaireScore.png">
+<span class="infosQuit glyphicon glyphicon-remove"></span>
+</div>
+<div id="preferenceInfos" class="informationsContent" style="display:none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-mcEvaluersilence.png">
+<span class="infosQuit glyphicon glyphicon-remove"></span>
+</div>
+<div id="silenceInfos" class="informationsContent" style="display:none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/6-preference.png">
+<span class="infosQuit glyphicon glyphicon-remove"></span>
+</div>
+<div id="commentaireInfos" class="informationsContent" style="display:none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/8-validerCommentaire.png">
+<span class="infosQuit glyphicon glyphicon-remove"></span>
+</div>
+<div id="progressionInfos" class="informationsContent" style="display:none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/12-barreProgession.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png">
+<span class="infosQuit glyphicon glyphicon-remove"></span>
+</div>
+<div id="silencesBlockInfos" class="informationsContent" style="display:none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-afficheMotInist.png">
+<span class="infosQuit glyphicon glyphicon-remove"></span>
+</div>
+<div id="silenceKwInfos" class="informationsContent" style="display:none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/12-evalMotInist.png">
+<span class="infosQuit glyphicon glyphicon-remove"></span>
+</div>
+<span class="glyphicon glyphicon-arrow-down arrowScroll arrowScrollTop colored" title="Descendre tous les blocks"></span>
+<span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="documentInfos" style="display:none"></span>
+<span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="methodsInfos" style="display:none"></span>
+<span title="Montrer les informations" class="glyphicon glyphicon-info-sign showInformations"></span>
+<div id="contentDisplay" class="col-lg-11 col-md-11">
+<aside id="leftSection" class="col-lg-2 col-md-3">
+<header id="headerInfoDisplayDocs">
+<div class="divTopDisplay colored">
+<div id="divNavMiddle" class="col-lg-12 col-md-12 col-sm-12">
+<p>
+<a href="/index.html" title="Retour à la liste de documents">Liste</a>
+</p>
+</div>
+</div>
+<div id="timer" class="colored">
+</div>
+{% if validateSilence != 'yes' %}
+<span class="glyphicon glyphicon-play isRunning colored" id="startOrStop"></span>
+{% endif %}
+<div class="displayDiscipline" title="Discipline">
+<div class="disciplineInfoDisplay colored">
+<span>{{ config.domain|d('non renseigné !') }}</span>
+</div>
+</div>
+<div id="listOrGrid">
+<span id="grid" class="glyphicon glyphicon-th gridOrListButton" style="opacity:1" title="Mots en grille"></span>
+<span id="list" class="glyphicon glyphicon-list active gridOrListButton" title="Mots en liste"></span>
+</div>
+<span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="progressionInfos" style="display:none"></span>
+<div data-id="{{ data.wid }}" id="pertinenceBar" title="Progression des pertinences" class="progress {% if validatePertinence == 'yes' %}isValidated{% endif %}">
+</div>
+<div id="silenceBar" data-id="{{ data.wid }}" title="Progression des silences" class="progress {% if validateSilence == 'yes' %}isValidated show{% elif validatePertinence == 'yes' %}show{% else %}hidden{% endif %}"></div>
+<div class="displayMethodBu">
+<div class="methodsNameDisplayD">
+{% for buttons in range(0,numberOfMethods) %}
+<div id="methodButton-{{ loop.index0 }}" class="methodLinkround colored">
+<span>Méthode {{ loop.index }}</span>
+</div>
+{% endfor %}
+</div>
+</div>
+</header>
+<section id="sectionArticle">
+<span class="glyphicon glyphicon-align-left resumeGliph colored" id="backAbsctract" title="Agrandir le résumé"></span>
+<article id="articleSectionResumeDisplay" style="">
+<p>
+{{ data.fields.abstract|d('Pas de resume') }}
+</p>
+</article>
+</section>
+</aside>
+<section id="keywordsSection" class="col-lg-10 col-md-9">
+<div class="divHoverH1Display colored col-lg-12 col-md-12">
+<div id="h1Block">
+<h1 id="h1DisplayDocs">
+{{ data.fields.title|d('Pas de titre') }}
+</h1>
+</div>
+<div id="arroundedBlock">
+</div>
+</div>
+<div class="divOnResume">
+<p id="abstractFullLenght" lang="fr">
+{{ data.fields.abstract|d('Pas de resume') }}
+</p>
+</div>
+<div id="keywordsDisplayDiv" class="col-lg-12 col-md-12 col-sm-12">
+{% if ( showSilence == true ) %}
+<div id="keywordsInist">
+<h2> <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="silenceInfos" style="display:none"></span> INIST {% if (magicScore == true) and (validateSilence != 'yes') %}<span class="glyphicon glyphicon-edit magicButton" data-type="silence"></span>{% endif %}</h2>
+{% for currentMethod in data.pertinenceMethods %}
+{% set indexMethod = loop.index0 %}
+{% set indexFromMethod = 0 %}
+{% for currentObject in data.keywords %}
+{% set indexObject = loop.index0 %}
+{% if currentObject.type == "silence" and currentObject.method == currentMethod %}
+{% set indexFromMethod = indexFromMethod+1 %}
+<div data-id="{{data.keywords[indexObject]['xml#id']}}" data-nb="{{ indexMethod }}" class="btn btn-default inistForMethod-{{ indexMethod }} {% if ((data.keywords[indexObject].score) or (data.keywords[indexObject].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay colored {% endif %}">
+<span class="idOfWord">{% if ( countAllKeywords == true ) %} {{ indexObject+1 }} {% else %} {{ indexFromMethod }} {% endif %} - </span> <span class="keywordsText">{{ currentObject.word|d('Pas de mots clés') }}</span> <span class="fa fa-search searchKeywords" title="Rechercher ce mot-clé"></span>
+<form class="formNotedKeyword" id="silenceScore-{{ indexMethod }}-{{ indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
+<input class="inistKey" type="hidden" name="key" value="keywords.{{ indexObject }}.score"/>
+{% if data.keywords[indexObject].score == '2' %}
+<input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Ne manque pas">0</label>
+<input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
+<input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelBlock{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
+{% elif data.keywords[indexObject].score == '1' %}
+<input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Ne manque pas">0</label>
+<input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelBlock{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
+<input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
+{% elif data.keywords[indexObject].score == '0' %}
+<input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0" checked><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelBlock{% endif %}" title="Ne manque pas">0</label>
+<input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
+<input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
+{% else %}
+<input id="input0-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Ne manque pas">0</label>
+<input id="input1-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' %}labelHide{% endif %}" title="Manque/ +ou-">{{beforeSilence}}1</label>
+<input id="input2-silence-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-silence-{{ indexMethod }}.{{ indexObject }}" class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Manque absolument">{{beforeSilence}}2</label>
+{% endif %}
+<input type="hidden" name="type" value="silence"/>
+<ins class="loading"></ins>
+</form>
+<div style="display:flex;justify-content:space-around">
+{% if data.keywords[indexObject].correspondance or validateSilence != "yes" or unlockIDEFIX == true %}
+<form class="formNotedKeyword {% if data.keywords[indexObject].correspondance or validateSilence != 'yes' or unlockIDEFIX == true %}formNotedKeywordsPreference{% endif %} formNotedKeywordsCorresp {% if data.keywords[indexObject].correspondance and validateSilence == 'yes' and unlockIDEFIX == false %}prefInfobulle{% endif %}" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].correspondance and validateSilence == 'yes' and unlockIDEFIX == false %}Correspondant : {{data.keywords[indexObject].correspondance}}{% else %}Un mot TermITH correspond mieux{% endif %}">
+<input type="hidden" name="key" value="keywords.{{ indexObject }}.correspondance"/>
+<select id="method-{{ indexMethod }}-corresp-list-{{ indexObject }}" {% if validateSilence=='yes' and unlockIDEFIX==false %}disabled="disabled"{% endif %} class="formNotedKeywordList {% if validateSilence == 'yes' and unlockIDEFIX == false %}blockForms{% endif %}" name="val">
+<option value="<corresp>" class="baseOption">
+Corresp:
+</option>
+{% for currentObjectForCorresp in data.keywords %}
+{% set indexObjectForCorresp = loop.index0 %}
+{% if currentObjectForCorresp.type == "pertinence" and currentObjectForCorresp.method == currentMethod %}
+<option data-id="{{ currentObjectForCorresp['xml#id'] }}" value="{{ currentObjectForCorresp.word }}" {% if data.keywords[indexObject].correspondance==data.keywords[indexObjectForCorresp].word %} selected="selected" style="background:#ff847c;color:#fff"{% endif %}>
+{{ currentObjectForCorresp.word }}
+</option>
+{% endif %}
+{% endfor %}
+<option value="deletemenow" class="deletePrefCorresp">
+/!\SUPPRIMER/!\
+</option>
+</select>
+<input type="hidden" name="type" value="silence"/>
+</form>
+{% endif %}
+{% if data.keywords[indexObject].comment or validateSilence != "yes" or unlockIDEFIX == true %}
+<div class="{% if validateSilence == 'yes' and unlockIDEFIX == false %}blockForms divCommentsBlocked{% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
+<span class="etcSpanComment">...</span>
+<div class="divFormComments">
+<div class="leaveOrSaveComment">
+<span class="quitSpanComment" title="Quitter sans sauvegarder"> <span class="glyphicon glyphicon-remove"></span> </span>
+<span class="saveSpanComment" title="Sauvegarder le commentaire"> <span class="glyphicon glyphicon-ok"></span> </span>
+</div>
+<form data-id="{{ data.wid }}" action="/save/{{ data.wid }}" style="padding:0;margin:0">
+<input type="hidden" name="key" value="keywords.{{ indexObject }}.comment"/>
+<input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords[indexObject].comment }}"/>
+<span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span>
+</form>
+</div>
+</div>
+{% endif %}
+</div>
+</div>
+{% endif %}
+{% endfor %}
+{% endfor %}
+</div>
+{% endif %}
+{% for currentMethod in data.pertinenceMethods %}
+{% set indexMethod = loop.index0 %}
+{% set indexFromMethod = 0 %}
+<div id="method{{ indexMethod }}ListOfKeywords" class="methodsKeywords">
+<h2> <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="pertinenceInfos" style="display:none"></span> Méthode {{ indexMethod+1 }} {% if (magicScore == true) and (validatePertinence != 'yes') %}<span class="glyphicon glyphicon-edit magicButton" data-id="{{ indexMethod }}" data-type="method"></span>{% endif %}</h2>
+{% for currentObject in data.keywords %}
+{% set indexObject = loop.index0 %}
+{% if currentObject.type == "pertinence" and currentObject.method == currentMethod %}
+{% set indexFromMethod = indexFromMethod + 1 %}
+<div data-id="{{data.keywords[indexObject]['xml#id']}}" data-nb="{{ indexMethod }}" class="btn btn-default {% if ((data.keywords[indexObject].score) or (data.keywords[indexObject].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay colored {% endif %}">
+<span class="idOfWord"> {% if ( countAllKeywords == true ) %} {{ indexObject+1 }} {% else %} {{ indexFromMethod }} {% endif %} - </span> <span class="keywordsText">{{ data.keywords[indexObject].word|d('Pas de mots clés') }}</span> <span class="fa fa-search searchKeywords" title="Rechercher ce mot-clé"></span>
+<form class="formNotedKeyword" id="method-{{ indexMethod }}-{{indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
+<input type="hidden" name="key" value="keywords.{{ indexObject }}.score"/>
+{% if data.keywords[indexObject].score == '2' %}
+<input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Non pertinent">0</label>
+<input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label>
+<input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2" checked><label for="input2-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelBlock{% endif %}" title="Pertinent">2</label>
+{% elif data.keywords[indexObject].score == '1' %}
+<input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Non pertinent">0</label>
+<input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1" checked><label for="input1-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelBlock{% endif %}" title="Pertinent mais sous une autre forme">1</label>
+<input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Pertinent">2</label>
+{% elif data.keywords[indexObject].score == '0' %}
+<input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0" checked><label for="input0-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelBlock{% endif %}" title="Non pertinent">0</label>
+<input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label>
+<input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Pertinent">2</label>
+{% else %}
+<input id="input0-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="0"><label for="input0-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Non pertinent">0</label>
+<input id="input1-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="1"><label for="input1-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Pertinent mais sous une autre forme">1</label>
+<input id="input2-{{ indexMethod }}.{{ indexObject }}" name="val" type="radio" value="2"><label for="input2-{{ indexMethod }}.{{ indexObject }}" class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}labelHide{% endif %}" title="Pertinent">2</label>
+{% endif %}
+<input type="hidden" name="type" value="pertinence"/>
+<ins class="loading"></ins>
+</form>
+<div style="display:flex;justify-content:space-around">
+{% if data.keywords[indexObject].preference or validatePertinence != "yes" or unlockIDEFIX == true %}
+<form class="formNotedKeyword {% if data.keywords[indexObject].comment or validatePertinence != 'yes' or unlockIDEFIX == true %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref {% if data.keywords[indexObject].preference and validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].preference %}Préférence : {{data.keywords[indexObject].preference}}{% else %}Un mot TermITH est préféré{% endif %}">
+<input type="hidden" name="key" value="keywords.{{ indexObject }}.preference"/>
+<select {% if validatePertinence=='yes' and unlockIDEFIX==false %}disabled="disabled"{% endif %} id="method-{{ indexMethod }}-preference-list-{{ indexObject }}" class="formNotedKeywordList {% if validatePertinence == 'yes' and unlockIDEFIX == false %}blockForms{% endif %}" name="val">
+<option value="<preference>" class="baseOption">
+Pref:
+</option>
+{% for currentObjectPref in data.keywords %}
+{% set indexObjectPref = loop.index0 %}
+{% if currentObjectPref.type == "pertinence" and currentObjectPref.method == currentMethod %}
+<option data-id="{{ currentObjectPref['xml#id'] }}" value="{{ currentObjectPref.word }}" {% if data.keywords[indexObjectPref].word==currentObject.preference %} selected="selected" style="background:#ff847c;color:#fff"{% endif %}>
+{{ currentObjectPref.word }}
+</option>
+{% endif %}
+{% endfor %}
+<option value="deletemenow" class="deletePrefCorresp">
+/!\SUPPRIMER/!\
+</option>
+</select>
+<input type="hidden" name="type" value="pertinence"/>
+</form>
+{% endif %}
+{% if data.keywords[indexObject].comment or validatePertinence != "yes" or unlockIDEFIX == true %}
+<div class="{% if validatePertinence == 'yes' and unlockIDEFIX == false %}blockForms divCommentsBlocked {% else %}divComments{% endif %}" {% if data.keywords[indexObject].comment %}title="{{ data.keywords[indexObject].comment }}"{% endif %}>
+<span class="etcSpanComment">...</span>
+<div class="divFormComments">
+<div class="leaveOrSaveComment">
+<span class="quitSpanComment" title="Quitter sans sauvegarder"> <span class="glyphicon glyphicon-remove"></span> </span>
+<span class="saveSpanComment" title="Sauvegarder le commentaire"> <span class="glyphicon glyphicon-ok"></span> </span>
+</div>
+<form data-id="{{ data.wid }}" action="/save/{{ data.wid }}" style="padding:0;margin:0">
+<input type="hidden" name="key" value="keywords.{{ indexObject }}.comment"/>
+<input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords[indexObject].comment }}"/>
+<span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span>
+</form>
+</div>
+</div>
+{% endif %}
+</div>
+</div>
+{% endif %}
+{% endfor %}
+</div>
+{% endfor %}
+</div>
+</section>
+</div>
+<span class="glyphicon glyphicon-arrow-down arrowScroll arrowScrollBottom colored" title="Descendre tous les blocks"></span>
+{% if showSilence == true %}
+<div id="inistKeywordsButton" {% if validatePertinence=="yes" or unlockIDEFIX==true %}style="display : block"{% else %}style="display: none"{% endif %}>
+<span>Afficher INIST</span>
+</div>
+<span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="silencesBlockInfos" style="display:none"></span>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+<script src="/assets/vendor/js/jquery.runner.js" type="text/javascript"></script>
+<script src="/assets/vendor/js/jquery.fs.scroller.min.js"></script>
+<script src="/assets/vendor/js/bootstrap3-typeahead.min.js"></script>
+<script src="/assets/vendor/js/jquery.highlight.js"></script>
+<script src="/assets/vendor/js/jquery.tooltipster.min.js"></script>
+<script src="/assets/created/js/display.min.js"></script>
+{% endblock %}
