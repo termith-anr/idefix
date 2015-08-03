@@ -289,42 +289,7 @@ $(document).ready(function() {
 
     };
 
-    $(".showInformations").on("click" , function(){
-        if($(this).hasClass("currentlyShowingInfos")){
-            $(".informations").hide();
-            $(this).removeClass("currentlyShowingInfos");
-        }
-        else {
-            $(".informations").show();
-            $(this).addClass("currentlyShowingInfos");
-        }
-    });
-
-    $('.informations').on('click' , function() {
-        var id = $(this).attr("data-id")
-        $(".informations").css('z-index', '0');
-        $("#contentDisplay").css("display", "none");
-        if (!$("#" + id + " .imgInfos").length){
-            var imgs = $("#" + id).attr('data-src').split("/;/");
-            for(var i = 0 ; i < imgs.length ; i++){
-                $("#" + id).prepend("<img src='" + imgs[i] + "' class='imgInfos' style='order : " + i + "'/>").delay(650).css("display", "flex");
-            }
-        }
-        else{
-            $("#" + id).css("display", "flex")
-        }
-        $('body').css('overflow' , 'hidden');
-    });
-
-
-    $('.infosQuit').on('click', function(){
-        $('body').css('overflow' , '');
-        $("#contentDisplay").css("display" ,"");
-        $('.informationsContent').hide();
-        $(".informations").css('z-index' ,'');
-    });
-
-    var saveTime = function(element,type){
+        var saveTime = function(element,type){
 
         //If it's running (play)
         if($(element).hasClass('isRunning')){
@@ -385,6 +350,41 @@ $(document).ready(function() {
         }
 
     };
+
+    $(".showInformations").on("click" , function(){
+        if($(this).hasClass("currentlyShowingInfos")){
+            $(".informations").hide();
+            $(this).removeClass("currentlyShowingInfos");
+        }
+        else {
+            $(".informations").show();
+            $(this).addClass("currentlyShowingInfos");
+        }
+    });
+
+    $('.informations').on('click' , function() {
+        var id = $(this).attr("data-id")
+        $(".informations").css('z-index', '0');
+        $("#contentDisplay").css("display", "none");
+        if (!$("#" + id + " .imgInfos").length){
+            var imgs = $("#" + id).attr('data-src').split("/;/");
+            for(var i = 0 ; i < imgs.length ; i++){
+                $("#" + id).prepend("<img src='" + imgs[i] + "' class='imgInfos' style='order : " + i + "'/>").delay(650).css("display", "flex");
+            }
+        }
+        else{
+            $("#" + id).css("display", "flex")
+        }
+        $('body').css('overflow' , 'hidden');
+    });
+
+
+    $('.infosQuit').on('click', function(){
+        $('body').css('overflow' , '');
+        $("#contentDisplay").css("display" ,"");
+        $('.informationsContent').hide();
+        $(".informations").css('z-index' ,'');
+    });
 
 
     //Get mongo data
@@ -530,13 +530,6 @@ $(document).ready(function() {
 
         });
 
-        if(data.data.fields.validatePertinence === "yes" || data.data.fields.validateSilence === "yes"){
-            $('.divCommentsBlocked').each(function () {
-                if($(".inputComment", this)[0].value){
-                    $(this).attr("title", $(".inputComment", this)[0].value);
-                }
-            });
-        }
         if(data.data.fields.validatePertinence === "no") {
 
             var startPageRatio = 0;
@@ -597,6 +590,12 @@ $(document).ready(function() {
         }
 
         else if (data.data.fields.validatePertinence === "yes") {
+
+            $('.divCommentsBlocked').each(function () {
+                if($(".inputComment", this)[0].value){
+                    $(this).attr("title", $(".inputComment", this)[0].value);
+                }
+            });
 
             pertinenceBar.progressbar({ max: 1, value: 1 });
 
@@ -662,8 +661,9 @@ $(document).ready(function() {
             }
         }
 
+        console.log("unlockeck ? : ", config.unlockIDEFIX);
         // If silence are not validated
-        if(data.data.fields.validateSilence === "no"){
+        if(data.data.fields.validateSilence === "no" || config.unlockIDEFIX){
             //Get config infos & call functions
             typeAHead(config.comments);
             $('.methodLinkround').tooltipster({
