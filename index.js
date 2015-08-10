@@ -24,7 +24,14 @@ module.exports = {
         {
             "script" : "autoScore.js",
             "pattern" : "**/*.xml"
-        }
+        },
+        {
+            "script" : "castor-load-backup",
+            "pattern" : "**/*.xml",
+            "options" : {
+                "toKeep" : ["fields" , "keywords" , "progressNotedKeywords" , "progressSilenceKeywords" , "pertinenceMethods" , "timeJob" , "validatePertinence","validateSilence"]
+            }
+        },
     ],
     "documentFields" : {
         "$text": {

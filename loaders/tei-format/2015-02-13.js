@@ -6,11 +6,7 @@
 // Required modules
 var objectPath = require('object-path'),
     sha1 = require('sha1'),
-    pmongo = require("promised-mongo"),
     jsonselect = require('JSONSelect');
-
-var db  = pmongo(options.connexionURI);
-
 
 
 'use strict';
