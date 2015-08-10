@@ -14,13 +14,6 @@ module.exports = {
             "pattern" : "**/*.xml"
         },
         {
-            "script" : "castor-load-backup",
-            "pattern" : "**/*.xml",
-            "options" : {
-                "toKeep" : ["fields" , "keywords" , "progressNotedKeywords" , "progressSilenceKeywords" , "pertinenceMethods" , "timeJob" , "validatePertinence","validateSilence"]
-            }
-        },
-        {
             "script" : "tei-format/2014-11-01.js",
             "pattern" : "**/*.xml"
         },

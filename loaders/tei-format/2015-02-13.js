@@ -6,7 +6,11 @@
 // Required modules
 var objectPath = require('object-path'),
     sha1 = require('sha1'),
+    pmongo = require("promised-mongo"),
     jsonselect = require('JSONSelect');
+
+var db  = pmongo(options.connexionURI);
+
 
 
 'use strict';
@@ -14,7 +18,6 @@ module.exports = function(options,config) {
     options = options || {};
     config = config.get() || {};
     return function (input, submit) {
-
 
         // Execute this loader only for this format given in json config file
         if(config.teiFormat === "2015-02-13" && (!input.keywords)) {
