@@ -760,7 +760,15 @@ $(document).ready(function() {
             btn = $(this).parents(".btn");
 
         e.stopPropagation();
-        btn.css("border-radius" , "0px");
+        btn.css({
+            borderRadius : "0px",
+            position: "absolute",
+            maxHeight: "none",
+            height: "125px",
+            width: "250px",
+            top: "calc(50% - 62.5px)",
+            left: "calc(50% - 125px)"
+        });
         otherBtn.siblings().addClass('no-transition');
         otherBtn.siblings().css('opacity', '0');
         otherBtn.siblings().css('visibility', 'hidden');
@@ -796,7 +804,8 @@ $(document).ready(function() {
                 data: postData,
                 success: function (e) {
 
-                    var divComments = input.parents(".divComments");
+                    var divComments = input.parents(".divComments"),
+                    divFormComments = $('.divFormComments', divComment);
                     $(".divFormComments", divComments).css("background" , "#27ae60");
                     $(".tooltipster-base").hide();
                     setTimeout(function () {
@@ -805,6 +814,8 @@ $(document).ready(function() {
                         divComments.removeClass('divCommentsOpened');
                         $(".divFormComments" , divComments).hide();
                         $(".etcSpanComment" , divComments).fadeIn();
+
+                        divFormComments.parents(".btn").removeAttr("style");
 
                         var otherBtn = divComments.closest('.btn');
 
@@ -831,7 +842,7 @@ $(document).ready(function() {
             etcSpan.fadeIn();
             var otherBtn = $(this).closest('.btn');
 
-            divFormComments.parents(".btn").css("border-radius" , "");
+            divFormComments.parents(".btn").removeAttr("style");
             otherBtn.siblings().css('transition', '');
             otherBtn.siblings().css('opacity', '');
             otherBtn.siblings().css('visibility', '');
@@ -843,7 +854,7 @@ $(document).ready(function() {
 
     $('.quitSpanComment').on('click', function (e) {
         e.stopPropagation();
-        $(this).parents(".btn").css("border-radius" , "");
+        $(this).parents(".btn").removeAttr("style");
         $(this).hide();
         var parr = $(this).parents('.divComments');
         parr.removeClass('divCommentsOpened');
@@ -879,7 +890,7 @@ $(document).ready(function() {
                     $(".divFormComments", divComments).hide();
                     $(".etcSpanComment", divComments).fadeIn();
                     var otherBtn = divComments.closest('.btn');
-
+                    span.parents(".btn").removeAttr("style");
 
                     otherBtn.siblings().css('opacity', '');
                     otherBtn.siblings().css('visibility', '');
