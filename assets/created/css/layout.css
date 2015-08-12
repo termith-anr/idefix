@@ -1870,7 +1870,7 @@ input[type=radio]:checked + label {
 .leaveOrSaveComment {
     position: absolute;
     font-size: 12px;
-    height: 17px !important;
+    height: 25px !important;
     display: none;
     color: #FFF;
     width: 100%;
@@ -1891,7 +1891,6 @@ input[type=radio]:checked + label {
 }
 
 .trashComment{
-    display: none;
     justify-content: center;
     align-items: center;
     font-weight: bold;
@@ -1899,17 +1898,21 @@ input[type=radio]:checked + label {
     transition: all 650ms ease 0s;
     cursor: pointer;
     width: 50%;
-    height: 17px;
+    height: 25px;
     float: right;
 }
 
 .trashComment span , .cantSaveSpanComment span {
     top: 0 !important;
     position: static !important;
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    font-size: 12px;
 }
 
 .trashComment:hover{
-    background: #27ae60;
+    background: #C0392B;
 }
 
 .saveSpanComment{
@@ -1930,7 +1933,7 @@ input[type=radio]:checked + label {
 }
 
 .saveSpanComment:hover{
-    background: #C0392B;
+    background: #27AE60;
 }
 
 .no-transition{
@@ -1955,7 +1958,7 @@ input[type=radio]:checked + label {
     cursor: pointer;
     float: left;
     width: 50%;
-    height: 17px;
+    height: 25px;
     border-right: 1px solid #666;
 }
 
@@ -1965,7 +1968,7 @@ input[type=radio]:checked + label {
 }
 
 .quitSpanComment:hover{
-    background: #c0392b;
+    background: #5A4538;
 }
 
 
@@ -1983,6 +1986,24 @@ input[type=radio]:checked + label {
 
 .divFormComments form {
     height: calc(100% - 17px) !important;
+}
+
+.wordInComments{
+    font-size: 17px;
+    display: block;
+    width: 100%;
+    color: #FFF;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word;
+    line-height: 1;
+    position: absolute;
+    top: 25px;
+    height: 127px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /*.inputComment{
@@ -2599,5 +2620,5 @@ span.twitter-typeahead {
 }
 
 .scroller-active .scroller-content{
-    width: calc(100% - 13px);
+    width: calc(100% - 5px);
 }

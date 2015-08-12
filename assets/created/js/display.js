@@ -713,7 +713,8 @@ $(document).ready(function() {
     /* --- DELETE A COMMENT --- */
     $('.trashComment').on('click' , function(){
         var span = $(this);
-        var toDelete = $(this).parent('form').children('input[name="key"]').val().toString(),
+        console.log($(this).parents('.divFormComments').children('form').children('input[name="key"]'));
+        var toDelete = $(this).parents('.divFormComments').children('form').children('input[name="key"]').val().toString(),
             arr      = [
                 {
                     name : "key",
@@ -764,10 +765,10 @@ $(document).ready(function() {
             borderRadius : "0px",
             position: "absolute",
             maxHeight: "none",
-            height: "125px",
-            width: "250px",
-            top: "calc(50% - 62.5px)",
-            left: "calc(50% - 125px)"
+            height: "210px",
+            width: "375px",
+            top: "calc(50% - 125px)",
+            left: "calc(50% - 172.5px)"
         });
         otherBtn.siblings().addClass('no-transition');
         otherBtn.siblings().css('opacity', '0');
