@@ -661,7 +661,6 @@ $(document).ready(function() {
             }
         }
 
-        console.log("unlockeck ? : ", config.unlockIDEFIX);
         // If silence are not validated
         if(data.data.fields.validateSilence === "no" || config.unlockIDEFIX){
             //Get config infos & call functions
@@ -713,7 +712,6 @@ $(document).ready(function() {
     /* --- DELETE A COMMENT --- */
     $('.trashComment').on('click' , function(){
         var span = $(this);
-        console.log($(this).parents('.divFormComments').children('form').children('input[name="key"]'));
         var toDelete = $(this).parents('.divFormComments').children('form').children('input[name="key"]').val().toString(),
             arr      = [
                 {
@@ -1593,13 +1591,11 @@ $(document).ready(function() {
 
     var previousScore;
 
-    $(".formNotedKeyword input:not(:checked) + label").on("mouseover", function(e){
+    $(".formNotedKeyword input + label").on("mouseover", function(e){
         e.stopPropagation();
         e.preventDefault();
-        previousScore = parseInt($(this).siblings(":checked + label" ).text());
-        if(!previousScore){
-            previousScore = 0;
-        }
+        var form = $(this).parent();
+        previousScore = parseInt($(":checked + label", form).text());
 
     });
 
@@ -1610,12 +1606,17 @@ $(document).ready(function() {
         var id = $(this).parent().attr('id');
         var serialized = $(this).parent().serializeArray(),
             postData = filter(serialized, "unserialized" ,"type"),
-            formURL = $(this).parent().attr("action"),
+            form = $(this).parent(),
+            formURL = form.attr("action"),
             li = $(this).parent().parent(),
             clickedScore = parseInt($(this).val());
 
-        if($(this).parent().parent().parent().attr("id") === "keywordsInist"){
-            clickedScore = parseInt(-(clickedScore));
+        if((previousScore === 0) && ($(this).parent().parent().parent().attr("id") === "keywordsInist") && (clickedScore == 1 || clickedScore == 2)){
+            $("select" , li).click();
+            $("select" , li).val("deletemenow").change();
+        }
+        else if((previousScore === 1) && ($(this).parent().parent().parent().attr("class") === "methodsKeywords")  && (clickedScore == 0 || clickedScore == 2)){
+            $("select" , li).val("deletemenow").change();
         }
 
 
