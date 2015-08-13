@@ -863,6 +863,23 @@ span .methodsameDisplayD{
     font-size: 17px;
 }
 
+.pertinenceLock{
+    position: sticky; 
+    float: left;
+    font-size: 25px; 
+    color: grey; 
+    left: 15px;
+    top: 15%;
+    cursor: pointer;
+}
+
+.fa-unlock:hover{
+    transform : scale(1.10);
+}
+
+.fa-unlock:hover:before{
+    content: "";
+}
 
 #keywordsSection{
     max-width:95%;

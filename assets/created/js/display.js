@@ -932,6 +932,29 @@ $(document).ready(function() {
 
     /* --- END LIST OR GRID --- */
 
+    /* FIX STICKY KEYWORDS */
+
+    $(".pertinenceLock").on("click" , function(){
+        var button = $(this);
+        button.toggleClass("fa-unlock fa-lock");
+        if(button.hasClass("fa-lock")){
+            button.animate({
+                color: "#CC6A63"
+              }, 800, function() {
+                button.css("color", "");
+            });
+            button.parent().css({
+                position : "sticky",
+                top : 0
+            })
+        }
+        else if (button.hasClass("fa-unlock")){
+            button.parent().css({
+                position : ""
+            });
+        }
+    });
+
     /* --- DISPLAY FULL ARTICLE --- */
 
     var isFullArticleShow = 'no';
