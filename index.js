@@ -31,7 +31,7 @@ module.exports = {
             "options" : {
                 "toKeep" : ["fields" , "keywords" , "progressNotedKeywords" , "progressSilenceKeywords" , "pertinenceMethods" , "timeJob" , "validatePertinence","validateSilence"]
             }
-        },
+        }
     ],
     "documentFields" : {
         "$text": {

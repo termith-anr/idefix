@@ -6,7 +6,8 @@
 // Required modules
 var objectPath = require('object-path'),
     sha1 = require('sha1'),
-    jsonselect = require('JSONSelect');
+    jsonselect = require('JSONSelect'),
+    _ = require('lodash');
 
 
 'use strict';
@@ -22,19 +23,59 @@ module.exports = function(options,config) {
              ****   EXECUTION    ****
              ************************/
 
-                console.log("Mots clés");
-
-            // Create Idefix fields
-            var title = jsonselect.match(".titleStmt .title .xml#lang ~ .#text" , input.content.json) ? jsonselect.match(".titleStmt .title .xml#lang ~ .#text" ,  input.content.json)[0].toString() : null,
-                abstract = jsonselect.match(".profileDesc .abstract .#text" , input.content.json) ? jsonselect.match(".profileDesc .abstract .#text" ,  input.content.json)[0].toString() : null,
+            // Si format === true : premaff sinon TEI brut
+            var titleFormat = (jsonselect.match(".titleStmt .title:has(:root > .w)" , input.content.json).length > 0) ? true : false,
+                abstractFormat =  (jsonselect.match(".profileDesc .abstract .p:has(:root > .w)" , input.content.json).length > 0) ? true : false,
                 validatePertinence = "no",
-                validateSilence = "no";
+                validateSilence = "no",
+                title,
+                abstract;
 
-            if((abstract === null) || (abstract.length <= 50)){
-                abstract = jsonselect.match(".profileDesc .abstract .p > .#text" , input.content.json)[0];
-                if(!abstract){
-                    abstract = "Aucun résumé";
-                }
+
+            if(titleFormat){
+                console.log("Premaff title");
+                var words = jsonselect.match('.titleStmt .title .xml#lang:val("fr") ~ .w' ,  input.content.json)[0],
+                    pc    = jsonselect.match('.titleStmt .title .xml#lang:val("fr") ~ .pc' ,  input.content.json)[0],
+                    list  = words.concat(pc);// Fusion dew mots + ponctuations séparés
+                // Loadash , trie par xml#id + retourne le mot avec espace si besoin  + jointure
+                title = _.chain(list)
+                      .sortBy('xml#id')
+                      .map(function(chr) {
+                        if(chr["wsAfter"]){
+                            return chr["#text"] + " ";
+                        }
+                        return chr["#text"];
+                      })
+                      .value()
+                      .join("");
+                console.log("title: " , title);
+            }
+            else{
+                console.log("TeiBrut");
+                title  = jsonselect.match('.titleStmt .title .xml#lang:val("fr") ~ .#text' ,  input.content.json)[0].toString();
+            }
+
+            if(abstractFormat){
+                console.log("Premaff abs");
+                var words = jsonselect.match('.profileDesc .abstract .xml#lang:val("fr") ~ .p .w' ,  input.content.json)[0],
+                    pc    = jsonselect.match('.profileDesc .abstract .xml#lang:val("fr") ~ .p .pc' ,  input.content.json)[0],
+                    list  = words.concat(pc);// Fusion dew mots + ponctuations séparés
+                // Loadash , trie par xml#id + retourne le mot avec espace si besoin  + jointure
+                abstract = _.chain(list)
+                      .sortBy('xml#id')
+                      .map(function(chr) {
+                        if(chr["wsAfter"]){
+                            return chr["#text"] + " ";
+                        }
+                        return chr["#text"];
+                      })
+                      .value()
+                      .join("");
+                console.log("abstract: " , abstract);
+            }
+            else{
+                console.log("TeiBrut");
+                abstract = jsonselect.match('.profileDesc .abstract .xml#lang:val("fr") ~ .#text' ,  input.content.json)[0].toString();
             }
 
             /*
