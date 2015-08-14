@@ -24,8 +24,8 @@ module.exports = function(options,config) {
              ************************/
 
             // Si format === true : premaff sinon TEI brut
-            var titleFormat = (jsonselect.match(".titleStmt .title:has(:root > .w)" , input.content.json).length > 0) ? true : false,
-                abstractFormat =  (jsonselect.match(".profileDesc .abstract .p:has(:root > .w)" , input.content.json).length > 0) ? true : false,
+            var titleFormat = ((jsonselect.match(".titleStmt .title:has(:root > .w)" , input.content.json).length > 0) || (jsonselect.match(".titleStmt .title :has(:root > .w)" , input.content.json).length > 0)) ? true : false,
+                abstractFormat =  ((jsonselect.match(".profileDesc .abstract .p:has(:root > .w)" , input.content.json).length > 0) || (jsonselect.match(".profileDesc .abstract .p :has(:root > .w)" , input.content.json).length > 0)) ? true : false,
                 validatePertinence = "no",
                 validateSilence = "no",
                 title,
