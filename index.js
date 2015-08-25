@@ -1,9 +1,26 @@
 module.exports = {
-    "routes": {
-        "/exportCSV": "exportCSV.js",
-        "/exportXML": "exportXML.js",
-        "/exportZIP": "exportZIP.js"
-    },
+    "routes": [
+        {
+            "path" : "/exportCSV",
+            "value" : "exportCSV.js",
+            "method" : "get"
+        },
+        {
+            "path" : "/exportXML",
+            "value" : "exportXML.js",
+            "method" : "get"
+        },
+        {
+            "path" : "/exportZIP",
+            "value" : "exportZIP.js",
+            "method" : "get"
+        },
+        {
+            "path" : "/search/:xmlid.:format",
+            "value" : "search.js",
+            "method" : "get"
+        }
+    ],
     "loaders" : [
         {
             "script" : "castor-load-xml",
