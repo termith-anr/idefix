@@ -20,6 +20,14 @@ module.exports = function(options,config) {
     return function (input, submit) {
 
 
+        var autoPertinence = config.hasOwnProperty("autoPertinence") ? config["autoPertinence"] : false,
+            autoSilence = config.hasOwnProperty("autoSilence") ? config["autoSilence"] : false;
+
+        if(!autoPertinence && !autoSilence){
+            return submit(null, input);
+        }
+
+
         /***********************
          ****    FUNCTIONS   ****
          ************************/
@@ -122,9 +130,6 @@ module.exports = function(options,config) {
         if(input.keywords){
             var silences = filter(input.keywords, "type", "silence"),
                 pertinences = filter(input.keywords, "type", "pertinence");
-
-            var autoPertinence = config.hasOwnProperty("autoPertinence") ? config["autoPertinence"] : true,
-                autoSilence = config.hasOwnProperty("autoSilence") ? config["autoSilence"] : true;
 
             if (silences.length > 0 && pertinences.length > 0) {
 

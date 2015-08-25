@@ -1,6 +1,11 @@
 module.exports = function(config) {
 	return function(req,res){
+
 		console.log("Recherche en cours , patientez ...");
-		console.log("header : " , req.params);
+
+		var xmlid = req.params.xmlid ? req.params.xmlid : null;
+
+		console.log("xmlid : " , xmlid);
+
 	};
 };

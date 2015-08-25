@@ -16,7 +16,7 @@ module.exports = {
             "method" : "get"
         },
         {
-            "path" : "/search/:xmlid.:format",
+            "path" : "/search/:xmlid",
             "value" : "search.js",
             "method" : "get"
         }
