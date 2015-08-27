@@ -50,12 +50,6 @@ module.exports = {
             }
         },
     ],
-    "documentFields" : {
-        "$text": {
-            "get" : ["fields.title","basename"],
-            "join": " | "
-        }
-    },
     "flyingFields": {
         "$listeDocuments": {
             "mask": "_id,wid,basename,fields,progressSilenceKeywords,progressNotedKeywords,text"

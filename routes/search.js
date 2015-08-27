@@ -1,27 +1,34 @@
+var pmongo = require('promised-mongo');
+
 module.exports = function(config) {
 
-	var pmongo = require('promised-mongo');
+    var coll = pmongo(config.get('connexionURI')).collection(config.get('collectionName'));
 
 	return function(req,res){
 
-		var xmlid = req.params.xmlid ? "#entry-" + req.params.xmlid : null;
+        console.info("Recherche ...");
 
-		console.log("Recherche en cours sur l'id : " , xmlid , " , patientez ...");
+		var xmlid = req.params.xmlid ? ("#entry-" + req.params.xmlid) : null;
 
-		var coll = pmongo(config.get('connexionURI')).collection(config.get('collectionName'));
+		console.info("Recherche en cours sur l'id : " , xmlid , " , patientez ...");
 
-		console.log("col: " , coll);
+        coll.find({})
+        .toArray()
+        .then(function(docs) {
+            console.info("oe : " , docs.length);
+        });
 
-		// Get mongodb files wich contain scores
-    coll
-        .find({ corresp : xmlid })
+		/* Get mongodb files wich contain scores
+        coll
+        .find({ $text : { $search : xmlid } })
         .toArray()
         .then(function (docs) {
-        	docs.forEach(function (entity, index) { // Foreach of all docs : entity  = document
-        		console.log("Le mot est présent dans le doc  : " , entity.basename)
-        	});
+            console.info("nb docs : " , docs.length);
+        	// docs.forEach(function (entity, index) { // Foreach of all docs : entity  = document
+        	// 	console.log("Le mot est présent dans le doc  : " , entity.basename)
+        	// });
         	
-        });
+        });*/
 
 	};
 };

@@ -76,7 +76,7 @@ IDEFIX est une interface graphique de notation de mot clés pour des fichiers XM
 │   │   ├── ...
 │   │   ├── fichier-tei-x.xml
 ```
-* Ensuite remplissez ce fichier avec les paramétres suivants :
+* Ensuite remplissez ce fichier avec les paramétres suivants (sc2) :
 
 ```json
  {
@@ -117,6 +117,28 @@ IDEFIX est une interface graphique de notation de mot clés pour des fichiers XM
      "(S)  Segmentation erronée"
    ]
  }
+```
+
+* scenario 1 :
+```json
+ {
+    "domain": "Linguistique",
+    "showSilence": false,
+    "showArticle": false,
+    "autoPertinence": false,
+    "autoSilence": false,
+    "documentFields" : {
+      "$text": {
+          "get" : "content.json.TEI.stdf.spanGrp.1.span",
+          "foreach": {
+            "$targetAndAna" : {
+              "template" : "{{target}}//{{ana}}//{{corresp}}"
+            },
+            "find" : "targetAndAna"
+          }
+      }
+    }
+}
 ```
 
 #### Lancement 
