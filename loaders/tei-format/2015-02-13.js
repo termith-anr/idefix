@@ -33,10 +33,14 @@ module.exports = function(options,config) {
 
 
             if(titleFormat){
-                console.log("Premaff title");
+                console.info("Premaff title");
                 var words = jsonselect.match('.titleStmt .title .xml#lang:val("fr") ~ .w' ,  input.content.json)[0],
-                    pc    = jsonselect.match('.titleStmt .title .xml#lang:val("fr") ~ .pc' ,  input.content.json)[0],
-                    list  = words.concat(pc);// Fusion dew mots + ponctuations séparés
+                    pc    = jsonselect.match('.titleStmt .title .xml#lang:val("fr") ~ .pc' ,  input.content.json)[0];
+
+                console.info("words : " , words , " Nom : "  , input.basename);
+
+                var list  = words.concat(pc);// Fusion des mots + ponctuations séparés
+                    
                 // Loadash , trie par xml#id + retourne le mot avec espace si besoin  + jointure
                 title = _.chain(list)
                       .sortBy('xml#id')

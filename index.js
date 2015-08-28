@@ -31,6 +31,10 @@ module.exports = {
             "pattern" : "**/*.xml"
         },
         {
+            "script" : "tei-format/scenario1.js",
+            "pattern" : "**/*.xml"
+        },
+        {
             "script" : "tei-format/2014-11-01.js",
             "pattern" : "**/*.xml"
         },
