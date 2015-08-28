@@ -1,34 +1,28 @@
-var pmongo = require('promised-mongo');
+var mongo = require("mongodb").MongoClient;
 
 module.exports = function(config) {
 
-    var coll = pmongo(config.get('connexionURI')).collection(config.get('collectionName'));
+    console.info("collection : " , config.get('connexionURI') , " / " , config.get('collectionName'));
 
 	return function(req,res){
 
-        console.info("Recherche ...");
+		var xmlid = req.params.xmlid ? ("\"#entry-" + req.params.xmlid + "\"") : null;
 
-		var xmlid = req.params.xmlid ? ("#entry-" + req.params.xmlid) : null;
+		console.info("Recherche sur l'id : " , xmlid , " , patientez ...");
 
-		console.info("Recherche en cours sur l'id : " , xmlid , " , patientez ...");
-
-        coll.find({})
-        .toArray()
-        .then(function(docs) {
-            console.info("oe : " , docs.length);
+        mongo.connect(config.get('connexionURI'), function(err, db) {
+            //console.log("Connected correctly to server");
+            db.collection(config.get('collectionName'))
+            .find({ $text : { $search : xmlid } } , {basename : 1 , text : 1} )
+            .each(function(err, item){
+                if(!err && item){
+                    console.info("item : ", item.basename)
+                }
+                else{
+                    console.info("err : " , err);
+                }
+            })
         });
-
-		/* Get mongodb files wich contain scores
-        coll
-        .find({ $text : { $search : xmlid } })
-        .toArray()
-        .then(function (docs) {
-            console.info("nb docs : " , docs.length);
-        	// docs.forEach(function (entity, index) { // Foreach of all docs : entity  = document
-        	// 	console.log("Le mot est présent dans le doc  : " , entity.basename)
-        	// });
-        	
-        });*/
 
 	};
 };
