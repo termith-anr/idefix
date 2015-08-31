@@ -1,5 +1,6 @@
 var mongo = require("mongodb").MongoClient,
-    jsonselect = require('JSONSelect');
+    jsonselect = require('JSONSelect'),
+    DOMParser = require('xmldom').DOMParser;
 
 module.exports = function(config) {
 
@@ -23,17 +24,19 @@ module.exports = function(config) {
             .aggregate(
                [
                  { $match: { $text: { $search: xmlid } } },
-                 { $project : { _id : 0 , basename : 1, text : 1 , "fields.title" : 1}},
+                 { $project : { _id : 0 , basename : 1, text : 1 , "fields.title" : 1 , "content.xml" : 1}},
                  { $unwind : "$text" },
-                 { $match : { text : { $regex: xmlidRegex } } }
+                 { $match : { text : { $regex: xmlidRegex } } },
+                 { $limit: 5 }
                ]
             )
-            /*.find(
-                { $text : { $search : xmlid } } , 
-                { basename : 1  , text : 1} )*/
             .each(function(err, item){
                 if(!err && item){
-                    console.info("item : ", item);
+                    console.info("item : ", item.basename , " text : " , item.text);
+                    var dataText = item.text.split("//"),
+                        corresp  = dataText[2],
+                        target   = dataText[0];
+                    console.info("Target -> " , target);
                     obj = {
                         "xmlid" : req.params.xmlid
                     }
