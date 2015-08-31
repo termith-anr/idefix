@@ -27,7 +27,8 @@ module.exports = function(config) {
                  { $project : { _id : 0 , basename : 1, text : 1 , "fields.title" : 1 , "content.xml" : 1}},
                  { $unwind : "$text" },
                  { $match : { text : { $regex: xmlidRegex } } },
-                 { $limit: 5 }
+                 { $skip : 1}, // Sould get the page number to skip
+                 { $limit: 5 } //  Sould Get a limit via ajax
                ]
             )
             .each(function(err, item){
@@ -35,11 +36,28 @@ module.exports = function(config) {
                     console.info("item : ", item.basename , " text : " , item.text);
                     var dataText = item.text.split("//"),
                         corresp  = dataText[2],
-                        target   = dataText[0];
-                    console.info("Target -> " , target);
+                        target   = dataText[0].replace("#" , "");
+                        xmlDoc = new DOMParser().parseFromString(item.content.xml.toString(), 'text/xml'),
+                        w = xmlDoc.getElementsByTagName('w');
+                    //console.info("Target -> " , target );
+
                     obj = {
-                        "xmlid" : req.params.xmlid
+                        "word" : w[0].textContent,
+                        "title" : item.fields.title,
+                        "p" : []
                     }
+
+                    for(var i = 0 ; i < w.length ; i++){
+                        //console.info("id : " , w[i].getAttribute('xml:id'));
+                        if(w[i].getAttribute('xml:id') === target){
+                            //console.info("xmlid toruvé  : " , w[i].parentNode.textContent)
+                            var p  = w[i].parentNode.textContent;
+                            obj.p.push(p);
+                        }
+                    }
+
+                    console.info("obj : "  , obj)
+                    
                 }
                 else{
                     console.info("err : " , err);
