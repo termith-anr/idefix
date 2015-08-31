@@ -23,8 +23,8 @@ module.exports = function(options,config) {
              ****   EXECUTION    ****
              ************************/
 
-                var words = jsonselect.match('.titleStmt .title .w' ,  input.content.json),
-                    pc    = jsonselect.match('.titleStmt .title .pc' ,  input.content.json),
+                var words = (jsonselect.match('.titleStmt .title :has(:root > .type:val("main")) .w' ,  input.content.json)).length > 0 ? jsonselect.match('.titleStmt .title :has(:root > .type:val("main")) .w' ,  input.content.json) : jsonselect.match('.titleStmt .title .w' ,  input.content.json) ,
+                    pc    = (jsonselect.match('.titleStmt .title :has(:root > .type:val("main")) .pc' ,  input.content.json)).length > 0 ? jsonselect.match('.titleStmt .title :has(:root > .type:val("main")) .pc' ,  input.content.json) : jsonselect.match('.titleStmt .title .pc' ,  input.content.json),
                     title;
 
                 console.info(" Nom : "  , input.basename);
