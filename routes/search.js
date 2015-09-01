@@ -33,16 +33,16 @@ module.exports = function(config) {
             )
             .each(function(err, item){
                 if(!err && item){
-                    console.info("item : ", item.basename , " text : " , item.text);
+                    console.info("Fichier -> ", item.basename );
                     var dataText = item.text.split("//"),
                         corresp  = dataText[2],
                         target   = dataText[0].replace("#" , "");
                         xmlDoc = new DOMParser().parseFromString(item.content.xml.toString(), 'text/xml'),
                         w = xmlDoc.getElementsByTagName('w');
-                    //console.info("Target -> " , target );
+                    console.info("Target -> " , target );
 
                     obj = {
-                        "word" : w[0].textContent,
+                        "word" : "",
                         "title" : item.fields.title,
                         "p" : []
                     }
@@ -53,10 +53,11 @@ module.exports = function(config) {
                             //console.info("xmlid toruvé  : " , w[i].parentNode.textContent)
                             var p  = w[i].parentNode.textContent;
                             obj.p.push(p);
+                            obj.word = w[i].textContent;
                         }
                     }
 
-                    console.info("obj : "  , obj)
+                    console.info("Obj -> "  , obj)
                     
                 }
                 else{
