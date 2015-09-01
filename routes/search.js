@@ -57,13 +57,24 @@ module.exports = function(config) {
                         }
                     }
 
+                    arr.push(obj);
+
                     console.info("Obj -> "  , obj)
                     
                 }
                 else{
-                    console.info("err : " , err);
+                    db.close();
+                    if(!err){
+                        // Set csv header
+                        console.info("arr : " , arr);
+                        res.render('search.html', { word : arr[0].word , objs : arr });
+                    }
+                    else{
+                        console.info("err : " , err);
+                    }
                 }
             })
+
         });
 
 	};
