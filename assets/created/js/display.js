@@ -1318,12 +1318,13 @@ $(document).ready(function() {
         var type = "",
             estlie = "",
             option = $(this),
-            motType = option.val(),
+            motType = option.val().replace("'" , "-"),
             btn = option.parents(".keywordsMethodsDisplayDone"),
-            xmlid = $("option[value='" + motType +"']" , btn).attr("data-id"),
+            xmlid = $('option[value="' + motType + '"]' , btn).attr("data-id"),
             nomLiaison = "",
             idBtn = btn.attr("data-id"),
             selector = $("select" , btn);
+        console.log("option : " , motType);
 
         if (selector.attr("id").split('-')[2] === "corresp") {
             type = "correspondance";

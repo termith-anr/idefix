@@ -10,7 +10,8 @@ var CSV = require('csv-string'),
 module.exports = function(config) {
 
     // Get collection
-    var coll = pmongo(config.get('connexionURI')).collection(config.get('collectionName'));
+    var db = pmongo(config.get('connexionURI'));
+    var coll = db.collection(config.get('collectionName'));
 
     // CSV array
     var csvDocs = [];
@@ -127,6 +128,6 @@ module.exports = function(config) {
 
     };
 
-
+    db.close();
 
 };

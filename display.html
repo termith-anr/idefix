@@ -292,7 +292,14 @@
 
                             {% if currentObjectForCorresp.type == "pertinence" and currentObjectForCorresp.method == currentMethod %}
 
-                            <option data-id="{{ currentObjectForCorresp['xml#id'] }}" value="{{ currentObjectForCorresp.word }}" {% if data.keywords[indexObject].correspondance == data.keywords[indexObjectForCorresp].word %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}>
+                            {% set curWord = currentObjectForCorresp.word | replace("'" , "-") %}
+                            {% if data.keywords[indexObject].correspondance %}
+                                {% set curCorresp = data.keywords[indexObject].correspondance | replace("'" , "-") %}
+                            {% else %}
+                                {% set curCorresp = "none" %}
+                            {% endif %}
+
+                            <option data-id="{{ currentObjectForCorresp['xml#id'] }}" value="{{ curWord }}" {% if curCorresp == curWord %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}>
                                 {{ currentObjectForCorresp.word }}
                             </option>
 
@@ -356,13 +363,15 @@
 
             {% set indexMethod  = loop.index0 %}
 
+            {% set realMethod = data.pertinenceMethods[indexMethod] %}
+
             {% set indexFromMethod = 0 %}
 
             <div id="method{{ indexMethod }}ListOfKeywords" class="methodsKeywords">
 
                 <div class="fa fa-unlock pertinenceLock"></div>
 
-                <h2> <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="pertinenceInfos" style="display: none"></span> Méthode {{ indexMethod+1 }} {% if (magicScore == true) and (validatePertinence != 'yes') %}<span class="glyphicon glyphicon-edit magicButton" data-id="{{ indexMethod }}" data-type="method"></span>{% endif %}</h2>
+                <h2> <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="pertinenceInfos" style="display: none"></span> Méthode {% if unlockIDEFIX == false %} {{ indexMethod+1 }} {% else %} {{ realMethod }} {% endif %} {% if (magicScore == true) and (validatePertinence != 'yes') %}<span class="glyphicon glyphicon-edit magicButton" data-id="{{ indexMethod }}" data-type="method"></span>{% endif %}</h2>
 
 
                 {% for currentObject in data.keywords %}
@@ -426,7 +435,14 @@
 
                             {% if currentObjectPref.type == "pertinence"  and  currentObjectPref.method == currentMethod %}
 
-                            <option data-id="{{ currentObjectPref['xml#id'] }}" value="{{ currentObjectPref.word }}" {% if data.keywords[indexObjectPref].word == currentObject.preference %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}>
+                            {% set wordC =  data.keywords[indexObjectPref].word | replace("'" , "-") %}
+                            {% if currentObject.preference %}
+                                {% set CurPref =  currentObject.preference | replace("'" , "-") %}
+                            {% else %}
+                                {% set CurPref =  "none" %}
+                            {% endif %}
+
+                            <option data-id="{{ currentObjectPref['xml#id'] }}" value="{{ wordC }}" {% if wordC  == CurPref %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}>
                                 {{ currentObjectPref.word }}
                             </option>
 

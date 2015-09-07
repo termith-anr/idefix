@@ -14,7 +14,8 @@ var pmongo = require('promised-mongo'),
 
 module.exports = function(config) {
 
-        var coll = pmongo(config.get('connexionURI')).collection(config.get('collectionName'));
+        var db = pmongo(config.get('connexionURI'));
+        var coll = db.collection(config.get('collectionName'));
 
         return function (req, res) {
 
@@ -259,5 +260,7 @@ module.exports = function(config) {
 
 
         }
+
+        db.close();
 
 };

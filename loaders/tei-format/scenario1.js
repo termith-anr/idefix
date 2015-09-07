@@ -48,7 +48,7 @@ module.exports = function(options,config) {
                     }
                 }
 
-                console.info("list : " , list);
+                //console.info("list : " , list);
                     
                 // Loadash , trie par xml#id + retourne le mot avec espace si besoin  + jointure
                 title = _.chain(list)
