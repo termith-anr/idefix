@@ -44,6 +44,7 @@ module.exports = function(config) {
                     if (!docs || (!docs.length)) {
                         res.status(500).end();
                         throw new Error('no or bad doc');
+                        db.close();
                         return;
                     }
 
@@ -118,16 +119,17 @@ module.exports = function(config) {
 
                     res.end(); // Stop writting csv after all docs.
 
+                    db.close();
+
 
                 });
 
         }
         else{
             res.redirect('/'); //Redirect to Home if access denied
+            db.close();
         }
 
     };
-
-    db.close();
 
 };

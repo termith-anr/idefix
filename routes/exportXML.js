@@ -249,18 +249,19 @@ module.exports = function(config) {
                         xw.endElement();  // Close TEICORPUS
                         xw.endDocument(); // Close doc
                         res.send(xw.toString()); // Send data
-
+                        db.close();
 
                     });
+
+                      
 
             }
             else{
                 res.redirect('/'); // redirect to home if access denied
+                db.close();
             }
 
 
         }
-
-        db.close();
 
 };
