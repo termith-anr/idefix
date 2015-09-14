@@ -14,10 +14,10 @@ var pmongo = require('promised-mongo'),
 
 module.exports = function(config) {
 
-        var db = pmongo(config.get('connexionURI'));
-        var coll = db.collection(config.get('collectionName'));
-
         return function (req, res) {
+
+            var db = pmongo(config.get('connexionURI'));
+            var coll = db.collection(config.get('collectionName'));
 
             var access = config.get('exports'), // Check if acess if enable
                 domain = config.get('domain');

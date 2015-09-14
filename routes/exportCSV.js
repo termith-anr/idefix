@@ -9,14 +9,15 @@ var CSV = require('csv-string'),
 
 module.exports = function(config) {
 
-    // Get collection
-    var db = pmongo(config.get('connexionURI'));
-    var coll = db.collection(config.get('collectionName'));
 
     // CSV array
     var csvDocs = [];
 
     return function (req, res) {
+
+            // Get collection
+        var db = pmongo(config.get('connexionURI'));
+        var coll = db.collection(config.get('collectionName'));
 
         // Get config export info
         var access = config.get('exports'),
@@ -72,7 +73,7 @@ module.exports = function(config) {
                             }
                         });
 
-                        console.log('nbodnoted : ' , nbOfNotedWords);
+                        //console.log('nbodnoted : ' , nbOfNotedWords);
 
                         var middleTime = (timeMs / nbOfNotedWords) ? (Math.floor(( parseFloat(timeMs / nbOfNotedWords) / (60 * 1000)) % 60) + "Mn " + Math.floor(( parseFloat(timeMs / nbOfNotedWords) / 1000) % 60) + "s" ) : 0;
 
@@ -118,7 +119,6 @@ module.exports = function(config) {
                     });
 
                     res.end(); // Stop writting csv after all docs.
-
                     db.close();
 
 
