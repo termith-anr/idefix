@@ -42,7 +42,7 @@ module.exports = function(config) {
                     console.info("Target -> " , target );
 
                     obj = {
-                        "word" : "",
+                        "word" : [],
                         "title" : item.fields.title,
                         "p" : []
                     }
@@ -53,7 +53,9 @@ module.exports = function(config) {
                             //console.info("xmlid toruvé  : " , w[i].parentNode.textContent)
                             var p  = w[i].parentNode.textContent;
                             obj.p.push(p);
-                            obj.word = w[i].textContent;
+                            if(obj.word.indexOf(obj.word) === -1){
+                                obj.word.push(w[i].textContent);
+                            }
                         }
                     }
 
@@ -67,7 +69,12 @@ module.exports = function(config) {
                     if(!err){
                         // Set csv header
                         console.info("arr : " , arr);
-                        res.render('search.html', { word : arr[0].word , objs : arr });
+                        var words = [];
+                        for (var i = 0; i < arr.length; i++) {
+                            words = words.concat(arr[i].word);
+                        };
+                        console.info("words: " , words);
+                        res.render('search.html', { word : words , objs : arr });
                     }
                     else{
                         console.info("err : " , err);
