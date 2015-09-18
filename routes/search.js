@@ -1,6 +1,7 @@
 var mongo = require("mongodb").MongoClient,
     jsonselect = require('JSONSelect'),
-    DOMParser = require('xmldom').DOMParser;
+    DOMParser = require('xmldom').DOMParser,
+    _ = require("lodash");
 
 module.exports = function(config) {
 
@@ -28,7 +29,7 @@ module.exports = function(config) {
                  { $unwind : "$text" },
                  { $match : { text : { $regex: xmlidRegex } } },
                  { $skip : 1}, // Sould get the page number to skip
-                 { $limit: 5 } //  Sould Get a limit via ajax
+                 { $limit: 10 } //  Sould Get a limit via ajax
                ]
             )
             .each(function(err, item){
@@ -61,20 +62,21 @@ module.exports = function(config) {
 
                     arr.push(obj);
 
-                    console.info("Obj -> "  , obj)
+                    //console.info("Obj -> "  , obj)
                     
                 }
                 else{
                     db.close();
                     if(!err){
                         // Set csv header
+                        arr = _.groupBy(arr, "title");
                         console.info("arr : " , arr);
                         var words = [];
                         for (var i = 0; i < arr.length; i++) {
-                            words = words.concat(arr[i].word);
+                            words = _.union(words , arr[i].word);
                         };
                         console.info("words: " , words);
-                        res.render('search.html', { word : words , objs : arr });
+                        res.render('search.html', { words : words , objs : arr });
                     }
                     else{
                         console.info("err : " , err);
