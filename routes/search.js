@@ -54,7 +54,7 @@ module.exports = function(config) {
                             //console.info("xmlid toruvé  : " , w[i].parentNode.textContent)
                             var p  = w[i].parentNode.textContent;
                             obj.p.push(p);
-                            if(obj.word.indexOf(obj.word) === -1){
+                            if(obj.word.indexOf(w[i].textContent) === -1){
                                 obj.word.push(w[i].textContent);
                             }
                         }
@@ -68,13 +68,25 @@ module.exports = function(config) {
                 else{
                     db.close();
                     if(!err){
-                        // Set csv header
-                        arr = _.groupBy(arr, "title");
-                        console.info("arr : " , arr);
                         var words = [];
                         for (var i = 0; i < arr.length; i++) {
                             words = _.union(words , arr[i].word);
+                            delete arr[i].word;
                         };
+                        arr = _.groupBy(arr, "title");
+                        console.info("arrBefore : " , arr);
+
+                        var p = [];
+                        _.each(arr , function(element,index){
+                            for(i  = 0 ; i < element.length ; i++){
+                                p  = _.union(p , element[0].p);
+                            }
+                            //console.info("Element  : " , element);
+                            //onsole.info("p " , p);
+                            element["title"] = p;
+                            p = [];
+                        })
+                        console.info("arr : " , arr);
                         console.info("words: " , words);
                         res.render('search.html', { words : words , objs : arr });
                     }
