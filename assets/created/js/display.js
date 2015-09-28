@@ -289,7 +289,7 @@ $(document).ready(function() {
 
     };
 
-        var saveTime = function(element,type){
+    var saveTime = function(element,type){
 
         //If it's running (play)
         if($(element).hasClass('isRunning')){
@@ -420,7 +420,6 @@ $(document).ready(function() {
         });
 
 
-
         // Click on timer button
         startOrStop.click(function() {
 
@@ -453,10 +452,6 @@ $(document).ready(function() {
             }
         });
 
-
-
-
-
         // When mouse leave the work-window
         bodyBrowse.mouseleave(function() {
 
@@ -484,8 +479,6 @@ $(document).ready(function() {
             }
         });
 
-
-
         // When mouse re-enter the work-window
         bodyBrowse.mouseenter(function() {
 
@@ -501,7 +494,6 @@ $(document).ready(function() {
                 }
             }
         });
-
 
 
         // When click on "LISTE" , returning to documents
@@ -530,6 +522,7 @@ $(document).ready(function() {
 
         });
 
+        // Si les pertinences ne sont pas validés
         if(data.data.fields.validatePertinence === "no") {
 
             var startPageRatio = 0;
@@ -585,11 +578,16 @@ $(document).ready(function() {
 
             }
 
-
+            $("span[data-id='silencesBlockInfos']").addClass("hiddenInfos");
 
         }
 
         else if (data.data.fields.validatePertinence === "yes") {
+
+            $("span[data-id='silencesBlockInfos']").removeClass("hiddenInfos");
+            $("#methodsInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-evalMotInist.png");
+            $("#progressionInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-afficheMotInist.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png")
+
 
             $('.divCommentsBlocked').each(function () {
                 if($(".inputComment", this)[0].value){
@@ -1089,6 +1087,8 @@ $(document).ready(function() {
                 $("#keywordsDisplayDiv").show();
                 $('#listOrGrid span').show();
                 $('#methodButton-' + nb[1]).addClass("onCircle").siblings().removeClass('onCircle');
+                // Hide infos
+                $("span[data-id='documentInfos']").addClass("hiddenInfos");
             }
             if ($("#method" + nb[1] + 'ListOfKeywords').css('display') == 'none') {
                 $('.methodsKeywords').not('#method' + nb[1] + 'ListOfKeywords').hide("slide", { direction: "right" }, 500);
@@ -1154,6 +1154,11 @@ $(document).ready(function() {
                         if(barreField == "validatePertinence"){
                             var progressSilence = 0;
                             $.getJSON(contentPage, function (data) {
+
+                                $("span[data-id='silencesBlockInfos']").removeClass("hiddenInfos");
+                                $("#methodsInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-evalMotInist.png");
+                                $("#silenceKwInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-afficheMotInist.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png")
+
                                 progressSilence = data.data.progressSilenceKeywords ? data.data.progressSilenceKeywords : 0;
 
                                 var silenceRatio = 0;
@@ -1166,6 +1171,7 @@ $(document).ready(function() {
 
 
                                 silenceBar.removeClass('hidden');
+
 
                                 $(".ui-progressbar-value", silenceBar).html((silenceRatio * 100).toFixed() + "%");
 

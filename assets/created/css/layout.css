@@ -2562,6 +2562,10 @@ span.twitter-typeahead {
     color: rgba(204, 106, 99, 1);
 }
 
+.hiddenInfos{
+    display: none !important;
+}
+
 .onCircle{
     border-color : #CC6A63;
     color: #555;
