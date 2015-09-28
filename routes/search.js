@@ -4,13 +4,22 @@ var mongo = require("mongodb").MongoClient,
     _ = require("lodash");
 
 module.exports = function(config) {
-
+    
     console.info("collection : " , config.get('connexionURI') , " / " , config.get('collectionName'));
 
 	return function(req,res){
 
+        if(config.get("teiFormat") !== "scenario1" ){
+            res.redirect('/');
+            return
+        }
+
 		var xmlid      = req.params.xmlid ? ("\"#entry-" + req.params.xmlid + "\"") : null,
             xmlidRegex = req.params.xmlid ? ".*#entry-" + req.params.xmlid : null;
+
+        if(!req.params.xmlid){
+            res.send("No xmlid sent");
+        }
 
 		console.info("Recherche sur l'id : " , xmlid , " , patientez ...");
 
@@ -28,17 +37,19 @@ module.exports = function(config) {
                  { $project : { _id : 0 , basename : 1, text : 1 , "fields.title" : 1 , "content.xml" : 1}},
                  { $unwind : "$text" },
                  { $match : { text : { $regex: xmlidRegex } } },
-                 { $skip : 1}, // Sould get the page number to skip
-                 { $limit: 10 } //  Sould Get a limit via ajax
+                 { $skip : 1}, // Should get the page number to skip
+                 { $limit: 20 } //  Sould Get a limit via ajax
                ]
             )
             .each(function(err, item){
                 if(!err && item){
                     console.info("Fichier -> ", item.basename );
                     var dataText = item.text.split("//"),
+                        ana      = dataText[1].toLowerCase(),
                         corresp  = dataText[2],
                         target   = dataText[0].replace("#" , "");
-                        xmlDoc = new DOMParser().parseFromString(item.content.xml.toString(), 'text/xml'),
+
+                    var xmlDoc = new DOMParser().parseFromString(item.content.xml.toString(), 'text/xml'),
                         w = xmlDoc.getElementsByTagName('w');
                     console.info("Target -> " , target );
 
