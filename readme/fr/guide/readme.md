@@ -10,7 +10,7 @@ Guide d'utilisation
 ================
 
 
-Date: juin 2015
+Date: septembre 2015
 
 Version: 4
 
