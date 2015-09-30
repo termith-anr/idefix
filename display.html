@@ -328,7 +328,7 @@
 
                                 <div class="leaveOrSaveComment">
                                     <span class="quitSpanComment" title="Quitter sans sauvegarder"> <span class="glyphicon glyphicon-remove"></span> </span>
-                                    <span class="trashComment" title="Supprimer le commentaire ! "> <span class="glyphicon glyphicon-trash"></span> </span>
+                                    <span class="trashComment" title="Supprimer le commentaire"> <span class="glyphicon glyphicon-trash"></span> </span>
                                 </div>
 
                                 <div class="wordInComments">{{ data.keywords[indexObject].word|d('Pas de mots clés') }}</div>
@@ -336,7 +336,7 @@
                                 <form  data-id="{{ data.wid }}" action="/save/{{ data.wid }}" style="padding:0; margin: 0">
                                     <input type="hidden" name="key" value="keywords.{{ indexObject }}.comment"/> <!-- Key Name -->
                                     <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords[indexObject].comment }}"/>
-                                    <span class="glyphicon glyphicon-ok saveSpanComment" title="Sauvegarder le commentaire "></span>
+                                    <span class="glyphicon glyphicon-ok saveSpanComment" title="Sauvegarder le commentaire"></span>
                                 </form>
                             </div>
 
@@ -470,7 +470,7 @@
                             <div class="divFormComments">
                                 <div class="leaveOrSaveComment">
                                     <span class="quitSpanComment" title="Quitter sans sauvegarder"> <span class="glyphicon glyphicon-remove"></span> </span>
-                                    <span class="trashComment" title="Supprimer le commentaire !"> <span class="glyphicon glyphicon-trash"></span> </span>
+                                    <span class="trashComment" title="Supprimer le commentaire"> <span class="glyphicon glyphicon-trash"></span> </span>
                                 </div>
 
                                 <div class="wordInComments">{{ data.keywords[indexObject].word|d('Pas de mots clés') }}</div>
@@ -478,7 +478,7 @@
                                 <form  data-id="{{ data.wid }}" action="/save/{{ data.wid }}" style="padding:0; margin: 0" >
                                     <input type="hidden" name="key" value="keywords.{{ indexObject }}.comment"/> <!-- Key Name -->
                                     <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords[indexObject].comment }}"/>
-                                    <span class="glyphicon glyphicon-ok saveSpanComment" title="Savuegarder le commentaire !"></span>
+                                    <span class="glyphicon glyphicon-ok saveSpanComment" title="Sauvegarder le commentaire"></span>
                                 </form>
                             </div>
 
