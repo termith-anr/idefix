@@ -4,7 +4,7 @@
  */
 
 var CSV = require('csv-string'),
-    pmongo = require('promised-mongo'),
+    mongolib = require('../node_modules/castor-core/lib/mongo.js'),
     dateFormat = require('dateformat');
 
 module.exports = function(config) {
@@ -16,7 +16,7 @@ module.exports = function(config) {
     return function (req, res) {
 
             // Get collection
-        var db = pmongo(config.get('connexionURI'));
+        var db = mongolib.connect(config.get('connexionURI'));
         var coll = db.collection(config.get('collectionName'));
 
         // Get config export info

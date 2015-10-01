@@ -5,7 +5,7 @@
  */
 
 
-var pmongo = require('promised-mongo'),
+var mongolib = require('../node_modules/castor-core/lib/mongo.js'),
     DOMParser = require('xmldom').DOMParser,
     XMLSerializer = require('xmldom').XMLSerializer,
     XMLWriter = require('xml-writer'),
@@ -16,7 +16,7 @@ module.exports = function(config) {
 
         return function (req, res) {
 
-            var db = pmongo(config.get('connexionURI'));
+            var db = mongolib.connect(config.get('connexionURI'));
             var coll = db.collection(config.get('collectionName'));
 
             var access = config.get('exports'), // Check if acess if enable
