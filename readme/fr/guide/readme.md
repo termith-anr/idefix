@@ -71,6 +71,7 @@ EVALUER LE SILENCE DES METHODES
 ![motInist](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-mcEvaluersilence.png)
 
 ![evalSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-evalMotInist.png)
+NB: Pour la correspondance, si on change de score, le lien vers le correspondant est automatiquement supprimé. 
 
 ![validerSilence](https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png)
 
