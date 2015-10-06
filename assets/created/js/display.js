@@ -585,8 +585,9 @@ $(document).ready(function() {
         else if (data.data.fields.validatePertinence === "yes") {
 
             $("span[data-id='silencesBlockInfos']").removeClass("hiddenInfos");
-            $("#methodsInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-evalMotInist.png");
+            $("#methodsInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/15-mcEvaluersilence.png");
             $("#progressionInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-afficheMotInist.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png")
+            $("#pertinenceInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/13-rappelCommentaireScore.png")
 
 
             $('.divCommentsBlocked').each(function () {
@@ -1158,6 +1159,8 @@ $(document).ready(function() {
                                 $("span[data-id='silencesBlockInfos']").removeClass("hiddenInfos");
                                 $("#methodsInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-evalMotInist.png");
                                 $("#silenceKwInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-afficheMotInist.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png")
+                                $("#progressionInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-afficheMotInist.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png")
+                                $("#pertinenceInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/13-rappelCommentaireScore.png")
 
                                 progressSilence = data.data.progressSilenceKeywords ? data.data.progressSilenceKeywords : 0;
 
