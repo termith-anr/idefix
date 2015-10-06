@@ -50,7 +50,7 @@ module.exports = {
             "script" : "castor-load-backup",
             "pattern" : "**/*.xml",
             "options" : {
-                "toKeep" : ["fields" , "keywords" , "progressNotedKeywords" , "progressSilenceKeywords" , "pertinenceMethods" , "timeJob" , "validatePertinence","validateSilence"]
+                "toKeep" : ["fields" , "keywords" , "progressNotedKeywords" , "progressSilenceKeywords" , "pertinenceMethods" , "timeJob" , "validatePertinence","validateSilence" , "text"]
             }
         },
     ],
