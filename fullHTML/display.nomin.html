@@ -67,15 +67,15 @@
 </div>
 {% endif %}
 
-<div id="documentInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/3-ouvertureDoc.png">
+<div id="documentInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/3-ouvertureDoc.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/4-timer.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="methodsInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/5-mcEvaluerPertinence.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-evalMotInist.png">
+<div id="methodsInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/5-mcEvaluerPertinence.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="pertinenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/7-notePertinence.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/8-preference.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/9-commentaire.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/10-validerCommentaire.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/11-rechercheMot.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/13-rappelCommentaireScore.png">
+<div id="pertinenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/7-notePertinence.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/8-preference.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/9-commentaire.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/10-validerCommentaire.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/11-rechercheMot.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
@@ -83,7 +83,7 @@
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="silenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/6-preference.png">
+<div id="silenceInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/16-evalMotInist.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
@@ -91,7 +91,7 @@
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
-<div id="progressionInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/12-barreProgession.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png">
+<div id="progressionInfos" class="informationsContent" style="display: none" data-src="https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/6a-afficheMethodeGrille.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/6b-afficheMethodeListe.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/12-barreProgession.png">
     <span class="infosQuit glyphicon glyphicon-remove" ></span>
 </div>
 
@@ -244,7 +244,7 @@
                 <div data-id="{{data.keywords[indexObject]['xml#id']}}" data-nb="{{ indexMethod }}" class="btn btn-default inistForMethod-{{ indexMethod }} {% if ((data.keywords[indexObject].score) or (data.keywords[indexObject].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay colored {% endif %}">
                     <span class="idOfWord">{% if ( countAllKeywords == true ) %} {{ indexObject+1 }} {% else %} {{ indexFromMethod }} {% endif %} - </span> <span class="keywordsText">{{ currentObject.word|d('Pas de mots clés') }}</span> <span class="fa fa-search searchKeywords" title="Rechercher ce mot-clé"></span>
 
-                    <form class="formNotedKeyword" id="silenceScore-{{ indexMethod }}-{{ indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
+                    <form class="formNotedKeyword scores" id="silenceScore-{{ indexMethod }}-{{ indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
 
                         <input class="inistKey" type="hidden" name="key" value="keywords.{{ indexObject }}.score"/><!-- Key Name -->
 
@@ -277,7 +277,7 @@
 
                         {% if data.keywords[indexObject].correspondance or validateSilence != "yes" or unlockIDEFIX == true %}
 
-                        <form class="formNotedKeyword {% if data.keywords[indexObject].correspondance or validateSilence != 'yes' or unlockIDEFIX == true %}formNotedKeywordsPreference{% endif %} formNotedKeywordsCorresp {% if data.keywords[indexObject].correspondance and validateSilence == 'yes' and  unlockIDEFIX == false %}prefInfobulle{% endif %}" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].correspondance and validateSilence == 'yes' and unlockIDEFIX == false %}Correspondant : {{data.keywords[indexObject].correspondance}}{% else %}Un mot TermITH correspond mieux{% endif %}">
+                        <form class="formNotedKeyword formCorresp {% if data.keywords[indexObject].correspondance or validateSilence != 'yes' or unlockIDEFIX == true %}formNotedKeywordsPreference{% endif %} formNotedKeywordsCorresp {% if data.keywords[indexObject].correspondance and validateSilence == 'yes' and  unlockIDEFIX == false %}prefInfobulle{% endif %}" id="correspMethod-{{ indexMethod }}-{{ indexObject }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].correspondance and validateSilence == 'yes' and unlockIDEFIX == false %}Correspondant : {{data.keywords[indexObject].correspondance}}{% else %}Un mot TermITH correspond mieux{% endif %}">
 
                             <input type="hidden" name="key" value="keywords.{{ indexObject }}.correspondance"/> <!-- Key Name -->
 
@@ -292,7 +292,14 @@
 
                             {% if currentObjectForCorresp.type == "pertinence" and currentObjectForCorresp.method == currentMethod %}
 
-                            <option data-id="{{ currentObjectForCorresp['xml#id'] }}" value="{{ currentObjectForCorresp.word }}" {% if data.keywords[indexObject].correspondance == data.keywords[indexObjectForCorresp].word %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}>
+                            {% set curWord = currentObjectForCorresp.word | replace("'" , "-") %}
+                            {% if data.keywords[indexObject].correspondance %}
+                                {% set curCorresp = data.keywords[indexObject].correspondance | replace("'" , "-") %}
+                            {% else %}
+                                {% set curCorresp = "none" %}
+                            {% endif %}
+
+                            <option data-id="{{ currentObjectForCorresp['xml#id'] }}" value="{{ curWord }}" {% if curCorresp == curWord %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}>
                                 {{ currentObjectForCorresp.word }}
                             </option>
 
@@ -321,13 +328,15 @@
 
                                 <div class="leaveOrSaveComment">
                                     <span class="quitSpanComment" title="Quitter sans sauvegarder"> <span class="glyphicon glyphicon-remove"></span> </span>
-                                    <span class="saveSpanComment" title="Sauvegarder le commentaire"> <span class="glyphicon glyphicon-ok"></span> </span>
+                                    <span class="trashComment" title="Supprimer le commentaire"> <span class="glyphicon glyphicon-trash"></span> </span>
                                 </div>
+
+                                <div class="wordInComments">{{ data.keywords[indexObject].word|d('Pas de mots clés') }}</div>
 
                                 <form  data-id="{{ data.wid }}" action="/save/{{ data.wid }}" style="padding:0; margin: 0">
                                     <input type="hidden" name="key" value="keywords.{{ indexObject }}.comment"/> <!-- Key Name -->
                                     <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords[indexObject].comment }}"/>
-                                    <span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span>
+                                    <span class="glyphicon glyphicon-ok saveSpanComment" title="Sauvegarder le commentaire"></span>
                                 </form>
                             </div>
 
@@ -354,11 +363,15 @@
 
             {% set indexMethod  = loop.index0 %}
 
+            {% set realMethod = data.pertinenceMethods[indexMethod] %}
+
             {% set indexFromMethod = 0 %}
 
             <div id="method{{ indexMethod }}ListOfKeywords" class="methodsKeywords">
 
-                <h2> <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="pertinenceInfos" style="display: none"></span> Méthode {{ indexMethod+1 }} {% if (magicScore == true) and (validatePertinence != 'yes') %}<span class="glyphicon glyphicon-edit magicButton" data-id="{{ indexMethod }}" data-type="method"></span>{% endif %}</h2>
+                <div class="fa fa-unlock pertinenceLock" title="Verouiller la position des mots clés Pertinence"></div>
+
+                <h2> <span title="informations" class="glyphicon glyphicon-info-sign informations" data-id="pertinenceInfos" style="display: none"></span> Méthode {% if unlockIDEFIX == false %} {{ indexMethod+1 }} {% else %} {{ realMethod }} {% endif %} {% if (magicScore == true) and (validatePertinence != 'yes') %}<span class="glyphicon glyphicon-edit magicButton" data-id="{{ indexMethod }}" data-type="method"></span>{% endif %}</h2>
 
 
                 {% for currentObject in data.keywords %}
@@ -372,7 +385,7 @@
                 <div data-id="{{data.keywords[indexObject]['xml#id']}}" data-nb="{{ indexMethod }}" class="btn btn-default {% if ((data.keywords[indexObject].score) or (data.keywords[indexObject].score == 0)) %} keywordsMethodsDisplayDone {% else %} keywordsMethodsDisplay colored {% endif %}">
                     <span class="idOfWord"> {% if ( countAllKeywords == true ) %} {{ indexObject+1 }} {% else %} {{ indexFromMethod }} {% endif %} - </span> <span class="keywordsText">{{ data.keywords[indexObject].word|d('Pas de mots clés') }}</span> <span class="fa fa-search searchKeywords" title="Rechercher ce mot-clé"></span>
 
-                    <form class="formNotedKeyword" id="method-{{ indexMethod }}-{{indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
+                    <form class="formNotedKeyword scores" id="method-{{ indexMethod }}-{{indexObject }}" name="formNotedKeyword" action="/save/{{ data.wid }}" method="post">
 
                         <input type="hidden" name="key" value="keywords.{{ indexObject }}.score"/><!-- Key Name -->
 
@@ -406,7 +419,7 @@
 
                         {% if data.keywords[indexObject].preference or validatePertinence != "yes" or unlockIDEFIX == true %}
 
-                        <form class="formNotedKeyword {% if data.keywords[indexObject].comment or validatePertinence != 'yes' or unlockIDEFIX == true %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref {% if data.keywords[indexObject].preference and validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].preference %}Préférence : {{data.keywords[indexObject].preference}}{% else %}Un mot TermITH est préféré{% endif %}">
+                        <form class="formNotedKeyword formPref {% if data.keywords[indexObject].comment or validatePertinence != 'yes' or unlockIDEFIX == true %}formNotedKeywordsPreference{% endif %} formNotedKeywordsPref {% if data.keywords[indexObject].preference and validatePertinence == 'yes' %}prefInfobulle{% endif %}" id="prefMethod-{{ indexMethod }}-{{ loop.index }}" action="/save/{{ data.wid }}" title="{% if data.keywords[indexObject].preference %}Préférence : {{data.keywords[indexObject].preference}}{% else %}Un mot TermITH est préféré{% endif %}">
 
                             <input type="hidden" name="key" value="keywords.{{ indexObject }}.preference"/> <!-- Key Name -->
 
@@ -422,7 +435,14 @@
 
                             {% if currentObjectPref.type == "pertinence"  and  currentObjectPref.method == currentMethod %}
 
-                            <option data-id="{{ currentObjectPref['xml#id'] }}" value="{{ currentObjectPref.word }}" {% if data.keywords[indexObjectPref].word == currentObject.preference %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}>
+                            {% set wordC =  data.keywords[indexObjectPref].word | replace("'" , "-") %}
+                            {% if currentObject.preference %}
+                                {% set CurPref =  currentObject.preference | replace("'" , "-") %}
+                            {% else %}
+                                {% set CurPref =  "none" %}
+                            {% endif %}
+
+                            <option data-id="{{ currentObjectPref['xml#id'] }}" value="{{ wordC }}" {% if wordC  == CurPref %} selected="selected" style="background: #FF847C;color:#fff"{% endif %}>
                                 {{ currentObjectPref.word }}
                             </option>
 
@@ -450,13 +470,15 @@
                             <div class="divFormComments">
                                 <div class="leaveOrSaveComment">
                                     <span class="quitSpanComment" title="Quitter sans sauvegarder"> <span class="glyphicon glyphicon-remove"></span> </span>
-                                    <span class="saveSpanComment" title="Sauvegarder le commentaire"> <span class="glyphicon glyphicon-ok"></span> </span>
+                                    <span class="trashComment" title="Supprimer le commentaire"> <span class="glyphicon glyphicon-trash"></span> </span>
                                 </div>
+
+                                <div class="wordInComments">{{ data.keywords[indexObject].word|d('Pas de mots clés') }}</div>
 
                                 <form  data-id="{{ data.wid }}" action="/save/{{ data.wid }}" style="padding:0; margin: 0" >
                                     <input type="hidden" name="key" value="keywords.{{ indexObject }}.comment"/> <!-- Key Name -->
                                     <input data-provide="typeahead" title="Inserer un commentaire sur le mot" name="val" class="inputComment" type="text" placeholder="Commentaire :" value="{{ data.keywords[indexObject].comment }}"/>
-                                    <span class="glyphicon glyphicon-trash trashComment" title="Supprimer le commentaire !"></span>
+                                    <span class="glyphicon glyphicon-ok saveSpanComment" title="Sauvegarder le commentaire"></span>
                                 </form>
                             </div>
 

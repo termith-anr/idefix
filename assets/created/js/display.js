@@ -589,7 +589,6 @@ $(document).ready(function() {
             $("#progressionInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/14-afficheMotInist.png/;/https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/17-ValidationSilence.png")
             $("#pertinenceInfos").attr("data-src" , "https://raw.githubusercontent.com/termith-anr/scripts-formats/master/Screens/png/13-rappelCommentaireScore.png")
 
-
             $('.divCommentsBlocked').each(function () {
                 if($(".inputComment", this)[0].value){
                     $(this).attr("title", $(".inputComment", this)[0].value);
