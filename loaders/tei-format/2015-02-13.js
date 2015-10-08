@@ -80,7 +80,7 @@ module.exports = function(options,config) {
             }
             else{
                 console.log("TeiBrut");
-                abstract = jsonselect.match('.profileDesc .abstract .xml#lang:val("fr") ~ .p .#text' ,  input.content.json)[0].toString();
+                abstract = jsonselect.match('.profileDesc .abstract .xml#lang:val("fr") ~ .p > .#text' ,  input.content.json)[0].toString();
             }
 
             /*
