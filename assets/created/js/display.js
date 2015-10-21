@@ -983,7 +983,7 @@ $(document).ready(function() {
 
                     $('.contentTei').append(contenuReplaced).delay(560);
                     $('#fullArticleSection').delay(560).fadeIn(400).delay(400).addClass('fullArticleSectionShow');
-                    fullLoaded = 'yes';
+                    fullArticleLoaded = 'yes';
                 });
 
             }
@@ -993,7 +993,7 @@ $(document).ready(function() {
             }
 
             isFullArticleShow = 'yes';
-            fullLoaded = 'yes'
+            fullArticleLoaded = 'yes'
 
         }
     });
@@ -1332,7 +1332,6 @@ $(document).ready(function() {
             nomLiaison = "",
             idBtn = btn.attr("data-id"),
             selector = $("select" , btn);
-        console.log("option : " , motType);
 
         if (selector.attr("id").split('-')[2] === "corresp") {
             type = "correspondance";
