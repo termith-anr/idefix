@@ -77,7 +77,6 @@ module.exports = function(config) {
                     
                 }
                 else{
-                    db.close();
                     if(!err){
                         var words = [];
                         for (var i = 0; i < arr.length; i++) {

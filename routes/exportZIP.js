@@ -270,8 +270,6 @@ module.exports = function(config) {
 
                     archive.finalize(); // Close archive
 
-                    db.close();
-
                 });
 
             ////////////////////////////////
@@ -279,7 +277,6 @@ module.exports = function(config) {
         }
         else{
             res.redirect('/'); // Redirect to Home if access denied
-            db.close();
         }
     };
 
