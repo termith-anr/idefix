@@ -14,11 +14,6 @@ module.exports = {
             "path" : "/exportZIP",
             "value" : "exportZIP.js",
             "method" : "get"
-        },
-        {
-            "path" : "/search/:xmlid",
-            "value" : "search.js",
-            "method" : "get"
         }
     ],
     "loaders" : [
@@ -28,10 +23,6 @@ module.exports = {
         },
         {
             "script" : "castor-load-raw",
-            "pattern" : "**/*.xml"
-        },
-        {
-            "script" : "tei-format/scenario1.js",
             "pattern" : "**/*.xml"
         },
         {
