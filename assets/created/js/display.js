@@ -1185,11 +1185,9 @@ $(document).ready(function() {
                                     $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-warning isDisable");
                                 }
 
-
                                 if (silenceRatio > 0.6 && silenceRatio < 1) {
                                     $(".ui-progressbar-value", silenceBar).addClass("progress-bar-striped progress-bar-success isDisable");
                                 }
-
 
                                 if (silenceRatio === 1) {
                                     $(".ui-progressbar-value", silenceBar).addClass("progress-bar-info").removeClass('isDisable');
@@ -1201,9 +1199,6 @@ $(document).ready(function() {
                                         $(".ui-progressbar-value", silenceBar).parent().addClass('isValidated');
                                         $(".ui-progressbar-value", silenceBar).html('100%');
                                     }
-
-
-
                                 }
                             });
                             var inpuChecked = $('.methodsKeywords .formNotedKeyword input:checked ');
@@ -1627,8 +1622,9 @@ $(document).ready(function() {
         e.preventDefault();
         var form = $(this).parent();
         previousScore = parseInt($(":checked + label", form).text());
-
     });
+
+    var recharge = false;
 
     // KEYWORDS
     $(".formNotedKeyword input").change(function (e) {
@@ -1650,16 +1646,15 @@ $(document).ready(function() {
             $("select" , li).val("deletemenow").change();
         }
 
-
-        $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
-
         $.ajax(
             {
                 url: formURL,
                 type: "POST",
                 data: postData,
+                beforeSend : function(){
+                    $('#' + id + ' .loading').html('<span class="loader-quart" style="display: table-cell;"></span>').show();
+                },
                 success: function (e) {
-
 
                     if(config.coloredDocument) {
                         currentScores += parseInt((parseInt(clickedScore) - parseInt(previousScore)));
@@ -1683,7 +1678,6 @@ $(document).ready(function() {
                     setTimeout(function () {
 
                         var checkType = (serialized[0].value + "-" + serialized[2].value).toString();
-
                         $('#' + id + ' .loading').html('<span class="loader-quart-ok" style="display: table-cell;"></span>').fadeOut(750);
                         if (!li.hasClass("keywordsMethodsDisplayDone")) {
                             li.addClass("keywordsMethodsDisplayDone");
@@ -1905,8 +1899,13 @@ $(document).ready(function() {
                     }, 900);
 
                 },
-                error: function () {
-
+                error: function (e) {
+                    if(!recharge){
+                        alert("Une erreur est survenue , veuillez recommencer.");
+                    }
+                    recharge = true;
+                    console.log("Le serveur à rencontré une erreur : " , e);
+                    $("input:checked" , li).prop('checked' , false);
                 }
             });
         e.preventDefault(); //STOP default action
@@ -1936,7 +1935,6 @@ $(document).ready(function() {
                     currentWord = $(".keywordsText" , currentKw).text().toUpperCase(),
                     currentScore = $("input:checked" , currentKw) ? $("input:checked" , currentKw).val() : null;
 
-
                 if(type === "method"){
                     otherKwdsList
                         // Pour chaque autre méthode
@@ -1953,8 +1951,11 @@ $(document).ready(function() {
                                     var currentKey = $(".formNotedKeyword input[type='hidden'][name='key']", currentKw).val().split(".")[1],
                                         current2Check = $(".formNotedKeyword input[type='radio'][value='" + otherScore + "']", currentKw).attr("id"),
                                         otherComment = $(".tt-input", otherKw).val();
-
-                                    $("label[for='" + current2Check + "']").trigger("click");
+                                    var delaySetTimeOut = 450;
+                                    setTimeout(function() {
+                                        $("label[for='" + current2Check + "']").trigger("click");
+                                        delaySetTimeOut += 15;
+                                    }, delaySetTimeOut);
                                     nbMatch++;
                                     //Envoi du commentaire
                                     $.ajax(
@@ -2009,7 +2010,6 @@ $(document).ready(function() {
                                 );
                             }
                         });
-
                 }
             });
             setTimeout(function(){
