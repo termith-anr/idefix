@@ -1773,7 +1773,7 @@ input[type=radio]:checked + label {
     width: 100%;
 }
 
-#closeFullArticle{
+#closeFullArticle , .removeInfoMessage{
     display: none;
     z-index: 99999999;
     cursor: pointer;
@@ -1787,7 +1787,7 @@ input[type=radio]:checked + label {
     transition : box-shadow 500ms;
 }
 
-#closeFullArticle:hover{
+#closeFullArticle:hover , .removeInfoMessage:hover{
     transform : scale(1.05);
     box-shadow: 1px 1px 13px white;
 }
