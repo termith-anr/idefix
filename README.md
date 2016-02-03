@@ -5,8 +5,7 @@ IDEFIX est une interface graphique de notation de mot clés pour des fichiers XM
 
 *[En savoir plus sur Termith](http://www.atilf.fr/ressources/termith/)*
 
-![IDEFIX](https://raw.githubusercontent.com/termith-anr/idefix/master/assets/pictures/interface.png)
-
+![IDEFIX](http://image.noelshack.com/fichiers/2016/05/1454486412-capture-d-ecran-2016-02-03-a-08-59-49.png)
 
 # Sommaire
 #### *[Les prérequis](https://github.com/termith-anr/idefix/tree/master/readme/fr#les-pr%C3%A9requis-1)*
@@ -80,7 +79,8 @@ IDEFIX est une interface graphique de notation de mot clés pour des fichiers XM
 
 ```json
  {
- "domain": "Archéologie",
+   "domain": "Archéologie",
+   "unlockIDEFIX": false,
    "teiFormat": "2015-02-13",
    "showSilence": true,
    "showArticle": false,
@@ -92,8 +92,6 @@ IDEFIX est une interface graphique de notation de mot clés pour des fichiers XM
    ],
    "autoPertinence": true,
    "autoSilence": true,
-   "coloredDocument": false,
-   "countAllKeywords": false,
    "magicScore": true,
    "circleSeuil": 2,
    "circleDesign": "opacity",
@@ -117,28 +115,6 @@ IDEFIX est une interface graphique de notation de mot clés pour des fichiers XM
      "(S)  Segmentation erronée"
    ]
  }
-```
-
-* scenario 1 :
-```json
- {
-    "domain": "Linguistique",
-    "showSilence": false,
-    "showArticle": false,
-    "autoPertinence": false,
-    "autoSilence": false,
-    "documentFields" : {
-      "$text": {
-          "get" : "content.json.TEI.stdf.spanGrp.1.span",
-          "foreach": {
-            "$targetAndAna" : {
-              "template" : "{{target}}//{{ana}}//{{corresp}}"
-            },
-            "find" : "targetAndAna"
-          }
-      }
-    }
-}
 ```
 
 #### Lancement 
@@ -191,6 +167,12 @@ Le titre de l'instance dans ezMaster ( à gauche )
 ```json
 "title": "A title"
 ```
+
+##### unlockIDEFIX (OPTIONAL/booléen)
+
+Il s'agit du mode administrateur de l'instance , tout est débloqué par default , l'évaluation du silence & au contenu validé peut se faire à tout moment.
+
+
 
 ##### port (OBLIGATOIRE/Nombre) --- Non ezMaster ---
 
@@ -246,11 +228,11 @@ Activer/Desactiver la visualisation de l'article complet
 
 Activer/Desactiver certaines formes d'exports
 
-* csv , exporte tout (note,temps passé,..) dans un fichier csv
+* csv , export au formats CSV de l'ensemble (note,temps passé,..) dans un fichier csv
 
-* xml, Exporte tous les fichiers en un seul corpus TEI
+* xml, exporten XML de tous les fichiers en un seul corpus TEI
 
-* zipXML, retourne chaque fichier avec leurs scores
+* zipXML, retourne chaque fichier séparément avec leurs scores
 
 ```json
 "exports" : {
@@ -300,14 +282,6 @@ Activé par default
 ```json
 "autoPertinence" : true
 ```
-
-
-#### countAllKeywords (OPTIONNAL/Boolean)
-Si activé ( true ) , le chiffre devant les mot clés  dans le mode grille ira de 1  a X nombre de mot-clés du document
-ex : 1- 191 Si le document compte 191 mots-clés
-
-Sinon il ira de 0 à X ou X sera le nombre de mo-clés dans la méthode
-ex : 1-10 si la méthode compte
 
 
 ##### negativeSilence (OPTIONNAL/Boolean)
